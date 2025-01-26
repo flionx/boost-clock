@@ -1,0 +1,120 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+button, input {
+  border: none;
+  box-shadow: none;
+  cursor: pointer;
+
+}
+
+
+body {
+  background: url('./img/background.png') no-repeat;
+  background-size: cover;
+  overflow-x: hidden;
+  font-family: Arial, Helvetica, sans-serif;
+  width: 100%;
+  height: 100vh;
+}
+#root {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+}
+
+.card {
+  border-radius: 1.5rem;
+  width: clamp(19rem, 60%, 25rem);
+  box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.500), -2px -2px 2px rgba(0, 0, 0, 0.200);
+}
+
+.title {
+  text-align: center;
+  padding: 40px 0 0 0;
+  margin-bottom: 10px;
+  color: #f8f8f8;
+}
+
+
+/* card top --- main timer and buttons */
+
+.card__top {
+  padding: 50px 20px 30px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 1.5rem 1.5rem 0 0 ;
+  background: rgba(77, 77, 77, 0.5);
+  backdrop-filter: blur(4px);
+  color: #f8f8f8;
+
+}
+.card__top-title {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+.card__current-time {
+  font-size: 3.5rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  margin-bottom: 40px;
+}
+.card__buttons {
+  display: flex;
+  gap: clamp(1rem, 1.5vw, 1.8rem);
+}
+
+.card__buttons button {
+  padding: 10px 30px;
+  letter-spacing: 1px;
+  font-weight: 600;
+  background: #f8f8f8;
+  color: #000;
+  transition: background .2s, transform .2s;
+}
+.card__buttons button:hover {
+  background: rgba(248, 248, 248, 0.8);
+  transform: scale(1.05);
+}
+.card__buttons button:active {
+  background: #f8f8f8;
+  transform: scale(1.025);
+}
+
+
+
+/* card bottom -- */
+
+.card__bottom {
+  padding: 40px 20px 30px 20px;
+  border-radius: 0 0 1.5rem 1.5rem;
+  background: #f8f8f8;
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: space-around;
+}
+
+.card__bottom-title {
+  margin-bottom: 20px;
+  text-align: center;
+
+}
+.card__bottom-select {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(0.35rem, 1.5vw, 1.4rem);
+
+}
+
+
+
+
+
