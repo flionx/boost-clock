@@ -2,42 +2,124 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Time managment | Timer for work</title>
-    <link rel="icon" type="image/svg+xml" href="./src/img/favicon.svg" />
+    <title>FocusFlow | Pomodoro timer</title>
+    <link rel="stylesheet" href="./src/css/null.css">
+    <link rel="stylesheet" href="./src/css/fonts.css">
+    <link rel="stylesheet" href="./src/css/index.css">
   </head>
   <body>
-    <div id="root">
-      
-    </div>
 
-    <!-- <h1 class="title">Timer</h1>
-      <div class="card">
-  
-        <div class="card__top">
-          <h2 class="card__top-title">Session</h2>
-          <div class="card__current-time">25:00</div>
-          <div class="card__buttons">
-            <button>start</button>
-            <button>reset</button>
+    <header class="header">
+      <div class="container header__content">
+        
+        <h1 class="header__logo">FocusFlow</h1>
+        <ul class="header__right">
+          <li class="header__item"><button class="header__theme"></button></li>
+          <li class="header__item"><button class="header__settings button__menu">Settings</button></li>
+        </ul>
+
+      </div>
+    </header>
+
+    <main class="main">
+      <div class="container">
+
+        <section class="main__timer timer">
+
+          <div class="timer__top">
+            <button class="timer__top-btn top-btn--active">Work</button>
+            <span></span>
+            <button class="timer__top-btn">Break</button>
           </div>
-        </div>
-  
-        <div class="card__bottom">
-          <div class="card__progress">
-            <div class="card__progress-in">
-              
+
+          <h2 class="timer__time">25:00</h2>
+          <button class="timer__button">START</button>
+        </section>
+
+        <section class="main__settings settings-main">
+
+          <div class="settings-main__top">
+            <h3 class="settings-main__title">Work</h3>
+            <h3 class="settings-main__title">Break</h3>
+          </div>
+
+          <div class="settings-main__row">
+
+            <div class="settings-main__item">
+              <button class="settings-main__change">-</button>
+              <div class="settings-main__value">25</div>
+              <button class="settings-main__change">+</button>
             </div>
+
+            <div class="settings-main__item">
+              <button class="settings-main__change">-</button>
+              <div class="settings-main__value">5</div>
+              <button class="settings-main__change">+</button>
+            </div>
+
           </div>
-        </div>
+        </section>
+
+        <section class="main__tasks tasks">
+          <div class="container-tasks">
+
+            <div class="tasks__header">
+              <div class="tasks__header-row">
+                <h3 class="tasks__title">Tasks</h3>
+                <button class="tasks__clear">Clear all</button>
+              </div>
+              <hr>
+            </div>
+
+            <div class="container-for-task">
+              <ul class="tasks__list">
+                <li class="tasks__item">
   
-      </div> -->
+                  <section class="tasks__task task">
+                    
+                    <div class="task__top">
+                      <div class="task__top-left">
+                        <input class="task__check" type="checkbox" name="task" id="1">
+                        <h4 class="task__title">Create header</h4>
+                      </div>
+                      <button class="task__option"></button>
+                    </div>
+                    <div class="task__bottom">
+                      <p class="task__describe">Add div and menu with source</p>
+                    </div>
+                  </section>
+                </li>
+  
+                <li class="tasks__item">
+                  <button class="tasks__add">
+                    <div class="tasks__add-circle">+</div>
+                    Add new task</button>
+                </li>
+              </ul>
+            </div>
 
+          </div>
+        </section>
+      </div>
+    </main>
 
+    <footer class="footer">
+      <div class="container">
+        <nav class="footer__content">
+          <ul class="footer__list">
+            <li class="footer__item item__menu"><button class="button__menu btn--icon1">Report</button></li>
+            <li class="footer__item item__menu"><button class="button__menu btn--icon2">Achievments</button></li>
+          </ul>
+        </nav>
+        
+      </div>
+    </footer>
 
-     
-    <audio id="timeout" src="./src/sounds/timeout.mp3"></audio>
-
+    
+    
+    <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
