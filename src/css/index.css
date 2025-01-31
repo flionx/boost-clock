@@ -133,7 +133,7 @@ body {
 
 .main__timer {
   margin: 0 auto 10px auto;
-
+  position: relative;
 }
 .timer {
   width: 450px;
@@ -159,10 +159,14 @@ body {
   font-size: 24px;
   color: #fff;
   padding: 5px 10px;
+  border-radius: 3px;
+  transition: .2s;
+}
+.timer__top-btn:hover {
+  background: rgba(0, 0, 0, 0.05);
 }
 .top-btn--active {
   background: rgba(0, 0, 0, 0.14);
-  border-radius: 3px;
 }
 .timer__time {
   font-size: 85px;
@@ -186,6 +190,22 @@ body {
   background: #ffffff;
   transform: scale(1) translateY(2px);
 }
+.timer__bottom-btns {
+  position: absolute;
+  bottom: 10px;
+  display: flex;
+  justify-content: center;
+  column-gap: 30px;
+}
+.timer__button-reset {
+  transition: opacity .2s;
+} 
+
+.timer__button-reset:hover {
+  text-decoration: underline;
+}
+
+
 
 
 /* main settings */
@@ -374,6 +394,38 @@ body {
   height: 40px;
   border-radius: 2px;
   background: #fff;
+
+}
+input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  vertical-align: middle; /* Выравниваем по центру текста */
+}
+
+input[type="checkbox"]::before {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  justify-content: center;
+  align-items: center;
+}
+
+input[type="checkbox"]:checked::before {
+  content: '✔';
+  font-size: 25px;
+  color: #007bff;
+  text-align: center;
+  display: flex;
+
+  line-height: 20px;
+}
+
+.task__check:focus {
+  outline: none;      /* Убираем обводку при фокусе */
+  box-shadow: none;   /* Убираем тень при фокусе */
 }
 .task__title {
   font-size: 25px;
