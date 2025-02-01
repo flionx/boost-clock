@@ -16,7 +16,7 @@
         
         <h1 class="header__logo">FocusFlow</h1>
         <ul class="header__right">
-          <li class="header__item"><button class="header__theme"></button></li>
+          <li class="header__item"><button class="header__theme pink-btn"></button></li>
           <li class="header__item"><button class="header__settings button__menu">Settings</button></li>
         </ul>
 
@@ -28,46 +28,7 @@
 
         <div id="root"></div>
 
-        <section class="main__tasks tasks">
-          <div class="container-tasks">
 
-            <div class="tasks__header">
-              <div class="tasks__header-row">
-                <h3 class="tasks__title">Tasks</h3>
-                <button class="tasks__clear">Clear all</button>
-              </div>
-              <hr>
-            </div>
-
-            <div class="container-for-task">
-              <ul class="tasks__list">
-                <li class="tasks__item">
-  
-                  <section class="tasks__task task">
-                    
-                    <div class="task__top">
-                      <div class="task__top-left">
-                        <input class="task__check" type="checkbox" name="task" id="1">
-                        <h4 class="task__title">Create header</h4>
-                      </div>
-                      <button class="task__option"></button>
-                    </div>
-                    <div class="task__bottom">
-                      <p class="task__describe">Add div and menu with source</p>
-                    </div>
-                  </section>
-                </li>
-  
-                <li class="tasks__item">
-                  <button class="tasks__add">
-                    <div class="tasks__add-circle">+</div>
-                    Add new task</button>
-                </li>
-              </ul>
-            </div>
-
-          </div>
-        </section>
       </div>
     </main>
 
@@ -116,6 +77,67 @@
           <button class="settings-main__change">-</button>
           <div class="settings-main__value">5</div>
           <button class="settings-main__change">+</button>
+        </div>
+
+      </div>
+    </section> -->
+
+    <!-- <section class="main__tasks tasks">
+      <div class="container-tasks">
+
+        <div class="tasks__header">
+          <div class="tasks__header-row">
+            <h3 class="tasks__title">Tasks</h3>
+            <button class="tasks__clear">Clear all</button>
+          </div>
+          <hr>
+        </div>
+
+        <div class="container-for-task">
+          <ul class="tasks__list">
+            <li class="tasks__item">
+
+              <section class="tasks__task task">
+                
+                <div class="task__top">
+                  <div class="task__top-left">
+                    <input class="task__check" type="checkbox" name="task" id="1">
+                    <h4 class="task__title">Create header</h4>
+                  </div>
+                  <button class="task__option"></button>
+                </div>
+                <div class="task__bottom">
+                  <p class="task__describe">Add div and menu with source</p>
+                </div>
+              </section>
+            </li>
+
+            <li class="tasks__item">
+
+              <section class="tasks__task-create task">
+                
+                <div class="create-task__col">
+                  <h4 class="create-task__title">Title</h4>
+                  <input class="create-task__input" type="text" placeholder="title for your task">
+                </div>
+                <div class="create-task__col">
+                  <h4 class="create-task__title">Description</h4>
+                  <textarea class="create-task__input" placeholder="more detailed task description">
+                </div>
+                <div class="create-task__bottom">
+                  <button class="btn-with-plus">Add the desired deadline (optional)</button>
+                  <button class="create-task__btn-cancel">Cancel</button>
+                  <button class="create-task__btn-create">Create</button>
+                </div>
+              </section>
+            </li>
+
+            <li class="tasks__item">
+              <button class="tasks__add">
+                <div class="tasks__add-circle">+</div>
+                Add new task</button>
+            </li>
+          </ul>
         </div>
 
       </div>

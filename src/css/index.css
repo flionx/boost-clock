@@ -372,10 +372,10 @@ body {
   justify-content: center;
 }
 .tasks__task {
+  padding: 13px 13px 20px 13px;
 }
 .task {
   width: 100%;
-  padding: 13px 13px 20px 13px;
   border-radius: 10px;
   background: var(--content-color);
 }
@@ -469,6 +469,7 @@ input[type="checkbox"]:checked::before {
   border-radius: 10px;
   font-size: 25px;
   margin-bottom: 30px;
+  transition: .2s;
 }
 .tasks__add-circle {
   width: 35px;
@@ -482,4 +483,106 @@ input[type="checkbox"]:checked::before {
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: .2s;
+}
+
+.tasks__add:hover {
+  background: rgba(0, 0, 0, 0.25);
+}
+ 
+.tasks__add:hover .tasks__add-circle{
+  background: #eaeaea;
+}
+.tasks__add:active {
+  background: rgba(0, 0, 0, 0.20);
+}
+ 
+.tasks__add:active .tasks__add-circle{
+  background: #f5f5f5;
+}
+ 
+
+
+/*  create-task */
+
+.tasks__task-create {
+  padding: 20px 65px 20px 42px;
+}
+
+.create-task__col {
+  padding-right: 22px;
+}
+
+.create-task__title {
+  margin-bottom: 8px;
+}
+
+.create-task__input {
+  padding: 6px 20px;
+  background: #fff;
+  border-radius: 8px;
+  
+  max-width: 100%;
+  min-width: 100%;
+  max-height: 100px;
+  min-height: 30px;
+
+  margin-bottom: 15px;
+}
+.create-task__bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.btn-with-plus {
+  padding: 5px 10px 5px 25px;
+  position: relative;
+  color: #393939;
+  background: var(--main-color-light);
+  border-radius: 10px;
+
+}
+.btn-with-plus::before {
+  content: '+';
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  font-size: 25px;
+  transform: translateY(-60%);
+}
+.create-task__btns {
+  display: flex;
+  align-items: center;
+  column-gap: 50px;
+}
+.m15 {
+  margin-bottom: 15px;
+}
+.create-task__btn-cancel {
+  font-size: 20px;
+  color: #000;
+}
+.create-task__btn-cancel:hover {
+  text-decoration: underline;
+}
+
+.create-task__btn-create {
+  padding: 4px 12px;
+  background: var(--main-color-light);
+  font-size: 20px;
+  color: #000;
+  border-radius: 10px;
+}
+
+/* наведение и нажатие на розовые кнопки */
+
+
+.pink-btn {
+  transition: .2s;
+}
+.pink-btn:hover {
+  background: #c3c6ff;
+}
+.pink-btn:active {
+  background: #d6d8ff;
 }

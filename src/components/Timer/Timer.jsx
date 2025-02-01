@@ -1,8 +1,8 @@
-import Timer from './Timer.jsx';
+import TimerMain from './TImerMain.jsx';
 import TimerSettings from './TimerSettings.jsx';
 import { useState, useCallback } from 'react';
 
-function MainTime() {
+function Timer() {
 
     const [workMin, setWorkMin] = useState(25);
     const [relaxMin, setRelaxMin] = useState(5);
@@ -21,7 +21,7 @@ function MainTime() {
     return (
 
         <>
-            <Timer 
+            <TimerMain 
                 work={{workMin, setWorkMin : callSetWorkMin}} 
                 relax={{relaxMin, setRelaxMin : callSetRelaxMin}}
                 timerCheck={{hasTimer, setHasTimer : callSetHasTimer}}
@@ -41,4 +41,4 @@ function MainTime() {
     )
 }
 
-export default MainTime;
+export default Timer;

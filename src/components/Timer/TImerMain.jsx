@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
-import formatTime from "../modules/formatTime";
+import formatTime from "../../helpers/formatTime";
 
-function Timer({ work, relax, timerCheck, nowIs, progress }) {
+function TimerMain({ work, relax, timerCheck, nowIs, progress }) {
     // глобальное время в минутах
     const { workMin, setWorkMin } = work;
     const { relaxMin, setRelaxMin } = relax;
@@ -167,4 +167,4 @@ function Timer({ work, relax, timerCheck, nowIs, progress }) {
     );
 }
 
-export default Timer;
+export default TimerMain;
