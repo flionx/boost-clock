@@ -1,10 +1,12 @@
-import Card from './components/Card'
+import Tasks from './components/Tasks/Tasks.jsx';
+import Timer from './components/Timer/Timer.jsx';
+
 function App() {
 
   return (
     <>
-      <h1 className="title">Timer</h1>
-      <Card />
+      <Timer />
+      <Tasks />
     </>
   )
 }
