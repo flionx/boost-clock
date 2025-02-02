@@ -1,33 +1,47 @@
 import TaskCard from './TaskCard.jsx';
 import CreateTaskCard from './CreateTaskCard.jsx'
+import { useState } from 'react';
+import { useCallback } from 'react';
 
 function TaskList() {
+
+    // массив всех задач
+    const [tasks, setTasks] = useState([]);
+    // создается ли новая задача
+    const [hasCreateTask, setCreateTask] = useState(false);
+    // новая задача {}
+    const [newTask, setNewTask] = useState({ title: '', description: false})
+
+    // коллбэк для передачи состояний вниз
+    const callSetNewTask = useCallback((value) => setNewTask(value), []);
+    const callSetCreateTask = useCallback((value) => setCreateTask(value), []);
+    const callSetTasks = useCallback((value) => setTasks(value), []);
+
     return (
         <div className="container-for-task">
-            <ul className="tasks__list">
-                
-                <TaskCard />
+        <ul className="tasks__list">
+            {tasks.map((task, index) => (<TaskCard key={index} task={task}/>))}
+           
+            {hasCreateTask ? (
+                <CreateTaskCard 
+                createTask={{ newTask, setNewTask : callSetNewTask }}
+                isCreate={{hasCreateTask, setCreateTask : callSetCreateTask}}
+                changeTasks={{tasks, setTasks: callSetTasks}}/>
+             ) : null}
+            
 
-                <CreateTaskCard />
 
-
-                <li className="tasks__item">
-                <button className="tasks__add">
-                    <div className="tasks__add-circle">+</div>
-                    Add new task</button>
-                </li>
-            </ul>
+            <li className="tasks__item">
+            <button 
+            onClick={() => setCreateTask(true)}
+            className="tasks__add">
+                <div className="tasks__add-circle">+</div>
+                Add new task</button>
+            </li>
+        </ul>
         </div>
 
     )    
 }
 
 export default TaskList;
-
-// при нажатии на кнопку:
-// меняем состояние есть создание таск
-// создать новый компонент(ввод)
-// при вводе и нажатии создать:
-// меняем состояние массива с тасками, добавляем новый {}
-// проходимся по массиву, создаем новый таскКард,
-// меняем состояние на Нет создания таск
