@@ -1,0 +1,64 @@
+.task__option-block {
+    position: relative;
+    transition: .2s;
+}
+
+.task-option {
+    width: 135px;
+    position: absolute;
+    top: 0;
+    right: 100%;
+    row-gap: 10px;
+    background: #E9EAFF;
+    border-radius: 5px;
+}
+
+.task-option__row {
+    width: 100%;
+    padding: 4px 10px;
+    text-align: left;
+    position: relative;
+}
+.task-option__row:hover {
+    background: var(--main-color-light);
+}
+
+.task-option__row:nth-child(1) {
+    border-radius: 5px 5px 0 0;
+    position: relative;
+
+}    
+.task-option__row:nth-child(2) {
+}    
+.task-option__row:nth-child(3) {
+    border-radius: 0 0 5px 5px;
+}    
+.task-option__row:nth-child(1)::after {
+    content: '';
+    width: 29px;
+    height: 29px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-image: url('../../../img/tasks/arrowDown.svg');
+    transform: rotate(180deg);
+}    
+.task-option__row:nth-child(2)::after {
+    content: '';
+    width: 29px;
+    height: 29px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-image: url('../../../img/tasks/arrowDown.svg');
+}    
+.task-option__row:nth-child(3)::after {
+    content: '';
+    width: 14px;
+    height: 16px;
+    position: absolute;
+    top: 50%;
+    right: 7px;
+    transform: translateY(-50%);
+    background-image: url('../../../img/tasks/smallerDelete.svg');
+}    
