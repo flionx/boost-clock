@@ -16,7 +16,8 @@ function TimerMain({ work, relax, timerCheck, nowIs, progress }) {
     const { nowIsWork, setNowIsWork } = nowIs;
     // const { showProgress, setShowProgress } = progress;
 
-    const melody = document.querySelector('#melody');
+    const melodyGoWork = document.querySelector('#melodyGoWork');
+    const melodyGoRelax = document.querySelector('#melodyGoRelax');
     
     const [formatResult, setFormatResult] = useState(() => formatTime(workTime));
 
@@ -75,8 +76,15 @@ function TimerMain({ work, relax, timerCheck, nowIs, progress }) {
         setNowIsWork((nowIs) => !nowIs);
         setWorkTime(workMin * 60);
         setRelaxTime(relaxMin * 60);
-        melody.play();
-        melody.currentTime = 0;
+        if (nowIsWork) {
+            melodyGoRelax.play();
+            melodyGoRelax.currentTime = 0;
+        } else {
+            melodyGoWork.play();
+            melodyGoWork.currentTime = 0;
+
+        }
+            
         // soundPour.pause();
     }
 

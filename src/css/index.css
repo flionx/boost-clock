@@ -136,7 +136,7 @@ body {
   position: relative;
 }
 .timer {
-  width: 450px;
+  max-width: 450px;
   background: var(--content-color);
   padding: 10px 110px 40px 110px;
   border-radius: 8px;
@@ -213,8 +213,9 @@ body {
   margin: 0 auto 40px auto;
 }
 .settings-main {
-  width: 450px;
-  padding: 10px 50px 25px 50px;
+  max-width: 450px;
+  padding: 10px clamp(11px, 2vw, 50px) 25px clamp(11px, 2vw, 50px);
+  /* clamp(11px, calc(11px + 39 * ((100vw - 375px) / 1545)), 50px) 25px clamp(11px, calc(11px + 39 * ((100vw - 375px) / 1545)), 50px); */
   background: var(--content-color);
   border-radius: 8px;
   display: flex;
@@ -232,6 +233,7 @@ body {
 .settings-main__row {
   display: flex;
   width: 100%;
+  /* column-gap: clamp(15px, 7.7%, 35px); */
   justify-content: space-around;
 }
 .settings-main__item {
@@ -585,4 +587,21 @@ input[type="checkbox"]:checked::before {
 }
 .pink-btn:active {
   background: #d6d8ff;
+}
+
+
+/* анимация постепенного удаления */
+
+.anim-delete {
+  animation: smoothDelete .3s ease forwards;
+}
+
+
+@keyframes smoothDelete {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
