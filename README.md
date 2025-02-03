@@ -13,11 +13,11 @@ A handy and minimalistic Pomodoro timer built using React. Helps you manage your
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/твой-username/pomodoro-timer.git
+   git clone https://github.com/flionx/boost-clock.git
    ```
 2. Go to the project folder:
    ```bash
-   cd pomodoro-timer
+   cd boost-clock
    ```
 3. Install dependencies :
    ```bash
