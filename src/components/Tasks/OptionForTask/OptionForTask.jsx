@@ -1,22 +1,63 @@
 import './index.css';
 
-function OptionForTask({ changeHasOptions }) {
+function OptionForTask({ changeHasOptions, taskIndex, tasksForMove}) {
     
+    const {tasks, setTasks} = tasksForMove;
+
     const {setHasOptions} = changeHasOptions;
 
-    function hideOptions(params) {
+    function hideOptions() {
         setHasOptions(ho => ho = false)
     }
 
+    function moveTaskToUp() {
+        if (taskIndex > 0) {
+            
+            const changedTasks = [...tasks];
+            [changedTasks[taskIndex], changedTasks[taskIndex - 1]] = [changedTasks[taskIndex - 1], changedTasks[taskIndex]]
+            setTasks(t => t = changedTasks);
+
+            hideOptions();
+        }
+    }
+
+    function moveTaskToDown() {
+        if (taskIndex < (tasks.length - 1)) {
+            
+            const changedTasks = [...tasks];
+            [changedTasks[taskIndex], changedTasks[taskIndex + 1]] = [changedTasks[taskIndex + 1], changedTasks[taskIndex]]
+            setTasks(t => t = changedTasks);
+
+            hideOptions();
+        }
+    }
+
+    function deleteTask() {
+        // не доделал
+        const changedTasks = [...tasks];
+        changedTasks.filter((_, i) => i !== taskIndex)
+        setTasks(t => t = changedTasks);
+
+        hideOptions();
+    }
+
+
+
     return (
         <div onMouseLeave={hideOptions} className="task-option">
-            <button className="task-option__row">
+            <button 
+            onClick={moveTaskToUp}
+            className="task-option__row">
                 move up
             </button>
-            <button className="task-option__row">
+            <button 
+            onClick={moveTaskToDown}
+            className="task-option__row">
                 move down
             </button>
-            <button className="task-option__row">
+            <button 
+            onClick={deleteTask}
+            className="task-option__row">
                 delete
             </button>
         </div>
