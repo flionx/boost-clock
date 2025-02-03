@@ -47,8 +47,3 @@ A handy and minimalistic Pomodoro timer built using React. Helps you manage your
 
 This project was inspired by [Pomofocus.io](https://pomofocus.io)
 However, the code and design is developed from scratch.
-
-## License
-
-This project is licensed under the **Creative Commons Attribution-NonCommercial 4.0 International License**.  
-See the full [license](LICENSE).
