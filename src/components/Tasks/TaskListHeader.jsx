@@ -1,9 +1,18 @@
-function TaskListHeader() {
+function TaskListHeader({ deleteAll }) {
+
+    const {isDeleteAll, setIsDeleteAll} = deleteAll;
+
+    function changeOnDeleteAllTasks() {
+        setIsDeleteAll(curr => curr = true);
+    }
+
     return (
         <div className="tasks__header">
             <div className="tasks__header-row">
                 <h3 className="tasks__title">Tasks</h3>
-                <button className="tasks__clear">Clear all</button>
+                <button 
+                onClick={changeOnDeleteAllTasks}
+                className="tasks__clear">Clear all</button>
             </div>
             <hr/>
         </div>
@@ -11,3 +20,5 @@ function TaskListHeader() {
 }
 
 export default TaskListHeader;
+
+// сделать модальное окно предупреждения
