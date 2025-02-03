@@ -343,6 +343,10 @@ body {
   padding: 3px 35px 3px 3px;
   position: relative;
 }
+.tasks__clear:hover {
+  /* background: hsl(237, 100%, 90%); */
+  color: #6D6D6D;
+}
 .tasks__clear::before {
   content: '';
   position: absolute;
