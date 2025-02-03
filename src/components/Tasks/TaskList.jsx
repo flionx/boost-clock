@@ -10,7 +10,7 @@ function TaskList() {
     // создается ли новая задача
     const [hasCreateTask, setCreateTask] = useState(false);
     // новая задача {}
-    const [newTask, setNewTask] = useState({ title: '', description: false})
+    const [newTask, setNewTask] = useState({title: '', description: false})
 
     // коллбэк для передачи состояний вниз
     const callSetNewTask = useCallback((value) => setNewTask(value), []);
@@ -20,7 +20,11 @@ function TaskList() {
     return (
         <div className="container-for-task">
         <ul className="tasks__list">
-            {tasks.map((task, index) => (<TaskCard key={index} task={task}/>))}
+            {tasks.map((task, index) => (
+                <TaskCard 
+                taskIndex={index}
+                tasksForMove={{tasks, setTasks: callSetTasks}}
+                key={index} task={task}/>))}
            
             {hasCreateTask ? (
                 <CreateTaskCard 

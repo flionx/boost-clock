@@ -1,7 +1,7 @@
 import { useCallback, useRef, useState } from "react";
 import OptionForTask from "./OptionForTask/OptionForTask";
 
-function TaskCard({ task }) {
+function TaskCard({ task, taskIndex, tasksForMove}) {
 
     const [hasOptions, setHasOptions] = useState(false);
 
@@ -20,6 +20,8 @@ function TaskCard({ task }) {
                     <button onClick={() => setHasOptions(ho => ho = !ho)} className="task__option pink-btn"></button>
                     {hasOptions ? ( 
                         <OptionForTask 
+                        taskIndex={taskIndex}
+                        tasksForMove={tasksForMove}
                         changeHasOptions={{setHasOptions: callSetHasOptions}}/> 
                     ) : null}
                     
