@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import formatTime from "../../helpers/formatTime";
+import formatTime from "../../../../helpers/formatTime.js";
 
 function TimerMain({ work, relax, timerCheck, nowIs, progress }) {
     // глобальное время в минутах

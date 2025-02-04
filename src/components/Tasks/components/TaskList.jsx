@@ -3,7 +3,7 @@ import CreateTaskCard from './CreateTaskCard.jsx'
 import { useEffect, useState } from 'react';
 import { useCallback } from 'react';
 
-function TaskList({deleteAll}) {
+function TaskList({deleteAll, completeTasks}) {
 
     // массив всех задач
     const [tasks, setTasks] = useState([]);
@@ -15,7 +15,6 @@ function TaskList({deleteAll}) {
     const {isDeleteAll, setIsDeleteAll} = deleteAll;
 
     useEffect(() => {
-
         if (isDeleteAll) {
             setTasks(t => t = [])
             setIsDeleteAll(curr => curr = false)
@@ -36,6 +35,7 @@ function TaskList({deleteAll}) {
         <ul className="tasks__list">
             {tasks.map((task, index) => (
                 <TaskCard 
+                completeTsks={completeTasks}
                 taskIndex={index}
                 tasksForMove={{tasks, setTasks: callSetTasks}}
                 key={index} task={task}/>))}
