@@ -1,5 +1,5 @@
 // import Progress from "./Progress/Progress";
-import ChangeButton from "../ChangeButton/ChangeButton"
+import ChangeButton from "./ChangeButton/ChangeButton"
 
 function TimerSettings({work, relax, hasTimer, progress}) {
   const {workMin, setWorkMin} = work;

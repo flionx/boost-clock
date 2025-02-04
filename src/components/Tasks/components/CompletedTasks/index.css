@@ -1,0 +1,61 @@
+.completed__tasks{
+
+}
+.tasks-completed {
+
+}
+
+.tasks-completed__header{
+    width: 100%;
+    text-align: left;
+    padding: 5px 48px;
+    font-size: 30px;
+    background: var(--content-color);
+    border-radius: 10px;
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+.task-comlpeted__arrow {
+    position: relative;
+    width: 28px;
+    height: 28px;
+    left: 20px;
+    transform: translateY(20%);
+    background-image: url('../../../../img/completedTasks/ArrowDown.svg');
+    background-position: center;
+    transition: transform .3s;
+}
+.task-comlpeted__arrow-rotated {
+    transform: translateY(20%) rotate(180deg);
+}
+
+.completed-list{
+    width: 100%;
+    padding: 0 clamp(0px, 1.5vw, 30px);
+}
+
+.completed-list__item{
+    width: 100%;
+    background: rgba(0, 0, 0, 0.10);
+    border-radius: 5px;
+    padding: 4px 6px 10px 6px;
+    margin-bottom: 8px;
+}
+
+.completed-list__item-top{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+} 
+.completed-list__item-top h5 {
+    font-size: 20px;
+    color: #1c1c1c;
+}
+
+.completed-list__item-describe{
+    margin-top: 5px;
+    background: var(--second-color-light);
+    border-radius: 8px;
+    padding: 8px;
+}

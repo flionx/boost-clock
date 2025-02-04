@@ -44,7 +44,6 @@ function OptionForTask({ changeHasOptions, taskIndex, tasksForMove, whenDelete})
     }
 
 
-
     return (
         <div onMouseLeave={hideOptions} className="task-option">
             <button 
@@ -58,7 +57,7 @@ function OptionForTask({ changeHasOptions, taskIndex, tasksForMove, whenDelete})
                 move down
             </button>
             <button 
-            onClick={deleteTask}
+            onClick={() => deleteTask()}
             className="task-option__row">
                 delete
             </button>

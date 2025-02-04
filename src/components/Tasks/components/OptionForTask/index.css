@@ -40,7 +40,7 @@
     position: absolute;
     top: 0;
     right: 0;
-    background-image: url('../../../img/tasks/arrowDown.svg');
+    background-image: url('../../../../img/tasks/arrowDown.svg');
     transform: rotate(180deg);
 }    
 .task-option__row:nth-child(2)::after {
@@ -50,7 +50,7 @@
     position: absolute;
     top: 0;
     right: 0;
-    background-image: url('../../../img/tasks/arrowDown.svg');
+    background-image: url('../../../../img/tasks/arrowDown.svg');
 }    
 .task-option__row:nth-child(3)::after {
     content: '';
@@ -60,5 +60,5 @@
     top: 50%;
     right: 7px;
     transform: translateY(-50%);
-    background-image: url('../../../img/tasks/smallerDelete.svg');
+    background-image: url('../../../../img/tasks/smallerDelete.svg');
 }    
