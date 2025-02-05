@@ -21,13 +21,19 @@ function TaskCard({ task, taskIndex, tasksForMove, completeTsks}) {
 
     // если карточка удалена - применяем анимацию
     useEffect(()=> {
-        if (isCardDelete) {            
-            setStylesCard(sc => sc = "tasks__item anim-delete")
-            setTimeout(() => {
-                setStylesCard(sc => sc = "tasks__item");
-                setIsCardDelete(cd => cd = false)
-            }, 500)
+        if (!isCardDelete) {
+            return;
         }
+
+        setStylesCard("tasks__item anim-delete");
+        
+        const timer = setTimeout(() => {
+            setStylesCard("tasks__item");
+            setIsCardDelete(false);
+        }, 500);
+    
+        return () => clearTimeout(timer);
+        
 
     }, [isCardDelete])
 

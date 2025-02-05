@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import formatTime from "../../../../helpers/formatTime.js";
 
-function TimerMain({ work, relax, timerCheck, nowIs, progress }) {
+function TimerMain({ work, relax, timerCheck, nowIs }) {
     // глобальное время в минутах
     const { workMin, setWorkMin } = work;
     const { relaxMin, setRelaxMin } = relax;
@@ -14,7 +14,6 @@ function TimerMain({ work, relax, timerCheck, nowIs, progress }) {
     const idInterval = useRef(null);
 
     const { nowIsWork, setNowIsWork } = nowIs;
-    // const { showProgress, setShowProgress } = progress;
 
     const melodyGoWork = document.querySelector('#melodyGoWork');
     const melodyGoRelax = document.querySelector('#melodyGoRelax');
@@ -60,8 +59,6 @@ function TimerMain({ work, relax, timerCheck, nowIs, progress }) {
                 }
             }, 1000);
 
-            // Показываем прогресс только при запуске таймера
-            // setShowProgress(true);
         } else {
             clearInterval(idInterval.current);
         }
@@ -85,7 +82,6 @@ function TimerMain({ work, relax, timerCheck, nowIs, progress }) {
 
         }
             
-        // soundPour.pause();
     }
 
     // Переключение таймера
@@ -105,29 +101,18 @@ function TimerMain({ work, relax, timerCheck, nowIs, progress }) {
             setRelaxTime(relaxMin * 60);
         }
     }
-    // пропуск таймера
-    function skipTimer() {
-        if (nowIsWork) {
-            setWorkTime(0);
+
+    // смена типа времени, сброс таймера
+    function changeTypeOfTime(type) {
+
+        if (type === 'work') {
+            setNowIsWork(cur => cur = true);
         } else {
-            setRelaxTime(0);
+            setNowIsWork(cur => cur = false);
         }
-    }
-
-    
-    // смена времени на рабочее, сброс таймера
-    function changeOnWorkTime() {
-        setNowIsWork(cur => cur = true);
         resetTimer();
     }
-    
-    // смена времени на отдых, сброс таймера
-    function changeOnBreakTime() {
-        setNowIsWork(cur => cur = false);
-        resetTimer();
 
-    }
-    
 
     function falseAndDeleteTimer() {
         clearInterval(idInterval.current);
@@ -139,11 +124,11 @@ function TimerMain({ work, relax, timerCheck, nowIs, progress }) {
         <section className="main__timer timer">
             <div className="timer__top">
                 <button 
-                    onClick={changeOnWorkTime}
+                    onClick={() => changeTypeOfTime('work')}
                 className={nowIsWork ? "timer__top-btn top-btn--active" : "timer__top-btn"}>Work</button>
                 <span></span>
                 <button 
-                    onClick={changeOnBreakTime}
+                    onClick={() => changeTypeOfTime('relax')}
                 className={!nowIsWork ? "timer__top-btn top-btn--active" : "timer__top-btn"}>Break</button>
             </div>
 
