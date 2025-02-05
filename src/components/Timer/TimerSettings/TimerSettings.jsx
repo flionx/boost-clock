@@ -1,38 +1,41 @@
-// import Progress from "./Progress/Progress";
-import ChangeButton from "../ChangeButton/ChangeButton"
+import ChangeButton from "./ChangeButton/ChangeButton"
 
-function TimerSettings({work, relax, hasTimer, progress}) {
-  const {workMin, setWorkMin} = work;
-  const {relaxMin, setRelaxMin} = relax;
-  
-  // const {showProgress, setShowProgress} = progress;
+function TimerSettings({mins}) {
 
-  const changerTime = 1;
-  const changerTimeRelax = 1;
+  const {minutes, setMinutes} = mins;
+
+  // const changerTime = 1;
+  // const changerTimeRelax = 1;
   
   function changeTime(type, action) {
     if (type === 'work') {
       if (action === '+') {
-        setWorkMin((curr) => curr + changerTime)
-      } else if (workMin > 1) {
-        setWorkMin((curr) => curr - changerTime)
+        setMinutes(min => ({
+          ...min, 
+          work: min.work + 1}))
+      } else if (minutes.work > 1) {
+        setMinutes(min => ({
+          ...min, 
+          work: min.work - 1}))
       }
 
     } else if (type === 'relax') {
         if (action === '+') {
-          setRelaxMin((curr) => curr + changerTimeRelax)
-        } else if(relaxMin > 1) {
-          setRelaxMin((curr) => curr - changerTimeRelax)
+          setMinutes(min => ({
+            ...min, 
+            relax: min.relax + 1}))
+
+        } else if (minutes.relax > 1) {
+          setMinutes(min => ({
+            ...min, 
+            relax: min.relax - 1}))
         }
     }
   }
 
     return (
     <section className="main__settings settings-main">
-          {/* {!showProgress ? (
-            <Progress time={workMin} hasTimer={hasTimer}/>
-          ) : (
-            <> */}
+
             <div className="settings-main__top">
                 <h3 className="settings-main__title">Work</h3>
                 <h3 className="settings-main__title">Break</h3>
@@ -44,7 +47,7 @@ function TimerSettings({work, relax, hasTimer, progress}) {
                     <ChangeButton className="settings-main__change" 
                         onClickHandler={changeTime}
                         type="work">-</ChangeButton>
-                    <div className="settings-main__value">{workMin}</div>
+                    <div className="settings-main__value">{minutes.work}</div>
                     <ChangeButton className="settings-main__change" 
                         onClickHandler={changeTime}
                         type="work">+</ChangeButton>
@@ -54,7 +57,7 @@ function TimerSettings({work, relax, hasTimer, progress}) {
                     <ChangeButton className="settings-main__change" 
                         onClickHandler={changeTime}
                         type="relax">-</ChangeButton>
-                    <div className="settings-main__value">{relaxMin}</div>
+                    <div className="settings-main__value">{minutes.relax}</div>
                     <ChangeButton className="settings-main__change" 
                         onClickHandler={changeTime}
                         type="relax">+</ChangeButton>
@@ -62,11 +65,6 @@ function TimerSettings({work, relax, hasTimer, progress}) {
 
             </div>
 
-
-            {/* </>
-          )} */}
-          
-          
         </section>
     )
 }

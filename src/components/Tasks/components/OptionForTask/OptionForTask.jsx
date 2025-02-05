@@ -1,10 +1,12 @@
 import './index.css';
 
-function OptionForTask({ changeHasOptions, taskIndex, tasksForMove}) {
+function OptionForTask({ changeHasOptions, taskIndex, tasksForMove, whenDelete}) {
     
     const {tasks, setTasks} = tasksForMove;
 
     const {setHasOptions} = changeHasOptions;
+
+    const {isCardDelete, setIsCardDelete} = whenDelete
 
     function hideOptions() {
         setHasOptions(ho => ho = false)
@@ -27,20 +29,19 @@ function OptionForTask({ changeHasOptions, taskIndex, tasksForMove}) {
             const changedTasks = [...tasks];
             [changedTasks[taskIndex], changedTasks[taskIndex + 1]] = [changedTasks[taskIndex + 1], changedTasks[taskIndex]]
             setTasks(t => t = changedTasks);
-
             hideOptions();
         }
     }
 
     function deleteTask() {
-        // не доделал
-        const changedTasks = [...tasks];
-        changedTasks.filter((_, i) => i !== taskIndex)
-        setTasks(t => t = changedTasks);
-
+        const currTasks = [...tasks];
+        const updatedTasks = currTasks.filter((_, i) => taskIndex !== i);
+        setIsCardDelete(icd => icd = true);
         hideOptions();
+        setTimeout(() => {
+            setTasks(t => t = updatedTasks);
+        }, 500)
     }
-
 
 
     return (
@@ -56,7 +57,7 @@ function OptionForTask({ changeHasOptions, taskIndex, tasksForMove}) {
                 move down
             </button>
             <button 
-            onClick={deleteTask}
+            onClick={() => deleteTask()}
             className="task-option__row">
                 delete
             </button>
@@ -67,8 +68,6 @@ function OptionForTask({ changeHasOptions, taskIndex, tasksForMove}) {
 
 export default OptionForTask;
 
-// добавить в новую задачу id,
-// при создании новой задачи - id++,
-// в key передаем id, а не index
-// при удалении задачи - новый массив, filter.
-// меняем текущий массив задач на новый
+// добавить в новую задачу id, ???
+// при создании новой задачи - id++, ???
+// в key передаем id, а не index  ???

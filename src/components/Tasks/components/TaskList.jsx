@@ -1,27 +1,41 @@
 import TaskCard from './TaskCard.jsx';
 import CreateTaskCard from './CreateTaskCard.jsx'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useCallback } from 'react';
 
-function TaskList() {
+function TaskList({deleteAll, completeTasks}) {
 
     // массив всех задач
     const [tasks, setTasks] = useState([]);
     // создается ли новая задача
     const [hasCreateTask, setCreateTask] = useState(false);
     // новая задача {}
-    const [newTask, setNewTask] = useState({title: '', description: false})
+    const [newTask, setNewTask] = useState({title: '', description: null})
+
+    const {isDeleteAll, setIsDeleteAll} = deleteAll;
+
+    useEffect(() => {
+        if (isDeleteAll) {
+            setTasks(t => t = [])
+            setIsDeleteAll(curr => curr = false)
+        }
+
+    }, [isDeleteAll])
 
     // коллбэк для передачи состояний вниз
     const callSetNewTask = useCallback((value) => setNewTask(value), []);
     const callSetCreateTask = useCallback((value) => setCreateTask(value), []);
     const callSetTasks = useCallback((value) => setTasks(value), []);
 
+
+
+
     return (
         <div className="container-for-task">
         <ul className="tasks__list">
             {tasks.map((task, index) => (
                 <TaskCard 
+                completeTsks={completeTasks}
                 taskIndex={index}
                 tasksForMove={{tasks, setTasks: callSetTasks}}
                 key={index} task={task}/>))}
