@@ -10,7 +10,7 @@ function TaskList({deleteAll, completeTasks}) {
     // создается ли новая задача
     const [hasCreateTask, setCreateTask] = useState(false);
     // новая задача {}
-    const [newTask, setNewTask] = useState({title: '', description: false})
+    const [newTask, setNewTask] = useState({title: '', description: null})
 
     const {isDeleteAll, setIsDeleteAll} = deleteAll;
 
