@@ -1,51 +1,50 @@
 import { useState, useEffect, useRef } from "react";
-import formatTime from "../../helpers/formatTime";
+import formatTime from "../../../../helpers/formatTime.js";
 
-function TimerMain({ work, relax, timerCheck, nowIs, progress }) {
-    // глобальное время в минутах
-    const { workMin, setWorkMin } = work;
-    const { relaxMin, setRelaxMin } = relax;
+function TimerMain({ mins, timerCheck, nowIs }) {
 
-    // время в секундах
-    const [workTime, setWorkTime] = useState(workMin * 60);
-    const [relaxTime, setRelaxTime] = useState(relaxMin * 60);
+    const {minutes, setMinutes} = mins;
+
+    // переводим минуты в секунды
+    const [seconds, setSeconds] = useState({ 
+        work: minutes.work * 60, 
+        relax: minutes.relax * 60
+    })
 
     const { hasTimer, setHasTimer } = timerCheck;
     const idInterval = useRef(null);
 
     const { nowIsWork, setNowIsWork } = nowIs;
-    // const { showProgress, setShowProgress } = progress;
 
     const melodyGoWork = document.querySelector('#melodyGoWork');
     const melodyGoRelax = document.querySelector('#melodyGoRelax');
     
-    const [formatResult, setFormatResult] = useState(() => formatTime(workTime));
+    const [formatResult, setFormatResult] = useState(() => formatTime(seconds.work));
 
     useEffect(() => {
 
         // Останавливаем таймер, когда закончилось время
-        if (workTime <= 0 || relaxTime <= 0) {
+        if (seconds.work <= 0 || seconds.relax <= 0) {
             stopTimer();
         }
 
-
         if (nowIsWork) {
-            setFormatResult(() => formatTime(workTime));
+            setFormatResult(() => formatTime(seconds.work));
         } else {
-            setFormatResult(() => formatTime(relaxTime));
+            setFormatResult(() => formatTime(seconds.relax));
 
         }
 
-    }, [workTime, relaxTime, nowIsWork])
+    }, [seconds.work, seconds.relax, nowIsWork])
 
 
     // Обновляем таймер при изменении workMin или relaxMin
     useEffect(() => {
         if (!hasTimer) {
-            setWorkTime(workMin * 60);
-            setRelaxTime(relaxMin * 60)
+            setSeconds({work: minutes.work * 60, 
+                        relax: minutes.relax * 60})
         }
-    }, [workMin, relaxMin]);
+    }, [minutes.work, minutes.relax]);
 
 
     // Запуск/остановка таймера
@@ -53,15 +52,20 @@ function TimerMain({ work, relax, timerCheck, nowIs, progress }) {
         if (hasTimer) {
             idInterval.current = setInterval(() => {
                 if (nowIsWork) {
-                    setWorkTime((currTime) => currTime - 1);
+                    setSeconds(secs => ({
+                        ...secs,
+                        work: secs.work - 1
+                      }));
 
                 } else {
-                    setRelaxTime((currTime) => currTime - 1);
+                    setSeconds(secs => ({
+                        ...secs,
+                        relax: secs.relax - 1
+                      }));
+
                 }
             }, 1000);
 
-            // Показываем прогресс только при запуске таймера
-            // setShowProgress(true);
         } else {
             clearInterval(idInterval.current);
         }
@@ -74,8 +78,9 @@ function TimerMain({ work, relax, timerCheck, nowIs, progress }) {
     function stopTimer() {
         setHasTimer(false);
         setNowIsWork((nowIs) => !nowIs);
-        setWorkTime(workMin * 60);
-        setRelaxTime(relaxMin * 60);
+        setSeconds({ work: minutes.work * 60, 
+                    relax: minutes.relax * 60})
+
         if (nowIsWork) {
             melodyGoRelax.play();
             melodyGoRelax.currentTime = 0;
@@ -85,7 +90,6 @@ function TimerMain({ work, relax, timerCheck, nowIs, progress }) {
 
         }
             
-        // soundPour.pause();
     }
 
     // Переключение таймера
@@ -96,38 +100,26 @@ function TimerMain({ work, relax, timerCheck, nowIs, progress }) {
     // Сброс таймера
     function resetTimer() {
         falseAndDeleteTimer();
-        setWorkMin(workMin);
-        setRelaxMin(relaxMin);
+        setMinutes({...minutes})
 
         if (nowIsWork) {
-            setWorkTime(workMin * 60);
+            setSeconds({...seconds, work: minutes.work * 60})
         } else {
-            setRelaxTime(relaxMin * 60);
-        }
-    }
-    // пропуск таймера
-    function skipTimer() {
-        if (nowIsWork) {
-            setWorkTime(0);
-        } else {
-            setRelaxTime(0);
+            setSeconds({...seconds, relax: minutes.relax * 60})
         }
     }
 
-    
-    // смена времени на рабочее, сброс таймера
-    function changeOnWorkTime() {
-        setNowIsWork(cur => cur = true);
-        resetTimer();
-    }
-    
-    // смена времени на отдых, сброс таймера
-    function changeOnBreakTime() {
-        setNowIsWork(cur => cur = false);
-        resetTimer();
+    // смена типа времени, сброс таймера
+    function changeTypeOfTime(type) {
 
+        if (type === 'work') {
+            setNowIsWork(cur => cur = true);
+        } else {
+            setNowIsWork(cur => cur = false);
+        }
+        resetTimer();
     }
-    
+
 
     function falseAndDeleteTimer() {
         clearInterval(idInterval.current);
@@ -139,11 +131,11 @@ function TimerMain({ work, relax, timerCheck, nowIs, progress }) {
         <section className="main__timer timer">
             <div className="timer__top">
                 <button 
-                    onClick={changeOnWorkTime}
+                    onClick={() => changeTypeOfTime('work')}
                 className={nowIsWork ? "timer__top-btn top-btn--active" : "timer__top-btn"}>Work</button>
                 <span></span>
                 <button 
-                    onClick={changeOnBreakTime}
+                    onClick={() => changeTypeOfTime('relax')}
                 className={!nowIsWork ? "timer__top-btn top-btn--active" : "timer__top-btn"}>Break</button>
             </div>
 

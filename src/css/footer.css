@@ -1,0 +1,35 @@
+/* footer */
+.footer {
+    width: 100%;
+    background: var(--second-color-light);
+    padding: 5px 0;
+  }
+  
+  .footer__content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .footer__list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+  }
+  .footer__item {
+    display: flex;
+    align-items: center;
+  }
+  
+  .btn--icon1::before{
+    background-image: url('../img/footer/report.svg');
+    background-position: center;
+    background-size: cover;
+  
+  }
+  .btn--icon2::before{
+    background-image: url('../img/footer/trophy.svg');
+    background-size: cover;
+    background-position: center;
+  
+  }
