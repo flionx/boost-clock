@@ -1,7 +1,7 @@
 // import Progress from "./Progress/Progress";
 import ChangeButton from "./ChangeButton/ChangeButton"
 
-function TimerSettings({work, relax, hasTimer, progress}) {
+function TimerSettings({work, relax}) {
   const {workMin, setWorkMin} = work;
   const {relaxMin, setRelaxMin} = relax;
   
@@ -29,10 +29,7 @@ function TimerSettings({work, relax, hasTimer, progress}) {
 
     return (
     <section className="main__settings settings-main">
-          {/* {!showProgress ? (
-            <Progress time={workMin} hasTimer={hasTimer}/>
-          ) : (
-            <> */}
+
             <div className="settings-main__top">
                 <h3 className="settings-main__title">Work</h3>
                 <h3 className="settings-main__title">Break</h3>
@@ -62,9 +59,6 @@ function TimerSettings({work, relax, hasTimer, progress}) {
 
             </div>
 
-
-            {/* </>
-          )} */}
           
           
         </section>
