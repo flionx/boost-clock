@@ -3,7 +3,7 @@ function TaskListHeader({ deleteAll }) {
     const {isDeleteAll, setIsDeleteAll} = deleteAll;
 
     function changeOnDeleteAllTasks() {
-        setIsDeleteAll(curr => curr = true);
+        setIsDeleteAll(true);
     }
 
     return (

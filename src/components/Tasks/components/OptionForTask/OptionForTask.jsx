@@ -1,6 +1,6 @@
 import './index.css';
 
-function OptionForTask({ changeHasOptions, taskIndex, tasksForMove, whenDelete}) {
+function OptionForTask({ changeHasOptions, taskIndex, tasksForMove, whenDelete, taskId}) {
     
     const {tasks, setTasks} = tasksForMove;
 
@@ -34,9 +34,9 @@ function OptionForTask({ changeHasOptions, taskIndex, tasksForMove, whenDelete})
     }
 
     function deleteTask() {
+        setIsCardDelete(true);
         const currTasks = [...tasks];
-        const updatedTasks = currTasks.filter((_, i) => taskIndex !== i);
-        setIsCardDelete(icd => icd = true);
+        const updatedTasks = currTasks.filter((_, i) => taskId !== tasks[i].id);
         hideOptions();
         setTimeout(() => {
             setTasks(t => t = updatedTasks);
@@ -67,7 +67,3 @@ function OptionForTask({ changeHasOptions, taskIndex, tasksForMove, whenDelete})
 }
 
 export default OptionForTask;
-
-// добавить в новую задачу id, ???
-// при создании новой задачи - id++, ???
-// в key передаем id, а не index  ???

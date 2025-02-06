@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import TaskList from "./components/TaskList.jsx";
-import TaskListHeader from "./components/TaskListHeader.jsx";
+import TaskListHeader from "./components/TaskListHeader/TaskListHeader.jsx";
 import CompletedTasks from './components/CompletedTasks/CompletedTasks.jsx'
 import './tasks.css';
 
