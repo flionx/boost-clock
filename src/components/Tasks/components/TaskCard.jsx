@@ -35,6 +35,7 @@ function TaskCard({ task, tasks, completeTasks, taskIndex}) {
 
         if (isTaskCompleted) {
             const newCompetedTask = {
+                id: Date.now(),
                 title: task.title, 
                 description: task.description
             }
