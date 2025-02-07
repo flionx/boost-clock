@@ -16,7 +16,9 @@ function OptionForTask({ changeHasOptions, taskIndex, tasksForMove, whenDelete, 
         if (taskIndex > 0) {
             
             const changedTasks = [...tasks];
-            [changedTasks[taskIndex], changedTasks[taskIndex - 1]] = [changedTasks[taskIndex - 1], changedTasks[taskIndex]]
+            [changedTasks[taskIndex], changedTasks[taskIndex - 1]] = 
+            [changedTasks[taskIndex - 1], changedTasks[taskIndex]]
+            
             setTasks(t => t = changedTasks);
 
             hideOptions();
@@ -27,7 +29,9 @@ function OptionForTask({ changeHasOptions, taskIndex, tasksForMove, whenDelete, 
         if (taskIndex < (tasks.length - 1)) {
             
             const changedTasks = [...tasks];
-            [changedTasks[taskIndex], changedTasks[taskIndex + 1]] = [changedTasks[taskIndex + 1], changedTasks[taskIndex]]
+            [changedTasks[taskIndex], changedTasks[taskIndex + 1]] = 
+            [changedTasks[taskIndex + 1], changedTasks[taskIndex]]
+
             setTasks(t => t = changedTasks);
             hideOptions();
         }
@@ -57,7 +61,7 @@ function OptionForTask({ changeHasOptions, taskIndex, tasksForMove, whenDelete, 
                 move down
             </button>
             <button 
-            onClick={() => deleteTask()}
+            onClick={deleteTask}
             className="task-option__row">
                 delete
             </button>

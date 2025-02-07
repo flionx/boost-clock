@@ -10,7 +10,12 @@ function Tasks() {
     const [isDeleteAll, setIsDeleteAll] = useState(false);
     const callSetIsDeleteAll = useCallback((value) => setIsDeleteAll(value), [])
 
-    // выполненные задачи, добавляем из TaskList
+    // массив НЕ выполненных задач [{}]
+    const [tasks, setTasks] = useState([]);
+    const callSetTasks = useCallback((value) => setTasks(value), []);
+
+
+    // массив выполненных задач [{}]
     const [completedTasks, setCompletedTasks] = useState([]);
     const callSetCompletedTasks = useCallback((value) => setCompletedTasks(value), []);
 
@@ -19,9 +24,11 @@ function Tasks() {
             <div className="container-tasks">
 
                 <TaskListHeader 
+                basicTasks={{tasks, setTasks: callSetTasks}}
                 deleteAll={{isDeleteAll, setIsDeleteAll: callSetIsDeleteAll}}/>
 
                 <TaskList 
+                basicTasks={{tasks, setTasks: callSetTasks}}
                 completeTasks={{completedTasks, setCompletedTasks: callSetCompletedTasks}}
                 deleteAll={{isDeleteAll, setIsDeleteAll: callSetIsDeleteAll}}
                 />

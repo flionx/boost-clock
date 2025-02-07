@@ -26,7 +26,6 @@ function CreateTaskCard({ createTask, isCreate, changeTasks }) {
         if (newTask.title !== '') {
             const updateTasks = [newTask, ...tasks]
             setTasks(t=> t = updateTasks);
-            // document.querySelector('#descriptionTask').value = '';
             setCreateTask(ct => ct = false);
             setNewTask(resetNewTask);
         }
@@ -34,15 +33,15 @@ function CreateTaskCard({ createTask, isCreate, changeTasks }) {
 
 
     const inputTitleRef = useRef(null);
-    const inputDescriptionRef = useRef(null);
-
+    
     // при создании новой задачи - создаем фокус на инпуте
     useEffect(() => {
         if (hasCreateTask) {
             inputTitleRef.current.focus();
         }
     }, [hasCreateTask])
-
+    
+    const inputDescriptionRef = useRef(null);
     // при создании описания задачи - создаем фокус на инпуте
     useEffect(() => {
         if (hasDescription) {
