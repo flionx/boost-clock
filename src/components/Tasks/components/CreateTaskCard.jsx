@@ -7,17 +7,18 @@ function CreateTaskCard({ createTask, isCreate, changeTasks }) {
     const [hasDescription, setHasDescription] = useState(false);
     const {tasks, setTasks} = changeTasks
     // новая задача по умолчанию для сброса
-    const resetNewTask = {title: '', description: false}
+    const resetNewTask = {title: '', description: false, id: Date.now()}
 
     const createNewTaskRef = useRef(null);
-
+    
     function cancelNewTask() {
-        // анимация исчезновения
+        const height = createNewTaskRef.current.getBoundingClientRect().height; // Узнаем высоту
+        createNewTaskRef.current.style.maxHeight = `${height}px`;
         createNewTaskRef.current.classList.add("anim-delete")
         setTimeout(() => {
             setNewTask(resetNewTask);
-            createNewTaskRef.current.classList.remove("anim-delete");
             setCreateTask(ct => ct = false);
+            createNewTaskRef.current.classList.remove("anim-delete");
         }, 500)
     }
     
@@ -25,7 +26,6 @@ function CreateTaskCard({ createTask, isCreate, changeTasks }) {
         if (newTask.title !== '') {
             const updateTasks = [newTask, ...tasks]
             setTasks(t=> t = updateTasks);
-            // document.querySelector('#descriptionTask').value = '';
             setCreateTask(ct => ct = false);
             setNewTask(resetNewTask);
         }
@@ -33,15 +33,15 @@ function CreateTaskCard({ createTask, isCreate, changeTasks }) {
 
 
     const inputTitleRef = useRef(null);
-    const inputDescriptionRef = useRef(null);
-
+    
     // при создании новой задачи - создаем фокус на инпуте
     useEffect(() => {
         if (hasCreateTask) {
             inputTitleRef.current.focus();
         }
     }, [hasCreateTask])
-
+    
+    const inputDescriptionRef = useRef(null);
     // при создании описания задачи - создаем фокус на инпуте
     useEffect(() => {
         if (hasDescription) {

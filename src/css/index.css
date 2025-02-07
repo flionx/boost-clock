@@ -10,7 +10,7 @@
   --light-text-color: #393939;
 
 
-  --main-font: 'Itim', sans-serif;
+  --main-font: 'Itim', 'Times New Roman', sans-serif;
   --menu-font: 'Poppins', sans-serif;
 }
 
@@ -215,15 +215,24 @@ body {
 /* анимация постепенного удаления */
 
 .anim-delete {
-  animation: smoothDelete .3s ease forwards;
+  overflow: hidden;
+  animation: smoothDelete .5s ease forwards;
+  transition: max-height .5s ease, opacity .5s ease, margin-bottom .5s ease;
 }
 
 
 @keyframes smoothDelete {
   0% {
     opacity: 1;
+    margin-bottom: 45px;
+  }
+  50% {
+    opacity: 0.5;
   }
   100% {
     opacity: 0;
+    max-height: 0;
+    margin-bottom: 0;
+
   }
 }
