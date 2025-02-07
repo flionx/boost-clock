@@ -49,13 +49,14 @@
 .tasks__list {
   display: flex;
   flex-direction: column;
-  row-gap: 45px;
+  /* row-gap: 45px; */
   width: 100%;
 }
 .tasks__item {
   width: 100%;
   display: flex;
   justify-content: center;
+  margin-bottom: 45px;
 }
 .tasks__task {
   padding: 13px 13px 20px 13px;
@@ -190,7 +191,7 @@ input[type="checkbox"]:checked::before {
   position: relative;
   border-radius: 10px;
   font-size: 25px;
-  margin-bottom: 30px;
+  /* margin-bottom: 30px; */
   transition: .2s;
 }
 .tasks__add-circle {

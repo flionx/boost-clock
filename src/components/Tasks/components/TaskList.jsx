@@ -1,23 +1,33 @@
 import TaskCard from './TaskCard.jsx';
 import CreateTaskCard from './CreateTaskCard.jsx'
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useCallback } from 'react';
+import AnimDeleteCard from '../helpers/AnimDeleteCard.js';
 
-function TaskList({deleteAll, completeTasks}) {
+function TaskList({deleteAll, completeTasks, basicTasks}) {
 
-    // массив всех задач
-    const [tasks, setTasks] = useState([]);
-    // создается ли новая задача
-    const [hasCreateTask, setCreateTask] = useState(false);
-    // новая задача {}
-    const [newTask, setNewTask] = useState({title: '', description: null})
+    const {tasks, setTasks} = basicTasks;
 
     const {isDeleteAll, setIsDeleteAll} = deleteAll;
 
+    // создается ли новая задача
+    const [hasCreateTask, setCreateTask] = useState(false);
+    // новая задача {}
+    const [newTask, setNewTask] = useState({title: '', description: null, id: Date.now()})
+    
+
+    const tasksListRef = useRef(null);
+    // если нажата кнопка удалить все 
     useEffect(() => {
         if (isDeleteAll) {
-            setTasks(t => t = [])
-            setIsDeleteAll(curr => curr = false)
+                
+            AnimDeleteCard(tasksListRef);
+
+            setTimeout(() => {
+                setTasks(t => t = [])
+                setIsDeleteAll(prev => prev = false);
+            }, 500)
+                
         }
 
     }, [isDeleteAll])
@@ -25,29 +35,29 @@ function TaskList({deleteAll, completeTasks}) {
     // коллбэк для передачи состояний вниз
     const callSetNewTask = useCallback((value) => setNewTask(value), []);
     const callSetCreateTask = useCallback((value) => setCreateTask(value), []);
-    const callSetTasks = useCallback((value) => setTasks(value), []);
-
-
 
 
     return (
         <div className="container-for-task">
-        <ul className="tasks__list">
+        <ul 
+        ref={tasksListRef} 
+        className="tasks__list">
             {tasks.map((task, index) => (
                 <TaskCard 
-                completeTsks={completeTasks}
                 taskIndex={index}
-                tasksForMove={{tasks, setTasks: callSetTasks}}
-                key={index} task={task}/>))}
-           
+                key={task.id} 
+                task={task}
+                completeTasks={completeTasks}
+                tasks={basicTasks}
+                />))}
+        </ul>   
             {hasCreateTask ? (
                 <CreateTaskCard 
                 createTask={{ newTask, setNewTask : callSetNewTask }}
                 isCreate={{hasCreateTask, setCreateTask : callSetCreateTask}}
-                changeTasks={{tasks, setTasks: callSetTasks}}/>
+                changeTasks={basicTasks}/>
              ) : null}
             
-
 
             <li className="tasks__item">
             <button 
@@ -56,7 +66,7 @@ function TaskList({deleteAll, completeTasks}) {
                 <div className="tasks__add-circle">+</div>
                 Add new task</button>
             </li>
-        </ul>
+        
         </div>
 
     )    
