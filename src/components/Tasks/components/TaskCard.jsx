@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import OptionForTask from "./OptionForTask/OptionForTask";
+import AnimDeleteCard from '../helpers/AnimDeleteCard.js';
 
 function TaskCard({ task, tasks, completeTasks, taskIndex}) {
 
@@ -18,28 +19,18 @@ function TaskCard({ task, tasks, completeTasks, taskIndex}) {
     const callSetHasOptions = useCallback((value) => setHasOptions(value), [])
     const callSetIsCardDelete = useCallback((value) => setIsCardDelete(value), [])
 
-    // если карточка удалена - применяем анимацию
+    // если карточка удалена/выполнена - применяем анимацию
     useEffect(()=> {
-        if (!isCardDelete) {
-            return;
+        if (isCardDelete) {
+            AnimDeleteCard(taskElement);
         }
-        
-        changeMaxHeight();
-        setStylesCard("tasks__item anim-delete");
-        
-        const timer = setTimeout(() => {
-            setStylesCard("tasks__item");
-        }, 500);
-    
-        return () => clearTimeout(timer);
-        
 
     }, [isCardDelete])
 
     const taskTitle = useRef(null);
     const timeoutId = useRef(null);
 
-    // если задача выполнена - анимация, перемещение задачи в массив выполн задач
+    // если задача выполнена - анимация заголовка, перемещение задачи в массив выполн задач
     useEffect(() => {
 
         if (isTaskCompleted) {
@@ -75,16 +66,10 @@ function TaskCard({ task, tasks, completeTasks, taskIndex}) {
         }, 500)
     }
 
-    function changeMaxHeight() {
-        const height = taskElement.current.getBoundingClientRect().height; // Узнаем высоту
-        taskElement.current.style.maxHeight = `${height}px`; // Устанавливаем max-height
-    }
-    
-
     return (
         <li 
         ref={taskElement}
-        className={stylesCard}>
+        className="tasks__item">
             <section className="tasks__task task">
                 
                 <div className="task__top">
@@ -97,17 +82,19 @@ function TaskCard({ task, tasks, completeTasks, taskIndex}) {
                     {/* заголовок */}
                     <h4 
                     ref={taskTitle}
-                    className="task__title">{task.title}
-                    {/* если нажат чекбокс - зачеркиваем заголовок */}
-                    {isTaskCompleted && (
-                        <div className="task__title-completed"></div>
-                    )}
+                    className="task__title">
+                        {task.title}
+                        {/* если нажат чекбокс - зачеркиваем заголовок */}
+                        {isTaskCompleted && (
+                            <div className="task__title-completed"></div>
+                        )}
                     
                     </h4>
                 </div>
+                
                 <div className="task__option-block">
                     <button 
-                    onClick={() => setHasOptions(ho => ho = !ho)} 
+                    onClick={() => setHasOptions(prev => prev = !prev)} 
                     className="task__option pink-btn"></button>
                     
                     {hasOptions ? ( 
@@ -120,6 +107,7 @@ function TaskCard({ task, tasks, completeTasks, taskIndex}) {
                     ) : null}
                     
                 </div>
+
                 </div>
                 <div className="task__bottom">
                     {task.description 

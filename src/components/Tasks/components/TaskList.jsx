@@ -2,37 +2,32 @@ import TaskCard from './TaskCard.jsx';
 import CreateTaskCard from './CreateTaskCard.jsx'
 import { useEffect, useRef, useState } from 'react';
 import { useCallback } from 'react';
+import AnimDeleteCard from '../helpers/AnimDeleteCard.js';
 
-function TaskList({deleteAll, completeTasks}) {
+function TaskList({deleteAll, completeTasks, basicTasks}) {
+
+    const {tasks, setTasks} = basicTasks;
 
     const {isDeleteAll, setIsDeleteAll} = deleteAll;
 
-    // массив всех задач [{}]
-    const [tasks, setTasks] = useState([]);
     // создается ли новая задача
     const [hasCreateTask, setCreateTask] = useState(false);
     // новая задача {}
     const [newTask, setNewTask] = useState({title: '', description: null, id: Date.now()})
     
 
-    const taskElement = useRef(null);
+    const tasksListRef = useRef(null);
+    // если нажата кнопка удалить все 
     useEffect(() => {
         if (isDeleteAll) {
+                
+            AnimDeleteCard(tasksListRef);
 
-            // 
-            const height = taskElement.current.getBoundingClientRect().height; // Узнаем высоту
-            taskElement.current.style.maxHeight = `${height}px`; 
-            taskElement.current.classList.add("anim-delete")
-            // 
             setTimeout(() => {
                 setTasks(t => t = [])
-                setIsDeleteAll(false);
-                // 
-                taskElement.current.classList.remove("anim-delete")
-                taskElement.current.style.maxHeight = ``; 
-                // 
+                setIsDeleteAll(prev => prev = false);
             }, 500)
-            // (пройтись по каждой карточке и применить аним прежде чем очищать)
+                
         }
 
     }, [isDeleteAll])
@@ -40,13 +35,12 @@ function TaskList({deleteAll, completeTasks}) {
     // коллбэк для передачи состояний вниз
     const callSetNewTask = useCallback((value) => setNewTask(value), []);
     const callSetCreateTask = useCallback((value) => setCreateTask(value), []);
-    const callSetTasks = useCallback((value) => setTasks(value), []);
 
 
     return (
         <div className="container-for-task">
         <ul 
-        ref={taskElement} 
+        ref={tasksListRef} 
         className="tasks__list">
             {tasks.map((task, index) => (
                 <TaskCard 
@@ -54,14 +48,14 @@ function TaskList({deleteAll, completeTasks}) {
                 key={task.id} 
                 task={task}
                 completeTasks={completeTasks}
-                tasks={{tasks, setTasks: callSetTasks}}
+                tasks={basicTasks}
                 />))}
         </ul>   
             {hasCreateTask ? (
                 <CreateTaskCard 
                 createTask={{ newTask, setNewTask : callSetNewTask }}
                 isCreate={{hasCreateTask, setCreateTask : callSetCreateTask}}
-                changeTasks={{tasks, setTasks: callSetTasks}}/>
+                changeTasks={basicTasks}/>
              ) : null}
             
 

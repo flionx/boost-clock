@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import formatTime from "../../../../helpers/formatTime.js";
+import formatTime from "../../helpers/formatTime.js";
 
 function TimerMain({ mins, timerCheck, nowIs }) {
 
