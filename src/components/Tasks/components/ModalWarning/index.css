@@ -15,7 +15,7 @@
 
 .modal-warning {
     position: relative;
-    z-index: 20;
+    /* z-index: 20; */
     padding: 15px 50px;
     background: rgb(255, 255, 255);
     display: flex;

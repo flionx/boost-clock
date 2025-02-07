@@ -6,7 +6,6 @@ function CompletedTaskCard({completeTasks, task, taskIndex}) {
 
     // опции перемещения, удаления задачи при нажатии на кнопку
     const [hasOptions, setHasOptions] = useState(false);
-
     // если нажата кнопка = применяем анимацию удаления
     const [isCardDelete, setIsCardDelete] = useState(false);
 
@@ -15,17 +14,18 @@ function CompletedTaskCard({completeTasks, task, taskIndex}) {
 
     const {completedTasks, setCompletedTasks} = completeTasks;
 
-    // const cardRef = useRef(null);
+    const cardRef = useRef(null);
 
-    // useEffect(() => {
+    useEffect(() => {
 
-    //     AnimDeleteCard(cardRef)
+        AnimDeleteCard(cardRef)
 
-    // }, [isCardDelete])
+    }, [isCardDelete])
 
         
     return (
         <li 
+        ref={cardRef}
         className="completed-list__item">
             <div className="completed-list__item-top">
                 <h5>{task.title}</h5>
