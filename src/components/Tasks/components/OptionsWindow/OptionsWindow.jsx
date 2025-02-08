@@ -1,12 +1,12 @@
 import './index.css';
 
-function OptionForTask({ changeHasOptions, taskIndex, tasksForMove, whenDelete, taskId}) {
+function OptionsWindow({ changeHasOptions, taskIndex, tasksForMove, whenDelete, taskId}) {
     
     const {tasks, setTasks} = tasksForMove;
 
     const {setHasOptions} = changeHasOptions;
 
-    const {isCardDelete, setIsCardDelete} = whenDelete
+    const {isCardDelete, setIsCardDelete} = whenDelete    
 
     function hideOptions() {
         setHasOptions(ho => ho = false)
@@ -41,6 +41,7 @@ function OptionForTask({ changeHasOptions, taskIndex, tasksForMove, whenDelete, 
         setIsCardDelete(true);
         const currTasks = [...tasks];
         const updatedTasks = currTasks.filter((_, i) => taskId !== tasks[i].id);
+        
         hideOptions();
         setTimeout(() => {
             setTasks(t => t = updatedTasks);
@@ -49,7 +50,7 @@ function OptionForTask({ changeHasOptions, taskIndex, tasksForMove, whenDelete, 
 
 
     return (
-        <div onMouseLeave={hideOptions} className="task-option">
+        <div className="task-option">
             <button 
             onClick={moveTaskToUp}
             className="task-option__row">
@@ -70,4 +71,4 @@ function OptionForTask({ changeHasOptions, taskIndex, tasksForMove, whenDelete, 
     
 }
 
-export default OptionForTask;
+export default OptionsWindow;

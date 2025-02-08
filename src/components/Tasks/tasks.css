@@ -35,7 +35,7 @@
   transform: translateY(-50%);
   width: 28px;
   height: 28px;
-  background-color: var(--tasks-btn-delete); /* Меняем цвет иконки */
+  background-color: var(--btn-icon); /* Меняем цвет иконки */
   mask-image: url('../../img/tasks/delete.svg');
   -webkit-mask-image: url('../../img/tasks/delete.svg');
 }

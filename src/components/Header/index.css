@@ -67,7 +67,8 @@
   /* .header__settings {
   } */
   .header__settings::before {
-    background-image: url('../../img/header/settings.svg');
-    background-size: cover;
-  
+    mask-image: url('../../img/header/settings.svg');
+    mask-position: center;
+    mask-size: cover;
+    background: var(--btn-icon);
   }
