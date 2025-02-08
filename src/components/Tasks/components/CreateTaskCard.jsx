@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from "react";
+import scrollToNew from '../helpers/scrollToNew.js'
+import AnimDeleteCard from "../helpers/AnimDeleteCard.js";
 
 function CreateTaskCard({ createTask, isCreate, changeTasks }) {
 
@@ -12,13 +14,10 @@ function CreateTaskCard({ createTask, isCreate, changeTasks }) {
     const createNewTaskRef = useRef(null);
     
     function cancelNewTask() {
-        const height = createNewTaskRef.current.getBoundingClientRect().height; // Узнаем высоту
-        createNewTaskRef.current.style.maxHeight = `${height}px`;
-        createNewTaskRef.current.classList.add("anim-delete")
+        AnimDeleteCard(createNewTaskRef);
         setTimeout(() => {
             setNewTask(resetNewTask);
             setCreateTask(ct => ct = false);
-            createNewTaskRef.current.classList.remove("anim-delete");
         }, 500)
     }
     
@@ -34,15 +33,16 @@ function CreateTaskCard({ createTask, isCreate, changeTasks }) {
 
     const inputTitleRef = useRef(null);
     
-    // при создании новой задачи - создаем фокус на инпуте
+    // при создании новой задачи - плавное перемещение, создание фокуса на инпуте
     useEffect(() => {
         if (hasCreateTask) {
+            scrollToNew(createNewTaskRef);
             inputTitleRef.current.focus();
         }
     }, [hasCreateTask])
     
     const inputDescriptionRef = useRef(null);
-    // при создании описания задачи - создаем фокус на инпуте
+    // при создании описания задачи - создание фокуса на инпуте
     useEffect(() => {
         if (hasDescription) {
             inputDescriptionRef.current.focus();
@@ -78,7 +78,7 @@ function CreateTaskCard({ createTask, isCreate, changeTasks }) {
 
                         <button 
                         onClick={() => setHasDescription(true)}
-                        className="btn-with-plus pink-btn m15">Add description (optional)</button>
+                        className="btn-with-plus btn-ui m15">Add description (optional)</button>
                     )}
                         
 
@@ -86,14 +86,14 @@ function CreateTaskCard({ createTask, isCreate, changeTasks }) {
 
                 </div>
                 <div className="create-task__bottom">
-                    <button className="btn-with-plus pink-btn">Add the desired deadline (optional)</button>
+                    <button className="btn-with-plus btn-ui">Add the desired deadline (optional)</button>
                     <div className="create-task__btns">
                         <button 
                         onClick={cancelNewTask}
                         className="create-task__btn-cancel">Cancel</button>
                         <button 
                         onClick={createNewTask}
-                        className="create-task__btn-create pink-btn">Create</button>
+                        className="create-task__btn-create btn-ui">Create</button>
                     </div>
                 </div>
             </section>

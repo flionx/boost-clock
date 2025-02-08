@@ -96,7 +96,7 @@ function TaskCard({ task, tasks, completeTasks, taskIndex}) {
                 <div className="task__option-block">
                     <button 
                     onClick={() => setHasOptions(prev => prev = !prev)} 
-                    className="task__option pink-btn"></button>
+                    className="task__option btn-ui"></button>
                     
                     {hasOptions ? ( 
                         <OptionForTask 

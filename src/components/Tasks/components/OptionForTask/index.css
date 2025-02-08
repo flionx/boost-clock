@@ -8,9 +8,11 @@
     position: absolute;
     top: 0;
     right: 100%;
+    z-index: 5;
     row-gap: 10px;
     background: #E9EAFF;
     border-radius: 5px;
+    color: #000;
 }
 
 .task-option__row {
@@ -20,7 +22,7 @@
     position: relative;
 }
 .task-option__row:hover {
-    background: var(--main-color-light);
+    background: #c8ceeb;
 }
 
 .task-option__row:nth-child(1) {

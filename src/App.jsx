@@ -1,12 +1,12 @@
-import Tasks from './components/Tasks/Tasks.jsx';
-import Timer from './components/Timer/Timer.jsx';
-
+import Header from './components/Header/Header.jsx';
+import MainContent from './components/MainContent/MainContent.jsx'
 function App() {
 
   return (
     <>
-      <Timer />
-      <Tasks />
+      <Header />
+      <MainContent />
+
     </>
   )
 }

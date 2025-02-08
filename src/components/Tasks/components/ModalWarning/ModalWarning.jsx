@@ -10,10 +10,10 @@ function ModalWarning({onClickTrue, onClickFalse}) {
                 <div className="modal-warnin__btns">
                     <button 
                     onClick={() => onClickFalse()}
-                    className="btn-modal-border pink-btn">Cancel</button>
+                    className="btn-modal-border">Cancel</button>
                     <button 
                     onClick={() => onClickTrue()}
-                    className="btn-modal pink-btn">Delete</button>
+                    className="btn-modal btn-ui">Delete</button>
 
                 </div>
             </dialog>
