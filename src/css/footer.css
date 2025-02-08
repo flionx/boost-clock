@@ -1,7 +1,9 @@
 /* footer */
 .footer {
+    position: relative;
+    bottom: 0;
     width: 100%;
-    background: var(--second-color-light);
+    background: var(--second-color);
     padding: 5px 0;
   }
   
