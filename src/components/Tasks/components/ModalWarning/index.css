@@ -34,7 +34,7 @@
 .modal-warning__text {
     font-size: 18px;
     text-align: center;
-    color: var(--text-color);
+    color: #1c1c1c;
 }
 
 .modal-warnin__btns {
@@ -49,10 +49,17 @@
 }
 
 .btn-modal {
-    background: var(--main-color-light);
+    background: var(--btn-ui-main);
 }
 
 .btn-modal-border {
-    border: 3px solid #c3c6ff;
+    border: 3px solid var(--btn-ui-main);
     transform: background .2s;
+}
+.btn-modal-border:hover {
+    background: var(--btn-ui-main);
+}
+.btn-modal-border:active {
+    border: 3px solid var(--btn-ui-hover);
+    background: var(--btn-ui-hover);
 }

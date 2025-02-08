@@ -1,7 +1,9 @@
 /* footer */
 .footer {
+    position: relative;
+    bottom: 0;
     width: 100%;
-    background: var(--second-color-light);
+    background: var(--second-color);
     padding: 5px 0;
   }
   
@@ -22,14 +24,14 @@
   }
   
   .btn--icon1::before{
-    background-image: url('../img/footer/report.svg');
-    background-position: center;
-    background-size: cover;
-  
+    mask-image: url('../img/footer/report.svg');
+    mask-position: center;
+    mask-size: cover;
+    background: var(--btn-icon);
   }
   .btn--icon2::before{
-    background-image: url('../img/footer/trophy.svg');
-    background-size: cover;
-    background-position: center;
-  
+    mask-image: url('../img/footer/trophy.svg');
+    mask-position: center;
+    mask-size: cover;
+    background: var(--btn-icon);
   }

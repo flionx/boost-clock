@@ -1,9 +1,9 @@
-.completed__tasks{
+/* .completed__tasks{
 
 }
 .tasks-completed {
 
-}
+} */
 
 .tasks-completed__header{
     width: 100%;
@@ -50,12 +50,12 @@
 } 
 .completed-list__item-top h5 {
     font-size: 20px;
-    color: #1c1c1c;
+    color: var(--text-color);
 }
 
 .completed-list__item-describe{
     margin-top: 5px;
-    background: var(--second-color-light);
+    background: var(--second-color);
     border-radius: 8px;
     padding: 8px;
 }
