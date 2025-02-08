@@ -1,11 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import OptionForTask from "./OptionForTask/OptionForTask";
 import AnimDeleteCard from '../helpers/AnimDeleteCard.js';
+import OptionTaskButton from "./OptionTaskButton/OptionTaskButton.jsx";
 
 function TaskCard({ task, tasks, completeTasks, taskIndex}) {
 
-    // опции перемещения, удаления задачи при нажатии на кнопку
-    const [hasOptions, setHasOptions] = useState(false);
     // для анимации удаления
     const [stylesCard, setStylesCard] = useState("tasks__item");
     // если нажата кнопка = применяем анимацию удаления
@@ -16,7 +14,6 @@ function TaskCard({ task, tasks, completeTasks, taskIndex}) {
     // выполненные задачи
     const {completedTasks, setCompletedTasks} = completeTasks;
 
-    const callSetHasOptions = useCallback((value) => setHasOptions(value), [])
     const callSetIsCardDelete = useCallback((value) => setIsCardDelete(value), [])
 
     // если карточка удалена/выполнена - применяем анимацию
@@ -93,21 +90,12 @@ function TaskCard({ task, tasks, completeTasks, taskIndex}) {
                     </h4>
                 </div>
                 
-                <div className="task__option-block">
-                    <button 
-                    onClick={() => setHasOptions(prev => prev = !prev)} 
-                    className="task__option btn-ui"></button>
-                    
-                    {hasOptions ? ( 
-                        <OptionForTask 
-                        taskId={task.id}
-                        taskIndex={taskIndex}
-                        tasksForMove={tasks}
-                        changeHasOptions={{setHasOptions: callSetHasOptions}}
-                        whenDelete={{isCardDelete, setIsCardDelete: callSetIsCardDelete}}/> 
-                    ) : null}
-                    
-                </div>
+                <OptionTaskButton 
+                    taskId={task.id}
+                    taskIndex={taskIndex}
+                    tasksForMove={tasks}
+                    whenDelete={{isCardDelete, setIsCardDelete: callSetIsCardDelete}}
+                />
 
                 </div>
                 <div className="task__bottom">

@@ -24,7 +24,7 @@
 
   --icon-theme: url('src/img/header/sun.svg');
 
-  --tasks-btn-delete: #1D1B20;
+  --btn-icon: #1D1B20;
 
 
   --main-font: 'Itim', 'Times New Roman', sans-serif;
@@ -33,8 +33,8 @@
 }
 
 .dark-theme {
-  --main-color: #2A2D40;   
-  --second-color: #444766; 
+  --main-color: #232529;   
+  --second-color: #27292d; 
   --content-color: rgba(100, 100, 100, 0.15); 
   
   --line-color: #888888;  
@@ -54,7 +54,7 @@
   --task-add-hover: rgba(75, 75, 75, 0.15);  
   --task-add-active: rgba(90, 90, 90, 0.12);  
 
-  --tasks-btn-delete: var(--line-color);
+  --btn-icon: var(--line-color);
   --icon-theme: url('src/img/header/moon.svg');
 
 }
@@ -278,6 +278,31 @@ body {
     opacity: 0;
     max-height: 0;
     margin-bottom: 0;
+
+  }
+}
+
+.anim-delete-completed {
+  overflow: hidden;
+  animation: smoothDeleteCompleted .5s ease forwards;
+  transition: max-height .5s ease, opacity .5s ease, margin-bottom .5s ease, padding .5s ease;
+}
+
+
+@keyframes smoothDeleteCompleted {
+  0% {
+    opacity: 1;
+    margin-bottom: 8px;
+    padding: 4px 6px 10px 6px;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+    max-height: 0;
+    margin-bottom: 0;
+    padding: 0 6px 0 6px;
 
   }
 }

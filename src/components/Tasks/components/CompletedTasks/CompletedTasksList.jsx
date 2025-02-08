@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import './index.css'
 import CompletedTaskCard from './CompletedTaskCard';
 
-function CompletedTasks({completeTasks}) {
+function CompletedTasksList({completeTasks}) {
     
     const [isShowTasks, setIsShowTasks] = useState(true);
 
@@ -25,8 +25,9 @@ function CompletedTasks({completeTasks}) {
         <section className="completed__tasks tasks-completed">
             <div className="container-tasks">
                 <button 
-                onClick={()=> setIsShowTasks(curr => !curr)}
-                className="tasks-completed__header">
+                    onClick={()=> setIsShowTasks(curr => !curr)}
+                    className="tasks-completed__header"
+                >
                     Completed tasks
                     <div 
                     ref={arrowRef}
@@ -36,7 +37,7 @@ function CompletedTasks({completeTasks}) {
                     {isShowTasks ? (
                         completedTasks.map((task, index) => (
                         <CompletedTaskCard 
-                            key={index} 
+                            key={task.id} 
                             task={task} 
                             taskIndex={index} 
                             completeTasks={completeTasks} 
@@ -50,4 +51,4 @@ function CompletedTasks({completeTasks}) {
     )
 }
 
-export default CompletedTasks;
+export default CompletedTasksList;
