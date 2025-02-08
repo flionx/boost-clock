@@ -30,18 +30,27 @@ A handy and minimalistic Pomodoro timer built using React. Helps you manage your
 
 ## Usage
 
-- Press “Start” to start the countdown.
-- When finished, the timer will automatically switch to rest time.
-- While the timer is running, you can reset the time by pressing “Reset”; And also skip the current session, and start the next one by pressing “Skip”
-- If you want to create a task, you can click on “Add new task” and enter a title and optionally add a description by clicking on “add a description”.
-
+### Timer
+- button “Start” - start the countdown.
+- When finished, the timer will automatically switch to rest time, and vice versa.
+- button “Reset” - reset the time;
+-button “Skip” - skip the current session and start the next one.
+- +/- buttons - time setting
+  
+### Tasks
+- “Add New Task” button - add a task, enter its name and optionally add a description by clicking on the “Add Description” button.
+-Button with three dots to the right of the task name - task parameters.
+-Checkbox button to the left of the task title - the task will be moved to the “Completed” category.
+- "Delete all" button - delete all tasks.
+  
+#### Theme
+- "Sun/Moon" button in the title bar - change the theme of the application.
 
 ## Technologies
 
 - React
 - JavaScript
 - HTML/CSS
-
 
 ## Inspiration  
 
