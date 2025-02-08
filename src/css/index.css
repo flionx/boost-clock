@@ -1,7 +1,8 @@
 :root {
-  --main-color-light: #D9DBFF;
-  --second-color-light: #A9ABD4;
-
+  /* backgrounds */
+  --main-color: #D9DBFF;
+  --second-color: #A9ABD4;
+/* div light */
   --content-color: rgba(0, 0, 0, 0.15);
 
   --line-color: #6D6D6D;
@@ -9,16 +10,59 @@
   --text-color: #1C1C1C;
   --light-text-color: #393939;
 
+  --settings-color: #D9DBFF;
+
+  --btn-ui-main: #D9DBFF;
+  --btn-ui-hover: #c3c6ff;
+  --btn-ui-active: #d6d8ff;
+
+  --menu-btn-hover: #979ac6;
+  --menu-btn-active: #9ea1ca;
+
+  --task-add-hover: rgba(0, 0, 0, 0.25);  
+  --task-add-active: rgba(0, 0, 0, 0.20);  
+
+  --icon-theme: url('src/img/header/sun.svg');
+
+  --btn-icon: #1D1B20;
+
 
   --main-font: 'Itim', 'Times New Roman', sans-serif;
   --menu-font: 'Poppins', sans-serif;
+
 }
 
+.dark-theme {
+  --main-color: #232529;   
+  --second-color: #27292d; 
+  --content-color: rgba(100, 100, 100, 0.15); 
+  
+  --line-color: #888888;  
+
+  --text-color: #EDEDED; 
+  --light-text-color: #2e2e2e;
+
+  --settings-color: #4b4f6b;
+
+  --btn-ui-main:  rgba(217, 219, 255, 0.5);
+  --btn-ui-hover: rgba(217, 219, 255, 0.3);
+  --btn-ui-active: rgba(217, 219, 255, 0.4);
+
+  --menu-btn-hover: #535672;
+  --menu-btn-active: #4f526f;
+
+  --task-add-hover: rgba(75, 75, 75, 0.15);  
+  --task-add-active: rgba(90, 90, 90, 0.12);  
+
+  --btn-icon: var(--line-color);
+  --icon-theme: url('src/img/header/moon.svg');
+
+}
 
 body {
   font-family: var(--main-font);
   color: var(--text-color);
-  background: var(--main-color-light);
+  background: var(--main-color);
   /* height: calc(100vh - 50px); */
 }
 
@@ -193,7 +237,7 @@ body {
   font-size: 22px;
   color: #000;
   border-radius: 10px;
-  background: var(--main-color-light);
+  background: var(--settings-color);
 }
 
 
@@ -201,14 +245,15 @@ body {
 /* наведение и нажатие на розовые кнопки */
 
 
-.pink-btn {
+.btn-ui {
+  background: var(--btn-ui-main);
   transition: .2s;
 }
-.pink-btn:hover {
-  background: #c3c6ff;
+.btn-ui:hover {
+  background: var(--btn-ui-hover);
 }
-.pink-btn:active {
-  background: #d6d8ff;
+.btn-ui:active {
+  background: var(--btn-ui-active);
 }
 
 
@@ -233,6 +278,31 @@ body {
     opacity: 0;
     max-height: 0;
     margin-bottom: 0;
+
+  }
+}
+
+.anim-delete-completed {
+  overflow: hidden;
+  animation: smoothDeleteCompleted .5s ease forwards;
+  transition: max-height .5s ease, opacity .5s ease, margin-bottom .5s ease, padding .5s ease;
+}
+
+
+@keyframes smoothDeleteCompleted {
+  0% {
+    opacity: 1;
+    margin-bottom: 8px;
+    padding: 4px 6px 10px 6px;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+    max-height: 0;
+    margin-bottom: 0;
+    padding: 0 6px 0 6px;
 
   }
 }

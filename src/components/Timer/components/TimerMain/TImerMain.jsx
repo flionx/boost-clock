@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import formatTime from "../../helpers/formatTime.js";
+import useMelody from "../../../../hooks/useMelody.js";
 
 function TimerMain({ mins, timerCheck, nowIs }) {
 
@@ -16,8 +17,7 @@ function TimerMain({ mins, timerCheck, nowIs }) {
 
     const { nowIsWork, setNowIsWork } = nowIs;
 
-    const melodyGoWork = document.querySelector('#melodyGoWork');
-    const melodyGoRelax = document.querySelector('#melodyGoRelax');
+    const {melodyGoWork, melodyGoRelax} = useMelody();
     
     const [formatResult, setFormatResult] = useState(() => formatTime(seconds.work));
 
@@ -27,13 +27,8 @@ function TimerMain({ mins, timerCheck, nowIs }) {
         if (seconds.work <= 0 || seconds.relax <= 0) {
             stopTimer();
         }
-
-        if (nowIsWork) {
-            setFormatResult(() => formatTime(seconds.work));
-        } else {
-            setFormatResult(() => formatTime(seconds.relax));
-
-        }
+        // опираемся на тип таймера и форматируем время
+        setFormatResult(nowIsWork ? formatTime(seconds.work) : formatTime(seconds.relax));
 
     }, [seconds.work, seconds.relax, nowIsWork])
 
@@ -132,17 +127,19 @@ function TimerMain({ mins, timerCheck, nowIs }) {
             <div className="timer__top">
                 <button 
                     onClick={() => changeTypeOfTime('work')}
-                className={nowIsWork ? "timer__top-btn top-btn--active" : "timer__top-btn"}>Work</button>
+                    className={nowIsWork ? "timer__top-btn top-btn--active" : "timer__top-btn"}
+                >Work</button>
                 <span></span>
                 <button 
                     onClick={() => changeTypeOfTime('relax')}
-                className={!nowIsWork ? "timer__top-btn top-btn--active" : "timer__top-btn"}>Break</button>
+                    className={!nowIsWork ? "timer__top-btn top-btn--active" : "timer__top-btn"}
+                >Break</button>
             </div>
 
             <h2 className="timer__time">{formatResult}</h2>
             <button 
                 onClick={toggleTimer} 
-            className="timer__button">
+                className="timer__button">
                 {hasTimer ? "STOP" : "START"}
             </button>
             <div className="timer__bottom-btns">
@@ -151,13 +148,15 @@ function TimerMain({ mins, timerCheck, nowIs }) {
                     disabled={!hasTimer}
                     style={hasTimer ? {opacity: 1, cursor: 'pointer'} : {opacity: 0, cursor: 'default'}}
                     onClick={resetTimer} 
-                className="timer__button-reset">Reset</button>
+                    className="timer__button-reset"
+                >Reset</button>
 
                 <button 
                     disabled={!hasTimer}
                     style={hasTimer ? {opacity: 1, cursor: 'pointer'} : {opacity: 0, cursor: 'default'}}
                     onClick={stopTimer} 
-                className="timer__button-reset">Skip</button>
+                    className="timer__button-reset"
+                >Skip</button>
 
             </div>
         
