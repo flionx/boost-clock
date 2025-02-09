@@ -27,7 +27,7 @@
   --btn-icon: #1D1B20;
 
 
-  --main-font: 'Itim', 'Times New Roman', sans-serif;
+  --main-font: 'Itim', 'Literal', sans-serif;
   --menu-font: 'Poppins', sans-serif;
 
 }
@@ -269,7 +269,7 @@ body {
 @keyframes smoothDelete {
   0% {
     opacity: 1;
-    margin-bottom: 45px;
+    margin-bottom: 30px;
   }
   50% {
     opacity: 0.5;

@@ -5,21 +5,56 @@ import useMelody from "../../../../hooks/useMelody.js";
 function TimerMain({ mins, timerCheck, nowIs }) {
 
     const {minutes, setMinutes} = mins;
-
+    const { hasTimer, setHasTimer } = timerCheck;
+    const { nowIsWork, setNowIsWork } = nowIs;
+    
+    
     // переводим минуты в секунды
     const [seconds, setSeconds] = useState({ 
         work: minutes.work * 60, 
         relax: minutes.relax * 60
     })
-
-    const { hasTimer, setHasTimer } = timerCheck;
-    const idInterval = useRef(null);
-
-    const { nowIsWork, setNowIsWork } = nowIs;
-
-    const {melodyGoWork, melodyGoRelax} = useMelody();
-    
     const [formatResult, setFormatResult] = useState(() => formatTime(seconds.work));
+
+    const workerRef = useRef(null);  // Ссылка на Web Worker
+
+    // Инициализация Web Worker
+    useEffect(() => {
+        // новый worker
+        workerRef.current = new Worker('timer-worker.js');
+
+        // полученное сообщение
+        workerRef.current.onmessage = (event) => {
+            const { action, data } = event.data; 
+
+            // при каждом изменении времени
+            if (action === 'updateTime') {
+                if (nowIsWork) {
+                    setSeconds((secs) => ({ ...secs, work: data }));
+                    setFormatResult(formatTime(data));
+                } else {
+                    setSeconds((secs) => ({ ...secs, relax: data }));
+                    setFormatResult(formatTime(data));
+                }
+
+                // Если время вышло - стоп
+                if (data <= 0) {
+                    stopTimer();
+                }
+            }
+        };
+
+        // Очистка worker при размонтировании
+        return () => {
+            if (workerRef.current) {
+                workerRef.current.terminate();
+            }
+        };
+    }, [nowIsWork]);
+
+    // обращается к мелодиям и устанавливает громкость
+    const {melodyGoWork, melodyGoRelax} = useMelody();
+
 
     useEffect(() => {
 
@@ -41,35 +76,18 @@ function TimerMain({ mins, timerCheck, nowIs }) {
         }
     }, [minutes.work, minutes.relax]);
 
-
-    // Запуск/остановка таймера
+    // Запуск и остановка таймера через Worker
     useEffect(() => {
         if (hasTimer) {
-            idInterval.current = setInterval(() => {
-                if (nowIsWork) {
-                    setSeconds(secs => ({
-                        ...secs,
-                        work: secs.work - 1
-                      }));
-
-                } else {
-                    setSeconds(secs => ({
-                        ...secs,
-                        relax: secs.relax - 1
-                      }));
-
-                }
-            }, 1000);
-
+            // Отправляем команду на запуск таймера
+            workerRef.current.postMessage({ action: 'start', seconds, nowIsWork });
         } else {
-            clearInterval(idInterval.current);
+            // Отправляем команду на остановку таймера
+            workerRef.current.postMessage({ action: 'stop' });
         }
-
-        // Очистка интервала при размонтировании
-        return () => clearInterval(idInterval.current);
     }, [hasTimer]);
 
-    // Остановка таймера, смена типа таймера
+    // конец таймера, смена типа таймера, звук
     function stopTimer() {
         setHasTimer(false);
         setNowIsWork((nowIs) => !nowIs);
@@ -92,9 +110,9 @@ function TimerMain({ mins, timerCheck, nowIs }) {
         setHasTimer((current) => !current);
     }
 
-    // Сброс таймера
+    // Сброс таймера до настроек
     function resetTimer() {
-        falseAndDeleteTimer();
+        setHasTimer(false);
         setMinutes({...minutes})
 
         if (nowIsWork) {
@@ -102,9 +120,10 @@ function TimerMain({ mins, timerCheck, nowIs }) {
         } else {
             setSeconds({...seconds, relax: minutes.relax * 60})
         }
+        workerRef.current.postMessage({ action: 'reset', seconds: { work: minutes.work * 60, relax: minutes.relax * 60 } });
     }
 
-    // смена типа времени, сброс таймера
+    // смена типа времени, сброс таймера - при смене типа
     function changeTypeOfTime(type) {
 
         if (type === 'work') {
@@ -114,13 +133,6 @@ function TimerMain({ mins, timerCheck, nowIs }) {
         }
         resetTimer();
     }
-
-
-    function falseAndDeleteTimer() {
-        clearInterval(idInterval.current);
-        setHasTimer(false);
-    }
-
 
     return (
         <section className="main__timer timer">
