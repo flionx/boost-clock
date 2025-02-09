@@ -11,9 +11,13 @@ function Tasks() {
     const [tasks, setTasks] = useState(() => storageTasks('tasks'));
     // если нажата кнопка удалить все - меняем состояние на true, очищаем список задач
     const [isDeleteAll, setIsDeleteAll] = useState(false);
-    // массив выполненных задач [{}]
-    const [completedTasks, setCompletedTasks] = useState(() => storageTasks('completed-tasks'));
     
+    const arrayCompletedTasks = storageTasks('completed-tasks');
+    // массив выполненных задач [{}]
+    const [completedTasks, setCompletedTasks] = useState(arrayCompletedTasks);
+
+    const [hasCompleted, setHasCompleted] = useState(() => arrayCompletedTasks.length > 0 ? true : false);
+
     // при изменении задач - сохраняем в localStorage
     useUpdateStorage('tasks', tasks);
     // при изменении выполненных задач - сохраняем в localStorage
@@ -23,11 +27,22 @@ function Tasks() {
     const callSetIsDeleteAll = useCallback((value) => setIsDeleteAll(value), [])
     const callSetCompletedTasks = useCallback((value) => setCompletedTasks(value), []);
 
+    // когда меняется кол.во выполненных задач
+    useEffect(() => {
+        if (completedTasks.length >= 1 && !hasCompleted) {
+            setHasCompleted(curr => true);
+        }
+    }, [completedTasks.length])
+
+    const changeStateNoCompleted = useCallback(() => {
+        setHasCompleted(curr => false);
+    }, [])
 
     function storageTasks(key) {
         const storage = JSON.parse(localStorage.getItem(key));
         return storage ? storage : [];
     }
+    
 
     return (
         <section className="main__tasks tasks">
@@ -42,8 +57,10 @@ function Tasks() {
                 completeTasks={{completedTasks, setCompletedTasks: callSetCompletedTasks}}
                 deleteAll={{isDeleteAll, setIsDeleteAll: callSetIsDeleteAll}}
                 />
-                {completedTasks.length > 0 && (
+                {hasCompleted && (
                     <CompletedTasksList 
+                    noCompleted={changeStateNoCompleted}
+                    hasCompleted={hasCompleted}
                     completeTasks={{completedTasks, setCompletedTasks: callSetCompletedTasks}}/>
                 )}
 
