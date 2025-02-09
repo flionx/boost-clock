@@ -4,7 +4,7 @@ export default function useMelody() {
     melodyGoWork.volume = 0.45;
 
     const melodyGoRelax = document.querySelector('#melodyGoRelax');
-    melodyGoRelax.volume = 0.25;
+    melodyGoRelax.volume = 0.3;
 
     return {melodyGoWork, melodyGoRelax}
 

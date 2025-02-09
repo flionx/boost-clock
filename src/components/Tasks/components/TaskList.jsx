@@ -12,10 +12,7 @@ function TaskList({deleteAll, completeTasks, basicTasks}) {
 
     // создается ли новая задача
     const [hasCreateTask, setCreateTask] = useState(false);
-    // новая задача {}
-    const [newTask, setNewTask] = useState({title: '', description: null, id: Date.now()})
     
-
     const tasksListRef = useRef(null);
     // если нажата кнопка удалить все 
     useEffect(() => {
@@ -32,8 +29,6 @@ function TaskList({deleteAll, completeTasks, basicTasks}) {
 
     }, [isDeleteAll])
 
-    // коллбэк для передачи состояний вниз
-    const callSetNewTask = useCallback((value) => setNewTask(value), []);
     const callSetCreateTask = useCallback((value) => setCreateTask(value), []);
 
 
@@ -53,7 +48,6 @@ function TaskList({deleteAll, completeTasks, basicTasks}) {
         </ul>   
             {hasCreateTask ? (
                 <CreateTaskCard 
-                createTask={{ newTask, setNewTask : callSetNewTask }}
                 isCreate={{hasCreateTask, setCreateTask : callSetCreateTask}}
                 changeTasks={basicTasks}/>
              ) : null}

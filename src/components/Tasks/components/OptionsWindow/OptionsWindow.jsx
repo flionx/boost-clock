@@ -1,6 +1,6 @@
 import './index.css';
 
-function OptionsWindow({ changeHasOptions, taskIndex, tasksForMove, whenDelete, taskId}) {
+function OptionsWindow({ changeHasOptions, taskIndex, tasksForMove, whenDelete, taskId, onClickEdit}) {
     
     const {tasks, setTasks} = tasksForMove;
 
@@ -51,6 +51,12 @@ function OptionsWindow({ changeHasOptions, taskIndex, tasksForMove, whenDelete, 
 
     return (
         <div className="task-option">
+
+            <button 
+            onClick={onClickEdit}
+            className="task-option__row">
+                edit
+            </button>
             <button 
             onClick={moveTaskToUp}
             className="task-option__row">
@@ -66,6 +72,7 @@ function OptionsWindow({ changeHasOptions, taskIndex, tasksForMove, whenDelete, 
             className="task-option__row">
                 delete
             </button>
+            
         </div>
     )
     
