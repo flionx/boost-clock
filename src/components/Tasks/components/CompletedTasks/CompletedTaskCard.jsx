@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import OptionTaskButton from "../OptionTaskButton/OptionTaskButton.jsx";
 import AnimDeleteCard from '../../helpers/AnimDeleteCard.js'
 
-function CompletedTaskCard({completeTasks, task, taskIndex}) {
+function CompletedTaskCard({completeTasks, task, taskIndex, CompletedTasksSectionRef, noCompleted}) {
 
     // если нажата кнопка = применяем анимацию удаления
     const [isCardDelete, setIsCardDelete] = useState(false);
@@ -12,8 +12,13 @@ function CompletedTaskCard({completeTasks, task, taskIndex}) {
 
     const cardRef = useRef(null);
 
+    // анимация удаления. Если 1 карточка - удаляем весь блок
     useEffect(() => {
         if (isCardDelete) {
+            if (completedTasks.length === 1) {
+                AnimDeleteCard(CompletedTasksSectionRef, 'completed')
+                setTimeout(noCompleted, 500)
+            }
             AnimDeleteCard(cardRef, 'completed')
         }
 
@@ -35,9 +40,9 @@ function CompletedTaskCard({completeTasks, task, taskIndex}) {
                 />
 
             </div>
-            {task.description ? ( 
+            {task.description && ( 
                 <div className="completed-list__item-describe">{task.description}</div>
-            ) : null}
+            )}
         </li>
     )
 }

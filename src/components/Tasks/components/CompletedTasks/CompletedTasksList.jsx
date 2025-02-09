@@ -2,9 +2,11 @@ import { useEffect, useRef, useState } from 'react';
 import './index.css'
 import CompletedTaskCard from './CompletedTaskCard';
 
-function CompletedTasksList({completeTasks}) {
+function CompletedTasksList({completeTasks, noCompleted}) {
     
     const [isShowTasks, setIsShowTasks] = useState(true);
+
+    const CompletedTasksSectionRef = useRef(null);
 
     // выполненные задачи
     const {completedTasks, setCompletedTasks} = completeTasks;    
@@ -21,29 +23,33 @@ function CompletedTasksList({completeTasks}) {
 
     }, [isShowTasks])
 
+
     return (
-        <section className="completed__tasks tasks-completed">
+        <section 
+            ref={CompletedTasksSectionRef}
+            className="completed__tasks tasks-completed">
             <div className="container-tasks">
                 <button 
                     onClick={()=> setIsShowTasks(curr => !curr)}
-                    className="tasks-completed__header"
-                >
+                    className="tasks-completed__header">
                     Completed tasks
                     <div 
                     ref={arrowRef}
                     className="task-comlpeted__arrow"></div>
                 </button>
                 <ul className="completed-list">
-                    {isShowTasks ? (
+                    {isShowTasks && (
                         completedTasks.map((task, index) => (
                         <CompletedTaskCard 
                             key={task.id} 
                             task={task} 
                             taskIndex={index} 
                             completeTasks={completeTasks} 
+                            CompletedTasksSectionRef={CompletedTasksSectionRef}
+                            noCompleted={noCompleted}
                         />
                         ))
-                    ) : null}
+                    )}
 
                 </ul>
             </div>
