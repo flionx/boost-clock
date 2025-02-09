@@ -56,11 +56,11 @@ function CreateTaskCard({ isEdit, onClickEdit, isCreate, changeTasks, taskIndex,
     
     // при создании новой задачи - плавное перемещение, создание фокуса на инпуте
     useEffect(() => {
-        if (hasCreateTask) {
+        if (hasCreateTask || isEdit) {
             scrollToNew(createNewTaskRef);
-            inputTitleRef.current.focus();
+            inputTitleRef.current.focus();            
         }
-    }, [hasCreateTask])
+    }, [hasCreateTask, isEdit])
     
     const inputDescriptionRef = useRef(null);
     // при создании описания задачи - создание фокуса на инпуте
@@ -113,15 +113,12 @@ function CreateTaskCard({ isEdit, onClickEdit, isCreate, changeTasks, taskIndex,
                         ref={inputDescriptionRef}
                         className="create-task__input" placeholder="more detailed task description" />
                         </>
-
                     ) : (
-
                         <button 
                         onClick={() => setHasDescription(true)}
                         className="btn-with-plus btn-ui m15">Add description (optional)</button>
                     )}
                         
-
                 </div>
                 <div className="create-task__bottom">
                     <button className="btn-with-plus btn-ui">Add the desired deadline (optional)</button>
@@ -133,7 +130,6 @@ function CreateTaskCard({ isEdit, onClickEdit, isCreate, changeTasks, taskIndex,
                             <button 
                             onClick={saveTask}
                             className="create-task__btn-create btn-ui">Save</button>
-
                         ) : (
                             <button 
                             onClick={createNewTask}
