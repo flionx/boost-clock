@@ -8,7 +8,6 @@ function TimerMain({ mins, timerCheck, nowIs }) {
     const { hasTimer, setHasTimer } = timerCheck;
     const { nowIsWork, setNowIsWork } = nowIs;
     
-    
     // переводим минуты в секунды
     const [seconds, setSeconds] = useState({ 
         work: minutes.work * 60, 
@@ -20,14 +19,12 @@ function TimerMain({ mins, timerCheck, nowIs }) {
 
     // Инициализация Web Worker
     useEffect(() => {
-        // новый worker
         workerRef.current = new Worker('timer-worker.js');
 
         // полученное сообщение
         workerRef.current.onmessage = (event) => {
             const { action, data } = event.data; 
 
-            // при каждом изменении времени
             if (action === 'updateTime') {
                 if (nowIsWork) {
                     setSeconds((secs) => ({ ...secs, work: data }));
@@ -44,7 +41,7 @@ function TimerMain({ mins, timerCheck, nowIs }) {
             }
         };
 
-        // Очистка worker при размонтировании
+        // Очистка при размонтировании
         return () => {
             if (workerRef.current) {
                 workerRef.current.terminate();
@@ -58,7 +55,6 @@ function TimerMain({ mins, timerCheck, nowIs }) {
 
     useEffect(() => {
 
-        // Останавливаем таймер, когда закончилось время
         if (seconds.work <= 0 || seconds.relax <= 0) {
             stopTimer();
         }
@@ -68,7 +64,7 @@ function TimerMain({ mins, timerCheck, nowIs }) {
     }, [seconds.work, seconds.relax, nowIsWork])
 
 
-    // Обновляем таймер при изменении workMin или relaxMin
+    // настройка времени при нажатии кнопок
     useEffect(() => {
         if (!hasTimer) {
             setSeconds({work: minutes.work * 60, 
@@ -100,7 +96,6 @@ function TimerMain({ mins, timerCheck, nowIs }) {
         } else {
             melodyGoWork.play();
             melodyGoWork.currentTime = 0;
-
         }
             
     }
@@ -125,7 +120,6 @@ function TimerMain({ mins, timerCheck, nowIs }) {
 
     // смена типа времени, сброс таймера - при смене типа
     function changeTypeOfTime(type) {
-
         if (type === 'work') {
             setNowIsWork(cur => cur = true);
         } else {
