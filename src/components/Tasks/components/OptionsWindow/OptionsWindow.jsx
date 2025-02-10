@@ -1,4 +1,4 @@
-import './index.css';
+import './OptionsWindow.css';
 
 function OptionsWindow({ changeHasOptions, taskIndex, tasksForMove, whenDelete, taskId, onClickEdit}) {
     

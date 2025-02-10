@@ -87,8 +87,15 @@ body {
   align-items: center;
 }
 
+/* табуляция для кнопок и инпутов */
 
-
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 1px solid #ffffff;
+  outline-offset: 2px;
+  transition: outline 0.3s ease;
+}
 
 /* main timer */
 .main {
@@ -188,7 +195,9 @@ body {
 }
 .settings-main__top {
   display: flex;
-  column-gap: 120px;
+  /* column-gap: 120px; */
+  width: 60%;
+  justify-content: space-between;
   margin-bottom: 20px;
 }
 .settings-main__title {
