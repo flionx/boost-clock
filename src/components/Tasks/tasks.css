@@ -112,10 +112,10 @@ input[type="checkbox"]:checked::before {
   line-height: 20px;
 }
 
-.task__check:focus {
-  outline: none;      /* Убираем обводку при фокусе */
-  box-shadow: none;   /* Убираем тень при фокусе */
-}
+/* .task__check:focus {
+  outline: none;     
+  box-shadow: none;   
+} */
 .task__title {
   width: fit-content;
   font-size: 25px;

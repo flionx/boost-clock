@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import './index.css'
+import './CompletedTasks.css';
 import CompletedTaskCard from './CompletedTaskCard';
 
 function CompletedTasksList({completeTasks, noCompleted}) {
