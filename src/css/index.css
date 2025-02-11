@@ -22,7 +22,7 @@
   --task-add-hover: rgba(0, 0, 0, 0.25);  
   --task-add-active: rgba(0, 0, 0, 0.20);  
 
-  --icon-theme: url('src/img/header/sun.svg');
+  --icon-theme: url('./src/img/header/sun.svg');
 
   --btn-icon: #1D1B20;
 
@@ -55,7 +55,7 @@
   --task-add-active: rgba(90, 90, 90, 0.12);  
 
   --btn-icon: var(--line-color);
-  --icon-theme: url('src/img/header/moon.svg');
+  --icon-theme: url('./src/img/header/moon.svg');
 
 }
 
@@ -87,8 +87,15 @@ body {
   align-items: center;
 }
 
+/* табуляция для кнопок и инпутов */
 
-
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 1px solid #ffffff;
+  outline-offset: 2px;
+  transition: outline 0.3s ease;
+}
 
 /* main timer */
 .main {
@@ -188,7 +195,9 @@ body {
 }
 .settings-main__top {
   display: flex;
-  column-gap: 120px;
+  /* column-gap: 120px; */
+  width: 60%;
+  justify-content: space-between;
   margin-bottom: 20px;
 }
 .settings-main__title {

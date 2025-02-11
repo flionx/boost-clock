@@ -1,5 +1,4 @@
 let intervalId = null;
-// 
 let seconds = { work: 0, relax: 0 }; 
 let nowIsWork = true;
 

@@ -1,4 +1,4 @@
-import './index.css'
+import './ModalWarning.css'
 
 function ModalWarning({onClickTrue, onClickFalse}) {
     

@@ -24,13 +24,13 @@
   }
   
   .btn--icon1::before{
-    mask-image: url('../img/footer/report.svg');
+    mask-image: url('../../img/footer/report.svg');
     mask-position: center;
     mask-size: cover;
     background: var(--btn-icon);
   }
   .btn--icon2::before{
-    mask-image: url('../img/footer/trophy.svg');
+    mask-image: url('../../img/footer/trophy.svg');
     mask-position: center;
     mask-size: cover;
     background: var(--btn-icon);
