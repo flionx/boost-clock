@@ -36,7 +36,8 @@ function TaskCard({ task, tasks, completeTasks, taskIndex}) {
             const newCompetedTask = {
                 id: Date.now(),
                 title: task.title, 
-                description: task.description
+                description: task.description,
+                deadline: task.deadline
             }
 
             taskTitle.current.className = 'task__title anim-title-complete';
@@ -98,6 +99,8 @@ function TaskCard({ task, tasks, completeTasks, taskIndex}) {
                         </h4>
                     </div>
                     
+                    <p className="task__deadline">{task.rounds}/{task.deadline ?? 0}</p>
+
                     <OptionTaskButton 
                         isEdit={true}
                         onClickEdit={onClickEdit}
