@@ -36,8 +36,8 @@
   width: 28px;
   height: 28px;
   background-color: var(--btn-icon); /* Меняем цвет иконки */
-  mask-image: url('../../img/tasks/delete.svg');
-  -webkit-mask-image: url('../../img/tasks/delete.svg');
+  mask-image: url('img/tasks/delete.svg');
+  -webkit-mask-image: url('img/tasks/delete.svg');
 }
 
 .tasks__header hr{
@@ -77,19 +77,29 @@
   display: flex;
   align-items: center;
   column-gap: 16px;
+  width: 85%;
 }
-.task__check {
+
+input[type="checkbox"] {
+  accent-color: var(--settings-color);
   width: 40px;
   height: 40px;
   border-radius: 2px;
-  background: #fff;
-
+  cursor: pointer;
 }
-input[type="checkbox"] {
+
+/* .task__check {
+  min-width: 40px;
+  min-height: 40px;
+  border-radius: 2px;
+  background: #fff;
+} */
+
+/* input[type="checkbox"] {
   appearance: none;
   -webkit-appearance: none;
   cursor: pointer;
-  vertical-align: middle; /* Выравниваем по центру текста */
+  vertical-align: middle; 
 }
 
 input[type="checkbox"]::before {
@@ -112,15 +122,34 @@ input[type="checkbox"]:checked::before {
   line-height: 20px;
 }
 
-/* .task__check:focus {
-  outline: none;     
-  box-shadow: none;   
+input[type="checkbox"]::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 60%;
+  height: 60%;
+  background-color: transparent;
+  border-radius: 4px;
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 0.2s ease-in-out;
+}
+
+input[type="checkbox"]:checked::before {
+  content: "✔";
+  font-size: 22px;
+  color: #007bff;
+  font-weight: bold;
+  transform: translate(-50%, -50%) scale(1);
 } */
+
 .task__title {
-  width: fit-content;
   font-size: 25px;
+  width: fit-content;
+  max-width: 85%;
   color: var(--text-color);
   position: relative;
+  word-wrap: break-word;
 } 
 .anim-title-complete {
   animation: grayText .5s forwards;
@@ -171,7 +200,7 @@ input[type="checkbox"]:checked::before {
   transform: translate(-50%, -50%);
   width: 30px;
   height: 30px;
-  background-image: url('../../img/tasks/option.svg');
+  background-image: url('img/tasks/option.svg');
 }
 .task__bottom {
   width: 100%;
@@ -182,6 +211,8 @@ input[type="checkbox"]:checked::before {
   border-radius: 8px;
   padding: 7px 20px;
   font-size: 18px;
+  word-wrap: break-word;
+
 }
 .tasks__add {
   width: 418px;
@@ -259,8 +290,9 @@ input[type="checkbox"]:checked::before {
 .create-task__bottom {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: center; 
 }
+
 .btn-with-plus {
   padding: 5px 10px 5px 25px;
   position: relative;
@@ -300,3 +332,56 @@ input[type="checkbox"]:checked::before {
   color: #000;
   border-radius: 10px;
 }
+
+
+/* deadline */
+
+.task__deadline {
+  position: relative;
+  top: 5px;
+  font-size: 20px; 
+  margin-right: 10px;
+
+}
+.create-task__actions {
+  min-width: 50px; 
+}
+
+.hidden-btn {
+  position: absolute;
+  opacity: 0;
+}
+
+
+.create-task__deadline {
+  display: flex;
+  align-items: center;
+  column-gap: 15px;
+}
+
+.create-task__deadline-value {
+  padding: 6px 16px;
+  background: #ffff;
+  color: #1c1c1c;
+  width: 50px;
+  font-size: 16px;
+  text-align: left;
+  border-radius: 8px;
+}
+.create-task__deadline-btns {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+}
+
+
+.btn-deadline {
+  /* background: var(--btn-ui-main); */
+  width: 30px;
+  height: 30px;
+  padding: 6px 10px;
+  color: #000000;
+  border-radius: 10px;
+}
+
+
