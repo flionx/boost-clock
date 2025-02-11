@@ -1,7 +1,7 @@
 import OptionsWindow from "../OptionsWindow/OptionsWindow";
 import { useState, useCallback } from "react";
 
-function OptionTaskButton({taskId, taskIndex, tasksForMove, whenDelete, onClickEdit}) {
+function OptionTaskButton({taskId, taskIndex, tasksForMove, whenDelete, onClickEdit, isEdit}) {
     
     const [hasOptions, setHasOptions] = useState(false);
     const callSetHasOptions = useCallback((value) => setHasOptions(value), []);
@@ -22,7 +22,8 @@ function OptionTaskButton({taskId, taskIndex, tasksForMove, whenDelete, onClickE
             ></button>
             
             {hasOptions ? ( 
-                <OptionsWindow 
+                <OptionsWindow
+                isEdit={isEdit} 
                 taskId={taskId}
                 taskIndex={taskIndex}
                 tasksForMove={tasksForMove}
