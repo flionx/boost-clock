@@ -1,8 +1,9 @@
 import TaskCard from './TaskCard.jsx';
-import CreateTaskCard from './CreateTaskCard.jsx'
-import { useEffect, useRef, useState } from 'react';
-import { useCallback } from 'react';
+import { useEffect, useRef, useState, useContext , useCallback } from 'react';
 import AnimDeleteCard from '../helpers/AnimDeleteCard.js';
+import CreateTaskCard from './CreateTaskCard.jsx';
+import RoundContext from "../../MainContent/context/RoundContext.js";
+
 
 function TaskList({deleteAll, completeTasks, basicTasks}) {
 
@@ -10,8 +11,12 @@ function TaskList({deleteAll, completeTasks, basicTasks}) {
 
     const {isDeleteAll, setIsDeleteAll} = deleteAll;
 
+    const {wasRound, setWasRound} = useContext(RoundContext);
+
+
     // создается ли новая задача
     const [hasCreateTask, setCreateTask] = useState(false);
+    const callSetCreateTask = useCallback((value) => setCreateTask(value), []);
     
     const tasksListRef = useRef(null);
     // если нажата кнопка удалить все 
@@ -29,7 +34,17 @@ function TaskList({deleteAll, completeTasks, basicTasks}) {
 
     }, [isDeleteAll])
 
-    const callSetCreateTask = useCallback((value) => setCreateTask(value), []);
+    useEffect(() => {
+        if (wasRound) {
+            const CurrTasks = [...tasks];
+            const changedTasks = CurrTasks.map(task => (
+                {...task, rounds: task.rounds + 1}
+            ));
+            setTasks(changedTasks)
+            setWasRound(false);
+        }
+    }, [wasRound])
+
 
 
     return (

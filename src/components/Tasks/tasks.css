@@ -72,12 +72,16 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 16px;
+  position: relative;
 }
 .task__top-left {
   display: flex;
   align-items: center;
   column-gap: 16px;
-  width: 85%;
+  max-width: 85%;
+}
+.task-top-right {
+  position: relative;
 }
 
 input[type="checkbox"] {
@@ -146,7 +150,7 @@ input[type="checkbox"]:checked::before {
 .task__title {
   font-size: 25px;
   width: fit-content;
-  max-width: 85%;
+  max-width: clamp(70%, 30vw, 85%);
   color: var(--text-color);
   position: relative;
   word-wrap: break-word;
@@ -337,8 +341,9 @@ input[type="checkbox"]:checked::before {
 /* deadline */
 
 .task__deadline {
-  position: relative;
+  position: absolute;
   top: 5px;
+  left: -120%;
   font-size: 20px; 
   margin-right: 10px;
 
