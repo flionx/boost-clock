@@ -36,8 +36,8 @@
   width: 28px;
   height: 28px;
   background-color: var(--btn-icon); /* Меняем цвет иконки */
-  mask-image: url('img/tasks/delete.svg');
-  -webkit-mask-image: url('img/tasks/delete.svg');
+  mask-image: url('../../../assets/tasks/delete.svg');
+  -webkit-mask-image: url('../../../assets/tasks/delete.svg');
 }
 
 .tasks__header hr{
@@ -204,7 +204,7 @@ input[type="checkbox"]:checked::before {
   transform: translate(-50%, -50%);
   width: 30px;
   height: 30px;
-  background-image: url('img/tasks/option.svg');
+  background-image: url('../../../assets/tasks/option.svg');
 }
 .task__bottom {
   width: 100%;

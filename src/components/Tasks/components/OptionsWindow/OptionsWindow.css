@@ -42,7 +42,7 @@
     top: 50%;
     right: 7px;
     transform: translateY(-50%);
-    background-image: url('../../../../img/tasks/edit.svg');
+    background-image: url('../../../../../assets/tasks/edit.svg');
 }    
 .row-opt2::after {
     content: '';
@@ -51,7 +51,7 @@
     position: absolute;
     top: 0;
     right: 0;
-    background-image: url('../../../../img/tasks/arrowDown.svg');
+    background-image: url('../../../../../assets/tasks/arrowDown.svg');
     transform: rotate(180deg);
 }    
 .row-opt3::after {
@@ -61,7 +61,7 @@
     position: absolute;
     top: 0;
     right: 0;
-    background-image: url('../../../../img/tasks/arrowDown.svg');
+    background-image: url('../../../../../assets/tasks/arrowDown.svg');
 }    
 .row-opt4::after {
     content: '';
@@ -71,5 +71,5 @@
     top: 50%;
     right: 7px;
     transform: translateY(-50%);
-    background-image: url('../../../../img/tasks/smallerDelete.svg');
+    background-image: url('../../../../../assets/tasks/smallerDelete.svg');
 }    

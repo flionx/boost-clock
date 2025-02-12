@@ -22,7 +22,7 @@
   --task-add-hover: rgba(0, 0, 0, 0.25);  
   --task-add-active: rgba(0, 0, 0, 0.20);  
 
-  --icon-theme: url('../../img/header/sun.svg');
+  --icon-theme: url('../../assets/header/sun.svg');
 
   --btn-icon: #1D1B20;
 
@@ -55,7 +55,7 @@
   --task-add-active: rgba(90, 90, 90, 0.12);  
 
   --btn-icon: var(--line-color);
-  --icon-theme: url('img/header/moon.svg');
+  --icon-theme: url('../../assets/header/moon.svg');
 
 }
 
