@@ -1,6 +1,7 @@
 .task__option-block {
     position: relative;
     transition: .2s;
+    width: 35px;
 }
 
 .task-option {

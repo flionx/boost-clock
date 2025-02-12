@@ -2,20 +2,21 @@ import { useEffect, useRef, useState } from "react";
 import scrollToNew from '../helpers/scrollToNew.js'
 import AnimDeleteCard from "../helpers/AnimDeleteCard.js";
 
-function CreateTaskCard({ isEdit, onClickEdit, isCreate, changeTasks, taskIndex, task = {title: '', description: null, id: Date.now()}}) {
+function CreateTaskCard({ isEdit, onClickEdit, isCreate, changeTasks, taskIndex, task = {title: '', description: null, id: Date.now(), deadline: null, rounds: 0}}) {
 
     // для скрытия окна, в случае создания новой задачи
     const { hasCreateTask, setCreateTask } = isCreate ?? {};
     const { tasks, setTasks } = changeTasks;
 
     // новая задача по умолчанию для сброса
-    const resetNewTask = {title: '', description: null, id: Date.now()}
+    const resetNewTask = {title: '', description: null, id: Date.now(), deadline: null, rounds: 0}
     // новая задача {}
     const [newTask, setNewTask] = useState(resetNewTask)
     // задача пользователя
     const [changedTask, setChangedTask] = useState(task)
 
     const [hasDescription, setHasDescription] = useState(() => task.description ? true : false);
+    const [hasDeadline, setHasDeadline] = useState(() => task.deadline ? true : false);
 
     const createNewTaskRef = useRef(null);
     
@@ -90,6 +91,22 @@ function CreateTaskCard({ isEdit, onClickEdit, isCreate, changeTasks, taskIndex,
         }
     }
 
+    function handleChangeDeadline(type) {
+        if (type === '+') {
+            if (isEdit) {
+                setChangedTask({ ...changedTask, deadline: changedTask.deadline + 1})
+            } else {
+                setNewTask({ ...newTask, deadline: newTask.deadline + 1})
+            }
+        } else {
+            if (isEdit && changedTask.deadline > 0) {                
+                setChangedTask({ ...changedTask, deadline: changedTask.deadline - 1})
+            } else if (newTask.deadline > 0) {
+                setNewTask({ ...newTask, deadline: newTask.deadline - 1})
+            }
+        }
+    }
+
     return (
         <li className="tasks__item" ref={createNewTaskRef}>
 
@@ -118,24 +135,54 @@ function CreateTaskCard({ isEdit, onClickEdit, isCreate, changeTasks, taskIndex,
                         onClick={() => setHasDescription(true)}
                         className="btn-with-plus btn-ui m15">Add description (optional)</button>
                     )}
+
                         
                 </div>
+                    {hasDeadline && (
+                        <div className="create-task__col">
+                                <h4 className="task__title create-task__title">Deadline</h4>
+                            <div className="create-task__deadline">
+                                <div className="create-task__deadline-value">{isEdit ? changedTask.deadline : newTask.deadline ?? 0}</div>
+                                <div className="create-task__deadline-btns">
+                                    <button 
+                                    onClick={() => handleChangeDeadline('+')}
+                                    className="btn-deadline btn-ui">+</button>
+                                    <button 
+                                    onClick={() => handleChangeDeadline('-')}
+                                    className="btn-deadline btn-ui">-</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    )}
                 <div className="create-task__bottom">
-                    <button className="btn-with-plus btn-ui">Add the desired deadline (optional)</button>
+                    <div className="create-task__actions">
+                        {!hasDeadline && (
+                            <button 
+                            onClick={() => setHasDeadline(true)}
+                            disabled={hasDeadline}
+                            className="btn-with-plus btn-ui">
+                            Add the desired deadline (optional)
+                            </button>
+                        )}
+                    </div>
+
                     <div className="create-task__btns">
                         <button 
                         onClick={cancelNewTask}
                         className="create-task__btn-cancel">Cancel</button>
+
                         {isEdit ? (
-                            <button 
+                        <button 
                             onClick={saveTask}
                             className="create-task__btn-create btn-ui">Save</button>
                         ) : (
-                            <button 
+                        <button 
                             onClick={createNewTask}
                             className="create-task__btn-create btn-ui">Create</button>
                         )}
                     </div>
+
                 </div>
             </section>
         </li>

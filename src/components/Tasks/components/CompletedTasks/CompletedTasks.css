@@ -51,6 +51,10 @@
 .completed-list__item-top h5 {
     font-size: 20px;
     color: var(--text-color);
+    width: fit-content;
+    max-width: 90%;
+    word-wrap: break-word;
+
 }
 
 .completed-list__item-describe{
@@ -58,4 +62,5 @@
     background: var(--second-color);
     border-radius: 8px;
     padding: 8px;
+    word-wrap: break-word;
 }
