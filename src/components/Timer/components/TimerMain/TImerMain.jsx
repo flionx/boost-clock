@@ -1,8 +1,11 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
 import formatTime from "../../helpers/formatTime.js";
 import useMelody from "../../../../hooks/useMelody.js";
+import RoundContext from "../../../MainContent/context/RoundContext.js";
 
 function TimerMain({ mins, timerCheck, nowIs }) {
+
+    const {wasRound, setWasRound} = useContext(RoundContext);
 
     const {minutes, setMinutes} = mins;
     const { hasTimer, setHasTimer } = timerCheck;
@@ -93,6 +96,7 @@ function TimerMain({ mins, timerCheck, nowIs }) {
         if (nowIsWork) {
             melodyGoRelax.play();
             melodyGoRelax.currentTime = 0;
+            setWasRound(curr => curr = true);
         } else {
             melodyGoWork.play();
             melodyGoWork.currentTime = 0;
