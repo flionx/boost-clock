@@ -1,7 +1,7 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import AnimDeleteCard from '../helpers/AnimDeleteCard.js';
 import OptionTaskButton from "./OptionTaskButton/OptionTaskButton.jsx";
-import CreateTaskCard from "./CreateTaskCard.jsx"
+import CreateTaskCard from "./CreateTaskCard.jsx";
 
 function TaskCard({ task, tasks, completeTasks, taskIndex}) {
 
@@ -17,6 +17,8 @@ function TaskCard({ task, tasks, completeTasks, taskIndex}) {
     const [isEdit, setIsEdit] = useState(false);
 
     const callSetIsCardDelete = useCallback((value) => setIsCardDelete(value), [])
+
+    const taskElement = useRef(null);
 
     // если карточка удалена/выполнена - применяем анимацию
     useEffect(()=> {
@@ -55,8 +57,6 @@ function TaskCard({ task, tasks, completeTasks, taskIndex}) {
         }
 
     }, [isTaskCompleted])
-
-    const taskElement = useRef(null);
 
     // (передавать ее, а не состояние?)
     function deleteTask() {
@@ -98,17 +98,22 @@ function TaskCard({ task, tasks, completeTasks, taskIndex}) {
                         
                         </h4>
                     </div>
-                    
-                    <p className="task__deadline">{task.rounds}/{task.deadline ?? 0}</p>
+                    <div className="task-top-right">
 
-                    <OptionTaskButton 
-                        isEdit={true}
-                        onClickEdit={onClickEdit}
-                        taskId={task.id}
-                        taskIndex={taskIndex}
-                        tasksForMove={tasks}
-                        whenDelete={{isCardDelete, setIsCardDelete: callSetIsCardDelete}}
-                    />
+                        {task.deadline > 0 && (
+                            <p className="task__deadline">{task.rounds}/{task.deadline}</p>
+                            
+                        )}
+
+                        <OptionTaskButton 
+                            isEdit={true}
+                            onClickEdit={onClickEdit}
+                            taskId={task.id}
+                            taskIndex={taskIndex}
+                            tasksForMove={tasks}
+                            whenDelete={{isCardDelete, setIsCardDelete: callSetIsCardDelete}}
+                        />
+                    </div>
 
                     </div>
                     <div className="task__bottom">

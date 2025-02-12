@@ -98,10 +98,10 @@ function CreateTaskCard({ isEdit, onClickEdit, isCreate, changeTasks, taskIndex,
             } else {
                 setNewTask({ ...newTask, deadline: newTask.deadline + 1})
             }
-        } else if (newTask.deadline > 0) {
-            if (isEdit) {
+        } else {
+            if (isEdit && changedTask.deadline > 0) {                
                 setChangedTask({ ...changedTask, deadline: changedTask.deadline - 1})
-            } else {
+            } else if (newTask.deadline > 0) {
                 setNewTask({ ...newTask, deadline: newTask.deadline - 1})
             }
         }
