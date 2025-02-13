@@ -1,7 +1,7 @@
 @media (max-width: 1100px) {
     .task__deadline {
         position: absolute;
-        top: 30%;
+        top: 40px;
         left: 0;
         font-size: 20px;
         margin: 0;
