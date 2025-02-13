@@ -24,6 +24,8 @@
 
   --icon-theme: url('../../assets/header/sun.svg');
 
+  --icon-star: url('../../assets/tasks/starLight.svg');
+
   --btn-icon: #1D1B20;
 
 
@@ -56,6 +58,8 @@
 
   --btn-icon: var(--line-color);
   --icon-theme: url('../../assets/header/moon.svg');
+  --icon-star: url('../../assets/tasks/starDark.svg');
+
 
 }
 

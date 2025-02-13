@@ -24,7 +24,6 @@ function Timer() {
                 mins={{minutes, setMinutes: callSetMinutes}}
                 hasTimer={hasTimer}
             />
-
         </>
     )
 }

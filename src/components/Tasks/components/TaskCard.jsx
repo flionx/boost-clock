@@ -2,8 +2,12 @@ import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import AnimDeleteCard from '../helpers/AnimDeleteCard.js';
 import OptionTaskButton from "./OptionTaskButton/OptionTaskButton.jsx";
 import CreateTaskCard from "./CreateTaskCard.jsx";
+import { MainTaskContext } from "../../MainContent/context/RoundContext.js";
 
 function TaskCard({ task, tasks, completeTasks, taskIndex}) {
+
+
+    const {mainTask, setMainTask} = useContext(MainTaskContext);
 
     // выполненные задачи
     const {completedTasks, setCompletedTasks} = completeTasks;
@@ -24,6 +28,13 @@ function TaskCard({ task, tasks, completeTasks, taskIndex}) {
     useEffect(()=> {
         if (isCardDelete) {
             AnimDeleteCard(taskElement);
+
+            if (mainTask.index === taskIndex) {
+                setTimeout(() => {
+                    const currMainTask = {...mainTask, hasTask: false, index: null};                
+                    setMainTask(currMainTask);
+                }, 800)
+            }
         }
 
     }, [isCardDelete])
@@ -72,6 +83,11 @@ function TaskCard({ task, tasks, completeTasks, taskIndex}) {
         setIsEdit(curr => !curr);
     }, [])
 
+    function changeToMainTask() {
+        const currMainTask = {...mainTask, title: task.title, hasTask: true, index: taskIndex}
+        setMainTask(currMainTask);
+    }
+
     return (
         <>
             <li 
@@ -89,6 +105,7 @@ function TaskCard({ task, tasks, completeTasks, taskIndex}) {
                         {/* заголовок */}
                         <h4 
                         ref={taskTitle}
+                        onClick={changeToMainTask}
                         className="task__title">
                             {task.title}
                             {/* если нажат чекбокс - зачеркиваем заголовок */}
@@ -101,7 +118,7 @@ function TaskCard({ task, tasks, completeTasks, taskIndex}) {
                     <div className="task-top-right">
 
                         {task.deadline > 0 && (
-                            <p className="task__deadline">{task.rounds}/{task.deadline}</p>
+                            <p className="task__deadline">{task.rounds}/{task.deadline ?? 0}</p>
                             
                         )}
 

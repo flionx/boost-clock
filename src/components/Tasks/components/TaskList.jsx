@@ -2,7 +2,7 @@ import TaskCard from './TaskCard.jsx';
 import { useEffect, useRef, useState, useContext , useCallback } from 'react';
 import AnimDeleteCard from '../helpers/AnimDeleteCard.js';
 import CreateTaskCard from './CreateTaskCard.jsx';
-import RoundContext from "../../MainContent/context/RoundContext.js";
+import { RoundContext, MainTaskContext } from "../../MainContent/context/RoundContext.js";
 
 
 function TaskList({deleteAll, completeTasks, basicTasks}) {
@@ -12,6 +12,8 @@ function TaskList({deleteAll, completeTasks, basicTasks}) {
     const {isDeleteAll, setIsDeleteAll} = deleteAll;
 
     const {wasRound, setWasRound} = useContext(RoundContext);
+
+    const {mainTask, setMainTask} = useContext(MainTaskContext);
 
 
     // создается ли новая задача
@@ -46,6 +48,18 @@ function TaskList({deleteAll, completeTasks, basicTasks}) {
     }, [wasRound])
 
 
+    useEffect(() => {
+        if (mainTask.hasTask === false) {
+            if (tasks.length > 0) {
+                const lastTask = tasks[tasks.length - 1];                
+                const newMainTask = {title: lastTask.title, hasTask: true, index: tasks.length - 1 }
+                setMainTask(newMainTask)
+            } else {
+                const newMainTask = {...mainTask, title: null};
+                setMainTask(newMainTask)
+            }
+        }
+    }, [mainTask.hasTask])
 
     return (
         <div className="container-for-task">
