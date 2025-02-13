@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useMemo } from 'react';
 import Tasks from '../Tasks/Tasks.jsx';
 import Timer from '../Timer/Timer.jsx';
 import {RoundContext, MainTaskContext} from './context/RoundContext.js';
@@ -10,8 +10,8 @@ function MainContent() {
     const [wasRound, setWasRound] = useState(false);
     const [mainTask, setMainTask] = useState(() => storageMainTask('mainTask'));
 
-    const callSetWasRound = useCallback((value) => setWasRound(value), []);
-    const callSetMainTask = useCallback((value) => setMainTask(value), []);
+    const roundContextValue = useMemo(() => ({ wasRound, setWasRound }), [wasRound]);
+    const mainTaskContextValue = useMemo(() => ({ mainTask, setMainTask }), [mainTask]);
 
     function storageMainTask(key) {
         const storage = JSON.parse(localStorage.getItem(key));
@@ -24,11 +24,12 @@ function MainContent() {
     return (
         <main className="main">
             <div className="container">
-                <RoundContext.Provider value={{ wasRound, setWasRound: callSetWasRound }}>
+                <RoundContext.Provider value={roundContextValue}>
                     <Timer />
-                    <MainTaskContext.Provider value={{mainTask, setMainTask: callSetMainTask}}>
-                        {mainTask.title && (
-                            <MainTask />
+                    <MainTaskContext.Provider value={mainTaskContextValue}>
+                        {mainTask.title &&
+                        (
+                        <MainTask />
                         )}
                         <Tasks />
                     </MainTaskContext.Provider>
