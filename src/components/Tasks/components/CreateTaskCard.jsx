@@ -133,7 +133,7 @@ function CreateTaskCard({ isEdit, onClickEdit, isCreate, changeTasks, taskIndex,
                     ) : (
                         <button 
                         onClick={() => setHasDescription(true)}
-                        className="btn-with-plus btn-ui m15">Add description (optional)</button>
+                        className="btn-with-plus btn-ui m15">Add a description</button>
                     )}
 
                         
@@ -142,7 +142,7 @@ function CreateTaskCard({ isEdit, onClickEdit, isCreate, changeTasks, taskIndex,
                         <div className="create-task__col">
                                 <h4 className="task__title create-task__title">Deadline</h4>
                             <div className="create-task__deadline">
-                                <div className="create-task__deadline-value">{isEdit ? changedTask.deadline : newTask.deadline ?? 0}</div>
+                                <div className="create-task__deadline-value">{isEdit ? (changedTask.deadline ?? 0) : (newTask.deadline ?? 0)}</div>
                                 <div className="create-task__deadline-btns">
                                     <button 
                                     onClick={() => handleChangeDeadline('+')}
@@ -162,7 +162,7 @@ function CreateTaskCard({ isEdit, onClickEdit, isCreate, changeTasks, taskIndex,
                             onClick={() => setHasDeadline(true)}
                             disabled={hasDeadline}
                             className="btn-with-plus btn-ui">
-                            Add the desired deadline (optional)
+                            Add a deadline
                             </button>
                         )}
                     </div>

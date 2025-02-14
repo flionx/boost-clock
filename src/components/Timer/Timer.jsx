@@ -18,15 +18,15 @@ function Timer() {
             <TimerMain 
                 mins={{minutes, setMinutes: callSetMinutes}}
                 timerCheck={{hasTimer, setHasTimer : callSetHasTimer}}
-                nowIs = {{nowIsWork, setNowIsWork : callSetNowIsWork}}
-            />                
+                nowIs = {{nowIsWork, setNowIsWork : callSetNowIsWork}}/>  
+
             <TimerSettings 
                 mins={{minutes, setMinutes: callSetMinutes}}
-                hasTimer={hasTimer}
-            />
-
+                hasTimer={hasTimer}/>
         </>
     )
 }
 
 export default Timer;
+
+

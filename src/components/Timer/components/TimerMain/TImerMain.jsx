@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useContext } from "react";
 import formatTime from "../../helpers/formatTime.js";
 import useMelody from "../../../../hooks/useMelody.js";
-import RoundContext from "../../../MainContent/context/RoundContext.js";
+import { RoundContext } from "../../../MainContent/context/RoundContext.js";
 
 function TimerMain({ mins, timerCheck, nowIs }) {
 

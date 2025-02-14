@@ -36,8 +36,8 @@
   width: 28px;
   height: 28px;
   background-color: var(--btn-icon); /* Меняем цвет иконки */
-  mask-image: url('img/tasks/delete.svg');
-  -webkit-mask-image: url('img/tasks/delete.svg');
+  mask-image: url('../../../assets/tasks/delete.svg');
+  -webkit-mask-image: url('../../../assets/tasks/delete.svg');
 }
 
 .tasks__header hr{
@@ -92,69 +92,30 @@ input[type="checkbox"] {
   cursor: pointer;
 }
 
-/* .task__check {
-  min-width: 40px;
-  min-height: 40px;
-  border-radius: 2px;
-  background: #fff;
-} */
-
-/* input[type="checkbox"] {
-  appearance: none;
-  -webkit-appearance: none;
-  cursor: pointer;
-  vertical-align: middle; 
-}
-
-input[type="checkbox"]::before {
-  content: '';
-  display: block;
-  width: 100%;
-  height: 100%;
-  background-color: transparent;
-  justify-content: center;
-  align-items: center;
-}
-
-input[type="checkbox"]:checked::before {
-  content: '✔';
-  font-size: 25px;
-  color: #007bff;
-  text-align: center;
-  display: flex;
-
-  line-height: 20px;
-}
-
-input[type="checkbox"]::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 60%;
-  height: 60%;
-  background-color: transparent;
-  border-radius: 4px;
-  transform: translate(-50%, -50%) scale(0);
-  transition: transform 0.2s ease-in-out;
-}
-
-input[type="checkbox"]:checked::before {
-  content: "✔";
-  font-size: 22px;
-  color: #007bff;
-  font-weight: bold;
-  transform: translate(-50%, -50%) scale(1);
-} */
-
 .task__title {
   font-size: 25px;
   width: fit-content;
   max-width: clamp(70%, 30vw, 85%);
   color: var(--text-color);
-  position: relative;
   word-wrap: break-word;
+  position: relative;
 } 
+.task__title:nth-last-child(1) {
+  cursor: pointer;
+
+}
+
+.task__title:nth-last-child(1):hover::before {
+  content: '';
+  position: absolute;
+  left: -100px;
+  top: 0;
+  display: block;
+  width: 24px;
+  height: 24px;
+  background-image: var(--icon-star);
+}
+
 .anim-title-complete {
   animation: grayText .5s forwards;
   animation-delay: .5s;
@@ -204,7 +165,7 @@ input[type="checkbox"]:checked::before {
   transform: translate(-50%, -50%);
   width: 30px;
   height: 30px;
-  background-image: url('img/tasks/option.svg');
+  background-image: url('../../../assets/tasks/option.svg');
 }
 .task__bottom {
   width: 100%;
@@ -267,7 +228,7 @@ input[type="checkbox"]:checked::before {
 /*  create-task */
 
 .tasks__task-create {
-  padding: 20px 65px 20px 42px;
+  padding: 20px clamp(15px, 2.5vw, 65px) 20px clamp(15px, 2.5vw, 42px);
 }
 
 .create-task__col {
@@ -316,7 +277,7 @@ input[type="checkbox"]:checked::before {
 .create-task__btns {
   display: flex;
   align-items: center;
-  column-gap: 50px;
+  column-gap: clamp(15px, 2.5vw, 50px);
 }
 .m15 {
   margin-bottom: 15px;
@@ -343,9 +304,8 @@ input[type="checkbox"]:checked::before {
 .task__deadline {
   position: absolute;
   top: 5px;
-  left: -120%;
+  left: -140%;
   font-size: 20px; 
-  margin-right: 10px;
 
 }
 .create-task__actions {
