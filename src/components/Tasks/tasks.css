@@ -98,18 +98,23 @@ input[type="checkbox"] {
   max-width: clamp(70%, 30vw, 85%);
   color: var(--text-color);
   word-wrap: break-word;
-  cursor: pointer;
   position: relative;
 } 
+.task__title:nth-last-child(1) {
+  cursor: pointer;
 
-/* .task__title:nth-last-child(1):hover::after {
+}
+
+.task__title:nth-last-child(1):hover::before {
   content: '';
-  position: relative;
-  display: inline;
+  position: absolute;
+  left: -100px;
+  top: 0;
+  display: block;
   width: 24px;
   height: 24px;
   background-image: var(--icon-star);
-} */
+}
 
 .anim-title-complete {
   animation: grayText .5s forwards;
@@ -299,7 +304,7 @@ input[type="checkbox"] {
 .task__deadline {
   position: absolute;
   top: 5px;
-  left: -120%;
+  left: -140%;
   font-size: 20px; 
 
 }

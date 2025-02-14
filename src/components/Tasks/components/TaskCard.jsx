@@ -28,16 +28,16 @@ function TaskCard({ task, tasks, completeTasks, taskIndex}) {
     useEffect(()=> {
         if (isCardDelete) {
             AnimDeleteCard(taskElement);
+        }
 
-            if (mainTask.index === taskIndex) {
-                setTimeout(() => {
-                    const currMainTask = {...mainTask, hasTask: false, index: null};                
-                    setMainTask(currMainTask);
-                }, 800)
+        return () => {
+            if (mainTask.index === taskIndex) {     
+                setMainTask(prev => ({ ...prev, hasTask: false}));
             }
         }
 
     }, [isCardDelete])
+
 
     const taskTitle = useRef(null);
     const timeoutId = useRef(null);
@@ -84,8 +84,7 @@ function TaskCard({ task, tasks, completeTasks, taskIndex}) {
     }, [])
 
     function changeToMainTask() {
-        const currMainTask = {...mainTask, title: task.title, hasTask: true, index: taskIndex}
-        setMainTask(currMainTask);
+        setMainTask(curr => ({...curr, title: task.title, hasTask: true, index: taskIndex}));
     }
 
     return (

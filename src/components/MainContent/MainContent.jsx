@@ -27,10 +27,7 @@ function MainContent() {
                 <RoundContext.Provider value={roundContextValue}>
                     <Timer />
                     <MainTaskContext.Provider value={mainTaskContextValue}>
-                        {mainTask.title &&
-                        (
-                        <MainTask />
-                        )}
+                        {mainTask.hasTask && <MainTask />}
                         <Tasks />
                     </MainTaskContext.Provider>
                 </RoundContext.Provider>

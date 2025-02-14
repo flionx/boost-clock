@@ -50,16 +50,14 @@ function TaskList({deleteAll, completeTasks, basicTasks}) {
 
     useEffect(() => {
         if (mainTask.hasTask === false) {
-            if (tasks.length > 0) {
+            if (tasks.length > 0) {       
                 const lastTask = tasks[tasks.length - 1];                
-                const newMainTask = {title: lastTask.title, hasTask: true, index: tasks.length - 1 }
-                setMainTask(newMainTask)
+                setMainTask(curr => ({...curr, title: lastTask.title, hasTask: true, index: tasks.length - 1 }))
             } else {
-                const newMainTask = {...mainTask, title: null};
-                setMainTask(newMainTask)
+                setMainTask(curr => ({...curr, title: null, hasTask: false}))
             }
         }
-    }, [mainTask.hasTask])
+    }, [mainTask.hasTask, tasks])
 
     return (
         <div className="container-for-task">
