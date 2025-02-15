@@ -1,88 +1,33 @@
 import TaskCard from './TaskCard.jsx';
-import { useEffect, useRef, useState, useContext , useCallback } from 'react';
-import AnimDeleteCard from '../helpers/AnimDeleteCard.js';
+import { useRef, useState, useCallback } from 'react';
 import CreateTaskCard from './CreateTaskCard.jsx';
-import { RoundContext, MainTaskContext } from "../../MainContent/context/RoundContext.js";
+import { useDispatch, useSelector } from 'react-redux';
+import { setEditTask } from '../../../store/slices/tasksSlice.js';
 
 
-function TaskList({deleteAll, completeTasks, basicTasks}) {
+function TaskList() {
 
-    const {tasks, setTasks} = basicTasks;
-
-    const {isDeleteAll, setIsDeleteAll} = deleteAll;
-
-    const {wasRound, setWasRound} = useContext(RoundContext);
-
-    const {mainTask, setMainTask} = useContext(MainTaskContext);
-
-
-    // создается ли новая задача
-    const [hasCreateTask, setCreateTask] = useState(false);
-    const callSetCreateTask = useCallback((value) => setCreateTask(value), []);
-    
-    const tasksListRef = useRef(null);
-    // если нажата кнопка удалить все 
-    useEffect(() => {
-        if (isDeleteAll) {
-                
-            AnimDeleteCard(tasksListRef);
-
-            setTimeout(() => {
-                setTasks(t => t = [])
-                setIsDeleteAll(prev => prev = false);
-            }, 500)
-                
-        }
-
-    }, [isDeleteAll])
-
-    useEffect(() => {
-        if (wasRound) {
-            const CurrTasks = [...tasks];
-            const changedTasks = CurrTasks.map(task => (
-                {...task, rounds: task.rounds + 1}
-            ));
-            setTasks(changedTasks)
-            setWasRound(false);
-        }
-    }, [wasRound])
-
-
-    useEffect(() => {
-        if (mainTask.hasTask === false) {
-            if (tasks.length > 0) {       
-                const lastTask = tasks[tasks.length - 1];                
-                setMainTask(curr => ({...curr, title: lastTask.title, hasTask: true, index: tasks.length - 1 }))
-            } else {
-                setMainTask(curr => ({...curr, title: null, hasTask: false}))
-            }
-        }
-    }, [mainTask.hasTask, tasks])
-
+    const dispatch = useDispatch();
+    const tasks = useSelector(state => state.tasks.tasks)
+    const editTask = useSelector(state => state.tasks.editTask)
+        
     return (
         <div className="container-for-task">
-        <ul 
-        ref={tasksListRef} 
-        className="tasks__list">
+        <ul className="tasks__list">
             {tasks.map((task, index) => (
                 <TaskCard 
-                taskIndex={index}
                 key={task.id} 
+                taskIndex={index}
                 task={task}
-                completeTasks={completeTasks}
-                tasks={basicTasks}
                 />))}
         </ul>   
-            {hasCreateTask ? (
-                <CreateTaskCard 
-                isCreate={{hasCreateTask, setCreateTask : callSetCreateTask}}
-                changeTasks={basicTasks}/>
-             ) : null}
-            
+            {editTask.id === 'new' && (
+                <CreateTaskCard/>
+             )}
 
             <li className="tasks__item">
             <button 
-            onClick={() => setCreateTask(true)}
+            onClick={() => dispatch(setEditTask({id: 'new', title: ''}))}
             className="tasks__add">
                 <div className="tasks__add-circle">+</div>
                 Add new task</button>
