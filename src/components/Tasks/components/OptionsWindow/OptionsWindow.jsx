@@ -1,8 +1,11 @@
 import './OptionsWindow.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { moveUpTask, moveDownTask, removeTask } from '../../../../store/slices/tasksSlice';
 
-function OptionsWindow({ changeHasOptions, taskIndex, tasksForMove, whenDelete, taskId, onClickEdit, isEdit}) {
+function OptionsWindow({ changeHasOptions, taskIndex, whenDelete, taskId, onClickEdit, isEdit}) {
     
-    const {tasks, setTasks} = tasksForMove;
+    const dispatch = useDispatch();
+    const tasks = useSelector(state => state.tasks.tasks);
 
     const {setHasOptions} = changeHasOptions;
 
@@ -14,37 +17,24 @@ function OptionsWindow({ changeHasOptions, taskIndex, tasksForMove, whenDelete, 
 
     function moveTaskToUp() {
         if (taskIndex > 0) {
-            
-            const changedTasks = [...tasks];
-            [changedTasks[taskIndex], changedTasks[taskIndex - 1]] = 
-            [changedTasks[taskIndex - 1], changedTasks[taskIndex]]
-            
-            setTasks(t => t = changedTasks);
-
+            dispatch(moveUpTask(taskIndex))
             hideOptions();
         }
     }
 
     function moveTaskToDown() {
         if (taskIndex < (tasks.length - 1)) {
-            
-            const changedTasks = [...tasks];
-            [changedTasks[taskIndex], changedTasks[taskIndex + 1]] = 
-            [changedTasks[taskIndex + 1], changedTasks[taskIndex]]
-
-            setTasks(t => t = changedTasks);
+            dispatch(moveDownTask(taskIndex))
             hideOptions();
         }
     }
 
     function deleteTask() {
         setIsCardDelete(true);
-        const currTasks = [...tasks];
-        const updatedTasks = currTasks.filter((_, i) => taskId !== tasks[i].id);
         
         hideOptions();
         setTimeout(() => {
-            setTasks(t => t = updatedTasks);
+            dispatch(removeTask(taskId));
         }, 500)
     }
 

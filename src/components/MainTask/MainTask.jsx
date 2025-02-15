@@ -1,17 +1,24 @@
-import { useContext } from 'react';
-import { MainTaskContext } from '../MainContent/context/RoundContext';
 import './MainTask.css';
+import useUpdateStorage from '../../hooks/useUpdateStorage';
+import { useSelector } from 'react-redux';
 
-function MainTask() {
+function MainTask() {    
 
-    const {mainTask, setMainTask} = useContext(MainTaskContext);
+    const mainTask = useSelector(state => state.mainTask);
 
-    return (
-        <div className="main__task-main">
-            <div className="task-main__icon"></div>
-            <div className="task-main__title">{mainTask.title}</div>
-        </div>
-    )
+    useUpdateStorage('mainTask', mainTask);
+    
+    if (mainTask.title) {
+        return (
+            <div className="main__task-main">
+                <div className="task-main__icon"></div>
+                <div className="task-main__title">{mainTask.title}</div>
+            </div>
+        ) 
+    } else {
+        return null
+    }
+
 }
 
 export default MainTask;

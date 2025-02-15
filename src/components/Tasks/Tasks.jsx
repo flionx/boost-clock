@@ -4,13 +4,13 @@ import TaskList from "./components/TaskList.jsx";
 import TaskListHeader from "./components/TaskListHeader/TaskListHeader.jsx";
 import CompletedTasksList from './components/CompletedTasks/CompletedTasksList.jsx'
 import './tasks.css';
+import { useDispatch, useSelector } from "react-redux";
 
 function Tasks() {
     
-    // массив НЕ выполненных задач [{}]
-    const [tasks, setTasks] = useState(() => storageTasks('tasks'));
-    // если нажата кнопка удалить все - меняем состояние на true, очищаем список задач
-    const [isDeleteAll, setIsDeleteAll] = useState(false);
+    const dispatch = useDispatch();
+
+    const tasks = useSelector(state => state.tasks.tasks)
     
     const arrayCompletedTasks = storageTasks('completed-tasks');
     // массив выполненных задач [{}]
@@ -23,8 +23,6 @@ function Tasks() {
     // при изменении выполненных задач - сохраняем в localStorage
     useUpdateStorage('completed-tasks', completedTasks);
     
-    const callSetTasks = useCallback((value) => setTasks(value), []);
-    const callSetIsDeleteAll = useCallback((value) => setIsDeleteAll(value), [])
     const callSetCompletedTasks = useCallback((value) => setCompletedTasks(value), []);
 
     // когда меняется кол.во выполненных задач
@@ -48,14 +46,10 @@ function Tasks() {
         <section className="main__tasks tasks">
             <div className="container-tasks">
 
-                <TaskListHeader 
-                basicTasks={{tasks, setTasks: callSetTasks}}
-                deleteAll={{isDeleteAll, setIsDeleteAll: callSetIsDeleteAll}}/>
+                <TaskListHeader/>
 
                 <TaskList 
-                basicTasks={{tasks, setTasks: callSetTasks}}
-                completeTasks={{completedTasks, setCompletedTasks: callSetCompletedTasks}}
-                deleteAll={{isDeleteAll, setIsDeleteAll: callSetIsDeleteAll}}
+                    completeTasks={{completedTasks, setCompletedTasks: callSetCompletedTasks}}
                 />
                 {hasCompleted && (
                     <CompletedTasksList 
