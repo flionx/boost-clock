@@ -39,6 +39,7 @@ A handy and minimalistic Pomodoro timer built using React. Helps you manage your
 ## Technologies
 
 - React
+- Redux Toolkit
 - JavaScript
 - HTML/CSS
 
