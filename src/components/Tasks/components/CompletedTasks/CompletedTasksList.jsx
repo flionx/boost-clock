@@ -2,14 +2,11 @@ import { useEffect, useRef, useState } from 'react';
 import './CompletedTasks.css';
 import CompletedTaskCard from './CompletedTaskCard';
 
-function CompletedTasksList({completeTasks, noCompleted}) {
+function CompletedTasksList({completedTasks, changeCompletedHandler}) {
     
     const [isShowTasks, setIsShowTasks] = useState(true);
 
-    const CompletedTasksSectionRef = useRef(null);
-
-    // выполненные задачи
-    const {completedTasks, setCompletedTasks} = completeTasks;    
+    const CompletedTasksListRef = useRef(null);
 
     const arrowRef = useRef(null);
     useEffect(() =>{
@@ -23,10 +20,9 @@ function CompletedTasksList({completeTasks, noCompleted}) {
 
     }, [isShowTasks])
 
-
     return (
         <section 
-            ref={CompletedTasksSectionRef}
+            ref={CompletedTasksListRef}
             className="completed__tasks tasks-completed">
             <div className="container-tasks">
                 <button 
@@ -44,9 +40,9 @@ function CompletedTasksList({completeTasks, noCompleted}) {
                             key={task.id} 
                             task={task} 
                             taskIndex={index} 
-                            completeTasks={completeTasks} 
-                            CompletedTasksSectionRef={CompletedTasksSectionRef}
-                            noCompleted={noCompleted}
+                            completedTasks={completedTasks} 
+                            CompletedTasksListRef={CompletedTasksListRef}
+                            changeCompletedHandler={changeCompletedHandler}
                         />
                         ))
                     )}

@@ -73,3 +73,13 @@
     transform: translateY(-50%);
     background-image: url('../../../../../assets/tasks/smallerDelete.svg');
 }    
+.row-opt5::after {
+    content: '';
+    width: 14px;
+    height: 14px;
+    position: absolute;
+    top: 50%;
+    right: 7px;
+    transform: translateY(-50%);
+    background-image: url('../../../../../assets/tasks/restore.svg');
+}    

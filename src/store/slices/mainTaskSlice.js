@@ -14,24 +14,31 @@ const mainTaskSlice = createSlice({
       state.title = action.payload.title;
     },
     changeMainTask: (state, action) => {
-        const {tasks, taskId} = action.payload;
-        const prevTasks = [...tasks];
-        const nextTasks = prevTasks.filter(task => task.id !== taskId);
+      const { tasks, taskId } = action.payload;
 
-        if (nextTasks.length > 0) {       
-            const lastTaskId = nextTasks[nextTasks.length - 1].id;                
-            const lastTasktitle = nextTasks[nextTasks.length - 1].title;                            
-            state.id = lastTaskId;
-            state.title = lastTasktitle;
-        } else {
-            state.id = null;
-            state.title = null;
-        }
+      // Удаляем текущую задачу, если она была главной
+      const updatedTasks = tasks.filter(task => task.id !== taskId);
+
+      // Проверяем, есть ли активные задачи
+      const activeTasks = updatedTasks.filter(task => !task.complete);
+      
+      if (activeTasks.length > 0) {       
+          state.id = activeTasks[0].id; // Берем **первую** невыполненную
+          state.title = activeTasks[0].title;
+      } else {
+          // Если задач нет — обнуляем
+          state.id = null;
+          state.title = null;
+      }
     },
+    resetMainTask: (state) => {
+      state.id = null;
+      state.title = null;
+    }
   },
 });
 
 
-export const { setMainTask, changeMainTask } = mainTaskSlice.actions;
+export const { setMainTask, changeMainTask, resetMainTask } = mainTaskSlice.actions;
 
 export default mainTaskSlice.reducer;

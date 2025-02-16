@@ -1,16 +1,19 @@
 import TaskCard from './TaskCard.jsx';
-import { useRef, useState, useCallback } from 'react';
 import CreateTaskCard from './CreateTaskCard.jsx';
-import { useDispatch, useSelector } from 'react-redux';
-import { setEditTask } from '../../../store/slices/tasksSlice.js';
-
+import { useSelector } from 'react-redux';
+import { useCallback, useMemo, useState } from 'react';
 
 function TaskList() {
 
-    const dispatch = useDispatch();
-    const tasks = useSelector(state => state.tasks.tasks)
-    const editTask = useSelector(state => state.tasks.editTask)
+    const allTasks = useSelector(state => state.tasks.tasks)
+    const tasks = useMemo(() => allTasks.filter(task => !task.complete))
+
+    const [hasCreateTask, setHasCreateTask] = useState(false);
         
+    const toggleHasCreateTask = useCallback(() => {
+        setHasCreateTask(curr => !curr)
+    })
+
     return (
         <div className="container-for-task">
         <ul className="tasks__list">
@@ -19,15 +22,20 @@ function TaskList() {
                 key={task.id} 
                 taskIndex={index}
                 task={task}
+                hasCreateTask={hasCreateTask}
                 />))}
         </ul>   
-            {editTask.id === 'new' && (
-                <CreateTaskCard/>
+            {hasCreateTask && (
+                <CreateTaskCard
+                    isEdit={false}
+                    hasCreateTask={hasCreateTask}
+                    toggleHasCreateTask={toggleHasCreateTask}
+                />
              )}
 
             <li className="tasks__item">
             <button 
-            onClick={() => dispatch(setEditTask({id: 'new', title: ''}))}
+            onClick={toggleHasCreateTask}
             className="tasks__add">
                 <div className="tasks__add-circle">+</div>
                 Add new task</button>

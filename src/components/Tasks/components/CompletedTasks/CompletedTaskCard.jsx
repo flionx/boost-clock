@@ -2,13 +2,11 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import OptionTaskButton from "../OptionTaskButton/OptionTaskButton.jsx";
 import AnimDeleteCard from '../../helpers/AnimDeleteCard.js'
 
-function CompletedTaskCard({completeTasks, task, taskIndex, CompletedTasksSectionRef, noCompleted}) {
+function CompletedTaskCard({completedTasks, task, taskIndex, CompletedTasksListRef, changeCompletedHandler}) {
 
     // если нажата кнопка = применяем анимацию удаления
     const [isCardDelete, setIsCardDelete] = useState(false);
     const callSetIsCardDelete = useCallback((value) => setIsCardDelete(value), []);
-
-    const {completedTasks, setCompletedTasks} = completeTasks;
 
     const cardRef = useRef(null);
 
@@ -16,8 +14,8 @@ function CompletedTaskCard({completeTasks, task, taskIndex, CompletedTasksSectio
     useEffect(() => {
         if (isCardDelete) {
             if (completedTasks.length === 1) {
-                AnimDeleteCard(CompletedTasksSectionRef, 'completed')
-                setTimeout(noCompleted, 500)
+                AnimDeleteCard(CompletedTasksListRef, 'completed')
+                setTimeout(changeCompletedHandler, 500)
             }
             AnimDeleteCard(cardRef, 'completed')
         }
@@ -35,7 +33,7 @@ function CompletedTaskCard({completeTasks, task, taskIndex, CompletedTasksSectio
                 <OptionTaskButton 
                     taskId={task.id}
                     taskIndex={taskIndex}
-                    tasksForMove={{tasks: completedTasks, setTasks: setCompletedTasks}}
+                    isCompleted={true}
                     whenDelete={{isCardDelete, setIsCardDelete: callSetIsCardDelete}}
                 />
 

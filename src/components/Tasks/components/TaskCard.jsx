@@ -3,16 +3,16 @@ import AnimDeleteCard from '../helpers/AnimDeleteCard.js';
 import OptionTaskButton from "./OptionTaskButton/OptionTaskButton.jsx";
 import CreateTaskCard from "./CreateTaskCard.jsx";
 import { useDispatch, useSelector } from "react-redux";
-import { removeTask, toggleCompleteTask, setEditTask } from "../../../store/slices/tasksSlice.js";
+import { toggleCompleteTask, setEditTaskId } from "../../../store/slices/tasksSlice.js";
 import { changeMainTask, setMainTask } from "../../../store/slices/mainTaskSlice.js";
 
-function TaskCard({ task, taskIndex}) {
+function TaskCard({ task, taskIndex, hasCreateTask }) {
 
     const dispatch = useDispatch();
 
     const mainTask = useSelector(state => state.mainTask);
     const tasks = useSelector(state => state.tasks.tasks);
-    const editTask = useSelector(state => state.tasks.editTask);
+    const editTaskId = useSelector(state => state.tasks.editTaskId);
 
     // если нажата кнопка = применяем анимацию удаления
     const [isCardDelete, setIsCardDelete] = useState(false);
@@ -39,17 +39,11 @@ function TaskCard({ task, taskIndex}) {
     const taskTitle = useRef(null);
     const timeoutId = useRef(null);
 
-    // если задача выполнена - анимация заголовка, перемещение задачи в массив выполн задач
     useEffect(() => {
-
         if (isTaskCompleted) {
-
             taskTitle.current.className = 'task__title anim-title-complete';
-            timeoutId.current = setTimeout(()=> {
-                if (isTaskCompleted) {
-                    dispatch(toggleCompleteTask(taskIndex))
-                    deleteTask();
-                }
+            timeoutId.current = setTimeout(()=> {                    
+                deleteTask();
             }, 1000)
         } else {
             taskTitle.current.className = 'task__title';
@@ -57,20 +51,17 @@ function TaskCard({ task, taskIndex}) {
                 clearTimeout(timeoutId.current)
             }
         }
-
     }, [isTaskCompleted])
 
-    // (передавать ее, а не состояние?)
     function deleteTask() {
         setIsCardDelete(true);
-
         setTimeout(() => {
-            dispatch(removeTask(task.id))
+            dispatch(toggleCompleteTask(task.id))
         }, 500)
     }   
 
     const onClickEdit = useCallback(() => {
-        dispatch(setEditTask(task))
+        dispatch(setEditTaskId(task.id))
     }, [])
 
     function changeToMainTask() {        
@@ -88,29 +79,25 @@ function TaskCard({ task, taskIndex}) {
                     <div className="task__top-left">
                         {/* чекбокс */}
                         <input 
-                        onClick={() => setIsComplete(curr => !curr)}
-                        value={isTaskCompleted}
-                        className="task__check" type="checkbox" name="task"/>
-                        {/* заголовок */}
+                            onClick={() => setIsComplete(curr => !curr)}
+                            value={task.complete}
+                            className="task__check" type="checkbox" name="task"/>
                         <h4 
-                        ref={taskTitle}
-                        onClick={changeToMainTask}
+                            ref={taskTitle}
+                            onClick={changeToMainTask}
                         className="task__title">
                             {task.title}
-                            {/* если нажат чекбокс - зачеркиваем заголовок */}
                             {isTaskCompleted && (
                                 <div className="task__title-completed"></div>
                             )}
-                        
                         </h4>
                     </div>
                     <div className="task-top-right">
 
                         {task.deadline > 0 && (
-                            <p className="task__deadline">{task.round}/{task.deadline ?? 0}</p>
+                            <p className="task__deadline">{task.round ?? 0}/{task.deadline ?? 0}</p>
                             
                         )}
-
                         <OptionTaskButton 
                             isEdit={true}
                             onClickEdit={onClickEdit}
@@ -129,9 +116,11 @@ function TaskCard({ task, taskIndex}) {
                 </section>
 
             </li>
-            {editTask.id === task.id &&(
+            {!hasCreateTask && editTaskId === task.id &&(
                 <CreateTaskCard 
+                    isCardDelete={isCardDelete}
                     isEdit={true}
+                    task={task}
                 />
             )}
         </>
