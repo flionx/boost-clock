@@ -1,108 +1,95 @@
 import { useEffect, useRef, useState } from "react";
 import scrollToNew from '../helpers/scrollToNew.js'
 import AnimDeleteCard from "../helpers/AnimDeleteCard.js";
+import { useDispatch, useSelector } from "react-redux";
+import { addTask, changeTask, setEditTaskId } from "../../../store/slices/tasksSlice.js";
 
-function CreateTaskCard({ isEdit, onClickEdit, isCreate, changeTasks, taskIndex, task = {title: '', description: null, id: Date.now(), deadline: null, rounds: 0}}) {
+function CreateTaskCard({ task, isEdit, hasCreateTask, toggleHasCreateTask, isCardDelete = false}) {
 
-    // для скрытия окна, в случае создания новой задачи
-    const { hasCreateTask, setCreateTask } = isCreate ?? {};
-    const { tasks, setTasks } = changeTasks;
+    const dispatch = useDispatch()
 
-    // новая задача по умолчанию для сброса
-    const resetNewTask = {title: '', description: null, id: Date.now(), deadline: null, rounds: 0}
-    // новая задача {}
-    const [newTask, setNewTask] = useState(resetNewTask)
-    // задача пользователя
-    const [changedTask, setChangedTask] = useState(task)
+    const resetTask = {id: Date.now(), title: '', description: null, complete: false, deadline: null, round: null};
 
-    const [hasDescription, setHasDescription] = useState(() => task.description ? true : false);
-    const [hasDeadline, setHasDeadline] = useState(() => task.deadline ? true : false);
+    const [currentTask, setCurrentTask] = useState(() => isEdit ? task : resetTask);
 
     const createNewTaskRef = useRef(null);
+    const inputTitleRef = useRef(null);
+    const inputDescriptionRef = useRef(null);
+
+    useEffect(() => {
+        if (isEdit) {
+            const cleanTask = {
+                ...task,
+                description: task.description?.trim() || null,
+            };
+            setCurrentTask(cleanTask);
+        }
+    }, [task]);
+
+    useEffect(() => {
+        if (isCardDelete) {
+            cancelNewTask()
+        }
+    }, [isCardDelete])
+
+
+    useEffect(() => {
+        scrollToNew(createNewTaskRef);
     
-    // кнопка отмена - сброс и анимация
+        if (typeof currentTask.description === 'string') {
+            const textarea = inputDescriptionRef.current;
+            textarea.focus();
+            textarea.setSelectionRange(textarea.value.length, textarea.value.length);
+        } else {
+            const input = inputTitleRef.current;
+            input.focus();
+        }
+    }, [currentTask.description]);
+
+
+    function changeTitleHandle(e) {
+        setCurrentTask(curr=> ({...curr, title: e.target.value}))  
+    }
+    function changeDescriptionHandle(e) {
+        setCurrentTask(curr=> ({...curr, description: e.target.value}))  
+    }
+    function addDescriptionHandle() {
+        setCurrentTask(curr=> ({...curr, description: ''}))  
+    }
+    function addDeadlineHandle() {
+        setCurrentTask(curr=> ({...curr, deadline: 0}))  
+    }
+    function changeDeadlineHandle(type) {
+        if (type === '+') {
+            setCurrentTask(curr=> ({...curr, deadline: curr.deadline + 1}))  
+        } else if (type === '-' && currentTask.deadline > 0) {
+            setCurrentTask(curr=> ({...curr, deadline: curr.deadline - 1}))  
+        }
+    }
+
+
     function cancelNewTask() {
-        AnimDeleteCard(createNewTaskRef);
+        AnimDeleteCard(createNewTaskRef)
         setTimeout(() => {
-            if (isEdit) {
-                setChangedTask(task)
-                onClickEdit();
-                
-            } else {
-                setNewTask(resetNewTask);
-                setCreateTask(ct => ct = false);
+            dispatch(setEditTaskId(null))
+            setCurrentTask(resetTask)
+            if (hasCreateTask) {
+                toggleHasCreateTask()
             }
         }, 500)
     }
-    
-    //кнопка создать - скрыть опцию
-    function createNewTask() {
-        if (newTask.title !== '') {
-            const updateTasks = [newTask, ...tasks]
-            setTasks(t=> t = updateTasks);
-            setCreateTask(ct => ct = false);
-            setNewTask(resetNewTask);
-        }
-    }
-
-    // сохранить изменения при редактировании
     function saveTask() {
-        const currTasks = [...tasks];
-        currTasks[taskIndex] = changedTask;
-        setTasks(prevTasks => currTasks);
-        onClickEdit();
-    }
-
-    const inputTitleRef = useRef(null);
-    
-    // при создании новой задачи - плавное перемещение, создание фокуса на инпуте
-    useEffect(() => {
-        if (hasCreateTask || isEdit) {
-            scrollToNew(createNewTaskRef);
-            inputTitleRef.current.focus();            
-        }
-    }, [hasCreateTask, isEdit])
-    
-    const inputDescriptionRef = useRef(null);
-    // при создании описания задачи - создание фокуса на инпуте
-    useEffect(() => {
-        if (hasDescription) {
-            if (isEdit) {
-                inputDescriptionRef.current.value = task.description;
-            }
-            inputDescriptionRef.current.focus();
-        }
-    }, [hasDescription])
-
-    // при изменениях Инпута (можно объединить функции в одну)
-    function handleChangeTitle(e) {
-        if (isEdit) {
-            setChangedTask({ ...changedTask, title: e.target.value})
-        } else {
-            setNewTask({ ...newTask, title: e.target.value});
+        if (currentTask.title.trim() !== '') {
+            dispatch(changeTask(currentTask))
+            dispatch(setEditTaskId(null))
         }
     }
 
-    function handleChangeDescription(e) {
-        if (isEdit) {
-            setChangedTask({ ...changedTask, description: e.target.value})
-        } else {
-            setNewTask({ ...newTask, description: e.target.value})
-        }
-    }
-
-    function handleChangeDeadline(type) {
-        if (type === '+') {
-            if (isEdit) {
-                setChangedTask({ ...changedTask, deadline: changedTask.deadline + 1})
-            } else {
-                setNewTask({ ...newTask, deadline: newTask.deadline + 1})
-            }
-        } else {
-            if (isEdit && changedTask.deadline > 0) {                
-                setChangedTask({ ...changedTask, deadline: changedTask.deadline - 1})
-            } else if (newTask.deadline > 0) {
-                setNewTask({ ...newTask, deadline: newTask.deadline - 1})
+    function createNewTask() {
+        if (currentTask.title.trim() !== '') {
+            dispatch(addTask(currentTask))
+            if (hasCreateTask) {
+                toggleHasCreateTask()
             }
         }
     }
@@ -114,41 +101,42 @@ function CreateTaskCard({ isEdit, onClickEdit, isCreate, changeTasks, taskIndex,
                 <div className="create-task__col">
                     <h4 className="task__title create-task__title">Title</h4>
                     <input 
-                    value={isEdit ? changedTask.title : newTask.title}
-                    onChange={handleChangeTitle}
+                    value={currentTask.title}
+                    onChange={changeTitleHandle}
                     ref={inputTitleRef}
                     className="create-task__input"
                     type="text" 
                     placeholder="title for your task" />
                 </div>
                 <div className="create-task__col">
-                    {hasDescription ? (
+                    {typeof currentTask.description === 'string' ? (
                         <>
                         <h4 className="task__title create-task__title">Description</h4>
                         <textarea 
-                        onChange={handleChangeDescription}
+                        value={currentTask.description} 
+                        onChange={changeDescriptionHandle}
                         ref={inputDescriptionRef}
                         className="create-task__input" placeholder="more detailed task description" />
                         </>
                     ) : (
                         <button 
-                        onClick={() => setHasDescription(true)}
+                        onClick={addDescriptionHandle}
                         className="btn-with-plus btn-ui m15">Add a description</button>
                     )}
 
                         
                 </div>
-                    {hasDeadline && (
+                    {typeof currentTask.deadline === 'number' && (
                         <div className="create-task__col">
                                 <h4 className="task__title create-task__title">Deadline</h4>
                             <div className="create-task__deadline">
-                                <div className="create-task__deadline-value">{isEdit ? (changedTask.deadline ?? 0) : (newTask.deadline ?? 0)}</div>
+                                <div className="create-task__deadline-value">{currentTask.deadline ?? 0}</div>
                                 <div className="create-task__deadline-btns">
                                     <button 
-                                    onClick={() => handleChangeDeadline('+')}
+                                    onClick={() => changeDeadlineHandle('+')}
                                     className="btn-deadline btn-ui">+</button>
                                     <button 
-                                    onClick={() => handleChangeDeadline('-')}
+                                    onClick={() => changeDeadlineHandle('-')}
                                     className="btn-deadline btn-ui">-</button>
                                 </div>
                             </div>
@@ -157,10 +145,10 @@ function CreateTaskCard({ isEdit, onClickEdit, isCreate, changeTasks, taskIndex,
                     )}
                 <div className="create-task__bottom">
                     <div className="create-task__actions">
-                        {!hasDeadline && (
+                        {currentTask.deadline == null && (
                             <button 
-                            onClick={() => setHasDeadline(true)}
-                            disabled={hasDeadline}
+                            onClick={addDeadlineHandle}
+                            disabled={currentTask.deadline}
                             className="btn-with-plus btn-ui">
                             Add a deadline
                             </button>
@@ -172,8 +160,7 @@ function CreateTaskCard({ isEdit, onClickEdit, isCreate, changeTasks, taskIndex,
                         onClick={cancelNewTask}
                         className="create-task__btn-cancel">Cancel</button>
 
-                        {isEdit ? (
-                        <button 
+                        {isEdit ? ( <button 
                             onClick={saveTask}
                             className="create-task__btn-create btn-ui">Save</button>
                         ) : (
@@ -190,3 +177,4 @@ function CreateTaskCard({ isEdit, onClickEdit, isCreate, changeTasks, taskIndex,
 }
 
 export default CreateTaskCard;
+

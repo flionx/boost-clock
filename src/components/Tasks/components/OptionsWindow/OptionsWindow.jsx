@@ -1,8 +1,11 @@
 import './OptionsWindow.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { moveTask, removeTask, toggleCompleteTask } from '../../../../store/slices/tasksSlice';
 
-function OptionsWindow({ changeHasOptions, taskIndex, tasksForMove, whenDelete, taskId, onClickEdit, isEdit}) {
+function OptionsWindow({ changeHasOptions, taskIndex, whenDelete, taskId, onClickEdit, isEdit, isCompleted}) {
     
-    const {tasks, setTasks} = tasksForMove;
+    const dispatch = useDispatch();
+    const tasks = useSelector(state => state.tasks.tasks);
 
     const {setHasOptions} = changeHasOptions;
 
@@ -14,40 +17,34 @@ function OptionsWindow({ changeHasOptions, taskIndex, tasksForMove, whenDelete, 
 
     function moveTaskToUp() {
         if (taskIndex > 0) {
-            
-            const changedTasks = [...tasks];
-            [changedTasks[taskIndex], changedTasks[taskIndex - 1]] = 
-            [changedTasks[taskIndex - 1], changedTasks[taskIndex]]
-            
-            setTasks(t => t = changedTasks);
-
+            dispatch(moveTask({taskId: taskId, direction: "up" }));
             hideOptions();
         }
     }
 
     function moveTaskToDown() {
         if (taskIndex < (tasks.length - 1)) {
-            
-            const changedTasks = [...tasks];
-            [changedTasks[taskIndex], changedTasks[taskIndex + 1]] = 
-            [changedTasks[taskIndex + 1], changedTasks[taskIndex]]
-
-            setTasks(t => t = changedTasks);
+            dispatch(moveTask({taskId: taskId, direction: "down" }));
             hideOptions();
         }
     }
 
     function deleteTask() {
         setIsCardDelete(true);
-        const currTasks = [...tasks];
-        const updatedTasks = currTasks.filter((_, i) => taskId !== tasks[i].id);
         
         hideOptions();
         setTimeout(() => {
-            setTasks(t => t = updatedTasks);
+            dispatch(removeTask(taskId));
         }, 500)
     }
-
+    function uncompleteTask() {
+        setIsCardDelete(true);
+        
+        hideOptions();
+        setTimeout(() => {
+            dispatch(toggleCompleteTask(taskId))
+        }, 500)
+    }
 
     return (
         <div className="task-option">
@@ -59,16 +56,27 @@ function OptionsWindow({ changeHasOptions, taskIndex, tasksForMove, whenDelete, 
                     edit
                 </button>
             )}
-            <button 
-            onClick={moveTaskToUp}
-            className="task-option__row row-opt2">
-                move up
-            </button>
-            <button 
-            onClick={moveTaskToDown}
-            className="task-option__row row-opt3">
-                move down
-            </button>
+            {isCompleted ? (
+                <button 
+                onClick={uncompleteTask}
+                className="task-option__row row-opt5">
+                    restore
+                </button>
+            ): (
+            <>
+                <button 
+                onClick={moveTaskToUp}
+                className="task-option__row row-opt2">
+                    move up
+                </button>
+                <button 
+                onClick={moveTaskToDown}
+                className="task-option__row row-opt3">
+                    move down
+                </button>
+            </>
+                
+            )}
             <button 
             onClick={deleteTask}
             className="task-option__row row-opt4">
