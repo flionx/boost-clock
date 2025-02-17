@@ -1,23 +1,35 @@
 import OptionsWindow from "../OptionsWindow/OptionsWindow";
-import { useState, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 
-function OptionTaskButton({taskId, taskIndex, whenDelete, onClickEdit, isEdit, isCompleted}) {
+function OptionTaskButton({taskId, taskIndex, callSetIsCardDelete, onClickEdit, isEdit, isCompleted}) {
     
     const [hasOptions, setHasOptions] = useState(false);
-    const callSetHasOptions = useCallback((value) => setHasOptions(value), []);
     
-    function checkTarget(e) {
-        if (e.target.className !== 'task-option-row') {
-            setHasOptions(false)
-        }         
-    }
+    const optionsRef = useRef(null);
+
+    // Закрываем меню при клике вне него
+    useEffect(() => {
+        const handleClickOutside = () => {
+            setHasOptions(false);
+        };
+        if (hasOptions) {
+            document.addEventListener("click", handleClickOutside);
+        }
+        return () => {
+            document.removeEventListener("click", handleClickOutside);
+        };
+    }, [hasOptions]);
 
     return (
         <div 
-            onMouseLeave={checkTarget}
-            className="task__option-block">
+        ref={optionsRef}
+        className="task__option-block">
+
             <button 
-                onClick={() => setHasOptions(prev => !prev)}
+                onClick={(e) => {
+                    e.stopPropagation();
+                    setHasOptions(prev => !prev);
+                }}
                 className="task__option btn-ui"
             ></button>
             
@@ -26,10 +38,9 @@ function OptionTaskButton({taskId, taskIndex, whenDelete, onClickEdit, isEdit, i
                 isEdit={isEdit} 
                 taskId={taskId}
                 taskIndex={taskIndex}
-                changeHasOptions={{setHasOptions: callSetHasOptions}}
                 onClickEdit={onClickEdit}
                 isCompleted={isCompleted}
-                whenDelete={whenDelete}/> 
+                callSetIsCardDelete={callSetIsCardDelete}/> 
             ) : null}
             
         </div>

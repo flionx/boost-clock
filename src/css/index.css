@@ -26,6 +26,9 @@
 
   --icon-star: url('../../assets/tasks/starLight.svg');
 
+  --icon-arrow: url('../../assets/completedTasks/ArrowDown.svg');
+
+
   --btn-icon: #1D1B20;
 
 
@@ -60,6 +63,7 @@
   --icon-theme: url('../../assets/header/moon.svg');
   --icon-star: url('../../assets/tasks/starDark.svg');
 
+  --icon-arrow: url('../../assets/completedTasks/ArrowDownDark.svg');
 
 }
 
@@ -248,7 +252,7 @@ textarea:focus-visible {
   justify-content: center;
   align-items: center;
   font-size: 22px;
-  color: #000;
+  color: var(--text-color);
   border-radius: 10px;
   background: var(--settings-color);
 }

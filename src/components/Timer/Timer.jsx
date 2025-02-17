@@ -16,7 +16,7 @@ function Timer() {
     return (
         <>
             <TimerMain 
-                mins={{minutes, setMinutes: callSetMinutes}}
+                minutes={minutes}
                 timerCheck={{hasTimer, setHasTimer : callSetHasTimer}}
                 nowIs = {{nowIsWork, setNowIsWork : callSetNowIsWork}}/>  
 

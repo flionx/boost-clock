@@ -34,7 +34,7 @@ function CompletedTaskCard({completedTasks, task, taskIndex, CompletedTasksListR
                     taskId={task.id}
                     taskIndex={taskIndex}
                     isCompleted={true}
-                    whenDelete={{isCardDelete, setIsCardDelete: callSetIsCardDelete}}
+                    callSetIsCardDelete={callSetIsCardDelete}
                 />
 
             </div>
