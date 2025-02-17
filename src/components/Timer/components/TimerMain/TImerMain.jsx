@@ -4,28 +4,23 @@ import useMelody from "../../../../hooks/useMelody.js";
 import { useDispatch } from "react-redux";
 import { setRoundTasks } from "../../../../store/slices/tasksSlice.js";
 
-function TimerMain({ mins, timerCheck, nowIs }) {
+function TimerMain({ minutes, timerCheck, nowIs }) {
 
     const dispatch = useDispatch();
 
-    const {minutes, setMinutes} = mins;
     const { hasTimer, setHasTimer } = timerCheck;
     const { nowIsWork, setNowIsWork } = nowIs;
-    
-    // переводим минуты в секунды
     const [seconds, setSeconds] = useState({ 
         work: minutes.work * 60, 
         relax: minutes.relax * 60
     })
     const [formatResult, setFormatResult] = useState(() => formatTime(seconds.work));
 
-    const workerRef = useRef(null);  // Ссылка на Web Worker
+    const workerRef = useRef(null);
 
-    // Инициализация Web Worker
     useEffect(() => {
         workerRef.current = new Worker('timer-worker.js');
 
-        // полученное сообщение
         workerRef.current.onmessage = (event) => {
             const { action, data } = event.data; 
 
@@ -37,15 +32,13 @@ function TimerMain({ mins, timerCheck, nowIs }) {
                     setSeconds((secs) => ({ ...secs, relax: data }));
                     setFormatResult(formatTime(data));
                 }
-
-                // Если время вышло - стоп
+                // время вышло - стоп
                 if (data <= 0) {
                     stopTimer();
                 }
             }
         };
 
-        // Очистка при размонтировании
         return () => {
             if (workerRef.current) {
                 workerRef.current.terminate();
@@ -56,33 +49,26 @@ function TimerMain({ mins, timerCheck, nowIs }) {
     // обращается к мелодиям и устанавливает громкость
     const {melodyGoWork, melodyGoRelax} = useMelody();
 
-
     useEffect(() => {
-
         if (seconds.work <= 0 || seconds.relax <= 0) {
             stopTimer();
         }
-        // опираемся на тип таймера и форматируем время
         setFormatResult(nowIsWork ? formatTime(seconds.work) : formatTime(seconds.relax));
 
     }, [seconds.work, seconds.relax, nowIsWork])
 
-
-    // настройка времени при нажатии кнопок
     useEffect(() => {
         if (!hasTimer) {
             setSeconds({work: minutes.work * 60, 
                         relax: minutes.relax * 60})
         }
-    }, [minutes.work, minutes.relax]);
+    }, [minutes.work, minutes.relax, hasTimer]);
 
     // Запуск и остановка таймера через Worker
     useEffect(() => {
         if (hasTimer) {
-            // Отправляем команду на запуск таймера
             workerRef.current.postMessage({ action: 'start', seconds, nowIsWork });
         } else {
-            // Отправляем команду на остановку таймера
             workerRef.current.postMessage({ action: 'stop' });
         }
     }, [hasTimer]);
@@ -90,10 +76,9 @@ function TimerMain({ mins, timerCheck, nowIs }) {
     // конец таймера, смена типа таймера, звук
     function stopTimer() {
         setHasTimer(false);
-        setNowIsWork((nowIs) => !nowIs);
+        setNowIsWork(nowIs => !nowIs);
         setSeconds({ work: minutes.work * 60, 
                     relax: minutes.relax * 60})
-
         if (nowIsWork) {
             melodyGoRelax.play();
             melodyGoRelax.currentTime = 0;
@@ -105,30 +90,26 @@ function TimerMain({ mins, timerCheck, nowIs }) {
             
     }
 
-    // Переключение таймера
     function toggleTimer() {
-        setHasTimer((current) => !current);
+        setHasTimer(prev => !prev);
     }
 
     // Сброс таймера до настроек
     function resetTimer() {
         setHasTimer(false);
-        setMinutes({...minutes})
-
         if (nowIsWork) {
             setSeconds({...seconds, work: minutes.work * 60})
         } else {
             setSeconds({...seconds, relax: minutes.relax * 60})
         }
-        workerRef.current.postMessage({ action: 'reset', seconds: { work: minutes.work * 60, relax: minutes.relax * 60 } });
+        workerRef.current.postMessage({ action: 'reset', seconds: seconds });
     }
 
-    // смена типа времени, сброс таймера - при смене типа
     function changeTypeOfTime(type) {
         if (type === 'work') {
-            setNowIsWork(cur => cur = true);
+            setNowIsWork(prev => prev = true);
         } else {
-            setNowIsWork(cur => cur = false);
+            setNowIsWork(prev => prev = false);
         }
         resetTimer();
     }

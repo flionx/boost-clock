@@ -8,18 +8,20 @@ function TimerSettings({mins}) {
   // const changerTimeRelax = 1;
   
   function changeTime(type, action) {
-    if (type === 'work') {
-      if (action === '+') {
-        setMinutes(min => ({
-          ...min, 
-          work: min.work + 1}))
-      } else if (minutes.work > 1) {
-        setMinutes(min => ({
-          ...min, 
-          work: min.work - 1}))
+    switch (type) {
+      case 'work':{
+        if (action === '+') {
+          setMinutes(min => ({
+            ...min, 
+            work: min.work + 1}))
+        } else if (minutes.work > 1) {
+          setMinutes(min => ({
+            ...min, 
+            work: min.work - 1}))
+        }
+        break;
       }
-
-    } else if (type === 'relax') {
+      case 'relax':{
         if (action === '+') {
           setMinutes(min => ({
             ...min, 
@@ -30,6 +32,11 @@ function TimerSettings({mins}) {
             ...min, 
             relax: min.relax - 1}))
         }
+        break;
+      }
+    
+      default:
+        break;
     }
   }
 
