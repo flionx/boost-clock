@@ -2,45 +2,31 @@ import './OptionsWindow.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { moveTask, removeTask, toggleCompleteTask } from '../../../../store/slices/tasksSlice';
 
-function OptionsWindow({ changeHasOptions, taskIndex, whenDelete, taskId, onClickEdit, isEdit, isCompleted}) {
+function OptionsWindow({ taskIndex, callSetIsCardDelete, taskId, onClickEdit, isEdit, isCompleted}) {
     
     const dispatch = useDispatch();
     const tasks = useSelector(state => state.tasks.tasks);
 
-    const {setHasOptions} = changeHasOptions;
-
-    const {isCardDelete, setIsCardDelete} = whenDelete    
-
-    function hideOptions() {
-        setHasOptions(ho => ho = false)
-    }
-
     function moveTaskToUp() {
         if (taskIndex > 0) {
             dispatch(moveTask({taskId: taskId, direction: "up" }));
-            hideOptions();
         }
     }
 
     function moveTaskToDown() {
         if (taskIndex < (tasks.length - 1)) {
             dispatch(moveTask({taskId: taskId, direction: "down" }));
-            hideOptions();
         }
     }
 
     function deleteTask() {
-        setIsCardDelete(true);
-        
-        hideOptions();
+        callSetIsCardDelete(true)
         setTimeout(() => {
             dispatch(removeTask(taskId));
         }, 500)
     }
     function uncompleteTask() {
-        setIsCardDelete(true);
-        
-        hideOptions();
+        callSetIsCardDelete(true)
         setTimeout(() => {
             dispatch(toggleCompleteTask(taskId))
         }, 500)

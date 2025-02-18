@@ -1,26 +1,33 @@
 import { useState, useEffect } from 'react';
 import './Header.css'
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { setShowSettings } from '../../store/slices/settingSlice';
 
 function Header() {
 
-    // значение 'light' или 'dark'
+    const dispatch = useDispatch();
+    const showSettings = useSelector(state => state.settings.showSettings)
+
+    // 'light' или 'dark'
     const [theme, setTheme] = useState(userTheme);
 
-    // если пользователь уже менял тему - при след.запуске применяем ее
     function userTheme() {
         const storage = localStorage.getItem("theme");
         return storage ? storage : 'light';
     }
 
     useEffect(() => {
-
         if (theme === 'dark') {
             document.documentElement.classList.add("dark-theme");
         } else {
             document.documentElement.classList.remove("dark-theme");
         }
-
     }, [theme])
+
+    function showSettingsHandler() {
+        dispatch(setShowSettings(true))
+    }
 
 
     function changeTheme() {
@@ -38,10 +45,12 @@ function Header() {
                         <button 
                         onClick={changeTheme}
                         className="header__theme btn-ui"></button>
-                        </li>
+                    </li>
 
                     <li className="header__item">
-                        <button className="header__settings button__menu">Settings</button>
+                        <button 
+                        onClick={showSettingsHandler}
+                        className="header__settings button__menu">Settings</button>
                     </li>
                 </ul>
             </div>

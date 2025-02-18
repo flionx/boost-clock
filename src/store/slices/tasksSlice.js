@@ -13,7 +13,7 @@ const tasksSlice = createSlice({
   },
   reducers: {
     addTask: (state, action) => {
-      state.tasks.unshift(action.payload);
+      state.tasks.push(action.payload);
     },
     removeTask: (state, action) => {
       state.tasks = state.tasks.filter((task) => task.id !== action.payload);
@@ -53,8 +53,9 @@ const tasksSlice = createSlice({
       if (task) task.deadline = action.payload.deadline;
     },
     setRoundTasks: (state) => {
+      
       state.tasks = state.tasks.map(task => 
-        task.deadline > 0 ? { ...task, round: task.round + 1 } : task
+        !task.complete && task.deadline > 0 ? { ...task, round: task.round + 1 } : task
       );
     }, 
     deleteAllTasks: (state) => {
