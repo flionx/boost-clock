@@ -1,10 +1,15 @@
-import { useState, useEffect, useRef, useContext } from "react";
+import { useState, useEffect, useRef } from "react";
 import formatTime from "../../helpers/formatTime.js";
 import useMelody from "../../../../hooks/useMelody.js";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector} from "react-redux";
 import { setRoundTasks } from "../../../../store/slices/tasksSlice.js";
+import { addRoundToBreak, removeRoundsToBreak, setHasLongBreak } from "../../../../store/slices/settingSlice.js";
 
 function TimerMain({ minutes, timerCheck, nowIs }) {
+
+    const {autoToWork, autoToRelax, longBreakInterval, soundOn, 
+        repeatSound } = useSelector(state => state.settings.mainSettings);
+    const {hasLongBreak, roundsToBreak} = useSelector(state => state.settings);
 
     const dispatch = useDispatch();
 
@@ -73,19 +78,66 @@ function TimerMain({ minutes, timerCheck, nowIs }) {
         }
     }, [hasTimer]);
 
+    const soundTimeouts = useRef([]);
+    function playSounds() {
+        if (!soundOn) return; 
+
+        const sound = nowIsWork ? melodyGoRelax : melodyGoWork;
+        
+        soundTimeouts.current.forEach(clearTimeout);
+        soundTimeouts.current = [];
+    
+        sound.currentTime = 0;
+        sound.play();
+    
+        if (repeatSound === 0) return;
+    
+        for (let i = 1; i <= repeatSound; i++) {
+            const timeoutId = setTimeout(() => {
+                sound.currentTime = 0;
+                sound.play();
+            }, i * 2000); 
+    
+            soundTimeouts.current.push(timeoutId); 
+        }
+    }
+
+    function checkAutoSwitch() {
+        if (nowIsWork && autoToRelax) {
+            setTimeout(() => {
+                setHasTimer(prev => true)
+            }, 1000)
+        }
+        if (!nowIsWork && autoToWork) {
+            setTimeout(() => {
+                setHasTimer(prev => true)
+            }, 1000)
+        }
+    }
+
+    function calcLongBreak() {
+        if (nowIsWork && roundsToBreak < longBreakInterval) {   
+            dispatch(addRoundToBreak())
+        } 
+        if (nowIsWork && roundsToBreak + 1 == longBreakInterval) {
+            dispatch(setHasLongBreak(true))
+            dispatch(removeRoundsToBreak());
+        }
+    }
     // конец таймера, смена типа таймера, звук
     function stopTimer() {
+        if (hasLongBreak) {
+            dispatch(setHasLongBreak(false))
+        }
         setHasTimer(false);
         setNowIsWork(nowIs => !nowIs);
+        playSounds();
+        checkAutoSwitch();
+        calcLongBreak();
         setSeconds({ work: minutes.work * 60, 
                     relax: minutes.relax * 60})
         if (nowIsWork) {
-            melodyGoRelax.play();
-            melodyGoRelax.currentTime = 0;
             dispatch(setRoundTasks())
-        } else {
-            melodyGoWork.play();
-            melodyGoWork.currentTime = 0;
         }
             
     }
@@ -112,6 +164,9 @@ function TimerMain({ minutes, timerCheck, nowIs }) {
             setNowIsWork(prev => prev = false);
         }
         resetTimer();
+        if (hasLongBreak) {
+            dispatch(setHasLongBreak(false))
+        }
     }
 
     return (
@@ -127,8 +182,12 @@ function TimerMain({ minutes, timerCheck, nowIs }) {
                     className={!nowIsWork ? "timer__top-btn top-btn--active" : "timer__top-btn"}
                 >Break</button>
             </div>
-
-            <h2 className="timer__time">{formatResult}</h2>
+            
+            <h2 className="timer__time">
+                {hasLongBreak && (<span className="timer__long-break">Long break</span>)}
+                
+                {formatResult}
+            </h2>
             <button 
                 onClick={toggleTimer} 
                 className="timer__button">
