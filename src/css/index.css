@@ -27,6 +27,8 @@
   --icon-star: url('../../assets/tasks/starLight.svg');
 
   --icon-arrow: url('../../assets/completedTasks/ArrowDown.svg');
+  
+  --icon-close-settings: url('../../assets/settings/closeLight.svg');
 
 
   --btn-icon: #1D1B20;
@@ -64,6 +66,8 @@
   --icon-star: url('../../assets/tasks/starDark.svg');
 
   --icon-arrow: url('../../assets/completedTasks/ArrowDownDark.svg');
+
+  --icon-close-settings: url('../../assets/settings/closeDark.svg');
 
 }
 
@@ -151,7 +155,29 @@ textarea:focus-visible {
   font-size: 85px;
   color: #fff;
   margin-bottom: 50px;
+  position: relative;
 }
+.timer__long-break {
+  position: absolute;
+  width: 100%;
+  top: -20px;
+  font-size: 24px;
+  text-align: center;
+  animation: fadeIn 5s ease-in-out infinite;
+}
+
+@keyframes fadeIn {
+  0% {
+      opacity: 0;
+  }
+  50% {
+      opacity: 1;
+  }
+  100% {
+      opacity: 0;
+  }
+}
+
 .timer__button {
   padding: 10px 40px;
   background: #fff;

@@ -1,11 +1,25 @@
+import { useSelector } from "react-redux";
 import ChangeButton from "./ChangeButton/ChangeButton"
+import { useEffect } from "react";
 
 function TimerSettings({mins}) {
 
   const {minutes, setMinutes} = mins;
 
-  // const changerTime = 1;
-  // const changerTimeRelax = 1;
+  const hasLongBreak = useSelector(state => state.settings.hasLongBreak);
+  const {longBreak, basicBreak} = useSelector(state => state.settings.mainSettings);
+
+  useEffect(() => {
+    if (hasLongBreak) {
+      setMinutes(mins => ({
+        ...mins, 
+        relax: longBreak}))
+      } else {
+        setMinutes(mins => ({
+          ...mins, 
+          relax: basicBreak}))
+    }
+  }, [hasLongBreak])
   
   function changeTime(type, action) {
     switch (type) {
