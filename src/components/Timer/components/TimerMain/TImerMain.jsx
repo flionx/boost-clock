@@ -1,31 +1,31 @@
-import { useState, useEffect, useRef, useContext } from "react";
+import { useState, useEffect, useRef } from "react";
 import formatTime from "../../helpers/formatTime.js";
 import useMelody from "../../../../hooks/useMelody.js";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector} from "react-redux";
 import { setRoundTasks } from "../../../../store/slices/tasksSlice.js";
+import { addRoundToBreak, removeRoundsToBreak, setHasLongBreak } from "../../../../store/slices/settingSlice.js";
 
-function TimerMain({ mins, timerCheck, nowIs }) {
+function TimerMain({ minutes, timerCheck, nowIs }) {
+
+    const {autoToWork, autoToRelax, longBreakInterval, soundOn, 
+        repeatSound } = useSelector(state => state.settings.mainSettings);
+    const {hasLongBreak, roundsToBreak} = useSelector(state => state.settings);
 
     const dispatch = useDispatch();
 
-    const {minutes, setMinutes} = mins;
     const { hasTimer, setHasTimer } = timerCheck;
     const { nowIsWork, setNowIsWork } = nowIs;
-    
-    // переводим минуты в секунды
     const [seconds, setSeconds] = useState({ 
         work: minutes.work * 60, 
         relax: minutes.relax * 60
     })
     const [formatResult, setFormatResult] = useState(() => formatTime(seconds.work));
 
-    const workerRef = useRef(null);  // Ссылка на Web Worker
+    const workerRef = useRef(null);
 
-    // Инициализация Web Worker
     useEffect(() => {
         workerRef.current = new Worker('timer-worker.js');
 
-        // полученное сообщение
         workerRef.current.onmessage = (event) => {
             const { action, data } = event.data; 
 
@@ -37,15 +37,13 @@ function TimerMain({ mins, timerCheck, nowIs }) {
                     setSeconds((secs) => ({ ...secs, relax: data }));
                     setFormatResult(formatTime(data));
                 }
-
-                // Если время вышло - стоп
+                // время вышло - стоп
                 if (data <= 0) {
                     stopTimer();
                 }
             }
         };
 
-        // Очистка при размонтировании
         return () => {
             if (workerRef.current) {
                 workerRef.current.terminate();
@@ -56,81 +54,119 @@ function TimerMain({ mins, timerCheck, nowIs }) {
     // обращается к мелодиям и устанавливает громкость
     const {melodyGoWork, melodyGoRelax} = useMelody();
 
-
     useEffect(() => {
-
         if (seconds.work <= 0 || seconds.relax <= 0) {
             stopTimer();
         }
-        // опираемся на тип таймера и форматируем время
         setFormatResult(nowIsWork ? formatTime(seconds.work) : formatTime(seconds.relax));
 
     }, [seconds.work, seconds.relax, nowIsWork])
 
-
-    // настройка времени при нажатии кнопок
     useEffect(() => {
         if (!hasTimer) {
             setSeconds({work: minutes.work * 60, 
                         relax: minutes.relax * 60})
         }
-    }, [minutes.work, minutes.relax]);
+    }, [minutes.work, minutes.relax, hasTimer]);
 
     // Запуск и остановка таймера через Worker
     useEffect(() => {
         if (hasTimer) {
-            // Отправляем команду на запуск таймера
             workerRef.current.postMessage({ action: 'start', seconds, nowIsWork });
         } else {
-            // Отправляем команду на остановку таймера
             workerRef.current.postMessage({ action: 'stop' });
         }
     }, [hasTimer]);
 
+    const soundTimeouts = useRef([]);
+    function playSounds() {
+        if (!soundOn) return; 
+
+        const sound = nowIsWork ? melodyGoRelax : melodyGoWork;
+        
+        soundTimeouts.current.forEach(clearTimeout);
+        soundTimeouts.current = [];
+    
+        sound.currentTime = 0;
+        sound.play();
+    
+        if (repeatSound === 0) return;
+    
+        for (let i = 1; i <= repeatSound; i++) {
+            const timeoutId = setTimeout(() => {
+                sound.currentTime = 0;
+                sound.play();
+            }, i * 2000); 
+    
+            soundTimeouts.current.push(timeoutId); 
+        }
+    }
+
+    function checkAutoSwitch() {
+        if (nowIsWork && autoToRelax) {
+            setTimeout(() => {
+                setHasTimer(prev => true)
+            }, 1000)
+        }
+        if (!nowIsWork && autoToWork) {
+            setTimeout(() => {
+                setHasTimer(prev => true)
+            }, 1000)
+        }
+    }
+
+    function calcLongBreak() {
+        if (nowIsWork && roundsToBreak < longBreakInterval) {   
+            dispatch(addRoundToBreak())
+        } 
+        if (nowIsWork && roundsToBreak + 1 == longBreakInterval) {
+            dispatch(setHasLongBreak(true))
+            dispatch(removeRoundsToBreak());
+        }
+    }
     // конец таймера, смена типа таймера, звук
     function stopTimer() {
+        if (hasLongBreak) {
+            dispatch(setHasLongBreak(false))
+        }
         setHasTimer(false);
-        setNowIsWork((nowIs) => !nowIs);
+        setNowIsWork(nowIs => !nowIs);
+        playSounds();
+        checkAutoSwitch();
+        calcLongBreak();
         setSeconds({ work: minutes.work * 60, 
                     relax: minutes.relax * 60})
-
         if (nowIsWork) {
-            melodyGoRelax.play();
-            melodyGoRelax.currentTime = 0;
             dispatch(setRoundTasks())
-        } else {
-            melodyGoWork.play();
-            melodyGoWork.currentTime = 0;
         }
             
     }
 
-    // Переключение таймера
     function toggleTimer() {
-        setHasTimer((current) => !current);
+        setHasTimer(prev => !prev);
     }
 
     // Сброс таймера до настроек
     function resetTimer() {
         setHasTimer(false);
-        setMinutes({...minutes})
-
         if (nowIsWork) {
             setSeconds({...seconds, work: minutes.work * 60})
         } else {
             setSeconds({...seconds, relax: minutes.relax * 60})
         }
-        workerRef.current.postMessage({ action: 'reset', seconds: { work: minutes.work * 60, relax: minutes.relax * 60 } });
+        workerRef.current.postMessage({ action: 'reset', seconds: seconds });
     }
 
-    // смена типа времени, сброс таймера - при смене типа
     function changeTypeOfTime(type) {
         if (type === 'work') {
-            setNowIsWork(cur => cur = true);
+            setNowIsWork(prev => prev = true);
         } else {
-            setNowIsWork(cur => cur = false);
+            setNowIsWork(prev => prev = false);
         }
         resetTimer();
+        if (hasLongBreak) {
+            dispatch(setHasLongBreak(false))
+        }
     }
 
     return (
@@ -146,8 +182,12 @@ function TimerMain({ mins, timerCheck, nowIs }) {
                     className={!nowIsWork ? "timer__top-btn top-btn--active" : "timer__top-btn"}
                 >Break</button>
             </div>
-
-            <h2 className="timer__time">{formatResult}</h2>
+            
+            <h2 className="timer__time">
+                {hasLongBreak && (<span className="timer__long-break">Long break</span>)}
+                
+                {formatResult}
+            </h2>
             <button 
                 onClick={toggleTimer} 
                 className="timer__button">

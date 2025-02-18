@@ -22,7 +22,7 @@
     height: 28px;
     left: 20px;
     transform: translateY(20%);
-    background-image: url('../../../../../assets/completedTasks/ArrowDown.svg');
+    background-image: var(--icon-arrow);
     background-position: center;
     transition: transform .3s;
 }
