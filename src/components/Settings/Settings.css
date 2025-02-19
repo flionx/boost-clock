@@ -14,7 +14,7 @@
 }
 
 .settings {
-    width: 420px;
+    flex: 0 1 420px;
     padding: 25px 30px;
     background: var(--main-color);
     border-radius: 10px;

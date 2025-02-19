@@ -26,6 +26,9 @@ const settingSlice = createSlice({
     setShowSettings: (state, action) => {      
       state.showSettings = action.payload;
     },
+    setHasLongBreak: (state, action) => {
+      state.hasLongBreak = action.payload;
+    },
     setAutoToWork: (state) => {
         state.mainSettings.autoToWork = !state.mainSettings.autoToWork;
     },
@@ -38,6 +41,12 @@ const settingSlice = createSlice({
     setLongBreakInterval: (state, action) => {
         state.mainSettings.longBreakInterval = action.payload;
     },
+    addRoundToBreak: (state) => {
+      state.roundsToBreak = state.roundsToBreak + 1;
+    },
+    removeRoundsToBreak: (state) => {
+        state.roundsToBreak = 0;
+    },
     setSoundOn: (state) => {
         state.mainSettings.soundOn = !state.mainSettings.soundOn;
     },
@@ -46,15 +55,6 @@ const settingSlice = createSlice({
     },
     setColorTheme: (state, action) => {
         state.mainSettings.colorTheme = action.payload;
-    },
-    setHasLongBreak: (state, action) => {
-        state.hasLongBreak = action.payload;
-    },
-    addRoundToBreak: (state) => {
-        state.roundsToBreak = state.roundsToBreak + 1;
-    },
-    removeRoundsToBreak: (state) => {
-        state.roundsToBreak = 0;
     }
   },
 });

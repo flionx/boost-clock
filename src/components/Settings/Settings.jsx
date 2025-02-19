@@ -5,7 +5,7 @@ import useUpdateStorage from '../../hooks/useUpdateStorage';
 
 function Settings() {
     
-    const {showSettings, ...settings} = useSelector(state => state.settings);
+    const {showSettings, hasLongBreak, ...settings} = useSelector(state => state.settings);
 
     const {autoToWork, autoToRelax, longBreak, longBreakInterval, soundOn, 
     repeatSound, colorTheme } = useSelector(state => state.settings.mainSettings);
