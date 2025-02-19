@@ -5,20 +5,21 @@ import { useDispatch, useSelector} from "react-redux";
 import { setRoundTasks } from "../../../../store/slices/tasksSlice.js";
 import { addRoundToBreak, removeRoundsToBreak, setHasLongBreak } from "../../../../store/slices/settingSlice.js";
 
-function TimerMain({ minutes, timerCheck, nowIs }) {
+function TimerMain({ minutes, info }) {
 
-    const {autoToWork, autoToRelax, longBreakInterval, soundOn, 
-        repeatSound } = useSelector(state => state.settings.mainSettings);
-    const {hasLongBreak, roundsToBreak} = useSelector(state => state.settings);
-
-    const dispatch = useDispatch();
-
-    const { hasTimer, setHasTimer } = timerCheck;
-    const { nowIsWork, setNowIsWork } = nowIs;
     const [seconds, setSeconds] = useState({ 
         work: minutes.work * 60, 
         relax: minutes.relax * 60
-    })
+    })    
+    const {timerInfo, setTimerInfo} = info;
+    const {nowIsWork, hasTimer, canChangeMinutes} = timerInfo
+
+    const dispatch = useDispatch();
+
+    const {autoToWork, autoToRelax, longBreakInterval, soundOn, 
+            repeatSound } = useSelector(state => state.settings.mainSettings);
+    const {hasLongBreak, roundsToBreak} = useSelector(state => state.settings);
+
     const [formatResult, setFormatResult] = useState(() => formatTime(seconds.work));
 
     const workerRef = useRef(null);
@@ -63,16 +64,17 @@ function TimerMain({ minutes, timerCheck, nowIs }) {
     }, [seconds.work, seconds.relax, nowIsWork])
 
     useEffect(() => {
-        if (!hasTimer) {
+        if (canChangeMinutes) {
             setSeconds({work: minutes.work * 60, 
-                        relax: minutes.relax * 60})
+                        relax: minutes.relax * 60})                        
         }
-    }, [minutes.work, minutes.relax, hasTimer]);
+    }, [minutes.work, minutes.relax, canChangeMinutes]);
 
     // Запуск и остановка таймера через Worker
     useEffect(() => {
         if (hasTimer) {
             workerRef.current.postMessage({ action: 'start', seconds, nowIsWork });
+            setTimerInfo(c=> ({...c, canChangeMinutes: false}))
         } else {
             workerRef.current.postMessage({ action: 'stop' });
         }
@@ -105,12 +107,12 @@ function TimerMain({ minutes, timerCheck, nowIs }) {
     function checkAutoSwitch() {
         if (nowIsWork && autoToRelax) {
             setTimeout(() => {
-                setHasTimer(prev => true)
+                setTimerInfo(c=> ({...c, hasTimer: true}))
             }, 1000)
         }
         if (!nowIsWork && autoToWork) {
             setTimeout(() => {
-                setHasTimer(prev => true)
+                setTimerInfo(c=> ({...c, hasTimer: true}))
             }, 1000)
         }
     }
@@ -129,13 +131,10 @@ function TimerMain({ minutes, timerCheck, nowIs }) {
         if (hasLongBreak) {
             dispatch(setHasLongBreak(false))
         }
-        setHasTimer(false);
-        setNowIsWork(nowIs => !nowIs);
+        setTimerInfo(c=> ({hasTimer: false, nowIsWork: !c.nowIsWork, canChangeMinutes: true}))
         playSounds();
         checkAutoSwitch();
         calcLongBreak();
-        setSeconds({ work: minutes.work * 60, 
-                    relax: minutes.relax * 60})
         if (nowIsWork) {
             dispatch(setRoundTasks())
         }
@@ -143,12 +142,12 @@ function TimerMain({ minutes, timerCheck, nowIs }) {
     }
 
     function toggleTimer() {
-        setHasTimer(prev => !prev);
+        setTimerInfo(c=> ({...c, hasTimer: !c.hasTimer}))
     }
 
     // Сброс таймера до настроек
     function resetTimer() {
-        setHasTimer(false);
+        setTimerInfo(c=> ({...c, hasTimer: false, canChangeMinutes: true}))
         if (nowIsWork) {
             setSeconds({...seconds, work: minutes.work * 60})
         } else {
@@ -159,9 +158,9 @@ function TimerMain({ minutes, timerCheck, nowIs }) {
 
     function changeTypeOfTime(type) {
         if (type === 'work') {
-            setNowIsWork(prev => prev = true);
+            setTimerInfo(c=> ({...c, nowIsWork: true}))
         } else {
-            setNowIsWork(prev => prev = false);
+            setTimerInfo(c=> ({...c, nowIsWork: false}))
         }
         resetTimer();
         if (hasLongBreak) {

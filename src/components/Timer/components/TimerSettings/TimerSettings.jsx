@@ -2,9 +2,10 @@ import { useSelector } from "react-redux";
 import ChangeButton from "./ChangeButton/ChangeButton"
 import { useEffect } from "react";
 
-function TimerSettings({mins}) {
+function TimerSettings({mins, info}) {
 
   const {minutes, setMinutes} = mins;
+  const {timerInfo, setTimerInfo} = info;
 
   const hasLongBreak = useSelector(state => state.settings.hasLongBreak);
   const {longBreak, basicBreak} = useSelector(state => state.settings.mainSettings);
@@ -22,6 +23,10 @@ function TimerSettings({mins}) {
   }, [hasLongBreak])
   
   function changeTime(type, action) {
+    if (!timerInfo.hasTimer) {
+      setTimerInfo(c=> ({...c, canChangeMinutes: true}))
+    }
+
     switch (type) {
       case 'work':{
         if (action === '+') {
