@@ -4,25 +4,23 @@ import { useState, useCallback } from 'react';
 
 function Timer() {
 
-    const [minutes, setMinutes] = useState( {work: 25, relax: 5} )
-    const [hasTimer, setHasTimer] = useState(false);
-    const [nowIsWork, setNowIsWork] = useState(true);
+    const [minutes, setMinutes] = useState( {work: 25, relax: 5} );
+    const [timerInfo, setTimerInfo] = useState({hasTimer: false, nowIsWork: true, canChangeMinutes: true})
 
     const callSetMinutes = useCallback((value) => setMinutes(value), []);
-    const callSetHasTimer = useCallback((value) => setHasTimer(value), []);
-    const callSetNowIsWork = useCallback((value) => setNowIsWork(value), []);
-
+    const callSetTimerInfo = useCallback((value) => setTimerInfo(value), []);
 
     return (
         <>
             <TimerMain 
                 minutes={minutes}
-                timerCheck={{hasTimer, setHasTimer : callSetHasTimer}}
-                nowIs = {{nowIsWork, setNowIsWork : callSetNowIsWork}}/>  
+                info={{timerInfo, setTimerInfo: callSetTimerInfo}}
+            />  
 
             <TimerSettings 
                 mins={{minutes, setMinutes: callSetMinutes}}
-                hasTimer={hasTimer}/>
+                info={{timerInfo, setTimerInfo: callSetTimerInfo}}
+            />
         </>
     )
 }
