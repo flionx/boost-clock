@@ -20,7 +20,6 @@ self.onmessage = (e) => {
                     self.postMessage({ action: 'updateTime', data: seconds.relax });
                 }
             }, 1000);
-            
             break;
         case 'stop':
             clearInterval(intervalId);

@@ -1,7 +1,9 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { setAutoToRelax, setAutoToWork, setColorTheme, setLongBreak, setLongBreakInterval, setRepeatSound, setShowSettings, setSoundOn } from '../../store/slices/settingSlice';
 import './Settings.css'
+import '../../css/modal-menu.css'
 import useUpdateStorage from '../../hooks/useUpdateStorage';
+import { useEffect } from 'react';
 
 function Settings() {
     
@@ -13,10 +15,19 @@ function Settings() {
     useUpdateStorage('settings', settings);
 
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (document.body.style.overflow !== "hidden") {
+            document.body.style.overflow = "hidden";
+        }
+        return () => {
+            document.body.style.overflow = "";
+        }
+    }, [])
+
     function hideSettings() {
         dispatch(setShowSettings(false));
     }
-
     function onChangeAutoToRelax(e) {
         dispatch(setAutoToRelax(e.target.value))
     }
@@ -42,22 +53,22 @@ function Settings() {
     return (
         <div
         onClick={hideSettings}
-        className="settings-bg">
+        className="modal-menu__bg">
 
         <section 
         onClick={(e) => e.stopPropagation()}
-        className="settings">
+        className="modal-menu">
             <div 
             onClick={(e) => {
                 e.stopPropagation();
                 hideSettings();
             }}
-            className="settings__btn-close"></div>
-            <h3 className="settings__title">Settings</h3>
-            <section className="settings__column column-settings">
-                <h4 className="column-settings__title">Timer</h4>
-                <hr className='column-settings__title-line'/>
-                <div className="column-settings__row">
+            className="modal-menu__close"></div>
+            <h3 className="modal-menu__title">Settings</h3>
+            <section className="modal-menu__column column-modal-menu">
+                <h4 className="column-modal-menu__title">Timer</h4>
+                <hr className='column-modal-menu-line'/>
+                <div className="column-modal-menu__row">
                     <label className="column-settings__label" htmlFor="autoSwithToWork">Auto switching to work</label>
                     <label className="switch">
                         <input type="checkbox" name="autoSwithToWork" 
@@ -65,7 +76,7 @@ function Settings() {
                         <span className="slider round"></span>
                     </label>
                 </div>
-                <div className="column-settings__row">
+                <div className="column-modal-menu__row">
                     <p>Auto switching to relax</p>
                     <label className="switch">
                         <input type="checkbox" name="autoSwithToRelax" 
@@ -73,13 +84,13 @@ function Settings() {
                         <span className="slider round"></span>
                     </label>
                 </div>
-                <div className="column-settings__row">
+                <div className="column-modal-menu__row">
                     <p>Long break</p>
                     <input type="number" min={0} 
                     value={longBreak} 
                     onChange={onChangeBreak} name="longBreak"/>
                 </div>
-                <div className="column-settings__row">
+                <div className="column-modal-menu__row">
                     <p>Long Break interval</p>
                     <input type="number" min={0} 
                     value={longBreakInterval} 
@@ -88,10 +99,10 @@ function Settings() {
 
             </section>
             <section className="settings__column column-settings">
-                <h4 className="column-settings__title">Sounds</h4>
-                <hr className='column-settings__title-line'/>
+                <h4 className="column-modal-menu__title">Sounds</h4>
+                <hr className='column-modal-menu-line'/>
 
-                <div className="column-settings__row">
+                <div className="column-modal-menu__row">
                     <p>Sound on</p>
                     <label className="switch">
                         <input type="checkbox" name="soundOnOff" 
@@ -99,7 +110,7 @@ function Settings() {
                         <span className="slider round"></span>
                     </label>
                 </div>
-                <div className="column-settings__row">
+                <div className="column-modal-menu__row">
                     <p>Repeat</p>
                     <input type="number" min={0} max={5}
                     value={repeatSound} 
@@ -108,10 +119,10 @@ function Settings() {
 
             </section>
             <section className="settings__column column-settings">
-                <h4 className="column-settings__title">Theme</h4>
-                <hr className='column-settings__title-line'/>
+                <h4 className="column-modal-menu__title">Theme</h4>
+                <hr className='column-modal-menu-line'/>
 
-                <div className="column-settings__row">
+                <div className="column-modal-menu__row">
                     <p>Color</p>
                     <select name="select" value={colorTheme} onChange={onChangeColorTheme}>
                         <option value="dark">Dark</option>
@@ -119,6 +130,10 @@ function Settings() {
                     </select>
                 </div>
             </section>
+            <div className="modal-menu__btns">
+                <button>Reset</button>
+                <button>Download</button>
+            </div>
         </section>
         </div>
     )
