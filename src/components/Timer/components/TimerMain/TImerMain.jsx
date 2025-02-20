@@ -154,6 +154,7 @@ function TimerMain({ minutes, info }) {
 
     function toggleTimer() {
         setTimerInfo(c=> ({...c, hasTimer: !c.hasTimer}))
+        addReportTime();
     }
 
     // Сброс таймера до настроек
@@ -175,6 +176,7 @@ function TimerMain({ minutes, info }) {
             setTimerInfo(c=> ({...c, nowIsWork: false}))
         }
         resetTimer();
+        addReportTime();
         if (hasLongBreak) {
             dispatch(setHasLongBreak(false))
         }
