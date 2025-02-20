@@ -90,7 +90,7 @@
     display: flex;
     justify-content: space-between;
     border-radius: 10px;
-    background: #838499;
+    background: var(--color-item-modal-menu);
     color: #1c1c1c;
 }
 
@@ -101,7 +101,7 @@
 }
 
 .item-modal-menu__text-bg {
-    background: #393939;
+    background: var(--color-item-modal-text-bg);
     border-radius: 8px;
     padding: 0 13px;
 }

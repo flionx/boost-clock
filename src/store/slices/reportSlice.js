@@ -1,12 +1,27 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+function checkTimer(data) {
+    return ( data ?? {
+        totalWorkTime: 0,
+        totalRelaxTime: 0,
+        pomodoroRounds: 0,
+      })
+}
+function checkTasks(data) {
+    return (data ?? {
+        aCompletedTasks: 0,
+        onTime: 0,
+        outOfTime: 0,
+      })
+}
+
 const loadFromLocalStorage = () => {
   const storage = localStorage.getItem("report");
   const data = storage ? JSON.parse(storage) : null;
   
   const today = new Date().toISOString().split("T")[0]; // '2025-02-20'
 
-  if (!data || data.date !== today) {
+  if (data?.date !== today) {
     return {
       date: today,
       showReport: false,
@@ -15,16 +30,8 @@ const loadFromLocalStorage = () => {
         relaxTime: 0,
         tCompletedTasks: 0,
       },
-      timer: {
-        totalWorkTime: 0,
-        totalRelaxTime: 0,
-        pomodoroRounds: 0,
-      },
-      tasks: {
-        aCompletedTasks: 0,
-        onTime: 0,
-        outOfTime: 0,
-      },
+      timer: checkTimer(data?.timer),
+      tasks: checkTasks(data?.tasks),
     };
   }
 
@@ -40,22 +47,21 @@ const reportSlice = createSlice({
     },
 
     addWorkTime: (state, action) => {
-        const minutes = action.payload / 60;
+        const min = action.payload / 60;
+        const minutes = Number(min.toFixed(3))
         state.today.workTime += minutes;
         state.timer.totalWorkTime += minutes;
-        // localStorage.setItem("report", JSON.stringify(state));
     },
 
     addRelaxTime: (state, action) => {
-        const minutes = action.payload / 60;
+        const min = action.payload / 60;
+        const minutes = Number(min.toFixed(3))
         state.today.relaxTime += minutes;
         state.timer.totalRelaxTime += minutes;
-        // localStorage.setItem("report", JSON.stringify(state));
     },
 
     addPomodoroRound: (state) => {
         state.timer.pomodoroRounds += 1;
-        // localStorage.setItem("report", JSON.stringify(state));
     },
 
     addCompletedTask: (state, action) => {
@@ -67,8 +73,6 @@ const reportSlice = createSlice({
             } else {
             state.tasks.onTime += 1;
         }
-
-        // localStorage.setItem("report", JSON.stringify(state));
     },
 
     resetReport: (state) => {
@@ -84,8 +88,6 @@ const reportSlice = createSlice({
             onTime: 0,
             outOfTime: 0,
         }
-
-        // localStorage.setItem("report", JSON.stringify(state));
     }
   }
 });

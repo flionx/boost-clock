@@ -1,9 +1,10 @@
 import { useEffect } from 'react';
-import '../../css/modal-menu.css'
 import useUpdateStorage from '../../hooks/useUpdateStorage';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { resetReport, setShowReport } from '../../store/slices/reportSlice';
+
+import '../../css/modal-menu.css'
 function Report() {
     
     const {showReport, ...report} = useSelector(state => state.report);
@@ -17,12 +18,18 @@ function Report() {
 
     useEffect(() => {
         if (document.body.style.overflow !== "hidden") {
-            document.body.style.overflow = "hidden";
+            document.body.style.overflow = "hidden";            
         }
         return () => {
             document.body.style.overflow = "";
         }
     }, [])
+
+    function calcAndRound(minutes) {
+        const hours = minutes / 60;
+        const result = Number(hours.toFixed(1))        
+        return result;
+    } 
 
     function hideReport() {
         dispatch(setShowReport(false));
@@ -50,11 +57,11 @@ function Report() {
                 <h4 className="column-modal-menu__title">Today</h4>
                 <div className="colum-modal-menu__item item-modal-menu">
                     <p className="item-modal-menu__text">Work time</p>
-                    <p className="item-modal-menu__stat">{workTime}h</p>
+                    <p className="item-modal-menu__stat">{calcAndRound(workTime)}h</p>
                 </div>
                 <div className="colum-modal-menu__item item-modal-menu">
                     <p className="item-modal-menu__text">Relax time</p>
-                    <p className="item-modal-menu__stat">{relaxTime}h</p>
+                    <p className="item-modal-menu__stat">{calcAndRound(relaxTime)}h</p>
                 </div>
                 <div className="colum-modal-menu__item item-modal-menu">
                     <p className="item-modal-menu__text">Completed tasks</p>
@@ -67,11 +74,11 @@ function Report() {
                 <hr className='column-modal-menu-line'/>
                 <div className="column-modal-menu__row">
                     <p className="item-modal-menu__text">Total work time</p>
-                    <p className="item-modal-menu__text-bg">{totalWorkTime}h</p>
+                    <p className="item-modal-menu__text-bg">{calcAndRound(totalWorkTime)}h</p>
                 </div>
                 <div className="column-modal-menu__row">
                     <p className="item-modal-menu__text">Total relax time</p>
-                    <p className="item-modal-menu__text-bg">{totalRelaxTime}h</p>
+                    <p className="item-modal-menu__text-bg">{calcAndRound(totalRelaxTime)}h</p>
                 </div>
                 <div className="column-modal-menu__row">
                     <p className="item-modal-menu__text">Pomodoro rounds</p>
