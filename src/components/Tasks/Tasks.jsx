@@ -10,7 +10,7 @@ function Tasks() {
     
     const tasks = useSelector(state => state.tasks.tasks)
 
-    const completedTasks = useMemo(() => tasks.filter(task => task.complete), [tasks]);    
+    const completedTasks = useMemo(() => tasks.filter(task => task.complete), [tasks]);
 
     const [hasCompleted, setHasCompleted] = useState(completedTasks.length > 0);
 
@@ -22,10 +22,9 @@ function Tasks() {
         }
     }, [completedTasks.length])
 
-    const changeCompletedHandler= useCallback(() => {
+    const changeCompletedHandler = useCallback(() => {
         setHasCompleted(curr => false);
     }, [])
-
 
     return (
         <section className="main__tasks tasks">

@@ -5,6 +5,7 @@ import CreateTaskCard from "./CreateTaskCard.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleCompleteTask, setEditTaskId } from "../../../store/slices/tasksSlice.js";
 import { changeMainTask, setMainTask } from "../../../store/slices/mainTaskSlice.js";
+import { addCompletedTask } from "../../../store/slices/reportSlice.js";
 
 function TaskCard({ task, taskIndex, hasCreateTask }) {
 
@@ -40,6 +41,7 @@ function TaskCard({ task, taskIndex, hasCreateTask }) {
             taskTitle.current.className = 'task__title anim-title-complete';
             timeoutId.current = setTimeout(()=> {                    
                 deleteTask();
+                addInfoToReport();
             }, 1000)
         } else {
             taskTitle.current.className = 'task__title';
@@ -48,6 +50,14 @@ function TaskCard({ task, taskIndex, hasCreateTask }) {
             }
         }
     }, [isTaskCompleted])
+
+    function addInfoToReport() {
+        if (task.round > task.deadline) {
+            dispatch(addCompletedTask('outTime'))
+        } else {
+            dispatch(addCompletedTask())
+        }
+    }
 
     function deleteTask() {
         setIsCardDelete(true);

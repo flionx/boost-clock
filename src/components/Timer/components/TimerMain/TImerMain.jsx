@@ -4,6 +4,7 @@ import useMelody from "../../../../hooks/useMelody.js";
 import { useDispatch, useSelector} from "react-redux";
 import { setRoundTasks } from "../../../../store/slices/tasksSlice.js";
 import { addRoundToBreak, removeRoundsToBreak, setHasLongBreak } from "../../../../store/slices/settingSlice.js";
+import { addPomodoroRound, addRelaxTime, addWorkTime } from "../../../../store/slices/reportSlice.js";
 
 function TimerMain({ minutes, info }) {
 
@@ -11,6 +12,7 @@ function TimerMain({ minutes, info }) {
         work: minutes.work * 60, 
         relax: minutes.relax * 60
     })    
+    const [reportSec, setReportSec] = useState(0);
     const {timerInfo, setTimerInfo} = info;
     const {nowIsWork, hasTimer, canChangeMinutes} = timerInfo
 
@@ -34,9 +36,11 @@ function TimerMain({ minutes, info }) {
                 if (nowIsWork) {
                     setSeconds((secs) => ({ ...secs, work: data }));
                     setFormatResult(formatTime(data));
+                    setReportSec(sec => sec + 1);
                 } else {
                     setSeconds((secs) => ({ ...secs, relax: data }));
                     setFormatResult(formatTime(data));
+                    setReportSec(sec => sec + 1);
                 }
                 // время вышло - стоп
                 if (data <= 0) {
@@ -56,11 +60,7 @@ function TimerMain({ minutes, info }) {
     const {melodyGoWork, melodyGoRelax} = useMelody();
 
     useEffect(() => {
-        if (seconds.work <= 0 || seconds.relax <= 0) {
-            stopTimer();
-        }
         setFormatResult(nowIsWork ? formatTime(seconds.work) : formatTime(seconds.relax));
-
     }, [seconds.work, seconds.relax, nowIsWork])
 
     useEffect(() => {
@@ -81,6 +81,7 @@ function TimerMain({ minutes, info }) {
     }, [hasTimer]);
 
     const soundTimeouts = useRef([]);
+
     function playSounds() {
         if (!soundOn) return; 
 
@@ -92,7 +93,7 @@ function TimerMain({ minutes, info }) {
         sound.currentTime = 0;
         sound.play();
     
-        if (repeatSound === 0) return;
+        if (repeatSound <= 0) return;
     
         for (let i = 1; i <= repeatSound; i++) {
             const timeoutId = setTimeout(() => {
@@ -126,23 +127,34 @@ function TimerMain({ minutes, info }) {
             dispatch(removeRoundsToBreak());
         }
     }
+
+    function addReportTime() {
+        if(nowIsWork) {
+            dispatch(addWorkTime(reportSec));
+        } else {
+            dispatch(addRelaxTime(reportSec));
+        }
+        setReportSec(0);
+    }
     // конец таймера, смена типа таймера, звук
     function stopTimer() {
         if (hasLongBreak) {
             dispatch(setHasLongBreak(false))
         }
-        setTimerInfo(c=> ({hasTimer: false, nowIsWork: !c.nowIsWork, canChangeMinutes: true}))
+        setTimerInfo(c => ({hasTimer: false, nowIsWork: !c.nowIsWork, canChangeMinutes: true}))
+        addReportTime()
         playSounds();
         checkAutoSwitch();
         calcLongBreak();
         if (nowIsWork) {
-            dispatch(setRoundTasks())
+            dispatch(setRoundTasks());
+            dispatch(addPomodoroRound());
         }
-            
     }
 
     function toggleTimer() {
         setTimerInfo(c=> ({...c, hasTimer: !c.hasTimer}))
+        addReportTime();
     }
 
     // Сброс таймера до настроек
@@ -153,6 +165,7 @@ function TimerMain({ minutes, info }) {
         } else {
             setSeconds({...seconds, relax: minutes.relax * 60})
         }
+        addReportTime()
         workerRef.current.postMessage({ action: 'reset', seconds: seconds });
     }
 
@@ -163,6 +176,7 @@ function TimerMain({ minutes, info }) {
             setTimerInfo(c=> ({...c, nowIsWork: false}))
         }
         resetTimer();
+        addReportTime();
         if (hasLongBreak) {
             dispatch(setHasLongBreak(false))
         }
