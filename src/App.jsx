@@ -4,7 +4,7 @@ import './css/null.css';
 import './css/fonts.css';
 import './css/media.css';
 import './css/index.css';
-import Footer from './components/Footer/Footer.jsx';
+// import Footer from './components/Footer/Footer.jsx';
 
 function App() {
 
@@ -12,7 +12,7 @@ function App() {
     <>
       <Header />
       <MainContent />
-      <Footer />
+      {/* <Footer /> */}
     </>
   )
 }
