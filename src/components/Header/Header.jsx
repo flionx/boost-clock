@@ -3,6 +3,8 @@ import './Header.css'
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { setShowSettings } from '../../store/slices/settingSlice';
+import { setShowReport } from '../../store/slices/reportSlice';
+import { setShowAchiev } from '../../store/slices/achievementSlice';
 
 function Header() {
 
@@ -36,6 +38,13 @@ function Header() {
         localStorage.setItem("theme", otherTheme);
     }
 
+      function showReport() {
+    dispatch(setShowReport(true));
+  }
+  function showAchiev() {
+    dispatch(setShowAchiev(true));
+  }
+
     return (
         <header className="header">
             <div className="container header__content">
@@ -47,11 +56,22 @@ function Header() {
                         className="header__theme btn-ui"></button>
                     </li>
 
+                    <li className="header__item item__menu">
+                        <button 
+                        onClick={showReport} 
+                        className="button__menu btn--icon1">Report</button>
+                    </li>
+                    <li className="header__item item__menu">
+                        <button 
+                        onClick={showAchiev} 
+                        className="button__menu btn--icon2">Achievements</button>
+                    </li>
                     <li className="header__item">
                         <button 
                         onClick={showSettingsHandler}
                         className="header__settings button__menu">Settings</button>
                     </li>
+            
                 </ul>
             </div>
         </header>

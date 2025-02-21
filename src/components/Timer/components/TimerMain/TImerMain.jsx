@@ -5,6 +5,7 @@ import { useDispatch, useSelector} from "react-redux";
 import { setRoundTasks } from "../../../../store/slices/tasksSlice.js";
 import { addRoundToBreak, removeRoundsToBreak, setHasLongBreak } from "../../../../store/slices/settingSlice.js";
 import { addPomodoroRound, addRelaxTime, addWorkTime } from "../../../../store/slices/reportSlice.js";
+import { setCompleteAchiev, setStepAchiev } from "../../../../store/slices/achievementSlice.js";
 
 function TimerMain({ minutes, info }) {
 
@@ -21,6 +22,7 @@ function TimerMain({ minutes, info }) {
     const {autoToWork, autoToRelax, longBreakInterval, soundOn, 
             repeatSound } = useSelector(state => state.settings.mainSettings);
     const {hasLongBreak, roundsToBreak} = useSelector(state => state.settings);
+    const [firstAchiev, secondAchiev, thirdAchiev] = useSelector(state => state.achievement);
 
     const [formatResult, setFormatResult] = useState(() => formatTime(seconds.work));
 
@@ -141,14 +143,26 @@ function TimerMain({ minutes, info }) {
         if (hasLongBreak) {
             dispatch(setHasLongBreak(false))
         }
-        setTimerInfo(c => ({hasTimer: false, nowIsWork: !c.nowIsWork, canChangeMinutes: true}))
         addReportTime()
+        setTimerInfo(c => ({hasTimer: false, nowIsWork: !c.nowIsWork, canChangeMinutes: true}))
         playSounds();
         checkAutoSwitch();
         calcLongBreak();
         if (nowIsWork) {
             dispatch(setRoundTasks());
             dispatch(addPomodoroRound());
+            // достижение 1
+            if (firstAchiev.step < firstAchiev.max) {                
+                dispatch(setStepAchiev("I'm new"))
+                dispatch(setCompleteAchiev("I'm new"))
+            }
+            // достижение 2
+            if (thirdAchiev.step < thirdAchiev.max) {                
+                dispatch(setStepAchiev("Productive"))
+                if (thirdAchiev.step + 1 == thirdAchiev.max) {
+                    dispatch(setCompleteAchiev("Productive"))
+                }
+            }
         }
     }
 
