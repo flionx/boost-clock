@@ -4,11 +4,13 @@ import MainTask from '../MainTask/MainTask.jsx';
 import Settings from '../Settings/Settings.jsx'
 import { useSelector } from 'react-redux';
 import Report from '../Report/Report.jsx';
+import Achievements from '../Achievements/Achievements.jsx';
 
 function MainContent() {
 
     const showSettings = useSelector(state => state.settings.showSettings);
     const showReport = useSelector(state => state.report.showReport)
+    const showAchiev = useSelector(state => state.achievement.showAchiev)
     return (
         <main className="main">
             <div className="container">
@@ -17,6 +19,7 @@ function MainContent() {
                 <Tasks />
                 {showSettings && (<Settings/>)}
                 {showReport && (<Report />)}
+                {showAchiev && (<Achievements />)}
             </div>
         </main>
     )

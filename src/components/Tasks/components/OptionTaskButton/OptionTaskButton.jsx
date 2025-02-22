@@ -1,13 +1,11 @@
 import OptionsWindow from "../OptionsWindow/OptionsWindow";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 
 function OptionTaskButton({taskId, taskIndex, callSetIsCardDelete, onClickEdit, isEdit, isCompleted}) {
     
     const [hasOptions, setHasOptions] = useState(false);
     
-    const optionsRef = useRef(null);
-
-    // Закрываем меню при клике вне него
+    // Закрытие опции
     useEffect(() => {
         const handleClickOutside = () => {
             setHasOptions(false);
@@ -21,9 +19,7 @@ function OptionTaskButton({taskId, taskIndex, callSetIsCardDelete, onClickEdit, 
     }, [hasOptions]);
 
     return (
-        <div 
-        ref={optionsRef}
-        className="task__option-block">
+        <div className="task__option-block">
 
             <button 
                 onClick={(e) => {
