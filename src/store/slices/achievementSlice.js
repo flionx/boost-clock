@@ -9,6 +9,7 @@ const getInitialState = () => {
 const achievementSlice = createSlice({
   name: "achievement",
   initialState: {
+    newAchievs: 0,
     showAchiev: false,
     achievs: getInitialState(),
   },
@@ -27,12 +28,21 @@ const achievementSlice = createSlice({
         const achievs = state.achievs.map(card => {
             return (card.title == action.payload) ? {...card, lock: false} : card
         });
-
+        state.newAchievs += 1;
         state.achievs = achievs;
     },
+    setNewAchievs: (state, action) => {
+      if (action.payload === '+') {
+        state.newAchievs = state.newAchievs + 1;
+      }else if (action.payload === '-') {
+        state.newAchievs = state.newAchievs - 1;
+      } else if (action.payload === 'reset') {
+        state.newAchievs = 0;
+      }
+    }
   },
 });
 
-export const { setShowAchiev, setStepAchiev, setCompleteAchiev } = achievementSlice.actions;
+export const { setShowAchiev, setStepAchiev, setCompleteAchiev, setNewAchievs } = achievementSlice.actions;
 
 export default achievementSlice.reducer;

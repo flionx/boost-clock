@@ -1,14 +1,28 @@
 import { useState, useEffect } from 'react';
 import './Header.css'
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setShowSettings } from '../../store/slices/settingSlice';
 import { setShowReport } from '../../store/slices/reportSlice';
-import { setShowAchiev } from '../../store/slices/achievementSlice';
+import { setNewAchievs, setShowAchiev } from '../../store/slices/achievementSlice';
+import NewAchiev from './NewAchiev';
+import { createSelector } from '@reduxjs/toolkit';
 
 function Header() {
 
     const dispatch = useDispatch();
+    // const selectCompletedAchievs = createSelector(
+    //     state => state.achievement?.achievs || [],
+    //     achievs => achievs.filter(card => !card.lock)
+    // );
+      
+    // const completedAchievs = useSelector(selectCompletedAchievs);
+    const newAchievs = useSelector(state => state.achievement.newAchievs);
+    
+    // useEffect(()=> {
+    //     if (completedAchievs.length > 0) {
+    //         dispatch(setNewAchievs('+'))
+    //     }
+    // }, [completedAchievs.length])
 
     // 'light' или 'dark'
     const [theme, setTheme] = useState(userTheme);
@@ -30,7 +44,6 @@ function Header() {
         dispatch(setShowSettings(true))
     }
 
-
     function changeTheme() {
         const otherTheme = (theme === 'light') ? 'dark' : 'light';
         setTheme(cur => cur = otherTheme);
@@ -42,6 +55,9 @@ function Header() {
     }
     function showAchiev() {
         dispatch(setShowAchiev(true));
+        if (newAchievs > 0) {
+            dispatch(setNewAchievs('reset'));
+        }
     }
 
     return (
@@ -60,10 +76,13 @@ function Header() {
                         onClick={showReport} 
                         className="button__menu btn--icon1">Report</button>
                     </li>
-                    <li className="header__item item__menu">
+                    <li className="header__item item__menu ">
                         <button 
                         onClick={showAchiev} 
-                        className="button__menu btn--icon2">Achievements</button>
+                        className="button__menu btn--icon2 ">
+                            {newAchievs > 0 && (<NewAchiev newAchievs={newAchievs}/>)}
+                            Achievements
+                        </button>
                     </li>
                     <li className="header__item">
                         <button 
