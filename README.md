@@ -63,6 +63,11 @@ A handy and minimalistic Pomodoro timer based on React + Redux Toolkit. Helps yo
 
 - Themes (under development, only dark and light themes are available)
 
+## Screenshots
+![Главная](https://github.com/user-attachments/assets/1c0452d3-b845-4984-8d05-ada868c49848) 
+![Таймер](https://github.com/user-attachments/assets/365f7d28-daf1-469f-bf11-3f550ebd35a4)  
+Main interface with dark theme.
+
 ## Technologies
 
 - React
