@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleCompleteTask, setEditTaskId } from "../../../store/slices/tasksSlice.js";
 import { changeMainTask, setMainTask } from "../../../store/slices/mainTaskSlice.js";
 import { addCompletedTask } from "../../../store/slices/reportSlice.js";
+import { setCompleteAchiev, setStepAchiev } from "../../../store/slices/achievementSlice.js";
 
 function TaskCard({ task, taskIndex, hasCreateTask }) {
 
@@ -14,6 +15,9 @@ function TaskCard({ task, taskIndex, hasCreateTask }) {
     const mainTask = useSelector(state => state.mainTask);
     const tasks = useSelector(state => state.tasks.tasks);
     const editTaskId = useSelector(state => state.tasks.editTaskId);
+
+    // const secondAchiev = useSelector(state => state.achievement.achievs[1])
+    const fourthAchiev = useSelector(state => state.achievement.achievs[3])
 
     const [isCardDelete, setIsCardDelete] = useState(false);
     const [isTaskCompleted, setIsComplete] = useState(false);
@@ -56,6 +60,13 @@ function TaskCard({ task, taskIndex, hasCreateTask }) {
             dispatch(addCompletedTask('outTime'))
         } else {
             dispatch(addCompletedTask())
+            // достижение 4
+            if (fourthAchiev.step < fourthAchiev.max) {                
+                if (fourthAchiev.step + 1 == fourthAchiev.max) {
+                    dispatch(setCompleteAchiev("Responsible"))
+                }
+                dispatch(setStepAchiev("Responsible"))
+            }
         }
     }
 

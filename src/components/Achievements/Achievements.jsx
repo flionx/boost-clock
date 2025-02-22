@@ -13,7 +13,7 @@ function Achievements() {
     const achievsArray = useSelector(state => state.achievement.achievs)
     const {showAchiev, achievs} = useSelector(state => state.achievement)    
 
-    useUpdateStorage('achievement', achievs);
+    useUpdateStorage('achievs', achievs);
 
     useEffect(() => {
         if (document.body.style.overflow !== "hidden") {
@@ -23,7 +23,6 @@ function Achievements() {
             document.body.style.overflow = "";
         }
     }, [])
-
 
     function hideReport() {
         dispatch(setShowAchiev(false));
