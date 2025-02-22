@@ -9,7 +9,6 @@ import { setShowAchiev } from '../../store/slices/achievementSlice';
 function Header() {
 
     const dispatch = useDispatch();
-    const showSettings = useSelector(state => state.settings.showSettings)
 
     // 'light' или 'dark'
     const [theme, setTheme] = useState(userTheme);
@@ -38,12 +37,12 @@ function Header() {
         localStorage.setItem("theme", otherTheme);
     }
 
-      function showReport() {
-    dispatch(setShowReport(true));
-  }
-  function showAchiev() {
-    dispatch(setShowAchiev(true));
-  }
+    function showReport() {
+        dispatch(setShowReport(true));
+    }
+    function showAchiev() {
+        dispatch(setShowAchiev(true));
+    }
 
     return (
         <header className="header">
