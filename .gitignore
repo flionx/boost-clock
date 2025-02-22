@@ -23,8 +23,7 @@ dist-ssr
 *.sln
 *.sw?
 
-old
-oldhtml.txt
+locales
 
 timeout.mp3
 
