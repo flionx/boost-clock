@@ -1,29 +1,31 @@
 import { useState, useEffect } from 'react';
-import './Header.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { setShowSettings } from '../../store/slices/settingSlice';
 import { setShowReport } from '../../store/slices/reportSlice';
 import { setNewAchievs, setShowAchiev } from '../../store/slices/achievementSlice';
 import NewAchiev from './NewAchiev';
-import { createSelector } from '@reduxjs/toolkit';
+import BurgerMenu from './BurgerMenu';
+import './Header.css'
+import useMelody from '../../hooks/useMelody';
 
 function Header() {
 
     const dispatch = useDispatch();
-    // const selectCompletedAchievs = createSelector(
-    //     state => state.achievement?.achievs || [],
-    //     achievs => achievs.filter(card => !card.lock)
-    // );
-      
-    // const completedAchievs = useSelector(selectCompletedAchievs);
     const newAchievs = useSelector(state => state.achievement.newAchievs);
-    
-    // useEffect(()=> {
-    //     if (completedAchievs.length > 0) {
-    //         dispatch(setNewAchievs('+'))
-    //     }
-    // }, [completedAchievs.length])
 
+    const {soundOn} = useSelector(state => state.settings.mainSettings); 
+
+    const {melodyNotification} = useMelody();
+
+    useEffect(()=> {
+        if (newAchievs > 0 && soundOn) {
+            setTimeout(()=> {
+                melodyNotification.currentTime = 0;
+                melodyNotification.play();
+            }, 2000)
+          }
+    }, [newAchievs])
+    
     // 'light' или 'dark'
     const [theme, setTheme] = useState(userTheme);
 
@@ -64,33 +66,41 @@ function Header() {
         <header className="header">
             <div className="container header__content">
                 <h1 className="header__logo">BoostClock</h1>
-                <ul className="header__right">
-                    <li className="header__item">
-                        <button 
-                        onClick={changeTheme}
-                        className="header__theme btn-ui"></button>
-                    </li>
+                <div className="header__right">
+                    <button 
+                    onClick={changeTheme}
+                    className="header__theme btn-ui"></button>
+                    
+                    <nav className="header__menu">
+                        <ul className="header__list">
+                            <li className="header__item item__menu">
+                                <button 
+                                onClick={showReport} 
+                                className="button__menu btn--icon1">Report</button>
+                            </li>
+                            <li className="header__item item__menu ">
+                                <button 
+                                onClick={showAchiev} 
+                                className="button__menu btn--icon2 ">
+                                    {newAchievs > 0 && (<NewAchiev newAchievs={newAchievs}/>)}
+                                    Achievements
+                                </button>
+                            </li>
+                            <li className="header__item">
+                                <button 
+                                onClick={showSettingsHandler}
+                                className="header__settings button__menu">Settings</button>
+                            </li>
+                        </ul>
+                    </nav>
 
-                    <li className="header__item item__menu">
-                        <button 
-                        onClick={showReport} 
-                        className="button__menu btn--icon1">Report</button>
-                    </li>
-                    <li className="header__item item__menu ">
-                        <button 
-                        onClick={showAchiev} 
-                        className="button__menu btn--icon2 ">
-                            {newAchievs > 0 && (<NewAchiev newAchievs={newAchievs}/>)}
-                            Achievements
-                        </button>
-                    </li>
-                    <li className="header__item">
-                        <button 
-                        onClick={showSettingsHandler}
-                        className="header__settings button__menu">Settings</button>
-                    </li>
+                    <BurgerMenu 
+                        showReport={showReport} 
+                        showAchiev={showAchiev} 
+                        showSettingsHandler={showSettingsHandler} 
+                        newAchievs={newAchievs}/>
             
-                </ul>
+                </div>
             </div>
         </header>
     )
