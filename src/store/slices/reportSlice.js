@@ -77,17 +77,8 @@ const reportSlice = createSlice({
 
     resetReport: (state) => {
         state.today = { workTime: 0, relaxTime: 0, tCompletedTasks: 0 };
-
-        state.timer = {
-            totalWorkTime: 0,
-            totalRelaxTime: 0,
-            pomodoroRounds: 0,
-        }
-        state.tasks ={
-            aCompletedTasks: 0,
-            onTime: 0,
-            outOfTime: 0,
-        }
+        state.timer = { totalWorkTime: 0, totalRelaxTime: 0, pomodoroRounds: 0}
+        state.tasks ={ aCompletedTasks: 0, onTime: 0, outOfTime: 0}
     }
   }
 });

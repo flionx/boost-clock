@@ -3,10 +3,12 @@ import scrollToNew from '../helpers/scrollToNew.js'
 import AnimDeleteCard from "../helpers/AnimDeleteCard.js";
 import { useDispatch, useSelector } from "react-redux";
 import { addTask, changeTask, setEditTaskId } from "../../../store/slices/tasksSlice.js";
+import { setCompleteAchiev, setStepAchiev } from "../../../store/slices/achievementSlice.js";
 
 function CreateTaskCard({ task, isEdit, hasCreateTask, toggleHasCreateTask, isCardDelete = false}) {
 
     const dispatch = useDispatch()
+    const secondAchiev = useSelector(state => state.achievement.achievs[1])
 
     const resetTask = {id: Date.now(), title: '', description: null, complete: false, deadline: null, round: null};
 
@@ -90,6 +92,11 @@ function CreateTaskCard({ task, isEdit, hasCreateTask, toggleHasCreateTask, isCa
             dispatch(addTask(currentTask))
             if (hasCreateTask) {
                 toggleHasCreateTask()
+            }
+            // достижение 2
+            if (secondAchiev.step < secondAchiev.max) {                
+                dispatch(setStepAchiev("Planner"))
+                dispatch(setCompleteAchiev("Planner"))
             }
         }
     }
