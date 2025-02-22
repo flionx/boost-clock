@@ -1,6 +1,10 @@
 # Boost Clock
 
-A handy and minimalistic Pomodoro timer built using React. Helps you manage your time effectively, alternating between work and rest, with the ability to create tasks.
+A handy and minimalistic Pomodoro timer based on React + Redux Toolkit. Helps you manage your time efficiently by alternating between work and rest, with the ability to create tasks, report views, customizations and even achievements.
+
+##  Demo
+
+[Live Preview](https://boost-clock.vercel.app/)
 
 ## Features
 
@@ -8,6 +12,9 @@ A handy and minimalistic Pomodoro timer built using React. Helps you manage your
 - Setting the time for work and rest.
 - Notifications when a step is completed.
 - Possibility to compose tasks.
+- Settings.
+- Achievements. 
+- Report.
 
 ## Installation
 
@@ -43,8 +50,18 @@ A handy and minimalistic Pomodoro timer built using React. Helps you manage your
 -Checkbox button to the left of the task title - the task will be moved to the “Completed” category.
 - "Delete all" button - delete all tasks.
   
-#### Theme
+### Theme
 - "Sun/Moon" button in the title bar - change the theme of the application.
+
+### Settings
+- Auto switching to automatically switch to a specific timer type.
+- Long break - allows you to enter the length of a long break (recommended 15).
+- Long Break interval - number of pomodoro rounds between long breaks(recommended 4) 
+
+- Sound on allows you to turn sounds on/off.
+- Repeat - number of additional repetitions of the timer end sound.
+
+- Themes (under development, only dark and light themes are available)
 
 ## Technologies
 
