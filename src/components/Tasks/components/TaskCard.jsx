@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { memo, useCallback, useEffect, useRef, useState } from "react";
 import AnimDeleteCard from '../helpers/AnimDeleteCard.js';
 import OptionTaskButton from "./OptionTaskButton/OptionTaskButton.jsx";
 import CreateTaskCard from "./CreateTaskCard.jsx";
@@ -8,7 +8,7 @@ import { changeMainTask, setMainTask } from "../../../store/slices/mainTaskSlice
 import { addCompletedTask } from "../../../store/slices/reportSlice.js";
 import { setCompleteAchiev, setStepAchiev } from "../../../store/slices/achievementSlice.js";
 
-function TaskCard({ task, taskIndex, hasCreateTask }) {
+const TaskCard = memo(({ task, taskIndex, hasCreateTask }) => {
 
     const dispatch = useDispatch();
 
@@ -35,7 +35,6 @@ function TaskCard({ task, taskIndex, hasCreateTask }) {
             }
         }
     }, [isCardDelete, dispatch]);
-
 
     const taskTitle = useRef(null);
     const timeoutId = useRef(null);
@@ -142,7 +141,8 @@ function TaskCard({ task, taskIndex, hasCreateTask }) {
             />
         )}
     </>
-    )
-}
+    );
+});
+
 
 export default TaskCard;

@@ -1,7 +1,8 @@
+import { memo } from "react";
+
 const pathToLockImg = 'assets/achievements/block.svg';
 
-function AchievCard({card}) {
-
+const AchievCard = memo(({card}) => {
     return (
         <div className="modal-menu__achiv achiv" style={card.lock ? {background: '#CACCF5'} : {}}>
             <div className={card.lock ? 'achiv__i achiv__icon-lock' : 'achiv__i achiv__icon'}>
@@ -16,7 +17,7 @@ function AchievCard({card}) {
             </div>
         
         </div>
-    )
-}
+    );
+});
 
 export default AchievCard;
