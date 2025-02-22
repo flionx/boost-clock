@@ -28,18 +28,17 @@ const achievementSlice = createSlice({
         const achievs = state.achievs.map(card => {
             return (card.title == action.payload) ? {...card, lock: false} : card
         });
-        state.newAchievs += 1;
-        state.achievs = achievs;
+          state.achievs = achievs;
+          state.newAchievs += 1;
     },
     setNewAchievs: (state, action) => {
       if (action.payload === '+') {
         state.newAchievs = state.newAchievs + 1;
-      }else if (action.payload === '-') {
-        state.newAchievs = state.newAchievs - 1;
       } else if (action.payload === 'reset') {
         state.newAchievs = 0;
       }
-    }
+    },
+    
   },
 });
 
