@@ -1,6 +1,6 @@
 import { memo } from "react";
 
-const pathToLockImg = 'assets/achievements/block.svg';
+const pathToLockImg = '../../../assets/achievements/block.svg';
 
 const AchievCard = memo(({card}) => {
     return (
