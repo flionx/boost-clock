@@ -1,12 +1,12 @@
-<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg width="29" height="29" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g filter="url(#filter0_d_183_167)">
-<circle cx="11" cy="10" r="10" fill="#D9DBFF"/>
+<circle cx="13.5" cy="12.5" r="12.5" fill="#D9DBFF"/>
 </g>
 <g filter="url(#filter1_d_183_167)">
-<circle cx="10" cy="9" r="9" fill="white"/>
+<circle cx="12.25" cy="11.25" r="11.25" fill="white"/>
 </g>
 <defs>
-<filter id="filter0_d_183_167" x="0" y="0" width="24" height="24" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<filter id="filter0_d_183_167" x="0" y="0" width="29" height="29" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
 <feFlood flood-opacity="0" result="BackgroundImageFix"/>
 <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
 <feOffset dx="1" dy="2"/>
@@ -16,7 +16,7 @@
 <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_183_167"/>
 <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_183_167" result="shape"/>
 </filter>
-<filter id="filter1_d_183_167" x="0" y="0" width="22" height="22" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<filter id="filter1_d_183_167" x="0" y="0" width="26.5" height="26.5" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
 <feFlood flood-opacity="0" result="BackgroundImageFix"/>
 <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
 <feOffset dx="1" dy="2"/>
