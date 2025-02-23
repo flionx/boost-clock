@@ -230,12 +230,13 @@ function TimerMain({ minutes, info }) {
                 >Break</button>
             </div>
             
-            <h2 className="timer__time">
+            <h2 className="timer__time" translate="no">
                 {hasLongBreak && (<span className="timer__long-break">Long break</span>)}
                 
                 {formatResult}
             </h2>
             <button 
+            translate="no"
                 onClick={toggleTimer} 
                 className="timer__button">
                 {timerInfo.hasTimer ? "STOP" : "START"}
