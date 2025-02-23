@@ -1,20 +1,14 @@
 
 import { useEffect } from 'react';
-import '../../css/modal-menu.css'
-import { useDispatch } from 'react-redux';
 import AchievCard from './AchievCard';
+import { useDispatch, useSelector } from 'react-redux';
 import { setShowAchiev } from '../../store/slices/achievementSlice.js';
-import { useSelector } from 'react-redux';
-import useUpdateStorage from '../../hooks/useUpdateStorage.js'
+import '../../css/modal-menu.css'
 
 function Achievements() {
 
     const dispatch = useDispatch();
     const achievsArray = useSelector(state => state.achievement.achievs)
-    const {showAchiev, achievs} = useSelector(state => state.achievement)    
-
-    useUpdateStorage('achievs', achievs);
-
     useEffect(() => {
         if (document.body.style.overflow !== "hidden") {
             document.body.style.overflow = "hidden";            

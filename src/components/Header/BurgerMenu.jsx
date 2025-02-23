@@ -11,11 +11,6 @@ function BurgerMenu({showReport, showAchiev, showSettingsHandler, newAchievs}) {
     }
 
     return (
-        <>
-        {isOpenMenu && (
-            <div onClick={toggleShowMenu} className="bg__burger-menu"></div>
-        )}
-        
         <nav className="header__burger-menu">
             <button 
                 onClick={toggleShowMenu}
@@ -23,7 +18,9 @@ function BurgerMenu({showReport, showAchiev, showSettingsHandler, newAchievs}) {
                 <span></span>
                 {newAchievs > 0 && (<NewAchiev newAchievs={newAchievs}/>)}
             </button>
-
+            {isOpenMenu && (
+                <div onClick={toggleShowMenu} className="bg__burger-menu"></div>
+            )}
             <ul 
             className={`header__burger-list ${isOpenMenu ? 'header__burger-list-show': ''}`}>
                 <li className="header__item item__menu">
@@ -45,9 +42,7 @@ function BurgerMenu({showReport, showAchiev, showSettingsHandler, newAchievs}) {
                     className="header__settings button__menu">Settings</button>
                 </li>
             </ul>
-
         </nav>
-        </>
     )
 }
 

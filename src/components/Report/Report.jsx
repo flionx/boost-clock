@@ -1,19 +1,14 @@
 import { useEffect } from 'react';
-import useUpdateStorage from '../../hooks/useUpdateStorage';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { resetReport, setShowReport } from '../../store/slices/reportSlice';
-
 import '../../css/modal-menu.css'
 function Report() {
     
-    const {showReport, ...report} = useSelector(state => state.report);
-    const {workTime, relaxTime, tCompletedTasks} = useSelector(state => state.report.today)
-    const {totalWorkTime, totalRelaxTime, pomodoroRounds} = useSelector(state => state.report.timer)
-    const {aCompletedTasks, onTime, outOfTime} = useSelector(state => state.report.tasks)
-    
-    useUpdateStorage('report', report);
-    
+    const {
+        today: { workTime, relaxTime, tCompletedTasks },
+        timer: { totalWorkTime, totalRelaxTime, pomodoroRounds },
+        tasks: { aCompletedTasks, onTime, outOfTime }
+    } = useSelector(state => state.report);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -103,7 +98,7 @@ function Report() {
             </section>
             <div className="modal-menu__btns">
                 <button onClick={resetStatsReport}>Reset</button>
-                <button>Download</button>
+                {/* <button>Download</button> */}
             </div>
         </section>
         </div>
