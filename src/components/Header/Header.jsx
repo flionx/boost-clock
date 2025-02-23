@@ -63,7 +63,9 @@ function Header() {
                                 <button 
                                 onClick={showAchiev} 
                                 className="button__menu btn--icon2 ">
-                                    {newAchievs > 0 && (<NewAchiev newAchievs={newAchievs}/>)}
+                                    <span key={1}>
+                                        {newAchievs > 0 && (<NewAchiev newAchievs={newAchievs}/>)}
+                                    </span>
                                     Achievements
                                 </button>
                             </li>
