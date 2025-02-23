@@ -1,6 +1,13 @@
+import img1 from '../../../assets/achievements/new.svg';
+import img2 from '../../../assets/achievements/planner.svg';
+import img3 from '../../../assets/achievements/productive.svg';
+import img4 from '../../../assets/achievements/responsible.svg';
+import img5 from '../../../assets/achievements/focus.svg';
+import img6 from '../../../assets/achievements/coffee.svg';
+
 const achievsArray = [
     {
-        img: 'assets/achievements/new.svg',
+        img: img1,
         title: "I'm new",
         text: "Complete 1 pomodoro round",
         step: 0,
@@ -8,7 +15,7 @@ const achievsArray = [
         lock: true
     },    
     {
-        img: 'assets/achievements/planner.svg',
+        img: img2,
         title: "Planner",
         text: "Add the first task",
         step: 0,
@@ -16,7 +23,7 @@ const achievsArray = [
         lock: true
     },   
     {
-        img: 'assets/achievements/productive.svg',
+        img: img3,
         title: "Productive",
         text: "Complete 15 pomodoros",
         step: 0,
@@ -24,7 +31,7 @@ const achievsArray = [
         lock: true
     },
     {
-        img: 'assets/achievements/responsible.svg',
+        img: img4,
         title: "Responsible",
         text: "Complete 10 tasks within the deadline",
         step: 0,
@@ -32,7 +39,7 @@ const achievsArray = [
         lock: true
     },
     {
-        img: 'assets/achievements/focus.svg',
+        img: img5,
         title: "In focus",
         text: "Spend 5 hours working",
         step: 0,
@@ -40,7 +47,7 @@ const achievsArray = [
         lock: true
     },
     {
-        img: 'assets/achievements/coffee.svg',
+        img: img6,
         title: "Coffee time",
         text: "Spend 2 hours relaxing",
         step: 0,

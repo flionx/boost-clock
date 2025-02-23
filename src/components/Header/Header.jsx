@@ -3,10 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setShowSettings } from '../../store/slices/settingSlice';
 import { setShowReport } from '../../store/slices/reportSlice';
 import { setNewAchievs, setShowAchiev } from '../../store/slices/achievementSlice';
+import useMelody from '../../hooks/useMelody';
 import NewAchiev from './NewAchiev';
 import BurgerMenu from './BurgerMenu';
 import './Header.css'
-import useMelody from '../../hooks/useMelody';
+import useChangeTheme from '../../hooks/useChangeTheme';
 
 function Header() {
 
@@ -26,30 +27,10 @@ function Header() {
           }
     }, [newAchievs])
     
-    // 'light' или 'dark'
-    const [theme, setTheme] = useState(userTheme);
-
-    function userTheme() {
-        const storage = localStorage.getItem("theme");
-        return storage ? storage : 'light';
-    }
-
-    useEffect(() => {
-        if (theme === 'dark') {
-            document.documentElement.classList.add("dark-theme");
-        } else {
-            document.documentElement.classList.remove("dark-theme");
-        }
-    }, [theme])
+    const {changeTheme} = useChangeTheme();
 
     function showSettingsHandler() {
         dispatch(setShowSettings(true))
-    }
-
-    function changeTheme() {
-        const otherTheme = (theme === 'light') ? 'dark' : 'light';
-        setTheme(cur => cur = otherTheme);
-        localStorage.setItem("theme", otherTheme);
     }
 
     function showReport() {

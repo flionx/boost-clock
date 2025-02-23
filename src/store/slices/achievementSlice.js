@@ -1,6 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import achievsArray from '../../components/Achievements/achievementsList.js'
 
+const saveToLocalStorage = (state) => {
+  const stateToSave = state.achievs;
+  localStorage.setItem("achievs", JSON.stringify(stateToSave));
+};
+
 const getInitialState = () => {
     const storage = localStorage.getItem("achievs");
     return storage ? JSON.parse(storage) : achievsArray
@@ -21,8 +26,8 @@ const achievementSlice = createSlice({
         const achievs = state.achievs.map(card => {
             return (card.title == action.payload) ? {...card, step: card.step + 1} : card
         });        
-        
         state.achievs = achievs;
+        saveToLocalStorage(state);
     },
     setCompleteAchiev: (state, action) => {
         const achievs = state.achievs.map(card => {
@@ -30,6 +35,7 @@ const achievementSlice = createSlice({
         });
           state.achievs = achievs;
           state.newAchievs += 1;
+          saveToLocalStorage(state);
     },
     setNewAchievs: (state, action) => {
       if (action.payload === '+') {

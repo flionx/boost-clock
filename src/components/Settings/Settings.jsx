@@ -1,9 +1,10 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { setAutoToRelax, setAutoToWork, setColorTheme, setLongBreak, setLongBreakInterval, setRepeatSound, setShowSettings, setSoundOn } from '../../store/slices/settingSlice';
+import { resetSettings, setAutoToRelax, setAutoToWork, setColorTheme, setLongBreak, setLongBreakInterval, setRepeatSound, setShowSettings, setSoundOn } from '../../store/slices/settingSlice';
 import './Settings.css'
 import '../../css/modal-menu.css'
 import useUpdateStorage from '../../hooks/useUpdateStorage';
 import { useEffect } from 'react';
+import useChangeTheme from '../../hooks/useChangeTheme';
 
 function Settings() {
     
@@ -15,6 +16,8 @@ function Settings() {
     useUpdateStorage('settings', settings);
 
     const dispatch = useDispatch();
+
+    const {changeTheme} = useChangeTheme();
 
     useEffect(() => {
         if (document.body.style.overflow !== "hidden") {
@@ -48,6 +51,10 @@ function Settings() {
     }
     function onChangeColorTheme(e) {
         dispatch(setColorTheme(e.target.value))
+        changeTheme();
+    }
+    function resetSettingsHandle(e) {
+        dispatch(resetSettings())
     }
     
     return (
@@ -71,15 +78,15 @@ function Settings() {
                 <div className="column-modal-menu__row">
                     <label className="column-settings__label" htmlFor="autoSwithToWork">Auto switching to work</label>
                     <label className="switch">
-                        <input type="checkbox" name="autoSwithToWork" 
+                        <input type="checkbox" id='autoSwithToWork' name="autoSwithToWork" 
                         onChange={onChangeAutoToWork} checked={autoToWork}/>
                         <span className="slider round"></span>
                     </label>
                 </div>
                 <div className="column-modal-menu__row">
-                    <p>Auto switching to relax</p>
+                    <label className="column-settings__label" htmlFor="autoSwithToRelax">Auto switching to relax</label>
                     <label className="switch">
-                        <input type="checkbox" name="autoSwithToRelax" 
+                        <input type="checkbox" id='autoSwithToRelax' name="autoSwithToRelax" 
                         onChange={onChangeAutoToRelax} checked={autoToRelax}/>
                         <span className="slider round"></span>
                     </label>
@@ -103,9 +110,9 @@ function Settings() {
                 <hr className='column-modal-menu-line'/>
 
                 <div className="column-modal-menu__row">
-                    <p>Sound on</p>
+                    <label className="column-settings__label" htmlFor="soundOnOff">Sound on</label>
                     <label className="switch">
-                        <input type="checkbox" name="soundOnOff" 
+                        <input type="checkbox" id='soundOnOff' name="soundOnOff" 
                         onChange={onChangeSoundOn} checked={soundOn}/>
                         <span className="slider round"></span>
                     </label>
@@ -124,15 +131,15 @@ function Settings() {
 
                 <div className="column-modal-menu__row">
                     <p>Color</p>
-                    <select name="select" value={colorTheme} onChange={onChangeColorTheme}>
+                    <select className='modal-menu__select' name="select" value={colorTheme} onChange={onChangeColorTheme}>
                         <option value="dark">Dark</option>
                         <option value="light">Light</option>
                     </select>
                 </div>
             </section>
             <div className="modal-menu__btns">
-                <button>Reset</button>
-                <button>Download</button>
+                <button onClick={resetSettingsHandle}>Reset</button>
+                {/* <button>Download</button> */}
             </div>
         </section>
         </div>

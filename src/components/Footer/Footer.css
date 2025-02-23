@@ -22,16 +22,3 @@
     display: flex;
     align-items: center;
   }
-  
-  .btn--icon1::before{
-    mask-image: url('../../../assets/footer/report.svg');
-    mask-position: center;
-    mask-size: cover;
-    background: var(--btn-icon);
-  }
-  .btn--icon2::before{
-    mask-image: url('../../../assets/footer/trophy.svg');
-    mask-position: center;
-    mask-size: cover;
-    background: var(--btn-icon);
-  }

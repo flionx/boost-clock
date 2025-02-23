@@ -16,7 +16,7 @@
     top: 40px;
     left: 50%;
     transform: translateX(-50%);
-    max-width: 420px;
+    max-width: clamp(350px, 95vw, 420px);
     flex: 0 1 420px;
     padding: 25px 30px 15px 30px;
     background: var(--main-color);
