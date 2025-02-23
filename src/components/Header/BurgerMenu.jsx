@@ -15,8 +15,10 @@ function BurgerMenu({showReport, showAchiev, showSettingsHandler, newAchievs}) {
             <button 
                 onClick={toggleShowMenu}
                 className={`burger-menu__icon ${isOpenMenu ? 'burger-menu__icon-rotate' : ''}`}>
-                <span></span>
-                {newAchievs > 0 && (<NewAchiev newAchievs={newAchievs}/>)}
+                <span className="burger-menu-span"></span>
+                <span key={2}>
+                    {newAchievs > 0 && (<NewAchiev newAchievs={newAchievs}/>)}
+                </span>
             </button>
             {isOpenMenu && (
                 <div onClick={toggleShowMenu} className="bg__burger-menu"></div>
@@ -32,7 +34,10 @@ function BurgerMenu({showReport, showAchiev, showSettingsHandler, newAchievs}) {
                     <button 
                     onClick={showAchiev} 
                     className="button__menu btn--icon2 ">
-                        {newAchievs > 0 && (<NewAchiev newAchievs={newAchievs}/>)}
+                        <span key={3}>
+                            {newAchievs > 0 && (<NewAchiev newAchievs={newAchievs}/>)}
+                        </span>
+
                         Achievements
                     </button>
                 </li>

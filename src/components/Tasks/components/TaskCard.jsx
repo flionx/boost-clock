@@ -99,8 +99,7 @@ const TaskCard = memo(({ task, taskIndex, hasCreateTask }) => {
                             onClick={() => setIsComplete(curr => !curr)}
                             value={task.complete}
                             className="task__check" type="checkbox" name="task"/>
-                        <h4 
-                            ref={taskTitle}
+                        <h4 ref={taskTitle}
                             onClick={changeToMainTask}
                         className="task__title">
                             {task.title}

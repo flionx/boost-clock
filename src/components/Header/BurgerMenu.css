@@ -20,14 +20,12 @@
     width: 100%;
     height: 2.5px;
     border-radius: 1px;
-
     background: var(--text-color);
 }
-.burger-menu__icon span{
+.burger-menu-span{
     width: 100%;
     height: 2.5px;
     border-radius: 1px;
-
     background: var(--text-color);
 }
 .burger-menu__icon::after {
