@@ -18,9 +18,12 @@
   .header__burger-menu {
     display: flex;
   }
+  .header__item:not(:first-child) {
+    border-bottom:1px solid var(--line-color);
+  }
 }
 
-@media (max-width: 450px) {
+@media (max-width: 480px) {
   .header__burger-list {
     left: 50%;
     width: 300px;

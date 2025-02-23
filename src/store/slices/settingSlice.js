@@ -1,5 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+function userTheme() {
+  const storage = localStorage.getItem("theme");
+  return storage ? storage : 'light';
+}
+
 const getInitialSettings = () => {
     const storage = localStorage.getItem("settings");
     return storage ? JSON.parse(storage) : {
@@ -14,7 +19,7 @@ const getInitialSettings = () => {
         longBreakInterval: 4,
         soundOn: true,
         repeatSound: 0,
-        colorTheme: "dark"
+        colorTheme: userTheme(),
       }
     };
   };
@@ -55,6 +60,18 @@ const settingSlice = createSlice({
     },
     setColorTheme: (state, action) => {
         state.mainSettings.colorTheme = action.payload;
+    },
+    resetSettings: (state) => {
+      state.mainSettings = {
+        autoToWork: false,
+        autoToRelax: false,
+        basicBreak: 5,
+        longBreak: 15,
+        longBreakInterval: 4,
+        soundOn: true,
+        repeatSound: 0,
+        colorTheme: userTheme(),
+      }
     }
   },
 });
@@ -65,6 +82,6 @@ setAutoToRelax, setLongBreak,
 setLongBreakInterval, setSoundOn, 
 setRepeatSound, setColorTheme,
 setHasLongBreak, addRoundToBreak,
-removeRoundsToBreak } = settingSlice.actions;
+removeRoundsToBreak, resetSettings } = settingSlice.actions;
 
 export default settingSlice.reducer;

@@ -1,19 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-function checkTimer(data) {
-    return ( data ?? {
-        totalWorkTime: 0,
-        totalRelaxTime: 0,
-        pomodoroRounds: 0,
-      })
-}
-function checkTasks(data) {
-    return (data ?? {
-        aCompletedTasks: 0,
-        onTime: 0,
-        outOfTime: 0,
-      })
-}
+const saveToLocalStorage = (state) => {
+  const stateToSave = {
+      date: state.date,
+      today: state.today,
+      timer: state.timer,
+      tasks: state.tasks,
+      showReport: false
+  };
+  localStorage.setItem("report", JSON.stringify(stateToSave));
+};
 
 const loadFromLocalStorage = () => {
   const storage = localStorage.getItem("report");
@@ -30,8 +26,16 @@ const loadFromLocalStorage = () => {
         relaxTime: 0,
         tCompletedTasks: 0,
       },
-      timer: checkTimer(data?.timer),
-      tasks: checkTasks(data?.tasks),
+      timer: data?.timer || {
+        totalWorkTime: 0,
+        totalRelaxTime: 0,
+        pomodoroRounds: 0,
+      },
+      tasks: data?.tasks || {
+        aCompletedTasks: 0,
+        onTime: 0,
+        outOfTime: 0,
+      },
     };
   }
 
@@ -51,6 +55,7 @@ const reportSlice = createSlice({
         const minutes = Number(min.toFixed(3))
         state.today.workTime += minutes;
         state.timer.totalWorkTime += minutes;
+        saveToLocalStorage(state);
     },
 
     addRelaxTime: (state, action) => {
@@ -58,27 +63,30 @@ const reportSlice = createSlice({
         const minutes = Number(min.toFixed(3))
         state.today.relaxTime += minutes;
         state.timer.totalRelaxTime += minutes;
+        saveToLocalStorage(state);
     },
 
     addPomodoroRound: (state) => {
         state.timer.pomodoroRounds += 1;
+        saveToLocalStorage(state);
     },
 
     addCompletedTask: (state, action) => {
         state.today.tCompletedTasks += 1;
         state.tasks.aCompletedTasks += 1;
-
         if (action.payload === "outTime") {
             state.tasks.outOfTime += 1;
             } else {
             state.tasks.onTime += 1;
         }
+        saveToLocalStorage(state);
     },
 
     resetReport: (state) => {
         state.today = { workTime: 0, relaxTime: 0, tCompletedTasks: 0 };
         state.timer = { totalWorkTime: 0, totalRelaxTime: 0, pomodoroRounds: 0}
         state.tasks ={ aCompletedTasks: 0, onTime: 0, outOfTime: 0}
+        saveToLocalStorage(state);
     }
   }
 });
