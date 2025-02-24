@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 function userTheme() {
-  const storage = localStorage.getItem("theme");
+  const storage = localStorage.getItem("theme");  
   return storage ? storage : 'light';
 }
 
@@ -59,7 +59,8 @@ const settingSlice = createSlice({
         state.mainSettings.repeatSound = action.payload;
     },
     setColorTheme: (state, action) => {
-        state.mainSettings.colorTheme = action.payload;
+      state.mainSettings.colorTheme = action.payload;
+      localStorage.setItem('settings', JSON.stringify(state));
     },
     resetSettings: (state) => {
       state.mainSettings = {
