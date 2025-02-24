@@ -43,10 +43,9 @@ function Settings() {
         dispatch(setRepeatSound(e.target.value))
     }
     function onChangeColorTheme(e) {
-        dispatch(setColorTheme(e.target.value))
         changeTheme();
     }
-    function resetSettingsHandle(e) {
+    function resetSettingsHandle() {
         dispatch(resetSettings())
     }
     
