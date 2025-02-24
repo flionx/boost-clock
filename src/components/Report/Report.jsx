@@ -1,6 +1,6 @@
-import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { resetReport, setShowReport } from '../../store/slices/reportSlice';
+import useStopPageScroll from '../../hooks/useStopPageScroll';
 import '../../css/modal-menu.css'
 function Report() {
     
@@ -11,14 +11,7 @@ function Report() {
     } = useSelector(state => state.report);
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        if (document.body.style.overflow !== "hidden") {
-            document.body.style.overflow = "hidden";            
-        }
-        return () => {
-            document.body.style.overflow = "";
-        }
-    }, [])
+    useStopPageScroll();
 
     function calcAndRound(minutes) {
         const hours = minutes / 60;

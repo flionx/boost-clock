@@ -37,6 +37,8 @@
 
   --color-item-modal-menu: #FFFFFF;
   --color-item-modal-text-bg: #B7B9D8;
+  --color-item-modal-text-bg-hover: #acaecc;
+  --color-item-modal-text-bg-active: rgb(195, 197, 223);
 
 
 }
@@ -73,6 +75,8 @@
 
   --color-item-modal-menu: #838499;
   --color-item-modal-text-bg: #393939;
+  --color-item-modal-text-bg-hover: #2f2f2f;
+  --color-item-modal-text-bg-active: #323232;
 
 
 }
@@ -226,7 +230,6 @@ textarea:focus-visible {
 .settings-main {
   max-width: 450px;
   padding: 10px clamp(11px, 2vw, 50px) 25px clamp(11px, 2vw, 50px);
-  /* clamp(11px, calc(11px + 39 * ((100vw - 375px) / 1545)), 50px) 25px clamp(11px, calc(11px + 39 * ((100vw - 375px) / 1545)), 50px); */
   background: var(--content-color);
   border-radius: 8px;
   display: flex;

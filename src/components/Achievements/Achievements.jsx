@@ -1,22 +1,16 @@
 
-import { useEffect } from 'react';
 import AchievCard from './AchievCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { setShowAchiev } from '../../store/slices/achievementSlice.js';
+import useStopPageScroll from '../../hooks/useStopPageScroll.js';
 import '../../css/modal-menu.css'
 
 function Achievements() {
 
     const dispatch = useDispatch();
-    const achievsArray = useSelector(state => state.achievement.achievs)
-    useEffect(() => {
-        if (document.body.style.overflow !== "hidden") {
-            document.body.style.overflow = "hidden";            
-        }
-        return () => {
-            document.body.style.overflow = "";
-        }
-    }, [])
+    const achievsArray = useSelector(state => state.achievement.achievs);
+
+    useStopPageScroll();
 
     function hideReport() {
         dispatch(setShowAchiev(false));

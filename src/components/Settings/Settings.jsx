@@ -1,10 +1,10 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { resetSettings, setAutoToRelax, setAutoToWork, setColorTheme, setLongBreak, setLongBreakInterval, setRepeatSound, setShowSettings, setSoundOn } from '../../store/slices/settingSlice';
-import './Settings.css'
-import '../../css/modal-menu.css'
 import useUpdateStorage from '../../hooks/useUpdateStorage';
-import { useEffect } from 'react';
 import useChangeTheme from '../../hooks/useChangeTheme';
+import useStopPageScroll from '../../hooks/useStopPageScroll';
+import '../../css/modal-menu.css';
+import './Settings.css';
 
 function Settings() {
     
@@ -19,14 +19,7 @@ function Settings() {
 
     const {changeTheme} = useChangeTheme();
 
-    useEffect(() => {
-        if (document.body.style.overflow !== "hidden") {
-            document.body.style.overflow = "hidden";
-        }
-        return () => {
-            document.body.style.overflow = "";
-        }
-    }, [])
+    useStopPageScroll();
 
     function hideSettings() {
         dispatch(setShowSettings(false));
