@@ -40,6 +40,7 @@
   --color-item-modal-text-bg-hover: #acaecc;
   --color-item-modal-text-bg-active: rgb(195, 197, 223);
 
+  --border-quote: var(--task-add-active);
 
 }
 
@@ -78,6 +79,7 @@
   --color-item-modal-text-bg-hover: #2f2f2f;
   --color-item-modal-text-bg-active: #323232;
 
+  --border-quote: #3C3C3C;
 
 }
 
