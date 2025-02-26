@@ -1,24 +1,12 @@
-import { useEffect, useRef, useState } from 'react';
-import './CompletedTasks.css';
+import { useRef, useState } from 'react';
 import CompletedTaskCard from './CompletedTaskCard';
+import './CompletedTasks.css';
+const arrowRotate = 'task-comlpeted__arrow-rotated';
 
 function CompletedTasksList({completedTasks, changeCompletedHandler}) {
     
     const [isShowTasks, setIsShowTasks] = useState(true);
-
     const CompletedTasksListRef = useRef(null);
-
-    const arrowRef = useRef(null);
-    useEffect(() =>{
-        if (isShowTasks) {
-            // изменение класса на обычный
-            arrowRef.current.className = 'task-comlpeted__arrow'
-        } else {
-            // добавление класса, который прокручивает стрелку
-            arrowRef.current.className = 'task-comlpeted__arrow task-comlpeted__arrow-rotated'
-        }
-
-    }, [isShowTasks])
 
     return (
         <section 
@@ -29,9 +17,7 @@ function CompletedTasksList({completedTasks, changeCompletedHandler}) {
                     onClick={()=> setIsShowTasks(curr => !curr)}
                     className="tasks-completed__header">
                     Completed tasks
-                    <div 
-                    ref={arrowRef}
-                    className="task-comlpeted__arrow"></div>
+                    <div className={`task-comlpeted__arrow ${!isShowTasks && arrowRotate}`}></div>
                 </button>
                 <ul className="completed-list">
                     {isShowTasks && (
@@ -46,7 +32,6 @@ function CompletedTasksList({completedTasks, changeCompletedHandler}) {
                         />
                         ))
                     )}
-
                 </ul>
             </div>
         </section>
