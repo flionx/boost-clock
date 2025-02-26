@@ -24,7 +24,7 @@ function CompletedTasksList({completedTasks, changeCompletedHandler}) {
         <section 
             ref={CompletedTasksListRef}
             className="completed__tasks tasks-completed">
-            <div className="container-tasks">
+            <div className="container-in">
                 <button 
                     onClick={()=> setIsShowTasks(curr => !curr)}
                     className="tasks-completed__header">

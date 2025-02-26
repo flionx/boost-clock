@@ -1,0 +1,53 @@
+.quote {
+    padding: 25px 0 35px 0;
+    background: #27292D;
+}
+
+.quote__title {
+    font-size: 30px;
+    text-align: left;
+    width: 100%;
+    margin-bottom: 20px;
+}
+.quote__main {
+    
+}
+.quote-p40 {
+    padding: 0 40px;
+}
+.quote__square {
+    position: relative;
+    padding: 15px;
+    border-radius: 8px;
+    border: 3px solid #3C3C3C;
+    margin-bottom: 8px;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 50px;
+}
+.quote__square::after {
+    content: '“';
+    position: absolute;
+    top: -18px;
+    left: -7px;
+    color: var(--text-color);
+    font-size: 40px;
+}
+.quote__square::before {
+    content: '“';
+    position: absolute;
+    transform: rotate(180deg);
+    bottom: -18px;
+    right: -7px;
+    color: var(--text-color);
+    font-size: 40px;
+}
+
+.quote__author {
+    text-align: right;
+    padding-right: 25px;
+    font-size: 18px;
+
+}
