@@ -94,7 +94,7 @@ body {
   margin: 0 auto;
 }
 
-.container-tasks {
+.container-in {
   width: clamp(353px, 51.3vw, 986px);
   margin: 0 auto;
   display: flex;

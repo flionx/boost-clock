@@ -28,7 +28,7 @@ function Tasks() {
 
     return (
         <section className="main__tasks tasks">
-            <div className="container-tasks">
+            <div className="container-in">
 
                 <TaskListHeader/>
 
