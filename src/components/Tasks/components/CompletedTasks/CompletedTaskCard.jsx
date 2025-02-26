@@ -4,7 +4,6 @@ import AnimDeleteCard from '../../helpers/AnimDeleteCard.js'
 
 const CompletedTaskCard = memo(({completedTasks, task, taskIndex, CompletedTasksListRef, changeCompletedHandler}) => {
     
-    // если нажата кнопка = применяем анимацию удаления
     const [isCardDelete, setIsCardDelete] = useState(false);
     const callSetIsCardDelete = useCallback((value) => setIsCardDelete(value), []);
 
@@ -27,14 +26,12 @@ const CompletedTaskCard = memo(({completedTasks, task, taskIndex, CompletedTasks
         className="completed-list__item">
             <div className="completed-list__item-top">
                 <h5>{task.title}</h5>
-
                 <OptionTaskButton 
                     taskId={task.id}
                     taskIndex={taskIndex}
                     isCompleted={true}
                     callSetIsCardDelete={callSetIsCardDelete}
                 />
-
             </div>
             {task.description && ( 
                 <div className="completed-list__item-describe">{task.description}</div>

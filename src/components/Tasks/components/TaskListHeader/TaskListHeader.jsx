@@ -22,7 +22,6 @@ function TaskListHeader() {
     function removeAllTasks() {
         AnimDeleteCard(tasksListRef);
         closeModal();
-
         setTimeout(() => {
             dispatch(deleteAllTasks())
             dispatch(resetMainTask())

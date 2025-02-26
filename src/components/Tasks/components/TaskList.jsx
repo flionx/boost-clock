@@ -5,11 +5,10 @@ import { useCallback, useMemo, useState } from 'react';
 
 function TaskList() {
 
+    const [hasCreateTask, setHasCreateTask] = useState(false);
     const allTasks = useSelector(state => state.tasks.tasks)
     const tasks = useMemo(() => allTasks.filter(task => !task.complete))
-
-    const [hasCreateTask, setHasCreateTask] = useState(false);
-        
+    
     const toggleHasCreateTask = useCallback(() => {
         setHasCreateTask(curr => !curr)
     })
@@ -32,7 +31,6 @@ function TaskList() {
                     toggleHasCreateTask={toggleHasCreateTask}
                 />
              )}
-
             <li className="tasks__item">
             <button 
             onClick={toggleHasCreateTask}
@@ -40,9 +38,7 @@ function TaskList() {
                 <div className="tasks__add-circle">+</div>
                 Add new task</button>
             </li>
-        
         </div>
-
     )    
 }
 

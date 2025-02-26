@@ -35,7 +35,6 @@ function OptionsWindow({ taskIndex, callSetIsCardDelete, taskId, onClickEdit, is
     return (
         <div className="task-option">
             {isEdit && (
-
                 <button 
                 onClick={onClickEdit}
                 className="task-option__row row-opt1">
@@ -68,7 +67,6 @@ function OptionsWindow({ taskIndex, callSetIsCardDelete, taskId, onClickEdit, is
             className="task-option__row row-opt4">
                 delete
             </button>
-            
         </div>
     )
     
