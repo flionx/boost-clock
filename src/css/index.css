@@ -87,6 +87,7 @@ body {
   font-family: var(--main-font);
   color: var(--text-color);
   background: var(--main-color);
+  height: 100vh;
   /* height: calc(100vh - 50px); */
 }
 
@@ -110,7 +111,9 @@ body {
   flex-direction: column;
   align-items: center;
 }
-
+.container-second {
+  min-height: 100vh;
+}
 /* табуляция для кнопок и инпутов */
 
 button:focus-visible,

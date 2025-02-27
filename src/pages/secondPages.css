@@ -1,0 +1,34 @@
+.container-second {
+    padding: 30px;
+}
+.container-second h2{
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+.container-second h3{
+    font-size: 25px;
+    margin-bottom: 5px;
+    font-family: var(--menu-font);
+}
+.container-second p{
+    font-family: var(--main-font);
+    font-size: 20px;
+    margin-bottom: 15px;
+    line-height: 1.2;
+}
+.container-second ul,
+.container-second ol {
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+.container-second ol {
+    padding-left: 20px;
+}
+.container-second ol li:not(:last-child),
+.container-second ul li:not(:last-child) {
+    margin-bottom: 8px;
+}
+
+.container-second span {
+    letter-spacing: 1px;
+}
