@@ -8,20 +8,18 @@
   justify-content: space-between;
   align-items: center;
 }
-.header__content-second {
+.header__content-center {
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
+  column-gap: 35px;
 }
-.header__content-second a {
-  position: absolute;
-  left: 0;
-  color: currentColor;
-  font-size: 28px;
-}
+
 .header__logo {
   font-size: 35px;
+}
+.header__logo a{
+  color: currentColor;
 }
 
 .header__right {

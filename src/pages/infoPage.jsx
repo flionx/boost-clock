@@ -21,13 +21,13 @@ const InfoPage = () => {
             <li><span>Scientifically proven effect</span> - short breaks between work intervals help you maintain concentration and prevent a decrease in productivity.</li>
         </ul>
         <h3>Bonus features</h3>
-        <p>By using Boost-clock, you will also get:</p>
+        <p>By using BoostClock, you will also get:</p>
         <ul>
             <li><span>Achievements</span> for meeting certain goals.</li>
             <li><span>Statistics</span> to track your productivity.</li>
             <li><span>Motivational quotes</span> every day to be inspired by great personalities.</li>
         </ul>
-        <p>Apply the Pomodoro method with Boost-clock and achieve more in less time!</p>
+        <p>Apply the Pomodoro method with BoostClock and achieve more in less time!</p>
     </div>
   )
 }
