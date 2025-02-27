@@ -23,7 +23,7 @@ function Footer() {
             <li>Terms of Use</li>
             <li>Privacy policy</li>
           </nav>
-          <p>&copy; 2025 Flionx</p>
+          <p className='footer__copy'>&copy; 2025 Flionx</p>
         </div>
       </footer>
     )
