@@ -20,11 +20,10 @@
   color: currentColor;
   font-size: 28px;
 }
-
 .header__logo {
   font-size: 35px;
-
 }
+
 .header__right {
   display: flex;
   align-items: center;

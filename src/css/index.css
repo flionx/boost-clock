@@ -42,6 +42,8 @@
 
   --border-quote: var(--task-add-active);
 
+  --footer-bg: #999BC6;
+  --footer-copy-color: #484848;
 }
 
 .dark-theme {
@@ -80,6 +82,9 @@
   --color-item-modal-text-bg-active: #323232;
 
   --border-quote: #3C3C3C;
+  --footer-bg: #202125;
+  --footer-copy-color: #858585;
+
 
 }
 

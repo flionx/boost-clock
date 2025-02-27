@@ -37,6 +37,12 @@
   }
 }
 
+@media (max-width: 750px) {
+  .header__content-second .header__logo {
+    margin-left: auto;
+    margin-right: 50px;
+  }
+}
 @media (max-width: 480px) {
   .header__burger-list {
     left: 50%;
