@@ -1,38 +1,63 @@
-import { useEffect } from "react";
-const alloriginsWin = "https://api.allorigins.win/get?url=";
-const url = "https://favqs.com/api/qotd";
-// 2 вариант https://strangerthingsquotes.shadowdev.xyz/
+import { useEffect, useCallback } from "react";
+
+const quoteDefault = "There will be no tomorrow";
+const authorDefault = "Unknown";
+const alloginsAPI = "https://api.allorigins.win/get?url=";
+const quoteAPI = "https://favqs.com/api/qotd";
 
 function useQuoteFetch(callSetQuote) {
-    useEffect(() => {
-        async function requestQuote() {
-            const savedQuote = JSON.parse(localStorage.getItem('quote'));
-            const today = new Date().toISOString().split("T")[0]; // дата ГГГГ-ММ-ДД
-
-            if (savedQuote?.quote?.text && savedQuote?.date === today) {
-                callSetQuote({text: savedQuote.quote.text, author: savedQuote.quote.author});
-                return;
-            }
     
+    const saveQuoteToStorage = useCallback((quoteData) => {
+        const today = new Date().toISOString().split("T")[0];
+        localStorage.setItem('quote', JSON.stringify({
+            quote: quoteData,
+            date: today
+        }));
+    }, []);
+
+    useEffect(() => {
+        let isActive = true;
+        async function requestQuote() {
             try {
-                const response = await fetch(alloriginsWin + encodeURIComponent(url));
+                const today = new Date().toISOString().split("T")[0];
+                const savedQuote = JSON.parse(localStorage.getItem('quote'));
+                if (savedQuote?.quote && savedQuote?.date === today) {
+                    const { text = quoteDefault, author = authorDefault } = savedQuote.quote;
+                    callSetQuote({ text, author });
+                    return;
+                }
+                
+                const response = await fetch(`${alloginsAPI}${encodeURIComponent(quoteAPI)}`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                
                 const data = await response.json();
-                const dataParsed = JSON.parse(data.contents);   
+                const dataParsed = JSON.parse(data.contents);
                 const result = dataParsed.quote;
-                if (result) {
+                
+                if (result && isActive) {
                     const newQuote = {
-                        text: result.body,
-                        author: result.author || "Unknown",
-                    }
+                        text: result.body || quoteDefault,
+                        author: result.author || authorDefault,
+                    };
                     callSetQuote(newQuote);
-                    localStorage.setItem('quote', JSON.stringify({quote: newQuote.text, date: today}))
+                    saveQuoteToStorage(newQuote);
                 }
             } catch (error) {
                 console.error("Ошибка получения цитаты", error);
+                if (isActive) {
+                    const fallbackQuote = {text: quoteDefault, author: authorDefault};
+                    callSetQuote(fallbackQuote);
+                }
             }
         }
         requestQuote();
-    }, []);
+        
+        return () => {
+            isActive = false;
+        };
+    }, [callSetQuote, saveQuoteToStorage]);
 }
 
-export default useQuoteFetch
+export default useQuoteFetch;

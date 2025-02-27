@@ -3,7 +3,7 @@ import useQuoteFetch from '../../hooks/useQuoteFetch';
 import './Quote.css'
 
 const Quote = () => {
-    const [quote, setQuote] = useState({text: '', author: ''})
+    const [quote, setQuote] = useState({text: 'There will be no tommorow', author: 'Unknown'})
     const callSetQuote = useCallback((value) => setQuote(value), []);
 
     useQuoteFetch(callSetQuote);
