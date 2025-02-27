@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setShowSettings } from '../../store/slices/settingSlice';
 import { setShowReport } from '../../store/slices/reportSlice';

@@ -8,17 +8,25 @@
   justify-content: space-between;
   align-items: center;
 }
+.header__content-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 35px;
+}
+
 .header__logo {
   font-size: 35px;
-
 }
+.header__logo a{
+  color: currentColor;
+}
+
 .header__right {
   display: flex;
   align-items: center;
-  column-gap: 20px;
 }
 .header__menu {
-  display: flex;
   align-items: center;
 }
 .header__list {

@@ -8,6 +8,20 @@
   }
 }
 
+@media (min-width: 1181px) {
+  .header__right {
+    column-gap: 20px;
+  }
+  .header__menu {
+    display: flex;
+  }
+  .header__burger-menu {
+    display: none;
+  }
+  .header__item:not(:first-child) {
+    border: 0;
+  }
+}
 @media (max-width: 1180px) {
   .header__right {
     column-gap: 30px;

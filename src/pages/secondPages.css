@@ -1,0 +1,40 @@
+.container-second {
+    padding: 30px;
+}
+.container-second h2{
+    font-size: 30px;
+    margin-bottom: 20px;
+    font-family: var(--menu-font);
+
+}
+.container-second h3{
+    font-size: 25px;
+    margin-bottom: 5px;
+    font-family: var(--menu-font);
+}
+.container-second p{
+    font-family: var(--font-for-reading);
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+.container-second ul,
+.container-second ol {
+    padding-left: 20px;
+    font-size: 18px;
+    margin-bottom: 20px;
+    font-family: var(--font-for-reading);
+
+
+}
+.container-second ol li:not(:last-child),
+.container-second ul li:not(:last-child) {
+    margin-bottom: 12px;
+}
+
+.container-second span {
+    letter-spacing: 1px;
+}
+
+.container-second ul li{
+    list-style-type: circle;
+}
