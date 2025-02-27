@@ -14,22 +14,21 @@
 }
 .container-second p{
     font-family: var(--font-for-reading);
-    font-size: 20px;
+    font-size: 18px;
     margin-bottom: 15px;
-    line-height: 1.2;
 }
 .container-second ul,
 .container-second ol {
     padding-left: 20px;
     font-size: 18px;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     font-family: var(--font-for-reading);
 
 
 }
 .container-second ol li:not(:last-child),
 .container-second ul li:not(:last-child) {
-    margin-bottom: 8px;
+    margin-bottom: 12px;
 }
 
 .container-second span {
