@@ -32,4 +32,4 @@ const InfoPage = () => {
   )
 }
 
-export default InfoPage
+export default InfoPage;
