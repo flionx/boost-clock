@@ -21,7 +21,7 @@ function useQuoteFetch(callSetQuote) {
             try {
                 const today = new Date().toISOString().split("T")[0];
                 const savedQuoteString = localStorage.getItem('quote');
-                const savedQuote = savedQuoteString ? JSON.parse(savedQuoteRaw) : null;
+                const savedQuote = savedQuoteString ? JSON.parse(savedQuoteString) : null;
                 if (savedQuote?.quote && savedQuote?.date === today) {
                     const { text = quoteDefault, author = authorDefault } = savedQuote.quote;
                     callSetQuote({ text, author });
