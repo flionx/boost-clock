@@ -1,13 +1,19 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
+import useChangeTheme from '../../hooks/useChangeTheme';
 
 const HeaderSecond = () => {
+
+  const {changeTheme} = useChangeTheme();
+
   return (
     <header className="header">
-            <div className="container header__content-second">
-                <Link to='/'>&#8592; home</Link>
-                <h1 className="header__logo">BoostClock</h1>
-            </div>
+            <div className="container header__content-center">
+                <h1 className="header__logo"><Link to='/'>BoostClock</Link></h1>
+                <button 
+                    onClick={changeTheme}
+                    className="header__theme btn-ui"></button>
+                </div>
     </header>
   )
 }
