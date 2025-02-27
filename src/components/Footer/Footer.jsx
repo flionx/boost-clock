@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import ExternalLink from '../ExternalLink/ExternalLink';
 import './Footer.css';
 const urlGithub = 'https://github.com/flionx';
@@ -17,7 +18,7 @@ function Footer() {
             </ul>
           </nav>
           <nav className='footer__links'>
-            <li>Info</li>
+            <Link to='/info'><li>Info</li></Link>
             <li>Contact</li>
             <li>Terms of Use</li>
             <li>Privacy policy</li>
