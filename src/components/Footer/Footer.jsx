@@ -1,29 +1,28 @@
-import { useDispatch } from 'react-redux';
+import ExternalLink from '../ExternalLink/ExternalLink';
 import './Footer.css';
-import { setShowReport } from '../../store/slices/reportSlice';
-import { setShowAchiev } from '../../store/slices/achievementSlice';
-
+const urlGithub = 'https://github.com/flionx';
+const urlInstagram = 'https://www.instagram.com/dn06sh';
+const urlLinkedin = 'https://www.linkedin.com/in/danila-shipilov';
 function Footer() {
-
-  const dispatch = useDispatch();
-  
-  function showReport() {
-    dispatch(setShowReport(true));
-  }
-  function showAchiev() {
-    dispatch(setShowAchiev(true));
-  }
 
     return (
         <footer className="footer">
         <div className="container">
-          <nav className="footer__content">
-            <ul className="footer__list">
-              <li className="footer__item item__menu"><button onClick={showReport} className="button__menu btn--icon1">Report</button></li>
-              <li className="footer__item item__menu"><button onClick={showAchiev} className="button__menu btn--icon2">Achievements</button></li>
+          <nav className="footer__follow">
+            <h5 className="footer__title">Follow me:</h5>
+            <ul className="footer__list-follow">
+              <ExternalLink href={urlGithub}><li className="list-follow__item list-follow1"></li></ExternalLink>
+              <ExternalLink href={urlInstagram}><li className="list-follow__item list-follow2"></li></ExternalLink>
+              <ExternalLink href={urlLinkedin}><li className="list-follow__item list-follow3"></li></ExternalLink>
             </ul>
           </nav>
-          
+          <nav className='footer__links'>
+            <li>Info</li>
+            <li>Contact</li>
+            <li>Terms of Use</li>
+            <li>Privacy policy</li>
+          </nav>
+          <p>&copy; 2025 Flionx</p>
         </div>
       </footer>
     )
