@@ -20,7 +20,7 @@ function Footer() {
           <nav className='footer__links'>
             <Link to='/info'><li>Info</li></Link>
             <li>Contact</li>
-            <li>Terms of Use</li>
+            <Link to='/terms-of-use'><li>Terms of Use</li></Link>
             <li>Privacy policy</li>
           </nav>
           <p className='footer__copy'>&copy; 2025 Flionx</p>
