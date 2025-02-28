@@ -37,17 +37,20 @@ function CreateTaskCard({ task, isEdit, hasCreateTask, toggleHasCreateTask, isCa
 
     useEffect(() => {
         scrollToNew(createNewTaskRef);
-    
         if (typeof currentTask.description === 'string') {
-            const textarea = inputDescriptionRef.current;
-            textarea.focus();
-            textarea.setSelectionRange(textarea.value.length, textarea.value.length);
+            focusDescriptionInput();
         } else {
             const input = inputTitleRef.current;
             input.focus();
         }
-    }, [currentTask.description]);
+    }, []);
 
+
+    function focusDescriptionInput() {
+        const textarea = inputDescriptionRef.current;
+        textarea.focus();
+        textarea.setSelectionRange(textarea.value.length, textarea.value.length);
+    }
 
     function changeTitleHandle(e) {
         setCurrentTask(curr=> ({...curr, title: e.target.value}))  
@@ -56,7 +59,8 @@ function CreateTaskCard({ task, isEdit, hasCreateTask, toggleHasCreateTask, isCa
         setCurrentTask(curr=> ({...curr, description: e.target.value}))  
     }
     function addDescriptionHandle() {
-        setCurrentTask(curr=> ({...curr, description: ''}))  
+        setCurrentTask(curr=> ({...curr, description: ''}))
+        setTimeout(focusDescriptionInput, 150)
     }
     function addDeadlineHandle() {
         setCurrentTask(curr=> ({...curr, deadline: 0}))  
@@ -130,8 +134,7 @@ function CreateTaskCard({ task, isEdit, hasCreateTask, toggleHasCreateTask, isCa
                         onClick={addDescriptionHandle}
                         className="btn-with-plus btn-ui m15">Add a description</button>
                     )}
-
-                        
+ 
                 </div>
                     {typeof currentTask.deadline === 'number' && (
                         <div className="create-task__col">
@@ -147,7 +150,6 @@ function CreateTaskCard({ task, isEdit, hasCreateTask, toggleHasCreateTask, isCa
                                     className="btn-deadline btn-ui">-</button>
                                 </div>
                             </div>
-
                         </div>
                     )}
                 <div className="create-task__bottom">
@@ -161,7 +163,6 @@ function CreateTaskCard({ task, isEdit, hasCreateTask, toggleHasCreateTask, isCa
                             </button>
                         )}
                     </div>
-
                     <div className="create-task__btns">
                         <button 
                         onClick={cancelNewTask}
@@ -176,7 +177,6 @@ function CreateTaskCard({ task, isEdit, hasCreateTask, toggleHasCreateTask, isCa
                             className="create-task__btn-create btn-ui">Create</button>
                         )}
                     </div>
-
                 </div>
             </section>
         </li>
