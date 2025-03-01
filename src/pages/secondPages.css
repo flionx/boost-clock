@@ -38,3 +38,28 @@
 .container-second ul li{
     list-style-type: circle;
 }
+
+
+.auth {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 90vh;
+}
+.auth h1 {
+    font-size: 35px;
+    margin-bottom: 15px;
+}
+.auth h2 {
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+
+.auth a {
+    text-decoration: underline;
+    color: var(--text-color);
+}
+.auth span {
+    margin-bottom: 5px;
+}
