@@ -8,6 +8,7 @@ import NewAchiev from './NewAchiev';
 import BurgerMenu from './BurgerMenu';
 import './Header.css'
 import useChangeTheme from '../../hooks/useChangeTheme';
+import ButtonLogOut from '../ButtonLogOut/ButtonLogOut';
 
 function Header() {
 
@@ -74,6 +75,7 @@ function Header() {
                                 onClick={showSettingsHandler}
                                 className="header__settings button__menu">Settings</button>
                             </li>
+                            <li className='header__item'><ButtonLogOut /></li>
                         </ul>
                     </nav>
 

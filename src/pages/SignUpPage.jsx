@@ -3,21 +3,22 @@ import { Link, useNavigate } from 'react-router-dom'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { doc, setDoc } from 'firebase/firestore';
 import { auth, db } from '../firebase'
-import useGetState from "../hooks/useGetState";
+import { useStore } from 'react-redux';
 
 const SignUpPage = () => {
     const navigate = useNavigate();
     
-    const stateRef = useGetState();
+    const store = useStore();
 
     const signUpWithEmail = (email, password) => {
         if (!email || !password) return;
 
         createUserWithEmailAndPassword(auth, email, password)
             .then(async (result) => {
+                const dataState = store.getState();
                 const user = result.user;                      
                 const dataRef = doc(db, "Users", user.uid);
-                await setDoc(dataRef, stateRef.current);
+                await setDoc(dataRef, dataState, { merge: true });
                 navigate('/')
             })
             .catch((error) => {
