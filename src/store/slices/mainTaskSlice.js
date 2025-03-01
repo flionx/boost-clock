@@ -31,6 +31,10 @@ const mainTaskSlice = createSlice({
           state.title = null;
       }
     },
+    uploadMainTask: (state, action) => {
+      state.id = action.payload.id;
+      state.title = action.payload.title;
+    },
     resetMainTask: (state) => {
       state.id = null;
       state.title = null;
@@ -39,6 +43,6 @@ const mainTaskSlice = createSlice({
 });
 
 
-export const { setMainTask, changeMainTask, resetMainTask } = mainTaskSlice.actions;
+export const { setMainTask, changeMainTask, resetMainTask, uploadMainTask } = mainTaskSlice.actions;
 
 export default mainTaskSlice.reducer;

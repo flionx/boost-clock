@@ -44,10 +44,24 @@ const achievementSlice = createSlice({
         state.newAchievs = 0;
       }
     },
-    
+    uploadAchievs: (state, action) => {
+      state.achievs = action.payload.achievs;
+      state.newAchievs = action.payload.newAchievs;
+      state.showAchiev = action.payload.showAchiev;
+    },
+    resetAchievs: (state) => {
+      state = {
+        newAchievs: 0,
+        showAchiev: false,
+        achievs: achievsArray,
+      }
+    }
   },
 });
 
-export const { setShowAchiev, setStepAchiev, setCompleteAchiev, setNewAchievs } = achievementSlice.actions;
+export const { 
+  setShowAchiev, setStepAchiev, setCompleteAchiev, setNewAchievs,
+  uploadAchievs, resetAchievs
+} = achievementSlice.actions;
 
 export default achievementSlice.reducer;

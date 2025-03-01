@@ -1,31 +1,23 @@
-import React, { useRef } from 'react'
 import FormAuth from '../components/FormAuth/FormAuth'
 import { Link, useNavigate } from 'react-router-dom'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { doc, setDoc } from 'firebase/firestore';
 import { auth, db } from '../firebase'
-import { doc, setDoc } from 'firebase/firestore'
-import { useSelector } from 'react-redux'
+import useGetState from "../hooks/useGetState";
 
 const SignUpPage = () => {
     const navigate = useNavigate();
-    const userRef = useRef(null);
-    if (!userRef.current) {
-        userRef.current = useSelector(state => state);
-        console.log('часто');
-        
-    }
-    const userData = userRef.current;
+    
+    const stateRef = useGetState();
 
     const signUpWithEmail = (email, password) => {
         if (!email || !password) return;
 
         createUserWithEmailAndPassword(auth, email, password)
             .then(async (result) => {
-                const user = result.user;
-                if (userData) {
-                    const userRef = doc(db, "Users", user.uid)
-                    await setDoc(userRef, userData)
-                }
+                const user = result.user;                      
+                const dataRef = doc(db, "Users", user.uid);
+                await setDoc(dataRef, stateRef.current);
                 navigate('/')
             })
             .catch((error) => {

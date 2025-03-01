@@ -81,7 +81,11 @@ const reportSlice = createSlice({
         }
         saveToLocalStorage(state);
     },
-
+    uploadReport: (state, action) => {
+      state.today = action.payload.today;
+      state.timer = action.payload.timer;
+      state.tasks = action.payload.tasks;
+    },
     resetReport: (state) => {
         state.today = { workTime: 0, relaxTime: 0, tCompletedTasks: 0 };
         state.timer = { totalWorkTime: 0, totalRelaxTime: 0, pomodoroRounds: 0}
@@ -92,6 +96,6 @@ const reportSlice = createSlice({
 });
 
 export const { setShowReport, addWorkTime, addRelaxTime, 
-addPomodoroRound, addCompletedTask, resetReport } = reportSlice.actions;
+addPomodoroRound, addCompletedTask, resetReport, uploadReport } = reportSlice.actions;
 
 export default reportSlice.reducer;

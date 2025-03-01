@@ -61,6 +61,14 @@ const tasksSlice = createSlice({
     deleteAllTasks: (state) => {
       state.tasks = state.tasks.filter(task => task.complete);
     },
+    uploadTasks: (state, action) => {
+      state.tasks = action.payload.tasks;
+      console.log('Данные попали в состояние')
+      
+    },
+    removeTasks: (state) => {
+      state = [];
+    }
 
   },
 });
@@ -69,7 +77,7 @@ export const {
   addTask, removeTask, toggleCompleteTask, 
   moveTask, setEditTaskId, 
   changeTask, setDeadlineTask,
-  setRoundTasks, deleteAllTasks
+  setRoundTasks, deleteAllTasks, uploadTasks
 } = tasksSlice.actions;
 
 export default tasksSlice.reducer;
