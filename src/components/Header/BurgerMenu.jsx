@@ -1,6 +1,7 @@
 import NewAchiev from "./NewAchiev";
 import './BurgerMenu.css'
 import { useState } from "react";
+import ButtonLogOut from "../ButtonLogOut/ButtonLogOut";
 
 function BurgerMenu({showReport, showAchiev, showSettingsHandler, newAchievs}) {
 
@@ -45,6 +46,9 @@ function BurgerMenu({showReport, showAchiev, showSettingsHandler, newAchievs}) {
                     <button 
                     onClick={showSettingsHandler}
                     className="header__settings button__menu">Settings</button>
+                </li>
+                <li className="header__item">
+                    <ButtonLogOut />
                 </li>
             </ul>
         </nav>

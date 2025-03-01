@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import useFetchUserData from '../../hooks/useFetchUserData';
-import useGetState from '../../hooks/useGetState';
 import { useNavigate } from 'react-router-dom';
 import { signInWithPopup } from "firebase/auth";
 import { auth, db, provider } from '../../firebase';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import './FormAuth.css'
+import { useStore } from 'react-redux';
 
 const FormAuth = ({title, onHandleClick}) => {
     const [email, setEmail] = useState('')
@@ -13,8 +13,8 @@ const FormAuth = ({title, onHandleClick}) => {
     const navigate = useNavigate();
     const uploadUserData = useFetchUserData();
 
-    const stateRef = useGetState();
-
+    const store = useStore();
+    
     function checkForm(e) {
         e.preventDefault();
     }
@@ -32,8 +32,9 @@ const FormAuth = ({title, onHandleClick}) => {
                     uploadUserData(userDoc.data())
                 }
                 else {
+                    const dataState = store.getState();
                     console.log('новый гугл акк');
-                    await setDoc(dataRef, stateRef.current);
+                    await setDoc(dataRef, dataState, { merge: true });
                 }
                 navigate('/');
 
