@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { setColorTheme } from "../store/slices/settingSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 function useChangeTheme() {
 
     const dispatch = useDispatch();
+    const userSettingsTheme = useSelector(state => state.settings.mainSettings.colorTheme);
     // 'light' или 'dark'
     const [theme, setTheme] = useState(userTheme);
     function userTheme() {
@@ -13,12 +14,12 @@ function useChangeTheme() {
     }
     
     useEffect(() => {
-        if (theme === 'dark') {
+        if (theme === 'dark' && userSettingsTheme === 'dark') {
             document.documentElement.classList.add("dark-theme");
         } else {
             document.documentElement.classList.remove("dark-theme");
         }
-    }, [theme])
+    }, [theme, userSettingsTheme])
 
     function changeTheme() {
         const otherTheme = (theme === 'light') ? 'dark' : 'light';

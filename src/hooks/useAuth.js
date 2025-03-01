@@ -1,17 +1,14 @@
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "../firebase";
-import { useDispatch } from "react-redux";
 import { doc } from "firebase/firestore";
+import useFecthUserData from "./useFetchUserData";
 
 const useAuth = () => {
 
-    const dispatch = useDispatch();
-
     onAuthStateChanged(auth, async (user) => {
         if (user) {
-          const uid = user.uid;
-          console.log('зареган');
-          
+            console.log('зареган');
+            const uid = user.uid;
         } else {
             console.log('не зареган');
         }

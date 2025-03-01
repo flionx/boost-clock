@@ -1,13 +1,19 @@
 import { useState } from 'react'
-import './FormAuth.css'
-import { auth, provider } from '../../firebase';
-import { signInWithPopup } from "firebase/auth";
+import useFetchUserData from '../../hooks/useFetchUserData';
+import useGetState from '../../hooks/useGetState';
 import { useNavigate } from 'react-router-dom';
+import { signInWithPopup } from "firebase/auth";
+import { auth, db, provider } from '../../firebase';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
+import './FormAuth.css'
 
 const FormAuth = ({title, onHandleClick}) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const navigate = useNavigate();
+    const uploadUserData = useFetchUserData();
+
+    const stateRef = useGetState();
 
     function checkForm(e) {
         e.preventDefault();
@@ -15,9 +21,22 @@ const FormAuth = ({title, onHandleClick}) => {
 
     function signInWithGoogle() {
         signInWithPopup(auth, provider)
-            .then((result) => {
+            .then(async (result) => {
                 const userId = result.user.uid;
-                navigate('/')
+
+                const dataRef = doc(db, "Users", userId);
+                const userDoc = await getDoc(dataRef);
+
+                if (userDoc.exists()) {
+                    console.log('зашли в гугл акк');
+                    uploadUserData(userDoc.data())
+                }
+                else {
+                    console.log('новый гугл акк');
+                    await setDoc(dataRef, stateRef.current);
+                }
+                navigate('/');
+
             }).catch((error) => {
                 console.log(error.code);
             });

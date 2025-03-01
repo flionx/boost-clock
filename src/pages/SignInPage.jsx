@@ -2,19 +2,29 @@ import React from 'react'
 import FormAuth from '../components/FormAuth/FormAuth'
 import { Link } from 'react-router-dom'
 import { signInWithEmailAndPassword } from 'firebase/auth'
-import { auth } from '../firebase'
+import { auth, db } from '../firebase'
 import { useNavigate } from 'react-router-dom';
+import useFetchUserData from '../hooks/useFetchUserData'
+import { doc, getDoc } from 'firebase/firestore'
 
 
 const SignInPage = () => {
+    
+    const navigate = useNavigate()
+    const uploadUserData = useFetchUserData();    
 
-    const navigate = useNavigate();
     const signInWithEmail = (email, password) => {
         if (!email || !password) return;
         signInWithEmailAndPassword(auth, email, password)
-            .then((result) => {
+            .then(async (result) => {
                 const user = result.user;
-                console.log('uid:' + user.uid);
+                const dataRef = doc(db, "Users", user.uid);
+                const userDoc = await getDoc(dataRef);
+
+                if (userDoc.exists()) {
+                    console.log('зашли в акк');
+                    uploadUserData(userDoc.data())
+                }
                 navigate('/')
             })
             .catch((error) => {

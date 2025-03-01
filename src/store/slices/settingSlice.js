@@ -62,6 +62,11 @@ const settingSlice = createSlice({
       state.mainSettings.colorTheme = action.payload;
       localStorage.setItem('settings', JSON.stringify(state));
     },
+    uploadSettings: (state, action) => {
+      state.hasLongBreak = action.payload.hasLongBreak;
+      state.roundsToBreak = action.payload.roundsToBreak;
+      state.mainSettings = action.payload.mainSettings;
+    },
     resetSettings: (state) => {
       state.mainSettings = {
         autoToWork: false,
@@ -83,6 +88,6 @@ setAutoToRelax, setLongBreak,
 setLongBreakInterval, setSoundOn, 
 setRepeatSound, setColorTheme,
 setHasLongBreak, addRoundToBreak,
-removeRoundsToBreak, resetSettings } = settingSlice.actions;
+removeRoundsToBreak, resetSettings, uploadSettings } = settingSlice.actions;
 
 export default settingSlice.reducer;
