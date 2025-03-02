@@ -1,10 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-function userTheme() {
-  const storage = localStorage.getItem("theme");  
-  return storage ? storage : 'light';
-}
-
 const getInitialSettings = () => {
     const storage = localStorage.getItem("settings");
     return storage ? JSON.parse(storage) : {
@@ -19,7 +14,7 @@ const getInitialSettings = () => {
         longBreakInterval: 4,
         soundOn: true,
         repeatSound: 0,
-        colorTheme: userTheme(),
+        colorTheme: 'light',
       }
     };
   };
