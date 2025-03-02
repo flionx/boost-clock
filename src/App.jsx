@@ -10,8 +10,11 @@ import { SecondLayout } from './layouts/SecondLayout.jsx';
 import TermsOfUsePage from './pages/TermsOfUsePage.jsx';
 import SignUpPage from './pages/SignUpPage.jsx';
 import SignInPage from './pages/SignInPage.jsx';
+import useSaveOnExit from './hooks/useSaveOnExit.js';
 
 function App() {
+
+  useSaveOnExit();
 
   return (
     <>

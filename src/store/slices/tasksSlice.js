@@ -7,8 +7,8 @@ const getInitialTasks = () => {
 
 const tasksSlice = createSlice({
   name: "tasks",
-  editTaskId: null,
   initialState: {
+    editTaskId: null,
     tasks: getInitialTasks(),
   },
   reducers: {
@@ -46,7 +46,9 @@ const tasksSlice = createSlice({
       );
     },
     setEditTaskId: (state, action) => {
-      state.editTaskId = action.payload
+      state.editTaskId = action.payload;
+      console.log('да');
+      
     },
     setDeadlineTask: (state, action) => {
       const task = state.tasks.find((task) => task.id === action.payload.id);
@@ -62,12 +64,10 @@ const tasksSlice = createSlice({
       state.tasks = state.tasks.filter(task => task.complete);
     },
     uploadTasks: (state, action) => {
-      state.tasks = action.payload.tasks;
-      console.log('Данные попали в состояние')
-      
+      state.tasks = action.payload;
     },
-    removeTasks: (state) => {
-      state = [];
+    resetTasks: (state) => {
+      state.tasks = [];
     }
 
   },
@@ -77,7 +77,7 @@ export const {
   addTask, removeTask, toggleCompleteTask, 
   moveTask, setEditTaskId, 
   changeTask, setDeadlineTask,
-  setRoundTasks, deleteAllTasks, uploadTasks
+  setRoundTasks, deleteAllTasks, uploadTasks, resetTasks
 } = tasksSlice.actions;
 
 export default tasksSlice.reducer;

@@ -1,17 +1,17 @@
 import { useState } from 'react'
-import useFetchUserData from '../../hooks/useFetchUserData';
+import useSaveUploadState from '../../hooks/useSaveUploadState';
 import { useNavigate } from 'react-router-dom';
 import { signInWithPopup } from "firebase/auth";
 import { auth, db, provider } from '../../firebase';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
-import './FormAuth.css'
 import { useStore } from 'react-redux';
+import './FormAuth.css'
 
 const FormAuth = ({title, onHandleClick}) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const navigate = useNavigate();
-    const uploadUserData = useFetchUserData();
+    const uploadUserData = useSaveUploadState();
 
     const store = useStore();
     
