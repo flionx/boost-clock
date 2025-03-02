@@ -1,30 +1,31 @@
 import React from 'react'
 import { auth, db } from '../../firebase';
 import { doc, setDoc } from 'firebase/firestore';
-import { useStore } from 'react-redux';
+import { useDispatch, useStore } from 'react-redux';
+import { resetAchievs } from '../../store/slices/achievementSlice';
+import { resetMainTask } from '../../store/slices/mainTaskSlice';
+import { resetReport } from '../../store/slices/reportSlice';
+import { resetSettings } from '../../store/slices/settingSlice';
+import { resetTasks } from '../../store/slices/tasksSlice';
 
 const ButtonLogOut = () => {
+    const dispatch = useDispatch();
 
     const store = useStore();
     
     const saveAndLogout = async () => {
-        const user = auth.currentUser;
-        console.log(user);
-        
+        const user = auth.currentUser;        
         if (!user) return;
 
         try {            
             const dataState = store.getState();   
-            console.log(dataState);
-                     
-            console.log("Состояние сохранено:" + dataState);
-            
+
             const userRef = doc(db, "Users", user.uid);
             await setDoc(userRef, dataState, { merge: true });
-
             console.log("Данные перед выходом сохранены");
+            resetStateToDefault(dispatch);
             await auth.signOut();
-            console.log("🚪 Пользователь вышел");
+            console.log("Пользователь вышел");
         } catch (error) {
             console.error("Ошибка при сохранении данных перед выходом:", error);
         }
@@ -36,3 +37,13 @@ const ButtonLogOut = () => {
 }
 
 export default ButtonLogOut;
+
+function resetStateToDefault(dispatch) {
+  dispatch(resetAchievs());
+  dispatch(resetMainTask());
+  dispatch(resetReport());
+  dispatch(resetSettings());
+  dispatch(resetTasks());
+  console.log('Состояние сброшено по умолчанию');
+  
+}

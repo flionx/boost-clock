@@ -1,14 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import achievsArray from '../../components/Achievements/achievementsList.js'
 
-const saveToLocalStorage = (state) => {
-  const stateToSave = state.achievs;
+const saveToLocalStorage = (stateToSave) => {
   localStorage.setItem("achievs", JSON.stringify(stateToSave));
 };
 
 const getInitialState = () => {
     const storage = localStorage.getItem("achievs");
-    return storage ? JSON.parse(storage) : achievsArray
+    return storage ? JSON.parse(storage) : [...achievsArray]
 };
 
 const achievementSlice = createSlice({
@@ -27,7 +26,7 @@ const achievementSlice = createSlice({
             return (card.title == action.payload) ? {...card, step: card.step + 1} : card
         });        
         state.achievs = achievs;
-        saveToLocalStorage(state);
+        saveToLocalStorage(state.achievs);
     },
     setCompleteAchiev: (state, action) => {
         const achievs = state.achievs.map(card => {
@@ -35,7 +34,7 @@ const achievementSlice = createSlice({
         });
           state.achievs = achievs;
           state.newAchievs += 1;
-          saveToLocalStorage(state);
+          saveToLocalStorage(state.achievs);
     },
     setNewAchievs: (state, action) => {
       if (action.payload === '+') {
@@ -46,15 +45,13 @@ const achievementSlice = createSlice({
     },
     uploadAchievs: (state, action) => {
       state.achievs = action.payload.achievs;
-      state.newAchievs = action.payload.newAchievs;
-      state.showAchiev = action.payload.showAchiev;
+      saveToLocalStorage(state.achievs);
     },
     resetAchievs: (state) => {
-      state = {
-        newAchievs: 0,
-        showAchiev: false,
-        achievs: achievsArray,
-      }
+      state.newAchievs = 0,
+      state.showAchiev = false,
+      state.achievs = achievsArray,
+      saveToLocalStorage(state.achievs);
     }
   },
 });

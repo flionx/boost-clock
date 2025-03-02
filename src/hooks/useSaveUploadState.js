@@ -5,7 +5,7 @@ import { uploadReport } from "../store/slices/reportSlice";
 import { uploadSettings } from "../store/slices/settingSlice";
 import { uploadTasks } from "../store/slices/tasksSlice";
 
-const useFetchUserData = () => {
+const useSaveUploadState = () => {
 
     const dispatch = useDispatch();
 
@@ -15,10 +15,9 @@ const useFetchUserData = () => {
         dispatch(uploadReport(data.report))
         dispatch(uploadSettings(data.settings))
         dispatch(uploadTasks(data.tasks))
-        console.log('Данные получены из БД:');
     }
     return uploadUserData;
 }
 
-export default useFetchUserData;
+export default useSaveUploadState;
 

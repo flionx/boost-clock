@@ -1,27 +1,34 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const defaultMainSettings = {
+  autoToWork: false,
+  autoToRelax: false,
+  basicBreak: 5,
+  longBreak: 15,
+  longBreakInterval: 4,
+  soundOn: true,
+  repeatSound: 0,
+  colorTheme: 'light',
+}
+
 const getInitialSettings = () => {
     const storage = localStorage.getItem("settings");
-    return storage ? JSON.parse(storage) : {
-      showSettings: false,
-      hasLongBreak: false,
-      roundsToBreak: 0,
-      mainSettings: {
-        autoToWork: false,
-        autoToRelax: false,
-        basicBreak: 5,
-        longBreak: 15,
-        longBreakInterval: 4,
-        soundOn: true,
-        repeatSound: 0,
-        colorTheme: 'light',
-      }
-    };
+    return storage ? JSON.parse(storage) : defaultMainSettings;
   };
 
 const settingSlice = createSlice({
   name: "settings",
-  initialState: getInitialSettings(),
+  initialState: {
+    showSettings: false,
+    hasLongBreak: false,
+    roundsToBreak: 0,
+    waitModal: {
+      status: '',
+      hasWait: false,
+      message: '',
+    },
+    mainSettings: getInitialSettings(),
+  },
   reducers: {
     setShowSettings: (state, action) => {      
       state.showSettings = action.payload;
@@ -55,24 +62,20 @@ const settingSlice = createSlice({
     },
     setColorTheme: (state, action) => {
       state.mainSettings.colorTheme = action.payload;
-      localStorage.setItem('settings', JSON.stringify(state));
+      localStorage.setItem('settings', JSON.stringify(state.mainSettings));
+    },
+    setWaitModal: (state, action) => {
+      state.waitModal.status = action.payload.status;
+      state.waitModal.hasWait = action.payload.hasWait;
+      state.waitModal.message = action.payload.message;
     },
     uploadSettings: (state, action) => {
-      state.hasLongBreak = action.payload.hasLongBreak;
-      state.roundsToBreak = action.payload.roundsToBreak;
-      state.mainSettings = action.payload.mainSettings;
+      state.mainSettings = action.payload;
+      localStorage.setItem('settings', JSON.stringify(state.mainSettings));
     },
     resetSettings: (state) => {
-      state.mainSettings = {
-        autoToWork: false,
-        autoToRelax: false,
-        basicBreak: 5,
-        longBreak: 15,
-        longBreakInterval: 4,
-        soundOn: true,
-        repeatSound: 0,
-        colorTheme: userTheme(),
-      }
+      state.mainSettings = defaultMainSettings;
+      localStorage.setItem('settings', JSON.stringify(state.mainSettings));
     }
   },
 });
@@ -83,6 +86,7 @@ setAutoToRelax, setLongBreak,
 setLongBreakInterval, setSoundOn, 
 setRepeatSound, setColorTheme,
 setHasLongBreak, addRoundToBreak,
-removeRoundsToBreak, resetSettings, uploadSettings } = settingSlice.actions;
+removeRoundsToBreak, resetSettings, 
+uploadSettings, setWaitModal } = settingSlice.actions;
 
 export default settingSlice.reducer;
