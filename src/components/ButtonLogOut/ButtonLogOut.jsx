@@ -7,6 +7,7 @@ import { resetMainTask } from '../../store/slices/mainTaskSlice';
 import { resetReport } from '../../store/slices/reportSlice';
 import { resetSettings } from '../../store/slices/settingSlice';
 import { resetTasks } from '../../store/slices/tasksSlice';
+import getFilteredState from '../../hooks/getFilteredState';
 
 const ButtonLogOut = () => {
     const dispatch = useDispatch();
@@ -18,7 +19,7 @@ const ButtonLogOut = () => {
         if (!user) return;
 
         try {            
-            const dataState = store.getState();   
+            const dataState = getFilteredState(store.getState());   
 
             const userRef = doc(db, "Users", user.uid);
             await setDoc(userRef, dataState, { merge: true });

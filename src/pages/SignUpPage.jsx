@@ -4,12 +4,11 @@ import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { doc, setDoc } from 'firebase/firestore';
 import { auth, db } from '../firebase'
 import { useStore } from 'react-redux';
-import useFilteredState from '../hooks/useFilteredState';
+import getFilteredState from '../hooks/getFilteredState';
 
 const SignUpPage = () => {
     const navigate = useNavigate();
     const store = useStore();
-    const getFilteredState = useFilteredState();
 
     const signUpWithEmail = (email, password) => {
         if (!email || !password) return;
@@ -17,7 +16,7 @@ const SignUpPage = () => {
         createUserWithEmailAndPassword(auth, email, password)
             .then(async (result) => {
                 const dataState = getFilteredState(store.getState())
-                const user = result.user;                      
+                const user = result.user;
                 const dataRef = doc(db, "Users", user.uid);
                 await setDoc(dataRef, dataState, { merge: true });
                 console.log('Данные сохранены в БД с uid' + user.uid);

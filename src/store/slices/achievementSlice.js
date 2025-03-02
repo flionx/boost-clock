@@ -44,7 +44,7 @@ const achievementSlice = createSlice({
       }
     },
     uploadAchievs: (state, action) => {
-      state.achievs = action.payload.achievs;
+      state.achievs = action.payload;
       saveToLocalStorage(state.achievs);
     },
     resetAchievs: (state) => {

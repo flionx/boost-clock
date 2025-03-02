@@ -1,7 +1,6 @@
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "../firebase";
 import { doc } from "firebase/firestore";
-import useFecthUserData from "./useSaveUploadState";
 
 const useAuth = () => {
 

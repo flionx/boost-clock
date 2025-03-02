@@ -1,38 +1,35 @@
-import { useDispatch } from "react-redux";
 import { Link, useNavigate } from 'react-router-dom'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { auth, db } from '../firebase'
 import { doc, getDoc } from 'firebase/firestore'
 import useSaveUploadState from '../hooks/useSaveUploadState'
 import FormAuth from '../components/FormAuth/FormAuth'
-import setWaitModal from '../store/slices/settingSlice'
 
 const SignInPage = () => {
-    const dispatch = useDispatch();
     const navigate = useNavigate();
-    const uploadUserData = useSaveUploadState(); //данные из дб в состояние
+    const {uploadUserData} = useSaveUploadState(); //данные из дб в состояние
 
     const signInWithEmail = (email, password) => {
         if (!email || !password) return;
         signInWithEmailAndPassword(auth, email, password)
             .then(async (result) => {
-                const user = result.user;
-                const dataRef = doc(db, "Users", user.uid);
+                
+                const uid = result.user.uid;
+                const dataRef = doc(db, "Users", uid);
                 const userDoc = await getDoc(dataRef);
+                console.log(userDoc);
 
                 if (userDoc.exists()) {
-                    dispatch(setWaitModal({
-                        status: 'orange',
-                        hasWait: true,
-                        message: 'Please wait...',
-                      }))
-                    uploadUserData(userDoc.data())
+                    
+                    const userData = userDoc.data() || {};  
+                    uploadUserData({
+                        achievement: userData.achievement || [],
+                        mainTask: userData.mainTask || {},
+                        report: userData.report || {},
+                        settings: userData.settings || {},
+                        tasks: userData.tasks || [],
+                    });
                 }
-                dispatch(setWaitModal({
-                    status: 'green',
-                    hasWait: true,
-                    message: 'User authorized',
-                  }))
                 navigate('/')
             })
             .catch((error) => {

@@ -65,6 +65,7 @@ const tasksSlice = createSlice({
     },
     uploadTasks: (state, action) => {
       state.tasks = action.payload;
+      localStorage.setItem('tasks', JSON.stringify(state.tasks))      
     },
     resetTasks: (state) => {
       state.tasks = [];
