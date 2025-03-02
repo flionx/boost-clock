@@ -9,14 +9,14 @@ const useSaveUploadState = () => {
 
     const dispatch = useDispatch();
 
-    async function uploadUserData(data) {
+    function uploadUserData(data) {
         dispatch(uploadAchievs(data.achievement))
         dispatch(uploadMainTask(data.mainTask))
         dispatch(uploadReport(data.report))
         dispatch(uploadSettings(data.settings))
-        dispatch(uploadTasks(data.tasks))
+        dispatch(uploadTasks(data.tasks))        
     }
-    return uploadUserData;
+    return {uploadUserData};
 }
 
 export default useSaveUploadState;

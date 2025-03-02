@@ -2,13 +2,12 @@ import { useEffect, useRef } from "react";
 import { useStore } from "react-redux";
 import { db, auth } from "../firebase";
 import { doc, setDoc } from "firebase/firestore";
-import useFilteredState from "./useFilteredState";
+import getFilteredState from "./getFilteredState";
 
 const useAutoSave = () => {
     const store = useStore();
     const prevStateRef = useRef(null);
     const timeoutRef = useRef(null);
-    const getFilteredState = useFilteredState();
 
     const saveData = async () => {
         const user = auth.currentUser;
@@ -20,8 +19,8 @@ const useAutoSave = () => {
             prevStateRef.current = filteredState;
 
             try {
-                // const userRef = doc(db, "Users", user.uid);
-                // await setDoc(userRef, filteredState, { merge: true });
+                const userRef = doc(db, "Users", user.uid);
+                await setDoc(userRef, filteredState, { merge: true });
                 console.log("✅ Данные сохранены в Firestore:", filteredState);
             } catch (error) {
                 console.error("❌ Ошибка сохранения:", error);

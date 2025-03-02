@@ -6,12 +6,13 @@ import { auth, db, provider } from '../../firebase';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { useStore } from 'react-redux';
 import './FormAuth.css'
+import getFilteredState from '../../hooks/getFilteredState';
 
 const FormAuth = ({title, onHandleClick}) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const navigate = useNavigate();
-    const uploadUserData = useSaveUploadState();
+    const {uploadUserData} = useSaveUploadState();
 
     const store = useStore();
     
@@ -32,7 +33,7 @@ const FormAuth = ({title, onHandleClick}) => {
                     uploadUserData(userDoc.data())
                 }
                 else {
-                    const dataState = store.getState();
+                    const dataState = getFilteredState(store.getState());
                     console.log('новый гугл акк');
                     await setDoc(dataRef, dataState, { merge: true });
                 }
