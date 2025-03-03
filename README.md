@@ -1,6 +1,6 @@
 # Boost Clock
 
-A handy and minimalistic Pomodoro timer based on React + Redux Toolkit. Helps you manage your time efficiently by alternating between work and rest, with the ability to create tasks, report views, customizations and even achievements.
+Boost Clock is a minimalistic and user-friendly Pomodoro timer built with React and Redux Toolkit. It helps you stay productive by alternating work and break sessions. You can create tasks, customize settings, view reports, and even earn achievements.
 
 ##  Demo
 
@@ -11,7 +11,7 @@ A handy and minimalistic Pomodoro timer based on React + Redux Toolkit. Helps yo
 - Simple and intuitive interface.
 - Setting the time for work and rest.
 - Notifications when a step is completed.
-- Possibility to compose tasks.
+- Task management.
 - Settings.
 - Achievements. 
 - Report.
@@ -26,7 +26,7 @@ A handy and minimalistic Pomodoro timer based on React + Redux Toolkit. Helps yo
    ```bash
    cd boost-clock
    ```
-3. Install dependencies :
+3. Install dependencies:
    ```bash
    npm i
    ```
@@ -38,27 +38,27 @@ A handy and minimalistic Pomodoro timer based on React + Redux Toolkit. Helps yo
 ## Usage
 
 ### Timer
-- button “Start” - start the countdown.
+- "Start" button – starts the countdown.
+- "Reset" button – resets the timer.
+- "Skip" button – skips the current session and starts the next one.
+- +/- buttons - time setting.
 - When finished, the timer will automatically switch to rest time, and vice versa.
-- button “Reset” - reset the time;
--button “Skip” - skip the current session and start the next one.
-- +/- buttons - time setting
   
 ### Tasks
-- “Add New Task” button - add a task, enter its name and optionally add a description by clicking on the “Add Description” button.
--Button with three dots to the right of the task name - task parameters.
--Checkbox button to the left of the task title - the task will be moved to the “Completed” category.
+- "Add New Task" button – adds a task. You can enter a name and optionally add a description via the "Add Description" button.
+- Three-dots button – opens task options (edit, delete, etc.).
+- Checkbox button – marks the task as completed and moves it to the "Completed" section.
 - "Delete all" button - delete all tasks.
   
 ### Theme
 - "Sun/Moon" button in the title bar - change the theme of the application.
 
 ### Settings
-- Auto switching to automatically switch to a specific timer type.
-- Long break - allows you to enter the length of a long break (recommended 15).
-- Long Break interval - number of pomodoro rounds between long breaks(recommended 4) 
+- Auto-switching between work and break sessions.
+- Long break – duration of long breaks (recommended: 15 minutes).
+- Long Break Interval – number of Pomodoro sessions before a long break (recommended: 4).
 
-- Sound on allows you to turn sounds on/off.
+- Sound on – enable or disable notification sounds.
 - Repeat - number of additional repetitions of the timer end sound.
 
 - Themes (under development, only dark and light themes are available)
@@ -71,9 +71,10 @@ Main interface with dark theme.
 ## Technologies
 
 - React
+- React-router-dom 
 - Redux Toolkit
 - JavaScript
-- HTML/CSS
+- Firebase (auth + db) ⌛
 
 ## Inspiration  
 
