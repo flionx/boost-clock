@@ -36,14 +36,26 @@
     letter-spacing: 0.02em;
     min-width: 70px;
     padding: 12px;
-
+    transition: .2s;
 }
 .auth__button{ 
     background: var(--second-color);
     margin-top: 10px;
     margin-bottom: 25px;
     color: white;
-    
+    transition: .2s;   
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+
+}
+.auth__button:hover{ 
+    background: var(--color-item-modal-text-bg-active);
+    margin-top: 10px;
+    margin-bottom: 25px;
+    color: white;   
+}
+.auth__form button:active{ 
+    transform: translateY(1px);
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .auth__google {
