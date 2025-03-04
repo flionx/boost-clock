@@ -63,3 +63,27 @@
 .auth span {
     margin-bottom: 5px;
 }
+
+
+.btn-arrow-home {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: white;
+    border: 1px solid #d8d8d8;
+    position: absolute;
+    top: 35px;
+    left: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-arrow-home::after {
+    content: '';
+    position: absolute;
+    background-image: url('../../assets/completedTasks/arrowDown.svg');
+    transform: rotate(90deg);
+    width: 28px;
+    height: 28px;   
+}

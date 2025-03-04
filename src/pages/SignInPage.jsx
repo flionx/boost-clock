@@ -4,13 +4,20 @@ import { auth, db } from '../firebase'
 import { doc, getDoc } from 'firebase/firestore'
 import useSaveUploadState from '../hooks/useSaveUploadState'
 import FormAuth from '../components/FormAuth/FormAuth'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setWaitModal } from '../store/slices/settingSlice'
+import WaitModal from '../components/WaitModal/WaitModal'
+import { useState } from 'react'
 
 const SignInPage = () => {
+    const [canGoHome, setCanGoHome] = useState(true);
+
+
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const {uploadUserData} = useSaveUploadState(); //данные из дб в состояние
+
+    const {hasWait} = useSelector(state => state.settings.waitModal);
 
     const signInWithEmail = (email, password) => {
         if (!email || !password) return;
@@ -19,7 +26,8 @@ const SignInPage = () => {
                 
                 const uid = result.user.uid;
                 const dataRef = doc(db, "Users", uid);
-                dispatch(setWaitModal({status: 'orange', hasWait: true, message: 'Please wait... Loading data'}))
+                dispatch(setWaitModal({status: 'green', hasWait: true, message: 'Please wait... Loading data'}))
+                setCanGoHome(curr => false);
                 const userDoc = await getDoc(dataRef);
 
                 if (userDoc.exists()) {
@@ -39,19 +47,26 @@ const SignInPage = () => {
             })
             .catch((error) => {
                 dispatch(setWaitModal({status: 'red', hasWait: true, message: 'incorrect email or password'}))
-            });
+            }).finally(() => {
+                setCanGoHome(curr => true);
+            })
     }
 
   return (
-    <div className='container'>
-        <div className="auth">
-            <h1>BoostClock</h1>
-            <h2>Login</h2>
-            <FormAuth title={'Sign in'} onHandleClick={signInWithEmail}/>
-            <span>Do not have an account?</span>
-            <Link to='/signup'>Create an account</Link>
+    <>
+        <Link to={canGoHome ? '/' : ''} className='btn-arrow-home'></Link>
+        <div className='container'>
+            <div className="auth">
+                <h1>BoostClock</h1>
+                <h2>Login</h2>
+                <FormAuth title={'Sign in'} onHandleClick={signInWithEmail}/>
+                <span>Do not have an account?</span>
+                <Link to='/signup'>Create an account</Link>
+            </div>
         </div>
-    </div>
+        {hasWait && <WaitModal />}
+    </>
+
   )
 }
 

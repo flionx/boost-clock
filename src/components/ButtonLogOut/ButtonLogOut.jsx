@@ -10,9 +10,12 @@ import { resetTasks } from '../../store/slices/tasksSlice';
 import getFilteredState from '../../hooks/getFilteredState';
 import { UserContext } from '../UserProvider/UserProvider';
 import { Link } from 'react-router-dom';
+import ModalWarning from '../ModalWarning/ModalWarning';
 const itemClass = 'button__menu user-icon';
 
 const ButtonLogOut = () => {
+  const [hasModal, setHasModal] = useState(false);
+
   const dispatch = useDispatch();
   const hasUser = useContext(UserContext);
   const store = useStore();
@@ -29,13 +32,23 @@ const ButtonLogOut = () => {
           await auth.signOut();
       } catch (error) {
           console.error("Ошибка при сохранении данных перед выходом:", error);
+      } finally {
+        setHasModal(false)
       }
   };
 
   return (
     <>
-      {hasUser && <button className={itemClass} onClick={saveAndLogout}>Log out</button>}
+      {hasUser && <button className={itemClass} onClick={() => setHasModal(true)}>Log out</button>}
       {!hasUser && <Link className={itemClass} style={{color: 'currentcolor'}} to='/login'>Log in</Link>}
+      {hasModal && (
+        <ModalWarning 
+        onClickFalse={() => setHasModal(false)}
+        onClickTrue={saveAndLogout}
+        text={'Are you sure you want to log out?'}
+        btnTrueText={'Log out'}
+        />
+      )}
     </>
   )
 }
