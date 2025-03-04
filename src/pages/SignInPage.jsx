@@ -4,9 +4,12 @@ import { auth, db } from '../firebase'
 import { doc, getDoc } from 'firebase/firestore'
 import useSaveUploadState from '../hooks/useSaveUploadState'
 import FormAuth from '../components/FormAuth/FormAuth'
+import { useDispatch } from 'react-redux'
+import { setWaitModal } from '../store/slices/settingSlice'
 
 const SignInPage = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const {uploadUserData} = useSaveUploadState(); //данные из дб в состояние
 
     const signInWithEmail = (email, password) => {
@@ -16,8 +19,8 @@ const SignInPage = () => {
                 
                 const uid = result.user.uid;
                 const dataRef = doc(db, "Users", uid);
+                dispatch(setWaitModal({status: 'orange', hasWait: true, message: 'Please wait... Loading data'}))
                 const userDoc = await getDoc(dataRef);
-                console.log(userDoc);
 
                 if (userDoc.exists()) {
                     
@@ -29,11 +32,13 @@ const SignInPage = () => {
                         settings: userData.settings || {},
                         tasks: userData.tasks || [],
                     });
+                    
                 }
+                dispatch(setWaitModal({status: '', hasWait: false, message: ''}))
                 navigate('/')
             })
             .catch((error) => {
-                console.log(error.code);
+                dispatch(setWaitModal({status: 'red', hasWait: true, message: 'incorrect email or password'}))
             });
     }
 

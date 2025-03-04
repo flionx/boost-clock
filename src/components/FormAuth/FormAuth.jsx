@@ -4,17 +4,19 @@ import { useNavigate } from 'react-router-dom';
 import { signInWithPopup } from "firebase/auth";
 import { auth, db, provider } from '../../firebase';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
-import { useStore } from 'react-redux';
+import { useSelector, useStore } from 'react-redux';
 import './FormAuth.css'
 import getFilteredState from '../../hooks/getFilteredState';
+import WaitModal from '../WaitModal/WaitModal';
 
 const FormAuth = ({title, onHandleClick}) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const navigate = useNavigate();
     const {uploadUserData} = useSaveUploadState();
-
     const store = useStore();
+
+    const {hasWait} = useSelector(state => state.settings.waitModal);
     
     function checkForm(e) {
         e.preventDefault();
@@ -45,6 +47,7 @@ const FormAuth = ({title, onHandleClick}) => {
     }
 
   return (
+    <>
     <form onSubmit={checkForm} className='auth__form'>
         <label htmlFor="email">EMAIL</label>
         <input 
@@ -67,6 +70,9 @@ const FormAuth = ({title, onHandleClick}) => {
             className='auth__google'
             onClick={signInWithGoogle}>{title} with Google</button>
     </form>
+
+    {hasWait && <WaitModal />}
+    </>
   )
 }
 
