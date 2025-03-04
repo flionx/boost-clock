@@ -21,7 +21,6 @@ const useAutoSave = () => {
             try {
                 const userRef = doc(db, "Users", user.uid);
                 await setDoc(userRef, filteredState, { merge: true });
-                console.log("✅ Данные сохранены в Firestore:", filteredState);
             } catch (error) {
                 console.error("❌ Ошибка сохранения:", error);
             }
