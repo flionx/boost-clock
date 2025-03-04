@@ -5,10 +5,12 @@ import { auth, db } from '../firebase'
 import { useStore } from 'react-redux';
 import getFilteredState from '../hooks/getFilteredState';
 import FormAuth from '../components/FormAuth/FormAuth'
+import useChangeTheme from '../hooks/useChangeTheme';
 
 const SignUpPage = () => {
     const navigate = useNavigate();
     const store = useStore();
+    useChangeTheme();
 
     const signUpWithEmail = (email, password) => {
         if (!email || !password) return;
