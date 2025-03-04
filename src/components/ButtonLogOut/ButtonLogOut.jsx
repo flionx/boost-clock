@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import { auth, db } from '../../firebase';
 import { doc, setDoc } from 'firebase/firestore';
 import { useDispatch, useStore } from 'react-redux';
@@ -8,32 +8,35 @@ import { resetReport } from '../../store/slices/reportSlice';
 import { resetSettings } from '../../store/slices/settingSlice';
 import { resetTasks } from '../../store/slices/tasksSlice';
 import getFilteredState from '../../hooks/getFilteredState';
+import { UserContext } from '../UserProvider/UserProvider';
+import { Link } from 'react-router-dom';
+const itemClass = 'button__menu user-icon';
 
 const ButtonLogOut = () => {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const hasUser = useContext(UserContext);
+  const store = useStore();
+  
+  const saveAndLogout = async () => {
+      const user = auth.currentUser;        
+      if (!user) return;
 
-    const store = useStore();
-    
-    const saveAndLogout = async () => {
-        const user = auth.currentUser;        
-        if (!user) return;
-
-        try {            
-            const dataState = getFilteredState(store.getState());   
-
-            const userRef = doc(db, "Users", user.uid);
-            await setDoc(userRef, dataState, { merge: true });
-            console.log("Данные перед выходом сохранены");
-            resetStateToDefault(dispatch);
-            await auth.signOut();
-            console.log("Пользователь вышел");
-        } catch (error) {
-            console.error("Ошибка при сохранении данных перед выходом:", error);
-        }
-    };
+      try {            
+          const dataState = getFilteredState(store.getState());   
+          const userRef = doc(db, "Users", user.uid);
+          await setDoc(userRef, dataState, { merge: true });
+          resetStateToDefault(dispatch);
+          await auth.signOut();
+      } catch (error) {
+          console.error("Ошибка при сохранении данных перед выходом:", error);
+      }
+  };
 
   return (
-    <button onClick={saveAndLogout}>Log out</button>
+    <>
+      {hasUser && <button className={itemClass} onClick={saveAndLogout}>Log out</button>}
+      {!hasUser && <Link className={itemClass} style={{color: 'currentcolor'}} to='/login'>Log in</Link>}
+    </>
   )
 }
 
@@ -44,7 +47,5 @@ function resetStateToDefault(dispatch) {
   dispatch(resetMainTask());
   dispatch(resetReport());
   dispatch(resetSettings());
-  dispatch(resetTasks());
-  console.log('Состояние сброшено по умолчанию');
-  
+  dispatch(resetTasks());  
 }

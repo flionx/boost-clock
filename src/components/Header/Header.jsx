@@ -75,7 +75,7 @@ function Header() {
                                 onClick={showSettingsHandler}
                                 className="header__settings button__menu">Settings</button>
                             </li>
-                            <li className='header__item'><ButtonLogOut /></li>
+                            <ButtonLogOut><li></li></ButtonLogOut>
                         </ul>
                     </nav>
 

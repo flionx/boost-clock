@@ -21,11 +21,13 @@ function BurgerMenu({showReport, showAchiev, showSettingsHandler, newAchievs}) {
                     {newAchievs > 0 && (<NewAchiev newAchievs={newAchievs}/>)}
                 </span>
             </button>
-            {isOpenMenu && (
-                <div onClick={toggleShowMenu} className="bg__burger-menu"></div>
-            )}
+            {isOpenMenu && <div onClick={toggleShowMenu} className="bg__burger-menu"></div>}
             <ul 
             className={`header__burger-list ${isOpenMenu ? 'header__burger-list-show': ''}`}>
+                
+                <li className="header__item">
+                    <ButtonLogOut />
+                </li>
                 <li className="header__item item__menu">
                     <button 
                     onClick={showReport} 
@@ -46,9 +48,6 @@ function BurgerMenu({showReport, showAchiev, showSettingsHandler, newAchievs}) {
                     <button 
                     onClick={showSettingsHandler}
                     className="header__settings button__menu">Settings</button>
-                </li>
-                <li className="header__item">
-                    <ButtonLogOut />
                 </li>
             </ul>
         </nav>
