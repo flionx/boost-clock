@@ -8,7 +8,7 @@
   }
 }
 
-@media (min-width: 1181px) {
+@media (min-width: 1351px) {
   .header__right {
     column-gap: 20px;
   }
@@ -22,7 +22,7 @@
     border: 0;
   }
 }
-@media (max-width: 1180px) {
+@media (max-width: 1350px) {
   .header__right {
     column-gap: 30px;
   }

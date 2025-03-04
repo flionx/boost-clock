@@ -8,6 +8,8 @@
     align-items: center;
     margin-bottom: 20px;
     border: 1px solid #dcdcdc;
+    color: #1c1c1c;
+
 }
 .auth__form label,
 .auth__form input{ 

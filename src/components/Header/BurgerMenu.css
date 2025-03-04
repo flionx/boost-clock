@@ -47,7 +47,7 @@
 .header__burger-list {
     display: none;
     width: 250px;
-    height: 150px;
+    height: 200px;
     flex-direction: column-reverse;
     align-items: center;
     justify-content: space-around;

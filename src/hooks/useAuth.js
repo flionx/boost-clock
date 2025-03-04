@@ -1,15 +1,13 @@
 import { onAuthStateChanged } from "firebase/auth";
-import { auth, db } from "../firebase";
-import { doc } from "firebase/firestore";
+import { auth } from "../firebase";
 
-const useAuth = () => {
-
-    onAuthStateChanged(auth, async (user) => {
+const useAuth = (setUser) => {
+    
+    onAuthStateChanged(auth, (user) => {
         if (user) {
-            console.log('зареган');
-            const uid = user.uid;
+            setUser(true)
         } else {
-            console.log('не зареган');
+            setUser(false)
         }
     });
 }
