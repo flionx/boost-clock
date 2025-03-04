@@ -9,15 +9,17 @@ import Achievements from '../Achievements/Achievements.jsx';
 function MainContent() {
 
     const showSettings = useSelector(state => state.settings.showSettings);
-    const showReport = useSelector(state => state.report.showReport)
-    const showAchiev = useSelector(state => state.achievement.showAchiev)
+    const showReport = useSelector(state => state.report.showReport);
+    const showAchiev = useSelector(state => state.achievement.showAchiev);
+    const mainTask = useSelector(state => state.mainTask);
+
     return (
         <main className="main">
             <div className="container">
                 <Timer />
-                <MainTask/>
+                {mainTask.title && <MainTask />}
                 <Tasks />
-                {showSettings && (<Settings/>)}
+                {showSettings && (<Settings />)}
                 {showReport && (<Report />)}
                 {showAchiev && (<Achievements />)}
             </div>

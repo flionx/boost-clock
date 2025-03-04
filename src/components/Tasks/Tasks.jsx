@@ -8,7 +8,7 @@ import './tasks.css';
 
 function Tasks() {
     
-    const tasks = useSelector(state => state.tasks.tasks)
+    const tasks = useSelector(state => state.tasks.tasks)    
     const completedTasks = useMemo(() => tasks.filter(task => task.complete), [tasks]);
     const [hasCompleted, setHasCompleted] = useState(completedTasks.length > 0);
 
@@ -17,6 +17,8 @@ function Tasks() {
     useEffect(() => {
         if (completedTasks.length >= 1 && !hasCompleted) {
             setHasCompleted(curr => true);
+        } if (completedTasks.length == 0) {
+            setHasCompleted(curr => false);
         }
     }, [completedTasks.length])
 

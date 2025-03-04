@@ -1,6 +1,7 @@
 import NewAchiev from "./NewAchiev";
 import './BurgerMenu.css'
 import { useState } from "react";
+import ButtonLogOut from "../ButtonLogOut/ButtonLogOut";
 
 function BurgerMenu({showReport, showAchiev, showSettingsHandler, newAchievs}) {
 
@@ -20,11 +21,13 @@ function BurgerMenu({showReport, showAchiev, showSettingsHandler, newAchievs}) {
                     {newAchievs > 0 && (<NewAchiev newAchievs={newAchievs}/>)}
                 </span>
             </button>
-            {isOpenMenu && (
-                <div onClick={toggleShowMenu} className="bg__burger-menu"></div>
-            )}
+            {isOpenMenu && <div onClick={toggleShowMenu} className="bg__burger-menu"></div>}
             <ul 
             className={`header__burger-list ${isOpenMenu ? 'header__burger-list-show': ''}`}>
+                
+                <li className="header__item">
+                    <ButtonLogOut />
+                </li>
                 <li className="header__item item__menu">
                     <button 
                     onClick={showReport} 

@@ -3,6 +3,7 @@ import MainContent from '../components/MainContent/MainContent'
 import Quote from '../components/Quote/Quote'
 
 const MainPage = () => {
+
   return (
     <>
         <MainContent />
@@ -11,4 +12,4 @@ const MainPage = () => {
   )
 }
 
-export default MainPage
+export default MainPage;

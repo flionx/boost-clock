@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from "react";
-import ModalWarning from "../ModalWarning/ModalWarning";
+import ModalWarning from "../../../ModalWarning/ModalWarning";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteAllTasks } from "../../../../store/slices/tasksSlice";
 import AnimDeleteCard from "../../helpers/AnimDeleteCard";
@@ -51,6 +51,8 @@ function TaskListHeader() {
                 <ModalWarning 
                 onClickFalse={closeModal}
                 onClickTrue={removeAllTasks}
+                text={'Are you sure you want to delete all tasks?'}
+                btnTrueText={'Delete'}
                 />
             )}
         </div>

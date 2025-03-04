@@ -4,7 +4,7 @@ import OptionTaskButton from "./OptionTaskButton/OptionTaskButton.jsx";
 import CreateTaskCard from "./CreateTaskCard.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleCompleteTask, setEditTaskId } from "../../../store/slices/tasksSlice.js";
-import { changeMainTask, setMainTask } from "../../../store/slices/mainTaskSlice.js";
+import { changeMainTask, resetMainTask, setMainTask } from "../../../store/slices/mainTaskSlice.js";
 import { addCompletedTask } from "../../../store/slices/reportSlice.js";
 import { setCompleteAchiev, setStepAchiev } from "../../../store/slices/achievementSlice.js";
 
@@ -29,9 +29,9 @@ const TaskCard = memo(({ task, taskIndex, hasCreateTask }) => {
             AnimDeleteCard(taskElement);
             
             if (mainTask.id === task.id) {
-                setTimeout(() => {
+                setTimeout(()=> {
                     dispatch(changeMainTask({tasks: tasks, taskId: task.id}))    
-                }, 600);
+                }, 500)
             }
         }
     }, [isCardDelete, dispatch]);
@@ -73,7 +73,11 @@ const TaskCard = memo(({ task, taskIndex, hasCreateTask }) => {
         setIsCardDelete(true);
         setTimeout(() => {
             dispatch(toggleCompleteTask(task.id))
-        }, 500)
+        }, 500)        
+        const filteredTasks = [...tasks].filter((task, index) => !task.complete && taskIndex !== index)        
+        if (filteredTasks.length == 0) {
+            dispatch(resetMainTask());
+        }
     }   
 
     const onClickEdit = useCallback(() => {

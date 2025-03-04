@@ -8,16 +8,12 @@ function MainTask() {
 
     useUpdateStorage('mainTask', mainTask);
     
-    if (mainTask.title) {
-        return (
-            <div className="main__task-main">
-                <div className="task-main__icon"></div>
-                <div className="task-main__title">{mainTask.title}</div>
-            </div>
-        ) 
-    } else {
-        return null
-    }
+    return (
+        <div className="main__task-main">
+            <div className="task-main__icon"></div>
+            <div className="task-main__title">{mainTask.title}</div>
+        </div>
+    ) 
 
 }
 

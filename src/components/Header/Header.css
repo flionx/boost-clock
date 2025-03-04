@@ -103,6 +103,14 @@
   mask-size: cover;
   background: var(--btn-icon);
 }
+.user-icon::before{
+  width: 20px;
+  height: 22px;
+  mask-image: url('../../../assets/header/user.svg');
+  mask-position: center;
+  mask-size: cover;
+  background: var(--btn-icon);
+}
 
 
 

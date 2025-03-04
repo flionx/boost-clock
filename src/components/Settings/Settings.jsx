@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { resetSettings, setAutoToRelax, setAutoToWork, setColorTheme, setLongBreak, setLongBreakInterval, setRepeatSound, setShowSettings, setSoundOn } from '../../store/slices/settingSlice';
+import { resetSettings, setAutoToRelax, setAutoToWork, setLongBreak, setLongBreakInterval, setRepeatSound, setShowSettings, setSoundOn } from '../../store/slices/settingSlice';
 import useUpdateStorage from '../../hooks/useUpdateStorage';
 import useChangeTheme from '../../hooks/useChangeTheme';
 import useStopPageScroll from '../../hooks/useStopPageScroll';
@@ -8,12 +8,12 @@ import './Settings.css';
 
 function Settings() {
     
-    const {showSettings, hasLongBreak, ...settings} = useSelector(state => state.settings);
+    const mainSettings = useSelector(state => state.settings.mainSettings);
 
     const {autoToWork, autoToRelax, longBreak, longBreakInterval, soundOn, 
     repeatSound, colorTheme } = useSelector(state => state.settings.mainSettings);
 
-    useUpdateStorage('settings', settings);
+    useUpdateStorage('settings', mainSettings);
 
     const dispatch = useDispatch();
 
