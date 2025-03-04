@@ -8,11 +8,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setWaitModal } from '../store/slices/settingSlice'
 import WaitModal from '../components/WaitModal/WaitModal'
 import { useState } from 'react'
+import useChangeTheme from '../hooks/useChangeTheme'
 
 const SignInPage = () => {
     const [canGoHome, setCanGoHome] = useState(true);
 
-
+    useChangeTheme();
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const {uploadUserData} = useSaveUploadState(); //данные из дб в состояние

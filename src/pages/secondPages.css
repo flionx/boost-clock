@@ -71,7 +71,7 @@
     border-radius: 50%;
     background: white;
     border: 1px solid #d8d8d8;
-    position: absolute;
+    position: fixed;
     top: 35px;
     left: 35px;
     display: flex;
