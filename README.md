@@ -62,7 +62,10 @@ Boost Clock is a minimalistic and user-friendly Pomodoro timer built with React 
 - Repeat - number of additional repetitions of the timer end sound.
 
 - Themes (under development, only dark and light themes are available)
-
+  
+### Authorisation
+- You can ‘Login’ or ‘create an account’, with mail and password, or log in with your google account.
+  
 ## Screenshots
 ![Главная](https://github.com/user-attachments/assets/1c0452d3-b845-4984-8d05-ada868c49848) 
 ![Таймер](https://github.com/user-attachments/assets/365f7d28-daf1-469f-bf11-3f550ebd35a4)  
@@ -74,7 +77,7 @@ Main interface with dark theme.
 - React-router-dom 
 - Redux Toolkit
 - JavaScript
-- Firebase (auth + db) ⌛
+- Firebase (auth + db)
 
 ## Inspiration  
 
