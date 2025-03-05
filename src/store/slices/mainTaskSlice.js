@@ -33,6 +33,7 @@ const mainTaskSlice = createSlice({
     resetMainTask: (state) => {
       state.id = null;
       state.title = null;
+      localStorage.setItem('mainTask', JSON.stringify(state));
     }
   },
 });
