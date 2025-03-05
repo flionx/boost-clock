@@ -4,14 +4,16 @@ import { useNavigate } from 'react-router-dom';
 import { signInWithPopup } from "firebase/auth";
 import { auth, db, provider } from '../../firebase';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
-import { useStore } from 'react-redux';
+import { useDispatch, useStore } from 'react-redux';
 import './FormAuth.css'
 import getFilteredState from '../../hooks/getFilteredState';
+import { setWaitModal } from '../../store/slices/settingSlice';
 
 const FormAuth = ({title, onHandleClick}) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const {uploadUserData} = useSaveUploadState();
     const store = useStore();
     
@@ -38,6 +40,8 @@ const FormAuth = ({title, onHandleClick}) => {
 
             }).catch((error) => {
                 console.log(error.code);
+                dispatch(setWaitModal({status: 'red', hasWait: true, message: 'Something went wrong'}))
+                
             })
     }
 

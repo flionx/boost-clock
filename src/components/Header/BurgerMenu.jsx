@@ -3,10 +3,10 @@ import './BurgerMenu.css'
 import { useState } from "react";
 import ButtonLogOut from "../ButtonLogOut/ButtonLogOut";
 
-function BurgerMenu({showReport, showAchiev, showSettingsHandler, newAchievs}) {
+function BurgerMenu({showReport, showAchiev, showSettingsHandler, newAchievs, setHasModal}) {
 
     const [isOpenMenu, setIsOpenMenu] = useState(false);
-
+    
     function toggleShowMenu() {
         setIsOpenMenu(prev => !prev)
     }
@@ -26,7 +26,7 @@ function BurgerMenu({showReport, showAchiev, showSettingsHandler, newAchievs}) {
             className={`header__burger-list ${isOpenMenu ? 'header__burger-list-show': ''}`}>
                 
                 <li className="header__item">
-                    <ButtonLogOut />
+                    <ButtonLogOut setHasModal={() => setHasModal(true)}/>
                 </li>
                 <li className="header__item item__menu">
                     <button 
@@ -40,7 +40,6 @@ function BurgerMenu({showReport, showAchiev, showSettingsHandler, newAchievs}) {
                         <span key={3}>
                             {newAchievs > 0 && (<NewAchiev newAchievs={newAchievs}/>)}
                         </span>
-
                         Achievements
                     </button>
                 </li>

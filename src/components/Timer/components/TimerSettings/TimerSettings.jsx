@@ -14,11 +14,11 @@ function TimerSettings({mins, info}) {
     if (hasLongBreak) {
       setMinutes(mins => ({
         ...mins, 
-        relax: longBreak}))
+        relax: longBreak ?? 15}))
       } else {
         setMinutes(mins => ({
           ...mins, 
-          relax: basicBreak}))
+          relax: basicBreak ?? 5}))
     }
   }, [hasLongBreak])
   
