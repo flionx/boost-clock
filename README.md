@@ -1,6 +1,6 @@
 # Boost Clock
 
-A handy and minimalistic Pomodoro timer based on React + Redux Toolkit. Helps you manage your time efficiently by alternating between work and rest, with the ability to create tasks, report views, customizations and even achievements.
+Boost Clock is a minimalistic and user-friendly Pomodoro timer built with React, Redux Toolkit and Firebase. It helps you stay productive by alternating work and break sessions. You can track tasks, customize settings, view reports, and even earn achievements.
 
 ##  Demo
 
@@ -9,9 +9,9 @@ A handy and minimalistic Pomodoro timer based on React + Redux Toolkit. Helps yo
 ## Features
 
 - Simple and intuitive interface.
-- Setting the time for work and rest.
-- Notifications when a step is completed.
-- Possibility to compose tasks.
+- Customizable work and break durations.
+- Task management (create, edit, complete tasks).
+- Notifications for session transitions.
 - Settings.
 - Achievements. 
 - Report.
@@ -26,7 +26,7 @@ A handy and minimalistic Pomodoro timer based on React + Redux Toolkit. Helps yo
    ```bash
    cd boost-clock
    ```
-3. Install dependencies :
+3. Install dependencies:
    ```bash
    npm i
    ```
@@ -38,34 +38,34 @@ A handy and minimalistic Pomodoro timer based on React + Redux Toolkit. Helps yo
 ## Usage
 
 ### Timer
-- button “Start” - start the countdown.
-- When finished, the timer will automatically switch to rest time, and vice versa.
-- button “Reset” - reset the time;
--button “Skip” - skip the current session and start the next one.
-- +/- buttons - time setting
+- "Start" button – starts the countdown.
+- "Reset" button – resets the timer.
+- "Skip" button – skips the current session and starts the next one.
+- "+/- buttons" – adjust the time.
   
 ### Tasks
-- “Add New Task” button - add a task, enter its name and optionally add a description by clicking on the “Add Description” button.
--Button with three dots to the right of the task name - task parameters.
--Checkbox button to the left of the task title - the task will be moved to the “Completed” category.
-- "Delete all" button - delete all tasks.
+- "Add New Task" button – adds a task. You can enter a name and optionally add a description via the "Add Description" button.
+- Three-dots button – opens task options (edit, delete, etc.).
+- Checkbox button – marks the task as completed and moves it to the "Completed" section.
+- "Delete all" button – removes all tasks.
   
 ### Theme
 - "Sun/Moon" button in the title bar - change the theme of the application.
 
 ### Settings
-- Auto switching to automatically switch to a specific timer type.
-- Long break - allows you to enter the length of a long break (recommended 15).
-- Long Break interval - number of pomodoro rounds between long breaks(recommended 4) 
+- Auto-switching between work and break sessions.
+- Long break – duration of long breaks (recommended: 15 minutes).
+- Long Break Interval – number of Pomodoro sessions before a long break (recommended: 4).
 
-- Sound on allows you to turn sounds on/off.
+- Sound effects – enable or disable notification sounds.
 - Repeat - number of additional repetitions of the timer end sound.
 
 - Themes (under development, only dark and light themes are available)
 
 ## Screenshots
-![Главная](https://github.com/user-attachments/assets/1c0452d3-b845-4984-8d05-ada868c49848) 
-![Таймер](https://github.com/user-attachments/assets/365f7d28-daf1-469f-bf11-3f550ebd35a4)  
+![Timer](https://github.com/user-attachments/assets/4beb12a6-dc16-43ef-909d-88df1688d9b7)
+![Tasks](https://github.com/user-attachments/assets/36d18f45-074a-40e3-9cb4-863d612035c8)
+![Quote](https://github.com/user-attachments/assets/b72fa655-f134-4c6f-9ac0-3a9b5f9a4121)
 Main interface with dark theme.
 
 ## Technologies
@@ -73,14 +73,18 @@ Main interface with dark theme.
 - React
 - Redux Toolkit
 - JavaScript
-- HTML/CSS
+- Firebase (auth, db)
 
 ## Inspiration  
 
 This project was inspired by [Pomofocus.io](https://pomofocus.io)
-However, the code and design is developed from scratch.
+However, the code and design were developed from scratch.
 
 ## License  
 
 This project is licensed under the **Creative Commons Attribution-NonCommercial 4.0 International License**.   
 See the full version of the [license](LICENSE).
+
+## Links
+
+https://roadmap.sh/projects/pomodoro-timer
