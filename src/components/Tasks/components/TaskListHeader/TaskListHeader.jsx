@@ -6,15 +6,13 @@ import AnimDeleteCard from "../../helpers/AnimDeleteCard";
 import { resetMainTask } from "../../../../store/slices/mainTaskSlice";
 
 function TaskListHeader() {
-
     const [hasModal, setHasModal] = useState(false);
 
-    const dispatch = useDispatch();
     const allTasks = useSelector(state => state.tasks.tasks)
     const tasks = allTasks.filter(task => !task.complete)
+    const dispatch = useDispatch();
         
     const tasksListRef = useRef(null);
-
     useEffect(() => {        
         tasksListRef.current = document.querySelector('.tasks__list');
     }, []);    
