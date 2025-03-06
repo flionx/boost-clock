@@ -1,4 +1,3 @@
-// import './index.css'
 function ChangeButton({className, onClickHandler, type, children}) {
     
     return (

@@ -46,9 +46,7 @@ const tasksSlice = createSlice({
       );
     },
     setEditTaskId: (state, action) => {
-      state.editTaskId = action.payload;
-      console.log('да');
-      
+      state.editTaskId = action.payload;      
     },
     setDeadlineTask: (state, action) => {
       const task = state.tasks.find((task) => task.id === action.payload.id);

@@ -1,94 +1,12 @@
-import { memo, useCallback, useEffect, useRef, useState } from "react";
-import AnimDeleteCard from '../helpers/AnimDeleteCard.js';
+import { memo} from "react";
 import OptionTaskButton from "./OptionTaskButton/OptionTaskButton.jsx";
 import CreateTaskCard from "./CreateTaskCard.jsx";
-import { useDispatch, useSelector } from "react-redux";
-import { toggleCompleteTask, setEditTaskId } from "../../../store/slices/tasksSlice.js";
-import { changeMainTask, resetMainTask, setMainTask } from "../../../store/slices/mainTaskSlice.js";
-import { addCompletedTask } from "../../../store/slices/reportSlice.js";
-import { setCompleteAchiev, setStepAchiev } from "../../../store/slices/achievementSlice.js";
+import useManageTask from "../../../hooks/useManageTask.js";
 
 const TaskCard = memo(({ task, taskIndex, hasCreateTask }) => {
 
-    const dispatch = useDispatch();
-
-    const mainTask = useSelector(state => state.mainTask);
-    const tasks = useSelector(state => state.tasks.tasks);
-    const editTaskId = useSelector(state => state.tasks.editTaskId);
-
-    // const secondAchiev = useSelector(state => state.achievement.achievs[1])
-    const fourthAchiev = useSelector(state => state.achievement.achievs[3])
-
-    const [isCardDelete, setIsCardDelete] = useState(false);
-    const [isTaskCompleted, setIsComplete] = useState(false);
-
-    const taskElement = useRef(null);
-
-    useEffect(() => {
-        if (isCardDelete) {
-            AnimDeleteCard(taskElement);
-            
-            if (mainTask.id === task.id) {
-                setTimeout(()=> {
-                    dispatch(changeMainTask({tasks: tasks, taskId: task.id}))    
-                }, 500)
-            }
-        }
-    }, [isCardDelete, dispatch]);
-
-    const taskTitle = useRef(null);
-    const timeoutId = useRef(null);
-
-    useEffect(() => {
-        if (isTaskCompleted) {
-            taskTitle.current.className = 'task__title anim-title-complete';
-            timeoutId.current = setTimeout(()=> {                    
-                deleteTask();
-                addInfoToReport();
-            }, 1000)
-        } else {
-            taskTitle.current.className = 'task__title';
-            if (timeoutId.current) {
-                clearTimeout(timeoutId.current)
-            }
-        }
-    }, [isTaskCompleted])
-
-    function addInfoToReport() {
-        if (task.round > task.deadline) {
-            dispatch(addCompletedTask('outTime'))
-        } else {
-            dispatch(addCompletedTask())
-            // достижение 4
-            if (fourthAchiev.step < fourthAchiev.max) {                
-                if (fourthAchiev.step + 1 == fourthAchiev.max) {
-                    dispatch(setCompleteAchiev("Responsible"))
-                }
-                dispatch(setStepAchiev("Responsible"))
-            }
-        }
-    }
-
-    function deleteTask() {
-        setIsCardDelete(true);
-        setTimeout(() => {
-            dispatch(toggleCompleteTask(task.id))
-        }, 500)        
-        const filteredTasks = [...tasks].filter((task, index) => !task.complete && taskIndex !== index)        
-        if (filteredTasks.length == 0) {
-            dispatch(resetMainTask());
-        }
-    }   
-
-    const onClickEdit = useCallback(() => {
-        dispatch(setEditTaskId(task.id))
-    }, [])
-
-    function changeToMainTask() {        
-        dispatch(setMainTask({id: task.id, title: task.title}))        
-    }
-
-    const callSetIsCardDelete = useCallback((value) => setIsCardDelete(value), []);
+    const {taskElement, taskTitle, setIsComplete, changeToMainTask, 
+        isTaskCompleted, onClickEdit, isCardDelete, callSetIsCardDelete, editTaskId } = useManageTask({task, taskIndex});
 
     return (
     <>
