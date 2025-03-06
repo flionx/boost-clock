@@ -16,7 +16,7 @@ const SignInPage = () => {
     useChangeTheme();
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const {uploadUserData} = useSaveUploadState(); //данные из дб в состояние
+    const {uploadUserData} = useSaveUploadState();
 
     const {hasWait} = useSelector(state => state.settings.waitModal);
 
