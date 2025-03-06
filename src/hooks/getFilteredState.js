@@ -14,11 +14,3 @@ const getFilteredState = (state) => {
 };
 
 export default getFilteredState
-
-// console.log(state.tasks.tasks);
-// console.log(state.settings.mainSettings);
-// console.log(state.report.tasks);
-// console.log(state.report.timer);
-// console.log(state.report.today);
-// console.log(state.mainTask);
-// console.log(state.achievement.achievs);
