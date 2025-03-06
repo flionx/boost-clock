@@ -6,6 +6,9 @@ export default function useMelody() {
     const melodyGoRelax = document.querySelector('#melodyGoRelax');
     melodyGoRelax.volume = 0.3;
 
-    return {melodyGoWork, melodyGoRelax}
+    const melodyNotification = document.querySelector('#notification');
+    melodyNotification.volume = 0.6;
+
+    return {melodyGoWork, melodyGoRelax, melodyNotification}
 
 }

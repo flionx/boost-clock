@@ -7,13 +7,13 @@ const getInitialTasks = () => {
 
 const tasksSlice = createSlice({
   name: "tasks",
-  editTaskId: null,
   initialState: {
+    editTaskId: null,
     tasks: getInitialTasks(),
   },
   reducers: {
     addTask: (state, action) => {
-      state.tasks.unshift(action.payload);
+      state.tasks.push(action.payload);
     },
     removeTask: (state, action) => {
       state.tasks = state.tasks.filter((task) => task.id !== action.payload);
@@ -46,20 +46,30 @@ const tasksSlice = createSlice({
       );
     },
     setEditTaskId: (state, action) => {
-      state.editTaskId = action.payload
+      state.editTaskId = action.payload;
+      console.log('да');
+      
     },
     setDeadlineTask: (state, action) => {
       const task = state.tasks.find((task) => task.id === action.payload.id);
       if (task) task.deadline = action.payload.deadline;
     },
     setRoundTasks: (state) => {
+      
       state.tasks = state.tasks.map(task => 
-        task.deadline > 0 ? { ...task, round: task.round + 1 } : task
+        !task.complete && task.deadline > 0 ? { ...task, round: task.round + 1 } : task
       );
     }, 
     deleteAllTasks: (state) => {
       state.tasks = state.tasks.filter(task => task.complete);
     },
+    uploadTasks: (state, action) => {
+      state.tasks = action.payload;
+      localStorage.setItem('tasks', JSON.stringify(state.tasks))      
+    },
+    resetTasks: (state) => {
+      state.tasks = [];
+    }
 
   },
 });
@@ -68,7 +78,7 @@ export const {
   addTask, removeTask, toggleCompleteTask, 
   moveTask, setEditTaskId, 
   changeTask, setDeadlineTask,
-  setRoundTasks, deleteAllTasks
+  setRoundTasks, deleteAllTasks, uploadTasks, resetTasks
 } = tasksSlice.actions;
 
 export default tasksSlice.reducer;

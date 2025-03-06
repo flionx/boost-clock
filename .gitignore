@@ -24,8 +24,7 @@ dist-ssr
 *.sw?
 .env
 
-old
-oldhtml.txt
+locales
 
 timeout.mp3
 

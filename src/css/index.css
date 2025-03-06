@@ -26,12 +26,25 @@
 
   --icon-star: url('../../assets/tasks/starLight.svg');
 
-  --btn-icon: #1D1B20;
+  --icon-arrow: url('../../assets/completedTasks/arrowDown.svg');
+  
+  --icon-close-settings: url('../../assets/settings/closeLight.svg');
 
+  --btn-icon: #1D1B20;
 
   --main-font: 'Itim', 'Literal', sans-serif;
   --menu-font: 'Poppins', sans-serif;
+  --font-for-reading: 'Literal', sans-serif;
 
+  --color-item-modal-menu: #FFFFFF;
+  --color-item-modal-text-bg: #B7B9D8;
+  --color-item-modal-text-bg-hover: #acaecc;
+  --color-item-modal-text-bg-active: rgb(195, 197, 223);
+
+  --border-quote: var(--task-add-active);
+
+  --footer-bg: #999BC6;
+  --footer-copy-color: #484848;
 }
 
 .dark-theme {
@@ -60,6 +73,19 @@
   --icon-theme: url('../../assets/header/moon.svg');
   --icon-star: url('../../assets/tasks/starDark.svg');
 
+  --icon-arrow: url('../../assets/completedTasks/arrowDownDark.svg');
+
+  --icon-close-settings: url('../../assets/settings/closeDark.svg');
+
+  --color-item-modal-menu: #838499;
+  --color-item-modal-text-bg: #393939;
+  --color-item-modal-text-bg-hover: #2f2f2f;
+  --color-item-modal-text-bg-active: #323232;
+
+  --border-quote: #3C3C3C;
+  --footer-bg: #202125;
+  --footer-copy-color: #858585;
+
 
 }
 
@@ -67,6 +93,7 @@ body {
   font-family: var(--main-font);
   color: var(--text-color);
   background: var(--main-color);
+  height: 100vh;
   /* height: calc(100vh - 50px); */
 }
 
@@ -76,7 +103,7 @@ body {
   margin: 0 auto;
 }
 
-.container-tasks {
+.container-in {
   width: clamp(353px, 51.3vw, 986px);
   margin: 0 auto;
   display: flex;
@@ -90,7 +117,9 @@ body {
   flex-direction: column;
   align-items: center;
 }
-
+.container-second {
+  min-height: 100vh;
+}
 /* табуляция для кнопок и инпутов */
 
 button:focus-visible,
@@ -103,7 +132,7 @@ textarea:focus-visible {
 
 /* main timer */
 .main {
-  padding: 50px 0 0 0;
+  padding: 50px 0 30px 0;
 }
 
 .main__timer {
@@ -147,7 +176,29 @@ textarea:focus-visible {
   font-size: 85px;
   color: #fff;
   margin-bottom: 50px;
+  position: relative;
 }
+.timer__long-break {
+  position: absolute;
+  width: 100%;
+  top: -20px;
+  font-size: 24px;
+  text-align: center;
+  animation: fadeIn 5s ease-in-out infinite;
+}
+
+@keyframes fadeIn {
+  0% {
+      opacity: 0;
+  }
+  50% {
+      opacity: 1;
+  }
+  100% {
+      opacity: 0;
+  }
+}
+
 .timer__button {
   padding: 10px 40px;
   background: #fff;
@@ -190,7 +241,6 @@ textarea:focus-visible {
 .settings-main {
   max-width: 450px;
   padding: 10px clamp(11px, 2vw, 50px) 25px clamp(11px, 2vw, 50px);
-  /* clamp(11px, calc(11px + 39 * ((100vw - 375px) / 1545)), 50px) 25px clamp(11px, calc(11px + 39 * ((100vw - 375px) / 1545)), 50px); */
   background: var(--content-color);
   border-radius: 8px;
   display: flex;
@@ -248,7 +298,7 @@ textarea:focus-visible {
   justify-content: center;
   align-items: center;
   font-size: 22px;
-  color: #000;
+  color: var(--text-color);
   border-radius: 10px;
   background: var(--settings-color);
 }
