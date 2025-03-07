@@ -4,8 +4,8 @@ import './Footer.css';
 const urlGithub = 'https://github.com/flionx';
 const urlInstagram = 'https://www.instagram.com/dn06sh';
 const urlLinkedin = 'https://www.linkedin.com/in/danila-shipilov';
-function Footer() {
 
+function Footer() : JSX.Element {
     return (
         <footer className="footer">
         <div className="container">

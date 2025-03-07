@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import formatTime from "../components/Timer/helpers/formatTime";
 import { addRoundToBreak, removeRoundsToBreak, setHasLongBreak } from "../store/slices/settingSlice";
 import { setRoundTasks } from "../store/slices/tasksSlice";
-import { addPomodoroRound, addWorkTime } from "../store/slices/reportSlice";
+import { addPomodoroRound, addRelaxTime, addWorkTime } from "../store/slices/reportSlice";
 import { setCompleteAchiev, setStepAchiev } from "../store/slices/achievementSlice";
 import useMelody from "./useMelody";
 
