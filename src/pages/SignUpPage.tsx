@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
+import { useAppDispatch, useAppSelector, useAppStore } from '../hooks/useRedux';
+import { createUserWithEmailAndPassword, sendEmailVerification, User } from 'firebase/auth';
 import { Link, useNavigate } from 'react-router-dom';
-import { createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
-import { useSelector, useDispatch, useStore } from 'react-redux';
 import { doc, setDoc } from 'firebase/firestore';
 import { auth, db } from '../firebase';
 import getFilteredState from '../hooks/getFilteredState';
@@ -11,31 +11,37 @@ import WaitModal from '../components/WaitModal/WaitModal';
 import { setWaitModal } from '../store/slices/settingSlice';
 
 const SignUpPage = () => {
+    const dispatch = useAppDispatch();
+    const store = useAppStore();
+    const { hasWait } = useAppSelector(state => state.settings.waitModal);
     const navigate = useNavigate();
-    const store = useStore();
-    const dispatch = useDispatch();
     useChangeTheme();
-    const { hasWait } = useSelector(state => state.settings.waitModal);
 
-    const intervalRef = useRef(null);
+    const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
     useEffect(() => {
         intervalRef.current = setInterval(() => {
             if (auth.currentUser) {
                 auth.currentUser.reload().then(() => {
-                    if (auth.currentUser.emailVerified) {
-                        clearInterval(intervalRef.current);
-                        dispatch(setWaitModal({ status: '', hasWait: false, message: '' }));
+                    if (auth.currentUser && auth.currentUser.emailVerified) {
+                        if (intervalRef.current) {
+                            clearInterval(intervalRef.current);
+                        }
+                        dispatch(setWaitModal({ status: 'orange', hasWait: false, message: '' }));
                         navigate('/');
                     }
                 });
             }
         }, 3000);
 
-        return () => clearInterval(intervalRef.current);
+        return () => {
+            if (intervalRef.current) {
+                clearInterval(intervalRef.current);
+            }
+        }    
     }, [dispatch, navigate]);
 
-    function signUpWithEmail(email, password) {
+    function signUpWithEmail(email: string, password: string) {
         if (!email || !password) return;
 
         createUserWithEmailAndPassword(auth, email, password)
@@ -54,7 +60,7 @@ const SignUpPage = () => {
             });
     }
 
-    function sendVerifEmail(user) {
+    function sendVerifEmail(user: User) {
         sendEmailVerification(user)
             .then(() => {
                 dispatch(setWaitModal({ status: 'orange', hasWait: true, message: 'Email verification sent' }));

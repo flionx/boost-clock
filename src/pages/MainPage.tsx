@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { useAppSelector } from '../hooks/useRedux';
 import Timer from '../components/Timer/Timer'
 import MainTask from '../components/MainTask/MainTask';
@@ -6,7 +7,7 @@ import Report from '../components/Report/Report'
 import Achievements from '../components/Achievements/Achievements';
 import Tasks from '../components/Tasks/Tasks';
 import Quote from '../components/Quote/Quote'
-const MainPage = () => {
+const MainPage: FC = () => {
 
     const showSettings = useAppSelector(state => state.settings.showSettings);
     const showReport = useAppSelector(state => state.report.showReport);

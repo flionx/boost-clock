@@ -1,15 +1,14 @@
-import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { FC } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks/useRedux';
 import { setWaitModal } from '../../store/slices/settingSlice';
 import './WaitModal.css'
 
-const WaitModal = () => {
-
-    const dispatch = useDispatch();
-    const {status, message} = useSelector(state => state.settings.waitModal)
+const WaitModal: FC = () => {
+    const dispatch = useAppDispatch();
+    const {status, message} = useAppSelector(state => state.settings.waitModal)
     
     function closeWaitModal() {
-        dispatch(setWaitModal({status: null, hasWait: false, message: ''}))
+        dispatch(setWaitModal({status: 'orange', hasWait: false, message: ''}))
     }
     return (
         <div className='wait-modal'>

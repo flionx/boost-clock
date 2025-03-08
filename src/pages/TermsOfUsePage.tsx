@@ -1,6 +1,6 @@
-import React from 'react'
+import { FC } from "react"
 
-const TermsOfUsePage = () => {
+const TermsOfUsePage: FC = () => {
   return (
     <div className="container container-second">
         <h2>Terms of Use</h2>

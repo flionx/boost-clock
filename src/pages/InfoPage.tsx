@@ -1,7 +1,7 @@
-import React from 'react';
+import { FC } from 'react';
 import './secondPages.css'
 
-const InfoPage = () => {
+const InfoPage: FC = () => {
   return (
     <div className="container container-second">
         <h2>Info</h2>

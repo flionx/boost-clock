@@ -1,26 +1,26 @@
+import { useAppDispatch, useAppSelector } from '../hooks/useRedux'
 import { Link, useNavigate } from 'react-router-dom'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { auth, db } from '../firebase'
 import { doc, getDoc } from 'firebase/firestore'
 import useSaveUploadState from '../hooks/useSaveUploadState'
 import FormAuth from '../components/FormAuth/FormAuth'
-import { useDispatch, useSelector } from 'react-redux'
 import { setWaitModal } from '../store/slices/settingSlice'
 import WaitModal from '../components/WaitModal/WaitModal'
 import { useState } from 'react'
 import useChangeTheme from '../hooks/useChangeTheme'
+import { IUploadData } from '../types/global'
 
 const SignInPage = () => {
     const [canGoHome, setCanGoHome] = useState(true);
-
     useChangeTheme();
+
+    const dispatch = useAppDispatch();
+    const {hasWait} = useAppSelector(state => state.settings.waitModal);
     const navigate = useNavigate();
-    const dispatch = useDispatch();
     const {uploadUserData} = useSaveUploadState();
 
-    const {hasWait} = useSelector(state => state.settings.waitModal);
-
-    const signInWithEmail = (email, password) => {
+    const signInWithEmail = (email: string, password: string) => {
         if (!email || !password) return;
         signInWithEmailAndPassword(auth, email, password)
             .then(async (result) => {
@@ -28,12 +28,12 @@ const SignInPage = () => {
                 const uid = result.user.uid;
                 const dataRef = doc(db, "Users", uid);
                 dispatch(setWaitModal({status: 'green', hasWait: true, message: 'Please wait... Loading data'}))
-                setCanGoHome(curr => false);
+                setCanGoHome(prev => prev = false);
                 const userDoc = await getDoc(dataRef);
 
                 if (userDoc.exists()) {
                     
-                    const userData = userDoc.data() || {};  
+                    const userData = userDoc.data() as IUploadData || {};  
                     uploadUserData({
                         achievement: userData.achievement || [],
                         mainTask: userData.mainTask || {},
@@ -43,13 +43,14 @@ const SignInPage = () => {
                     });
                     
                 }
-                dispatch(setWaitModal({status: '', hasWait: false, message: ''}))
+                dispatch(setWaitModal({status: 'orange', hasWait: false, message: ''}))
                 navigate('/')
             })
             .catch((error) => {
+                console.log(error);
                 dispatch(setWaitModal({status: 'red', hasWait: true, message: 'incorrect email or password'}))
             }).finally(() => {
-                setCanGoHome(curr => true);
+                setCanGoHome(prev => prev =true);
             })
     }
 

@@ -1,40 +1,47 @@
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../../../../hooks/useRedux";
 import ChangeButton from "./ChangeButton/ChangeButton"
-import { useEffect } from "react";
+import { FC, useEffect } from "react";
+import { IMinutes, ITimerInfo } from "../../Timer";
 
-function TimerSettings({mins, info}) {
+interface Props {
+  mins: {
+    minutes: IMinutes,
+    setMinutes: (value: IMinutes | any) => void,
+  },
+  info: {
+    timerInfo: ITimerInfo,
+    setTimerInfo: (value: ITimerInfo | any) => void,
+  }
+}
+
+const TimerSettings: FC<Props> = ({mins, info}) => {
 
   const {minutes, setMinutes} = mins;
   const {timerInfo, setTimerInfo} = info;
 
-  const hasLongBreak = useSelector(state => state.settings.hasLongBreak);
-  const {longBreak, basicBreak} = useSelector(state => state.settings.mainSettings);
+  const hasLongBreak = useAppSelector(state => state.settings.hasLongBreak);
+  const {longBreak, basicBreak} = useAppSelector(state => state.settings.mainSettings);
 
   useEffect(() => {
-    if (hasLongBreak) {
-      setMinutes(mins => ({
-        ...mins, 
-        relax: longBreak ?? 15}))
-      } else {
-        setMinutes(mins => ({
-          ...mins, 
-          relax: basicBreak ?? 5}))
-    }
-  }, [hasLongBreak])
+    setMinutes((prev: IMinutes) => ({
+      ...prev, 
+      relax: hasLongBreak ? longBreak ?? 15 : basicBreak ?? 5
+    }));
+  }, [hasLongBreak]);
   
-  function changeTime(type, action) {
+  function changeTime(type: string, action: string) {
     if (!timerInfo.hasTimer) {
-      setTimerInfo(c=> ({...c, canChangeMinutes: true}))
+      setTimerInfo((c: ITimerInfo) => ({...c, canChangeMinutes: true}))
     }
 
     switch (type) {
       case 'work':{
         if (action === '+') {
-          setMinutes(min => ({
+          setMinutes((min: IMinutes) => ({
             ...min, 
             work: min.work + 1}))
         } else if (minutes.work > 1) {
-          setMinutes(min => ({
+          setMinutes((min: IMinutes) => ({
             ...min, 
             work: min.work - 1}))
         }
@@ -42,18 +49,17 @@ function TimerSettings({mins, info}) {
       }
       case 'relax':{
         if (action === '+') {
-          setMinutes(min => ({
+          setMinutes((min: IMinutes) => ({
             ...min, 
             relax: min.relax + 1}))
 
         } else if (minutes.relax > 1) {
-          setMinutes(min => ({
+          setMinutes((min: IMinutes) => ({
             ...min, 
             relax: min.relax - 1}))
         }
         break;
       }
-    
       default:
         break;
     }

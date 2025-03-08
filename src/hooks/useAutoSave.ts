@@ -1,13 +1,14 @@
 import { useEffect, useRef } from "react";
-import { useStore } from "react-redux";
+import { useAppStore } from "./useRedux";
 import { db, auth } from "../firebase";
 import { doc, setDoc } from "firebase/firestore";
 import getFilteredState from "./getFilteredState";
+import { IUploadData } from "../types/global";
 
 const useAutoSave = () => {
-    const store = useStore();
-    const prevStateRef = useRef(null);
-    const timeoutRef = useRef(null);
+    const store = useAppStore();
+    const prevStateRef = useRef<IUploadData | null>(null);
+    const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
     const saveData = async () => {
         const user = auth.currentUser;
@@ -29,12 +30,16 @@ const useAutoSave = () => {
 
     useEffect(() => {
         const unsubscribe = store.subscribe(() => {
-            clearTimeout(timeoutRef.current);
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current);
+            }
             timeoutRef.current = setTimeout(saveData, 4000);
         });
 
         return () => {
-            clearTimeout(timeoutRef.current);
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current);
+            }
             unsubscribe();
         };
     }, []);
