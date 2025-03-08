@@ -1,14 +1,23 @@
-import { useEffect, useRef, useState } from "react";
+import { ChangeEventHandler, FC, useEffect, useRef, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../../hooks/useRedux";
 import scrollToNew from '../helpers/scrollToNew'
 import AnimDeleteCard from "../helpers/AnimDeleteCard";
-import { useDispatch, useSelector } from "react-redux";
 import { addTask, changeTask, setEditTaskId } from "../../../store/slices/tasksSlice";
 import { setCompleteAchiev, setStepAchiev } from "../../../store/slices/achievementSlice";
+import { TaskType } from "../../../types/global";
 
-function CreateTaskCard({ task, isEdit, hasCreateTask, toggleHasCreateTask, isCardDelete = false}) {
+interface Props {
+    task: TaskType,
+    isEdit: boolean,
+    hasCreateTask?: boolean,
+    toggleHasCreateTask?: VoidFunction,
+    isCardDelete: boolean,
+}
 
-    const dispatch = useDispatch()
-    const secondAchiev = useSelector(state => state.achievement.achievs[1])
+const CreateTaskCard: FC<Props> = ({ task, isEdit, hasCreateTask, toggleHasCreateTask, isCardDelete = false}) => {
+
+    const dispatch = useAppDispatch()
+    const secondAchiev = useAppSelector(state => state.achievement.achievs[1])
 
     const resetTask = {id: Date.now(), title: '', description: null, complete: false, deadline: null, round: null};
 
@@ -36,26 +45,26 @@ function CreateTaskCard({ task, isEdit, hasCreateTask, toggleHasCreateTask, isCa
 
 
     useEffect(() => {
-        scrollToNew(createNewTaskRef);
+        scrollToNew(createNewTaskRef as unknown as {current: HTMLElement});
         if (typeof currentTask.description === 'string') {
             focusDescriptionInput();
         } else {
-            const input = inputTitleRef.current;
+            const input = inputTitleRef.current as unknown as HTMLInputElement;
             input.focus();
         }
     }, []);
 
 
     function focusDescriptionInput() {
-        const textarea = inputDescriptionRef.current;
+        const textarea = inputDescriptionRef.current as unknown as HTMLTextAreaElement;
         textarea.focus();
         textarea.setSelectionRange(textarea.value.length, textarea.value.length);
     }
 
-    function changeTitleHandle(e) {
+    const changeTitleHandle: ChangeEventHandler<HTMLInputElement> = (e) => {
         setCurrentTask(curr=> ({...curr, title: e.target.value}))  
     }
-    function changeDescriptionHandle(e) {
+    const changeDescriptionHandle: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
         setCurrentTask(curr=> ({...curr, description: e.target.value}))  
     }
     function addDescriptionHandle() {
@@ -65,22 +74,22 @@ function CreateTaskCard({ task, isEdit, hasCreateTask, toggleHasCreateTask, isCa
     function addDeadlineHandle() {
         setCurrentTask(curr=> ({...curr, deadline: 0}))  
     }
-    function changeDeadlineHandle(type) {
+    function changeDeadlineHandle(type: '+' | '-') {
         if (type === '+') {
-            setCurrentTask(curr=> ({...curr, deadline: curr.deadline + 1}))  
-        } else if (type === '-' && currentTask.deadline > 0) {
-            setCurrentTask(curr=> ({...curr, deadline: curr.deadline - 1}))  
+            setCurrentTask(curr=> ({...curr, deadline: curr.deadline ? curr.deadline + 1 : 1}))  
+        } else if (type === '-' && currentTask.deadline && currentTask.deadline > 0) {
+            setCurrentTask(curr=> ({...curr, deadline: curr.deadline ? curr.deadline - 1 : 0}))  
         }
     }
 
 
     function cancelNewTask() {
-        AnimDeleteCard(createNewTaskRef)
+        AnimDeleteCard(createNewTaskRef as unknown as {current: HTMLLinkElement})
         setTimeout(() => {
             dispatch(setEditTaskId(null))
             setCurrentTask(resetTask)
             if (hasCreateTask) {
-                toggleHasCreateTask()
+                toggleHasCreateTask && toggleHasCreateTask()
             }
         }, 500)
     }
@@ -95,7 +104,7 @@ function CreateTaskCard({ task, isEdit, hasCreateTask, toggleHasCreateTask, isCa
         if (currentTask.title.trim() !== '') {
             dispatch(addTask(currentTask))
             if (hasCreateTask) {
-                toggleHasCreateTask()
+                toggleHasCreateTask && toggleHasCreateTask()
             }
             // достижение 2
             if (secondAchiev.step < secondAchiev.max) {                
@@ -112,22 +121,24 @@ function CreateTaskCard({ task, isEdit, hasCreateTask, toggleHasCreateTask, isCa
                 <div className="create-task__col">
                     <h4 className="task__title create-task__title">Title</h4>
                     <input 
-                    value={currentTask.title}
-                    onChange={changeTitleHandle}
-                    ref={inputTitleRef}
-                    className="create-task__input"
-                    type="text" 
-                    placeholder="title for your task" />
+                        value={currentTask.title}
+                        onChange={changeTitleHandle}
+                        ref={inputTitleRef}
+                        className="create-task__input"
+                        type="text" 
+                        placeholder="title for your task" 
+                    />
                 </div>
                 <div className="create-task__col">
                     {typeof currentTask.description === 'string' ? (
                         <>
                         <h4 className="task__title create-task__title">Description</h4>
                         <textarea 
-                        value={currentTask.description} 
-                        onChange={changeDescriptionHandle}
-                        ref={inputDescriptionRef}
-                        className="create-task__input" placeholder="more detailed task description" />
+                            value={currentTask.description} 
+                            onChange={changeDescriptionHandle}
+                            ref={inputDescriptionRef}
+                            className="create-task__input" placeholder="more detailed task description" 
+                        />
                         </>
                     ) : (
                         <button 
@@ -157,7 +168,7 @@ function CreateTaskCard({ task, isEdit, hasCreateTask, toggleHasCreateTask, isCa
                         {currentTask.deadline == null && (
                             <button 
                             onClick={addDeadlineHandle}
-                            disabled={currentTask.deadline}
+                            disabled={currentTask.deadline !== null}
                             className="btn-with-plus btn-ui">
                             Add a deadline
                             </button>

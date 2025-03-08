@@ -1,28 +1,28 @@
 import { useCallback, useEffect, useState, useMemo } from "react";
-import { useSelector } from "react-redux";
 import useUpdateStorage from "../../hooks/useUpdateStorage";
 import TaskList from "./components/TaskList";
 import TaskListHeader from "./components/TaskListHeader/TaskListHeader";
 import CompletedTasksList from './components/CompletedTasks/CompletedTasksList'
 import './tasks.css';
+import { useAppSelector } from "../../hooks/useRedux";
 
 function Tasks() {
-    const tasks = useSelector(state => state.tasks.tasks)    
+    const tasks = useAppSelector(state => state.tasks.tasks)    
     const completedTasks = useMemo(() => tasks.filter(task => task.complete), [tasks]);
-    const [hasCompleted, setHasCompleted] = useState(completedTasks.length > 0);
+    const [hasCompleted, setHasCompleted] = useState<boolean>(completedTasks.length > 0);
 
     useUpdateStorage('tasks', tasks);
     
     useEffect(() => {
         if (completedTasks.length >= 1 && !hasCompleted) {
-            setHasCompleted(curr => true);
+            setHasCompleted(prev => prev = true);
         } if (completedTasks.length == 0) {
-            setHasCompleted(curr => false);
+            setHasCompleted(prev => prev = false);
         }
     }, [completedTasks.length])
 
     const changeCompletedHandler = useCallback(() => {
-        setHasCompleted(curr => false);
+        setHasCompleted(prev => prev = false);
     }, [])
 
     return (

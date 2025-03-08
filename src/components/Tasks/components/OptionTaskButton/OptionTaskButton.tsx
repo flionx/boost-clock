@@ -1,11 +1,19 @@
 import OptionsWindow from "../OptionsWindow/OptionsWindow";
-import { useState, useEffect } from "react";
+import { useState, useEffect, FC } from "react";
 
-function OptionTaskButton({taskId, taskIndex, callSetIsCardDelete, onClickEdit, isEdit, isCompleted}) {
+interface Props {
+    taskId: number, 
+    taskIndex: number, 
+    callSetIsCardDelete: (value: boolean) => void, 
+    onClickEdit?: VoidFunction, 
+    isEdit?: boolean,
+    isCompleted?: boolean,
+}
+
+const OptionTaskButton: FC<Props> = ({taskId, taskIndex, callSetIsCardDelete, onClickEdit, isEdit, isCompleted}) => {
     
     const [hasOptions, setHasOptions] = useState(false);
     
-    // Закрытие опции
     useEffect(() => {
         const handleClickOutside = () => {
             setHasOptions(false);
@@ -31,12 +39,13 @@ function OptionTaskButton({taskId, taskIndex, callSetIsCardDelete, onClickEdit, 
             
             {hasOptions ? ( 
                 <OptionsWindow
-                isEdit={isEdit} 
-                taskId={taskId}
-                taskIndex={taskIndex}
-                onClickEdit={onClickEdit}
-                isCompleted={isCompleted}
-                callSetIsCardDelete={callSetIsCardDelete}/> 
+                    isEdit={isEdit} 
+                    taskId={taskId}
+                    taskIndex={taskIndex}
+                    onClickEdit={onClickEdit}
+                    isCompleted={typeof isCompleted === 'boolean' && isCompleted}
+                    callSetIsCardDelete={callSetIsCardDelete}
+                /> 
             ) : null}
             
         </div>

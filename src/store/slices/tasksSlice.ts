@@ -58,7 +58,7 @@ const tasksSlice = createSlice({
         task.id === action.payload.id ? { ...task, ...action.payload } : task
       );
     },
-    setEditTaskId: (state, action: PayloadAction<TaskType['id']>) => {
+    setEditTaskId: (state, action: PayloadAction<TaskType['id'] | null>) => {
       state.editTaskId = action.payload;      
     },
     setDeadlineTask: (state, action: PayloadAction<DeadlineTaskAction>) => {

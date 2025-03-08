@@ -1,15 +1,14 @@
-function AnimDeleteCard(element, type = 'basic') {
+function AnimDeleteCard(element: {current: HTMLElement}, type = 'basic') {
     const current = element.current;
     
-    const height = current.getBoundingClientRect().height; // Узнаем высоту
+    const height = current.getBoundingClientRect().height;
     current.style.maxHeight = `${height}px`;
     if (type === 'completed') {
-        current.classList.remove("anim-delete-completed"); // для надежности :)       
+        current.classList.remove("anim-delete-completed");      
         current.classList.add("anim-delete-completed");
     } else {
-        current.classList.remove("anim-delete"); // для надежности :)       
+        current.classList.remove("anim-delete");   
         current.classList.add("anim-delete"); //
-
     }
     
     // сброс после анимации с небольшой задержкой (анимация 500мс)

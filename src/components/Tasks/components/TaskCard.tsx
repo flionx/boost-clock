@@ -1,9 +1,16 @@
-import { memo} from "react";
+import { FC, memo} from "react";
 import OptionTaskButton from "./OptionTaskButton/OptionTaskButton";
 import CreateTaskCard from "./CreateTaskCard";
 import useManageTask from "../../../hooks/useManageTask";
+import { TaskType } from "../../../types/global";
 
-const TaskCard = memo(({ task, taskIndex, hasCreateTask }) => {
+interface Props {
+    task: TaskType,
+    taskIndex: number,
+    hasCreateTask: boolean,
+}
+
+const TaskCard: FC<Props> = memo(({ task, taskIndex, hasCreateTask }) => {
 
     const {taskElement, taskTitle, setIsComplete, changeToMainTask, 
         isTaskCompleted, onClickEdit, isCardDelete, callSetIsCardDelete, editTaskId } = useManageTask({task, taskIndex});
@@ -18,8 +25,8 @@ const TaskCard = memo(({ task, taskIndex, hasCreateTask }) => {
                     <div className="task__top-left">
                         {/* чекбокс */}
                         <input 
-                            onClick={() => setIsComplete(curr => !curr)}
-                            value={task.complete}
+                            onChange={() => setIsComplete(curr => !curr)}
+                            checked={task.complete}
                             className="task__check" type="checkbox" name="task"/>
                         <h4 ref={taskTitle}
                             onClick={changeToMainTask}
@@ -32,7 +39,7 @@ const TaskCard = memo(({ task, taskIndex, hasCreateTask }) => {
                     </div>
                 <div className="task-top-right">
 
-                    {task.deadline > 0 && (
+                    {typeof task.deadline === 'number' && task.deadline > 0 && (
                         <p className="task__deadline">{task.round ?? 0}/{task.deadline ?? 0}</p>
                         
                     )}

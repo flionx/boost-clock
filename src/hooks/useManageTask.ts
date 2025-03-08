@@ -1,26 +1,27 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { useAppDispatch, useAppSelector } from './useRedux';
 import { changeMainTask, resetMainTask, setMainTask } from '../store/slices/mainTaskSlice';
 import AnimDeleteCard from '../components/Tasks/helpers/AnimDeleteCard';
 import { setEditTaskId, toggleCompleteTask } from '../store/slices/tasksSlice';
 import { setCompleteAchiev, setStepAchiev } from '../store/slices/achievementSlice';
 import { addCompletedTask } from '../store/slices/reportSlice';
+import { TaskType } from '../types/global';
 
-const useManageTask = ({task, taskIndex}) => {
+const useManageTask = ({task, taskIndex}: {task: TaskType, taskIndex: number}) => {
     const [isCardDelete, setIsCardDelete] = useState(false);
     const [isTaskCompleted, setIsComplete] = useState(false);
     
-    const mainTask = useSelector(state => state.mainTask);
-    const tasks = useSelector(state => state.tasks.tasks);
-    const editTaskId = useSelector(state => state.tasks.editTaskId);
-    const fourthAchiev = useSelector(state => state.achievement.achievs[3])
+    const mainTask = useAppSelector(state => state.mainTask);
+    const tasks = useAppSelector(state => state.tasks.tasks);
+    const editTaskId = useAppSelector(state => state.tasks.editTaskId);
+    const fourthAchiev = useAppSelector(state => state.achievement.achievs[3])
     
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     
     const taskElement = useRef(null);
     useEffect(() => {
         if (isCardDelete) {
-            AnimDeleteCard(taskElement);
+            AnimDeleteCard(taskElement as unknown as {current: HTMLElement});
             
             if (mainTask.id === task.id) {
                 setTimeout(()=> {
@@ -30,25 +31,29 @@ const useManageTask = ({task, taskIndex}) => {
         }
     }, [isCardDelete, dispatch]);
 
-    const taskTitle = useRef(null);
-    const timeoutId = useRef(null);
+    const taskTitle = useRef<HTMLHeadingElement>(null);
+    const timeoutId = useRef<NodeJS.Timeout | null>(null);
     useEffect(() => {
         if (isTaskCompleted) {
-            taskTitle.current.className = 'task__title anim-title-complete';
-            timeoutId.current = setTimeout(()=> {                    
-                deleteTask();
-                addInfoToReport();
-            }, 1000)
+            if (taskTitle.current) {
+                taskTitle.current.className = 'task__title anim-title-complete';
+                timeoutId.current = setTimeout(()=> {                    
+                    deleteTask();
+                    addInfoToReport();
+                }, 1000)
+            }
         } else {
-            taskTitle.current.className = 'task__title';
-            if (timeoutId.current) {
-                clearTimeout(timeoutId.current)
+            if (taskTitle.current) {
+                taskTitle.current.className = 'task__title';
+                if (timeoutId.current) {
+                    clearTimeout(timeoutId.current)
+                }
             }
         }
     }, [isTaskCompleted])
 
     const addInfoToReport = useCallback(() =>{
-        if (task.round > task.deadline) {
+        if (task.round && task.deadline && task.round > task.deadline) {
             dispatch(addCompletedTask('outTime'))
         } else {
             dispatch(addCompletedTask('onTime'))
@@ -81,7 +86,7 @@ const useManageTask = ({task, taskIndex}) => {
         dispatch(setMainTask({id: task.id, title: task.title}))        
     },[])  
 
-    const callSetIsCardDelete = useCallback((value) => setIsCardDelete(value), []);
+    const callSetIsCardDelete = useCallback((value: boolean) => setIsCardDelete(value), []);
 
     return {taskElement, taskTitle, setIsComplete, changeToMainTask, 
         isTaskCompleted, onClickEdit, isCardDelete, callSetIsCardDelete, editTaskId}

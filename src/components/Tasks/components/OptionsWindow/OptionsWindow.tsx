@@ -1,11 +1,21 @@
-import './OptionsWindow.css';
-import { useDispatch, useSelector } from 'react-redux';
+import { FC } from 'react';
+import { useAppDispatch, useAppSelector } from '../../../../hooks/useRedux';
 import { moveTask, removeTask, toggleCompleteTask } from '../../../../store/slices/tasksSlice';
+import './OptionsWindow.css';
 
-function OptionsWindow({ taskIndex, callSetIsCardDelete, taskId, onClickEdit, isEdit, isCompleted}) {
+interface Props {
+    taskIndex: number,
+    callSetIsCardDelete: (value: boolean) => void,
+    taskId: number,
+    onClickEdit?: VoidFunction,
+    isEdit?: boolean,
+    isCompleted: boolean,
+}
+
+const OptionsWindow: FC<Props> = ({ taskIndex, callSetIsCardDelete, taskId, onClickEdit, isEdit, isCompleted}) => {
     
-    const dispatch = useDispatch();
-    const tasks = useSelector(state => state.tasks.tasks);
+    const dispatch = useAppDispatch();
+    const tasks = useAppSelector(state => state.tasks.tasks);
 
     function moveTaskToUp() {
         if (taskIndex > 0) {
