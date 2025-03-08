@@ -1,6 +1,12 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { IMainSettings, ISettings, IWaitModal } from "../types/types";
 
-const defaultMainSettings = {
+const getInitialSettings = ():IMainSettings => {
+  const storage = localStorage.getItem("settings");
+  return storage ? JSON.parse(storage) : defaultMainSettings;
+};
+
+const defaultMainSettings: IMainSettings = {
   autoToWork: false,
   autoToRelax: false,
   basicBreak: 5,
@@ -11,29 +17,26 @@ const defaultMainSettings = {
   colorTheme: 'light',
 }
 
-const getInitialSettings = () => {
-    const storage = localStorage.getItem("settings");
-    return storage ? JSON.parse(storage) : defaultMainSettings;
-  };
+const initialState: ISettings = {
+  showSettings: false,
+  hasLongBreak: false,
+  roundsToBreak: 0,
+  waitModal: {
+    status: 'orange',
+    hasWait: false,
+    message: '',
+  },
+  mainSettings: getInitialSettings(),
+}
 
 const settingSlice = createSlice({
   name: "settings",
-  initialState: {
-    showSettings: false,
-    hasLongBreak: false,
-    roundsToBreak: 0,
-    waitModal: {
-      status: '',
-      hasWait: false,
-      message: '',
-    },
-    mainSettings: getInitialSettings(),
-  },
+  initialState,
   reducers: {
-    setShowSettings: (state, action) => {      
+    setShowSettings: (state, action: PayloadAction<boolean>) => {      
       state.showSettings = action.payload;
     },
-    setHasLongBreak: (state, action) => {
+    setHasLongBreak: (state, action: PayloadAction<boolean>) => {
       state.hasLongBreak = action.payload;
     },
     setAutoToWork: (state) => {
@@ -42,10 +45,10 @@ const settingSlice = createSlice({
     setAutoToRelax: (state) => {
         state.mainSettings.autoToRelax = !state.mainSettings.autoToRelax;
     },
-    setLongBreak: (state, action) => {
+    setLongBreak: (state, action: PayloadAction<number>) => {
         state.mainSettings.longBreak = action.payload;
     },
-    setLongBreakInterval: (state, action) => {
+    setLongBreakInterval: (state, action: PayloadAction<number>) => {
         state.mainSettings.longBreakInterval = action.payload;
     },
     addRoundToBreak: (state) => {
@@ -57,19 +60,19 @@ const settingSlice = createSlice({
     setSoundOn: (state) => {
         state.mainSettings.soundOn = !state.mainSettings.soundOn;
     },
-    setRepeatSound: (state, action) => {
+    setRepeatSound: (state, action: PayloadAction<number>) => {
         state.mainSettings.repeatSound = action.payload;
     },
-    setColorTheme: (state, action) => {
+    setColorTheme: (state, action: PayloadAction<IMainSettings['colorTheme']>) => {
       state.mainSettings.colorTheme = action.payload;
       localStorage.setItem('settings', JSON.stringify(state.mainSettings));
     },
-    setWaitModal: (state, action) => {
+    setWaitModal: (state, action: PayloadAction<IWaitModal>) => {
       state.waitModal.status = action.payload.status;
       state.waitModal.hasWait = action.payload.hasWait;
       state.waitModal.message = action.payload.message;
     },
-    uploadSettings: (state, action) => {
+    uploadSettings: (state, action: PayloadAction<IMainSettings>) => {
       state.mainSettings = action.payload;
       localStorage.setItem('settings', JSON.stringify(state.mainSettings));
     },

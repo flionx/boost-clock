@@ -1,12 +1,10 @@
 import { useEffect } from "react";
-import { setColorTheme } from "../store/slices/settingSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { setColorTheme } from '../store/slices/settingSlice';
+import { useAppDispatch, useAppSelector } from "./useRedux";
 
 function useChangeTheme() {
-
-    const dispatch = useDispatch();
-    // 'light' или 'dark'
-    const userSettingsTheme = useSelector(state => state.settings.mainSettings.colorTheme);
+    const dispatch = useAppDispatch();
+    const userSettingsTheme = useAppSelector(state => state.settings.mainSettings.colorTheme);
     
     useEffect(() => {
         if (userSettingsTheme === 'dark') {

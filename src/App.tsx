@@ -3,14 +3,14 @@ import './css/fonts.css';
 import './css/media.css';
 import './css/index.css';
 import { Route, Routes } from 'react-router-dom';
-import MainLayout from './layouts/MainLayout.jsx';
-import MainPage from './pages/MainPage.jsx';
-import InfoPage from './pages/InfoPage.jsx';
-import { SecondLayout } from './layouts/SecondLayout.jsx';
-import TermsOfUsePage from './pages/TermsOfUsePage.jsx';
-import SignUpPage from './pages/SignUpPage.jsx';
-import SignInPage from './pages/SignInPage.jsx';
-import useAutoSave from './hooks/useAutoSave.js';
+import MainLayout from './layouts/MainLayout';
+import MainPage from './pages/MainPage';
+import InfoPage from './pages/InfoPage';
+import { SecondLayout } from './layouts/SecondLayout';
+import TermsOfUsePage from './pages/TermsOfUsePage';
+import SignUpPage from './pages/SignUpPage';
+import SignInPage from './pages/SignInPage';
+import useAutoSave from './hooks/useAutoSave';
 
 function App() {
 

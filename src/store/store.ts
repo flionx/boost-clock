@@ -5,7 +5,7 @@ import settingSlice from './slices/settingSlice'
 import reportSlice from './slices/reportSlice'
 import achievementSlice from './slices/achievementSlice'
 
-export default configureStore({
+export const store = configureStore({
   reducer: {
     tasks: tasksSlice,
     mainTask: mainTaskSlice,
@@ -14,3 +14,6 @@ export default configureStore({
     achievement: achievementSlice,
   }
 })
+
+export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch
