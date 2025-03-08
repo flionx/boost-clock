@@ -1,7 +1,7 @@
 import { memo} from "react";
-import OptionTaskButton from "./OptionTaskButton/OptionTaskButton.jsx";
-import CreateTaskCard from "./CreateTaskCard.jsx";
-import useManageTask from "../../../hooks/useManageTask.js";
+import OptionTaskButton from "./OptionTaskButton/OptionTaskButton";
+import CreateTaskCard from "./CreateTaskCard";
+import useManageTask from "../../../hooks/useManageTask";
 
 const TaskCard = memo(({ task, taskIndex, hasCreateTask }) => {
 

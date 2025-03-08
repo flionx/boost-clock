@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useState, useMemo } from "react";
 import { useSelector } from "react-redux";
-import useUpdateStorage from "../../hooks/useUpdateStorage.js";
-import TaskList from "./components/TaskList.jsx";
-import TaskListHeader from "./components/TaskListHeader/TaskListHeader.jsx";
-import CompletedTasksList from './components/CompletedTasks/CompletedTasksList.jsx'
+import useUpdateStorage from "../../hooks/useUpdateStorage";
+import TaskList from "./components/TaskList";
+import TaskListHeader from "./components/TaskListHeader/TaskListHeader";
+import CompletedTasksList from './components/CompletedTasks/CompletedTasksList'
 import './tasks.css';
 
 function Tasks() {

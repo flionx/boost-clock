@@ -1,19 +1,27 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { IMainTask, TasksType } from "../../types/global";
 
-const getInitialTask = () => {
+interface IChangeAction {
+  tasks: TasksType,
+  taskId: number
+}
+
+const getInitialTask = (): IMainTask => {
   const storage = localStorage.getItem("mainTask");  
   return storage ? JSON.parse(storage) : {id: null, title: null};
 };
 
+const initialState: IMainTask = getInitialTask();
+
 const mainTaskSlice = createSlice({
   name: "mainTask",
-  initialState: getInitialTask(),
+  initialState,
   reducers: {
-    setMainTask: (state, action) => {      
+    setMainTask: (state, action: PayloadAction<IMainTask>) => {      
       state.id = action.payload.id;
       state.title = action.payload.title;
     },
-    changeMainTask: (state, action) => {
+    changeMainTask: (state, action: PayloadAction<IChangeAction>) => {
       const { tasks, taskId } = action.payload;
       const updatedTasks = tasks.filter(task => task.id !== taskId);
       const activeTasks = updatedTasks.filter(task => !task.complete);
@@ -26,10 +34,6 @@ const mainTaskSlice = createSlice({
           state.title = null;
       }
     },
-    uploadMainTask: (state, action) => {
-      state.id = action.payload.id;
-      state.title = action.payload.title;
-    },
     resetMainTask: (state) => {
       state.id = null;
       state.title = null;
@@ -38,6 +42,6 @@ const mainTaskSlice = createSlice({
   },
 });
 
-export const { setMainTask, changeMainTask, resetMainTask, uploadMainTask } = mainTaskSlice.actions;
+export const { setMainTask, changeMainTask, resetMainTask } = mainTaskSlice.actions;
 
 export default mainTaskSlice.reducer;

@@ -1,5 +1,5 @@
 import { useState} from "react";
-import useManageTimer from "../../../../hooks/useManageTimer.js";
+import useManageTimer from "../../../../hooks/useManageTimer";
 
 function TimerMain({ minutes, info }) {
 

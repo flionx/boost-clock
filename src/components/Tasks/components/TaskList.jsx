@@ -1,5 +1,5 @@
-import TaskCard from './TaskCard.jsx';
-import CreateTaskCard from './CreateTaskCard.jsx';
+import TaskCard from './TaskCard';
+import CreateTaskCard from './CreateTaskCard';
 import { useSelector } from 'react-redux';
 import { useCallback, useMemo, useState } from 'react';
 

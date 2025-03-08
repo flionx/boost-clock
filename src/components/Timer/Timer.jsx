@@ -1,5 +1,5 @@
-import TimerMain from './components/TimerMain/TImerMain.jsx';
-import TimerSettings from './components/TimerSettings/TimerSettings.jsx';
+import TimerMain from './components/TimerMain/TImerMain';
+import TimerSettings from './components/TimerSettings/TimerSettings';
 import { useState, useCallback } from 'react';
 
 function Timer() {

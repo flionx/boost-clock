@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { uploadAchievs } from "../store/slices/achievementSlice";
-import { uploadMainTask } from "../store/slices/mainTaskSlice";
+import { setMainTask } from "../store/slices/mainTaskSlice";
 import { uploadReport } from "../store/slices/reportSlice";
 import { uploadSettings } from "../store/slices/settingSlice";
 import { uploadTasks } from "../store/slices/tasksSlice";
@@ -11,7 +11,7 @@ const useSaveUploadState = () => {
 
     function uploadUserData(data) {
         dispatch(uploadAchievs(data.achievement))
-        dispatch(uploadMainTask(data.mainTask))
+        dispatch(setMainTask(data.mainTask))
         dispatch(uploadReport(data.report))
         dispatch(uploadSettings(data.settings))
         dispatch(uploadTasks(data.tasks))        

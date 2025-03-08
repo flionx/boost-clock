@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import scrollToNew from '../helpers/scrollToNew.js'
-import AnimDeleteCard from "../helpers/AnimDeleteCard.js";
+import scrollToNew from '../helpers/scrollToNew'
+import AnimDeleteCard from "../helpers/AnimDeleteCard";
 import { useDispatch, useSelector } from "react-redux";
-import { addTask, changeTask, setEditTaskId } from "../../../store/slices/tasksSlice.js";
-import { setCompleteAchiev, setStepAchiev } from "../../../store/slices/achievementSlice.js";
+import { addTask, changeTask, setEditTaskId } from "../../../store/slices/tasksSlice";
+import { setCompleteAchiev, setStepAchiev } from "../../../store/slices/achievementSlice";
 
 function CreateTaskCard({ task, isEdit, hasCreateTask, toggleHasCreateTask, isCardDelete = false}) {
 

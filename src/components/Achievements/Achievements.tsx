@@ -1,14 +1,14 @@
 
+import { FC } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks/useRedux';
+import { setShowAchiev } from '../../store/slices/achievementSlice';
+import useStopPageScroll from '../../hooks/useStopPageScroll';
 import AchievCard from './AchievCard';
-import { useDispatch, useSelector } from 'react-redux';
-import { setShowAchiev } from '../../store/slices/achievementSlice.js';
-import useStopPageScroll from '../../hooks/useStopPageScroll.js';
 import '../../css/modal-menu.css'
 
-function Achievements() {
-
-    const dispatch = useDispatch();
-    const achievsArray = useSelector(state => state.achievement.achievs);
+const Achievements: FC = () => {
+    const dispatch = useAppDispatch();
+    const achievsArray = useAppSelector(state => state.achievement.achievs);
 
     useStopPageScroll();
 
@@ -29,7 +29,6 @@ function Achievements() {
                 }}
                 className="modal-menu__close"></div>
                 <h3 className="modal-menu__title">Achievements</h3>
-
                 <div className="modal-menu-achivs">
                     {achievsArray.map(card => (
                         <AchievCard key={card.title} card={card}/>

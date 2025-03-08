@@ -51,7 +51,7 @@ const useManageTask = ({task, taskIndex}) => {
         if (task.round > task.deadline) {
             dispatch(addCompletedTask('outTime'))
         } else {
-            dispatch(addCompletedTask())
+            dispatch(addCompletedTask('onTime'))
             // достижение 4
             if (fourthAchiev.step < fourthAchiev.max) {                
                 if (fourthAchiev.step + 1 == fourthAchiev.max) {

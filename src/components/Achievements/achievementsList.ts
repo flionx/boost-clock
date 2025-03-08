@@ -4,8 +4,9 @@ import img3 from '../../../assets/achievements/productive.svg';
 import img4 from '../../../assets/achievements/responsible.svg';
 import img5 from '../../../assets/achievements/focus.svg';
 import img6 from '../../../assets/achievements/coffee.svg';
+import { IAchiev } from '../../types/global';
 
-const achievsArray = [
+const achievsArray: IAchiev[] = [
     {
         img: img1,
         title: "I'm new",

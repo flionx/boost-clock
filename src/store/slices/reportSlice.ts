@@ -1,6 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { IReportState } from "../../types/global";
 
-const saveToLocalStorage = (state) => {
+const saveToLocalStorage = (state: IReportState) => {
   const stateToSave = {
       date: state.date,
       today: state.today,
@@ -11,12 +12,11 @@ const saveToLocalStorage = (state) => {
   localStorage.setItem("report", JSON.stringify(stateToSave));
 };
 
-const loadFromLocalStorage = () => {
+const loadFromLocalStorage = (): IReportState => {
   const storage = localStorage.getItem("report");
   const data = storage ? JSON.parse(storage) : null;
-  
-  const today = new Date().toISOString().split("T")[0]; // '2025-02-20'
 
+  const today = new Date().toISOString().split("T")[0]; // '2025-02-20'
   if (data?.date !== today) {
     return {
       date: today,
@@ -46,11 +46,11 @@ const reportSlice = createSlice({
     name: "report",
     initialState: loadFromLocalStorage(),
     reducers: {
-    setShowReport: (state, action) => {
+    setShowReport: (state, action: PayloadAction<boolean>) => {
         state.showReport = action.payload;
     },
 
-    addWorkTime: (state, action) => {
+    addWorkTime: (state, action: PayloadAction<number>) => {
         const min = action.payload / 60;
         const minutes = Number(min.toFixed(3))
         state.today.workTime += minutes;
@@ -58,7 +58,7 @@ const reportSlice = createSlice({
         saveToLocalStorage(state);
     },
 
-    addRelaxTime: (state, action) => {
+    addRelaxTime: (state, action: PayloadAction<number>) => {
         const min = action.payload / 60;
         const minutes = Number(min.toFixed(3))
         state.today.relaxTime += minutes;
@@ -71,17 +71,20 @@ const reportSlice = createSlice({
         saveToLocalStorage(state);
     },
 
-    addCompletedTask: (state, action) => {
+    addCompletedTask: (state, action: PayloadAction<'outTime'|'onTime'>) => {
         state.today.tCompletedTasks += 1;
         state.tasks.aCompletedTasks += 1;
         if (action.payload === "outTime") {
             state.tasks.outOfTime += 1;
-            } else {
-            state.tasks.onTime += 1;
+        } else {
+          state.tasks.onTime += 1;
         }
         saveToLocalStorage(state);
     },
-    uploadReport: (state, action) => {
+    uploadReport: (
+      state,
+      action: PayloadAction<Pick<IReportState,'today'|'timer'|'tasks'>>
+    ) => {
       state.today = action.payload.today;
       state.timer = action.payload.timer;
       state.tasks = action.payload.tasks;
@@ -91,7 +94,7 @@ const reportSlice = createSlice({
     resetReport: (state) => {
       state.today = { workTime: 0, relaxTime: 0, tCompletedTasks: 0 };
       state.timer = { totalWorkTime: 0, totalRelaxTime: 0, pomodoroRounds: 0}
-      state.tasks ={ aCompletedTasks: 0, onTime: 0, outOfTime: 0}
+      state.tasks = { aCompletedTasks: 0, onTime: 0, outOfTime: 0}
       saveToLocalStorage(state);
     }
   }

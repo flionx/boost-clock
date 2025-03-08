@@ -1,6 +1,6 @@
 import { memo, useCallback, useEffect, useRef, useState } from "react";
-import OptionTaskButton from "../OptionTaskButton/OptionTaskButton.jsx";
-import AnimDeleteCard from '../../helpers/AnimDeleteCard.js'
+import OptionTaskButton from "../OptionTaskButton/OptionTaskButton";
+import AnimDeleteCard from '../../helpers/AnimDeleteCard'
 
 const CompletedTaskCard = memo(({completedTasks, task, taskIndex, CompletedTasksListRef, changeCompletedHandler}) => {
     
