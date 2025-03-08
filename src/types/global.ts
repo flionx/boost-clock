@@ -25,3 +25,8 @@ export interface IUploadData {
     settings: IMainSettings,
     tasks: TaskType[]
 }
+
+export interface IQuote {
+    text: string,
+    author: string
+}

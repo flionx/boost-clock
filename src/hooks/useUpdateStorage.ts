@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-export default function useUpdateStorage(key, value) {
+export default function useUpdateStorage(key: string, value: any) {
     useEffect(() => {
         const updateStorage = JSON.stringify(value);
         localStorage.setItem(key, updateStorage)

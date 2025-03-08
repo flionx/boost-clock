@@ -1,13 +1,19 @@
-import { useEffect, useCallback } from "react";
+import { useEffect, useCallback} from "react";
+import { IQuote } from "../types/global";
 
 const quoteDefault = "There will be no tomorrow";
 const authorDefault = "Unknown";
 const alloginsAPI = "https://api.allorigins.win/get?url=";
 const quoteAPI = "https://favqs.com/api/qotd";
 
-function useQuoteFetch(callSetQuote) {
+interface IStorageQuote {
+    quote: IQuote,
+    date: string
+}
+
+function useQuoteFetch(callSetQuote: (value: IQuote) => void) {
     
-    const saveQuoteToStorage = useCallback((quoteData) => {
+    const saveQuoteToStorage = useCallback((quoteData: IQuote) => {
         const today = new Date().toISOString().split("T")[0];
         localStorage.setItem('quote', JSON.stringify({
             quote: quoteData,
@@ -20,7 +26,7 @@ function useQuoteFetch(callSetQuote) {
         async function requestQuote() {
             try {
                 const today = new Date().toISOString().split("T")[0];
-                const savedQuote = JSON.parse(localStorage.getItem('quote'));
+                const savedQuote: IStorageQuote = JSON.parse(localStorage.getItem('quote') as string);
                 if (savedQuote?.quote && savedQuote?.date === today) {
                     const { text = quoteDefault, author = authorDefault } = savedQuote.quote;
                     callSetQuote({ text, author });

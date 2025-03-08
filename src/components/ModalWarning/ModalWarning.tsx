@@ -9,7 +9,6 @@ interface Props {
 }
 const ModalWarning: FC<Props> = ({onClickTrue, onClickFalse, text, btnTrueText}) => {
     useStopPageScroll();
-
     return (
         <div className="modal-menu__bg" onClick={() => onClickFalse()}>
             <dialog className="modal-warning" onClick={(e) => e.stopPropagation()}>

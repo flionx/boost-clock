@@ -1,11 +1,10 @@
-import './MainTask.css';
+import { FC } from 'react';
 import useUpdateStorage from '../../hooks/useUpdateStorage';
-import { useSelector } from 'react-redux';
+import { useAppSelector } from '../../hooks/useRedux';
+import './MainTask.css';
 
-function MainTask() {    
-
-    const mainTask = useSelector(state => state.mainTask);
-
+const MainTask: FC = () => {    
+    const mainTask = useAppSelector(state => state.mainTask);
     useUpdateStorage('mainTask', mainTask);
     
     return (
@@ -14,7 +13,6 @@ function MainTask() {
             <div className="task-main__title">{mainTask.title}</div>
         </div>
     ) 
-
 }
 
 export default MainTask;
