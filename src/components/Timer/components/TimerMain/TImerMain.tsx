@@ -1,7 +1,11 @@
-import { useState} from "react";
+import { FC, useState} from "react";
 import useManageTimer from "../../../../hooks/useManageTimer";
+interface TimerMainProps {
+    minutes: {work: number, relax: number},
+    info: {timerInfo: any, setTimerInfo: any}
+}
 
-function TimerMain({ minutes, info }) {
+const TimerMain: FC<TimerMainProps> = ({ minutes, info }) => {
 
     const {timerInfo, setTimerInfo} = info;
 

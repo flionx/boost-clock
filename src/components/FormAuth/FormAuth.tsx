@@ -1,27 +1,35 @@
-import { useState } from 'react'
-import useSaveUploadState from '../../hooks/useSaveUploadState';
+import { FC, FormEventHandler, MouseEventHandler, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { signInWithPopup } from "firebase/auth";
 import { auth, db, provider } from '../../firebase';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
-import { useDispatch, useStore } from 'react-redux';
-import './FormAuth.css'
-import getFilteredState from '../../hooks/getFilteredState';
+import { useStore } from 'react-redux';
+import { useAppDispatch } from '../../hooks/useRedux';
+import { AppStore, RootState } from '../../store/store';
 import { setWaitModal } from '../../store/slices/settingSlice';
+import getFilteredState from '../../hooks/getFilteredState';
+import useSaveUploadState from '../../hooks/useSaveUploadState';
+import './FormAuth.css'
+import { IUploadData } from '../../types/global';
 
-const FormAuth = ({title, onHandleClick}) => {
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+interface FormAuth {
+    title: string,
+    onHandleClick: (email: string, password: string) => void;
+}
+
+const FormAuth: FC<FormAuth> = ({title, onHandleClick}) => {
+    const [email, setEmail] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
     const navigate = useNavigate();
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const {uploadUserData} = useSaveUploadState();
-    const store = useStore();
+    const store = useStore<AppStore>();
     
-    function checkForm(e) {
+    const checkForm: FormEventHandler<HTMLFormElement> = (e) => {
         e.preventDefault();
     }
 
-    function signInWithGoogle() {
+    const signInWithGoogle: MouseEventHandler<HTMLButtonElement> = () => {
         signInWithPopup(auth, provider)
             .then(async (result) => {
                 const userId = result.user.uid;
@@ -30,18 +38,17 @@ const FormAuth = ({title, onHandleClick}) => {
                 const userDoc = await getDoc(dataRef);
 
                 if (userDoc.exists()) {
-                    uploadUserData(userDoc.data())
+                    uploadUserData(userDoc.data() as IUploadData)
                 }
                 else {
-                    const dataState = getFilteredState(store.getState());
+                    const dataState = getFilteredState(store.getState() as unknown as RootState);
                     await setDoc(dataRef, dataState, { merge: true });
                 }
                 navigate('/');
 
             }).catch((error) => {
                 console.log(error.code);
-                dispatch(setWaitModal({status: 'red', hasWait: true, message: 'Something went wrong'}))
-                
+                dispatch(setWaitModal({status: 'red', hasWait: true, message: 'Something went wrong'}))           
             })
     }
 

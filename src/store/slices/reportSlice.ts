@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IReportState } from "../../types/global";
+import { IReportState } from "../types/types";
 
 const saveToLocalStorage = (state: IReportState) => {
   const stateToSave = {

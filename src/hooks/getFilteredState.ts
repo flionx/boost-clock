@@ -1,4 +1,7 @@
-const getFilteredState = (state) => {
+import { RootState } from "../store/store";
+import { IUploadData } from "../types/global";
+
+const getFilteredState = (state: RootState): IUploadData => {
     return {
         tasks: state.tasks.tasks,
         settings: state.settings.mainSettings, 

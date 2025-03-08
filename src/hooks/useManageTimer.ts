@@ -22,7 +22,7 @@ const useManageTimer = ({seconds, setSeconds, minutes, timerInfo, setTimerInfo})
 
     const workerRef = useRef(null);
     useEffect(() => {
-        workerRef.current = new Worker('timer-worker.ts');
+        workerRef.current = new Worker('timer-worker.js');
         workerRef.current.onmessage = (event) => {
             const { action, data } = event.data; 
 

@@ -1,8 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IMainTask, TasksType } from "../../types/global";
+import { TaskType } from "../../types/global";
+import { IMainTask } from "../types/types";
 
 interface IChangeAction {
-  tasks: TasksType,
+  tasks: TaskType[],
   taskId: number
 }
 

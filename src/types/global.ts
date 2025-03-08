@@ -1,3 +1,5 @@
+import { IMainSettings, IMainTask, IReportState } from "../store/types/types"
+
 export type TaskType = {
     id: number,
     title: string,
@@ -14,4 +16,12 @@ export interface IAchiev {
     step: number,
     max: number,
     lock: boolean
+}
+
+export interface IUploadData {
+    achievement: IAchiev[],
+    mainTask: IMainTask,
+    report: Pick<IReportState, 'tasks'|'timer'|'today'>
+    settings: IMainSettings,
+    tasks: TaskType[]
 }

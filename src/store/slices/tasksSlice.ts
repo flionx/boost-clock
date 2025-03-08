@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ITasksState, TaskType } from "../../types/global";
+import { TaskType } from "../../types/global";
+import { ITasksState } from "../types/types";
 
 const getInitialTasks = (): TaskType[] => {
   const storage = localStorage.getItem("tasks"); 
