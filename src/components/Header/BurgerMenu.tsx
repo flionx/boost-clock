@@ -1,13 +1,21 @@
+import { Dispatch, FC, MouseEventHandler, useState } from "react";
+import ButtonLogOut from "../ButtonLogOut/ButtonLogOut";
 import NewAchiev from "./NewAchiev";
 import './BurgerMenu.css'
-import { useState } from "react";
-import ButtonLogOut from "../ButtonLogOut/ButtonLogOut";
 
-function BurgerMenu({showReport, showAchiev, showSettingsHandler, newAchievs, setHasModal}) {
+interface Props {
+    showReport: () => {},
+    showAchiev: () =>{},
+    showSettingsHandler: () =>{},
+    newAchievs: number,
+    setHasModal: Dispatch<React.SetStateAction<boolean>>,
+}
 
-    const [isOpenMenu, setIsOpenMenu] = useState(false);
+const BurgerMenu: FC<Props> = ({showReport, showAchiev, showSettingsHandler, newAchievs, setHasModal}) => {
+
+    const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
     
-    function toggleShowMenu() {
+    const toggleShowMenu: MouseEventHandler<HTMLDivElement | HTMLButtonElement> = () => {
         setIsOpenMenu(prev => !prev)
     }
 
