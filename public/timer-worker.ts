@@ -1,18 +1,29 @@
-var intervalId = null;
-var seconds = { work: 0, relax: 0 };
-var nowIsWork = true;
-self.onmessage = function (e) {
-    var _a = e.data, action = _a.action, newSeconds = _a.seconds, isWork = _a.nowIsWork;
-    switch (action) {
+interface ISeconds {
+    work: number,
+    relax: number
+}
+interface IMessageData {
+    action: 'start' | 'stop' | 'reset',
+    seconds: ISeconds,
+    nowIsWork: boolean,
+}
+
+let intervalId: NodeJS.Timeout | null = null;
+let seconds: ISeconds = { work: 0, relax: 0 }; 
+let nowIsWork = true;
+
+self.onmessage = (e: {data: IMessageData}) => {
+    const { action, seconds: newSeconds, nowIsWork: isWork } = e.data;
+    
+    switch(action) {
         case 'start':
             seconds = newSeconds;
             nowIsWork = isWork;
-            intervalId = setInterval(function () {
+            intervalId = setInterval(() => {
                 if (nowIsWork) {
                     seconds.work--;
                     self.postMessage({ action: 'updateTime', data: seconds.work });
-                }
-                else {
+                } else {
                     seconds.relax--;
                     self.postMessage({ action: 'updateTime', data: seconds.relax });
                 }
