@@ -1,19 +1,18 @@
-import { useSelector, useDispatch } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/useRedux';
 import { resetReport, setShowReport } from '../../store/slices/reportSlice';
 import useStopPageScroll from '../../hooks/useStopPageScroll';
 import '../../css/modal-menu.css'
 function Report() {
-    
     const {
         today: { workTime, relaxTime, tCompletedTasks },
         timer: { totalWorkTime, totalRelaxTime, pomodoroRounds },
         tasks: { aCompletedTasks, onTime, outOfTime }
-    } = useSelector(state => state.report);
-    const dispatch = useDispatch();
+    } = useAppSelector(state => state.report);
+    const dispatch = useAppDispatch();
 
     useStopPageScroll();
 
-    function calcAndRound(minutes) {
+    function calcAndRound(minutes: number): number {
         const hours = minutes / 60;
         const result = Number(hours.toFixed(1))        
         return result;

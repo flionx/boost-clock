@@ -1,4 +1,5 @@
-import { useSelector, useDispatch } from 'react-redux';
+import { ChangeEventHandler, FC } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks/useRedux';
 import { resetSettings, setAutoToRelax, setAutoToWork, setLongBreak, setLongBreakInterval, setRepeatSound, setShowSettings, setSoundOn } from '../../store/slices/settingSlice';
 import useUpdateStorage from '../../hooks/useUpdateStorage';
 import useChangeTheme from '../../hooks/useChangeTheme';
@@ -6,16 +7,16 @@ import useStopPageScroll from '../../hooks/useStopPageScroll';
 import '../../css/modal-menu.css';
 import './Settings.css';
 
-function Settings() {
+const Settings: FC = () => {
     
-    const mainSettings = useSelector(state => state.settings.mainSettings);
+    const mainSettings = useAppSelector(state => state.settings.mainSettings);
 
     const {autoToWork, autoToRelax, longBreak, longBreakInterval, soundOn, 
-    repeatSound, colorTheme } = useSelector(state => state.settings.mainSettings);
+    repeatSound, colorTheme } = useAppSelector(state => state.settings.mainSettings);
 
     useUpdateStorage('settings', mainSettings);
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const {changeTheme} = useChangeTheme();
 
@@ -24,25 +25,25 @@ function Settings() {
     function hideSettings() {
         dispatch(setShowSettings(false));
     }
-    function onChangeAutoToRelax(e) {
-        dispatch(setAutoToRelax(e.target.value))
+    const onChangeAutoToRelax = () => {
+        dispatch(setAutoToRelax())
     }
-    function onChangeAutoToWork(e) {
-        dispatch(setAutoToWork(e.target.value))
+    const onChangeAutoToWork = () => {
+        dispatch(setAutoToWork())
     }
-    function onChangeBreak(e) {
-        dispatch(setLongBreak(e.target.value))
+    const onChangeBreak: ChangeEventHandler<HTMLInputElement> = (e) => {
+        dispatch(setLongBreak(Number(e.target.value)))
     }
-    function onChangeBreakInterval(e) {
-        dispatch(setLongBreakInterval(e.target.value))
+    const onChangeBreakInterval: ChangeEventHandler<HTMLInputElement> = (e) => {
+        dispatch(setLongBreakInterval(Number(e.target.value)))
     }
-    function onChangeSoundOn(e) {
-        dispatch(setSoundOn(e.target.value))
+    const onChangeSoundOn = () => {
+        dispatch(setSoundOn())
     }
-    function onChangeRepeatSound(e) {
-        dispatch(setRepeatSound(e.target.value))
+    const onChangeRepeatSound: ChangeEventHandler<HTMLInputElement> = (e) => {
+        dispatch(setRepeatSound(Number(e.target.value)))
     }
-    function onChangeColorTheme(e) {
+    const onChangeColorTheme = () => {
         changeTheme();
     }
     function resetSettingsHandle() {
