@@ -2,11 +2,11 @@ import { FC, memo } from "react";
 import pathToLockImg from '../../../assets/achievements/block.svg';
 import { IAchiev } from "../../types/global";
 
-type AchievCard = {
+interface Props {
     card: IAchiev,
 }
 
-const AchievCard: FC<AchievCard> = memo(({card}) => {
+const AchievCard: FC<Props> = memo(({card}) => {
     return (
         <div className="modal-menu__achiv achiv" style={card.lock ? {background: '#CACCF5'} : {}}>
             <div className={card.lock ? 'achiv__i achiv__icon-lock' : 'achiv__i achiv__icon'}>

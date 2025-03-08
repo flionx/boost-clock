@@ -1,8 +1,13 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useDispatch, useSelector, useStore } from 'react-redux';
+import { useAppDispatch, useAppSelector, useAppStore } from '../../hooks/useRedux';
+import { AppDispatch, RootState } from '../../store/store';
+import { auth, db } from '../../firebase';
+import { doc, setDoc } from 'firebase/firestore';
 import { resetSettings, setShowSettings } from '../../store/slices/settingSlice';
 import { resetReport, setShowReport } from '../../store/slices/reportSlice';
 import { resetAchievs, setNewAchievs, setShowAchiev } from '../../store/slices/achievementSlice';
+import { resetMainTask } from '../../store/slices/mainTaskSlice';
+import { resetTasks } from '../../store/slices/tasksSlice';
 import useMelody from '../../hooks/useMelody';
 import NewAchiev from './NewAchiev';
 import BurgerMenu from './BurgerMenu';
@@ -10,22 +15,17 @@ import useChangeTheme from '../../hooks/useChangeTheme';
 import ButtonLogOut from '../ButtonLogOut/ButtonLogOut';
 import ModalWarning from '../ModalWarning/ModalWarning';
 import getFilteredState from '../../hooks/getFilteredState';
-import { doc, setDoc } from 'firebase/firestore';
-import { auth, db } from '../../firebase';
-import { resetMainTask } from '../../store/slices/mainTaskSlice';
-import { resetTasks } from '../../store/slices/tasksSlice';
 import './Header.css'
 
 function Header() {
 
     const [hasModal, setHasModal] = useState(false);
-    const callSetHasModal = useCallback((value) => setHasModal(value), []);
-    const dispatch = useDispatch();
-    const store = useStore();
+    const callSetHasModal = useCallback((value: boolean) => setHasModal(value), []);
+    const dispatch = useAppDispatch();
+    const store = useAppStore();
 
-    const newAchievs = useSelector(state => state.achievement.newAchievs);
-
-    const {soundOn} = useSelector(state => state.settings.mainSettings); 
+    const newAchievs = useAppSelector(state => state.achievement.newAchievs);
+    const {soundOn} = useAppSelector(state => state.settings.mainSettings); 
 
     const {melodyNotification} = useMelody();
 
@@ -59,7 +59,7 @@ function Header() {
         if (!user) return;
   
         try {            
-            const dataState = getFilteredState(store.getState());   
+            const dataState = getFilteredState(store.getState() as unknown as RootState);   
             const userRef = doc(db, "Users", user.uid);
             await setDoc(userRef, dataState, { merge: true });
             resetStateToDefault(dispatch);
@@ -103,7 +103,7 @@ function Header() {
                                     onClick={showSettingsHandler}
                                     className="header__settings button__menu">Settings</button>
                                 </li>
-                                <ButtonLogOut setHasModal={callSetHasModal}><li></li></ButtonLogOut>
+                                <ButtonLogOut setHasModal={() => callSetHasModal(true)}></ButtonLogOut>
                             </ul>
                         </nav>
                         <BurgerMenu 
@@ -121,8 +121,8 @@ function Header() {
                 <ModalWarning 
                 onClickFalse={() => callSetHasModal(false)}
                 onClickTrue={saveAndLogout}
-                text={'Are you sure you want to log out?'}
-                btnTrueText={'Log out'}
+                text='Are you sure you want to log out?'
+                btnTrueText='Log out'
                 />
         )}
         </>
@@ -131,7 +131,7 @@ function Header() {
 
 export default Header;
 
-function resetStateToDefault(dispatch) {
+function resetStateToDefault(dispatch: AppDispatch) {
     dispatch(resetAchievs());
     dispatch(resetMainTask());
     dispatch(resetReport());

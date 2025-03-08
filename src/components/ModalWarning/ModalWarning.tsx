@@ -1,8 +1,13 @@
 import './ModalWarning.css'
 import useStopPageScroll from '../../hooks/useStopPageScroll';
-
-function ModalWarning({onClickTrue, onClickFalse, text, btnTrueText}) {
-    
+import { FC } from 'react';
+interface Props {
+    onClickTrue: VoidFunction,
+    onClickFalse: VoidFunction,
+    text: string,
+    btnTrueText: string,
+}
+const ModalWarning: FC<Props> = ({onClickTrue, onClickFalse, text, btnTrueText}) => {
     useStopPageScroll();
 
     return (

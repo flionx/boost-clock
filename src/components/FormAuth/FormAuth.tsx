@@ -12,12 +12,12 @@ import useSaveUploadState from '../../hooks/useSaveUploadState';
 import './FormAuth.css'
 import { IUploadData } from '../../types/global';
 
-interface FormAuth {
+interface Props {
     title: string,
     onHandleClick: (email: string, password: string) => void;
 }
 
-const FormAuth: FC<FormAuth> = ({title, onHandleClick}) => {
+const FormAuth: FC<Props> = ({title, onHandleClick}) => {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const navigate = useNavigate();
