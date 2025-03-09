@@ -1,6 +1,6 @@
 import { FC, useState} from "react";
 import useManageTimer from "../../../../hooks/useManageTimer";
-import { IInfo, IMins, TTime } from "../../types/types";
+import { IInfo, IMins, TypeTime } from "../../types/types";
 interface Props {
     minutes: IMins['minutes'],
     info: IInfo,
@@ -9,7 +9,7 @@ interface Props {
 const TimerMain: FC<Props> = ({ minutes, info }) => {
 
     const {timerInfo, setTimerInfo} = info;
-    const [seconds, setSeconds] = useState<TTime>({ 
+    const [seconds, setSeconds] = useState<TypeTime>({ 
         work: minutes.work * 60, 
         relax: minutes.relax * 60
     });
