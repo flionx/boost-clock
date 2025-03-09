@@ -57,7 +57,7 @@
 }
 
 .auth a {
-    text-decoration: underline;
+    text-decoration: underline !important;
     color: var(--text-color);
 }
 .auth span {
