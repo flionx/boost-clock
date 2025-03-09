@@ -44,5 +44,4 @@ const mainTaskSlice = createSlice({
 });
 
 export const { setMainTask, changeMainTask, resetMainTask } = mainTaskSlice.actions;
-
 export default mainTaskSlice.reducer;

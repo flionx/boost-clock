@@ -1,10 +1,10 @@
-import { FC, useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 import useQuoteFetch from '../../hooks/useQuoteFetch';
 import { IQuote } from '../../types/global';
 import './Quote.css'
 
-const Quote: FC = () => {
-    const [quote, setQuote] = useState({text: 'There will be no tommorow', author: 'Unknown'})
+const Quote = () => {
+    const [quote, setQuote] = useState<IQuote>({text: 'There will be no tommorow', author: 'Unknown'})
     const callSetQuote = useCallback((value: IQuote) => setQuote(value), []);
     useQuoteFetch(callSetQuote);
 

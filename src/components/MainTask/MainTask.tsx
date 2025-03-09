@@ -1,9 +1,8 @@
-import { FC } from 'react';
-import useUpdateStorage from '../../hooks/useUpdateStorage';
 import { useAppSelector } from '../../hooks/useRedux';
+import useUpdateStorage from '../../hooks/useUpdateStorage';
 import './MainTask.css';
 
-const MainTask: FC = () => {    
+const MainTask = () => {    
     const mainTask = useAppSelector(state => state.mainTask);
     useUpdateStorage('mainTask', mainTask);
     

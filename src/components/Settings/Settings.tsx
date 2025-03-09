@@ -1,54 +1,22 @@
-import { ChangeEventHandler, FC } from 'react';
-import { useAppDispatch, useAppSelector } from '../../hooks/useRedux';
-import { resetSettings, setAutoToRelax, setAutoToWork, setLongBreak, setLongBreakInterval, setRepeatSound, setShowSettings, setSoundOn } from '../../store/slices/settingSlice';
+import { useAppSelector } from '../../hooks/useRedux';
 import useUpdateStorage from '../../hooks/useUpdateStorage';
-import useChangeTheme from '../../hooks/useChangeTheme';
 import useStopPageScroll from '../../hooks/useStopPageScroll';
+import useManageSettings from '../../hooks/useManageSettings';
 import '../../css/modal-menu.css';
 import './Settings.css';
 
-const Settings: FC = () => {
-    
+const Settings = () => {
     const mainSettings = useAppSelector(state => state.settings.mainSettings);
-
     const {autoToWork, autoToRelax, longBreak, longBreakInterval, soundOn, 
     repeatSound, colorTheme } = useAppSelector(state => state.settings.mainSettings);
 
     useUpdateStorage('settings', mainSettings);
-
-    const dispatch = useAppDispatch();
-
-    const {changeTheme} = useChangeTheme();
-
     useStopPageScroll();
 
-    function hideSettings() {
-        dispatch(setShowSettings(false));
-    }
-    const onChangeAutoToRelax = () => {
-        dispatch(setAutoToRelax())
-    }
-    const onChangeAutoToWork = () => {
-        dispatch(setAutoToWork())
-    }
-    const onChangeBreak: ChangeEventHandler<HTMLInputElement> = (e) => {
-        dispatch(setLongBreak(Number(e.target.value)))
-    }
-    const onChangeBreakInterval: ChangeEventHandler<HTMLInputElement> = (e) => {
-        dispatch(setLongBreakInterval(Number(e.target.value)))
-    }
-    const onChangeSoundOn = () => {
-        dispatch(setSoundOn())
-    }
-    const onChangeRepeatSound: ChangeEventHandler<HTMLInputElement> = (e) => {
-        dispatch(setRepeatSound(Number(e.target.value)))
-    }
-    const onChangeColorTheme = () => {
-        changeTheme();
-    }
-    function resetSettingsHandle() {
-        dispatch(resetSettings())
-    }
+    const {
+        hideSettings, onChangeAutoToRelax, onChangeAutoToWork, onChangeBreak, onChangeBreakInterval, 
+        onChangeSoundOn, onChangeRepeatSound, onChangeColorTheme, resetSettingsHandle
+    } = useManageSettings();
     
     return (
         <div

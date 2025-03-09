@@ -19,7 +19,6 @@ const AchievCard: FC<Props> = memo(({card}) => {
                 </div>
                 <div className="achiv__stat">{card.step}/{card.max}</div>
             </div>
-        
         </div>
     );
 });

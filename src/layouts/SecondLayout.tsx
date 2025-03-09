@@ -1,10 +1,9 @@
-import { FC } from 'react'
 import HeaderSecond from '../components/HeaderSecond/HeaderSecond'
 import { Link, Outlet } from 'react-router-dom'
 import Footer from '../components/Footer/Footer'
 import useChangeTheme from '../hooks/useChangeTheme'
 
-export const SecondLayout: FC = () => {
+export const SecondLayout = () => {
   useChangeTheme();
 
   return (

@@ -7,18 +7,23 @@ import { setCompleteAchiev, setStepAchiev } from '../store/slices/achievementSli
 import { addCompletedTask } from '../store/slices/reportSlice';
 import { ITask } from '../types/global';
 
-const useManageTask = ({task, taskIndex}: {task: ITask, taskIndex: number}) => {
+interface Props {
+    task: ITask, 
+    taskIndex: number
+    callSetHasCreateTask :(value: boolean) => void
+}
+
+const useManageTask = ({task, taskIndex, callSetHasCreateTask}: Props) => {
     const [isCardDelete, setIsCardDelete] = useState(false);
     const [isTaskCompleted, setIsComplete] = useState(false);
     
+    const dispatch = useAppDispatch();
     const mainTask = useAppSelector(state => state.mainTask);
     const tasks = useAppSelector(state => state.tasks.tasks);
     const editTaskId = useAppSelector(state => state.tasks.editTaskId);
     const fourthAchiev = useAppSelector(state => state.achievement.achievs[3])
     
-    const dispatch = useAppDispatch();
-    
-    const taskElement = useRef(null);
+    const taskElement = useRef<HTMLLIElement | null>(null);
     useEffect(() => {
         if (isCardDelete) {
             AnimDeleteCard(taskElement as unknown as {current: HTMLElement});
@@ -80,6 +85,7 @@ const useManageTask = ({task, taskIndex}: {task: ITask, taskIndex: number}) => {
 
     const onClickEdit = useCallback(() => {
         dispatch(setEditTaskId(task.id))
+        callSetHasCreateTask(false)
     }, [])
 
     const changeToMainTask = useCallback(() =>{        

@@ -1,7 +1,8 @@
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase";
+import { TSetState } from "../types/global";
 
-const useAuth = (setUser) => {
+const useAuth = (setUser: TSetState<boolean>) => {
     
     onAuthStateChanged(auth, (user) => {
         if (user) {

@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useState, useMemo } from "react";
+import { useAppSelector } from "../../hooks/useRedux";
 import useUpdateStorage from "../../hooks/useUpdateStorage";
 import TaskList from "./components/TaskList";
 import TaskListHeader from "./components/TaskListHeader/TaskListHeader";
 import CompletedTasksList from './components/CompletedTasks/CompletedTasksList'
 import './tasks.css';
-import { useAppSelector } from "../../hooks/useRedux";
 
-function Tasks() {
+const Tasks = () => {
     const tasks = useAppSelector(state => state.tasks.tasks)    
     const completedTasks = useMemo(() => tasks.filter(task => task.complete), [tasks]);
     const [hasCompleted, setHasCompleted] = useState<boolean>(completedTasks.length > 0);
@@ -35,11 +35,9 @@ function Tasks() {
                     completedTasks={completedTasks}
                     changeCompletedHandler={changeCompletedHandler}/>
                 )}
-
             </div>
         </section>
     )
-
 }
 
 export default Tasks;

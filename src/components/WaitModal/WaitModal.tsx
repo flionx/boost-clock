@@ -1,9 +1,8 @@
-import { FC } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/useRedux';
 import { setWaitModal } from '../../store/slices/settingSlice';
 import './WaitModal.css'
 
-const WaitModal: FC = () => {
+const WaitModal = () => {
     const dispatch = useAppDispatch();
     const {status, message} = useAppSelector(state => state.settings.waitModal)
     

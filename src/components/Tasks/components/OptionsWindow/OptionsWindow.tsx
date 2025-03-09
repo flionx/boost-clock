@@ -69,9 +69,7 @@ const OptionsWindow: FC<Props> = ({ taskIndex, callSetIsCardDelete, taskId, onCl
                 className="task-option__row row-opt3">
                     move down
                 </button>
-            </>
-                
-            )}
+            </>)}
             <button 
             onClick={deleteTask}
             className="task-option__row row-opt4">

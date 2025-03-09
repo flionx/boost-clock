@@ -1,16 +1,15 @@
-import { FC, FormEventHandler, MouseEventHandler, useState } from 'react'
+import { FC, FormEventHandler, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { signInWithPopup } from "firebase/auth";
 import { auth, db, provider } from '../../firebase';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
-import { useStore } from 'react-redux';
-import { useAppDispatch } from '../../hooks/useRedux';
-import { AppStore, RootState } from '../../store/store';
+import { useAppDispatch, useAppStore } from '../../hooks/useRedux';
+import { RootState } from '../../store/store';
 import { setWaitModal } from '../../store/slices/settingSlice';
 import getFilteredState from '../../hooks/getFilteredState';
 import useSaveUploadState from '../../hooks/useSaveUploadState';
-import './FormAuth.css'
 import { IUploadData } from '../../types/global';
+import './FormAuth.css'
 
 interface Props {
     title: string,
@@ -23,13 +22,13 @@ const FormAuth: FC<Props> = ({title, onHandleClick}) => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const {uploadUserData} = useSaveUploadState();
-    const store = useStore<AppStore>();
+    const store = useAppStore();
     
     const checkForm: FormEventHandler<HTMLFormElement> = (e) => {
         e.preventDefault();
     }
 
-    const signInWithGoogle: MouseEventHandler<HTMLButtonElement> = () => {
+    const signInWithGoogle = () => {
         signInWithPopup(auth, provider)
             .then(async (result) => {
                 const userId = result.user.uid;

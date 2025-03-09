@@ -1,7 +1,6 @@
-import { FC } from 'react';
 import './secondPages.css'
 
-const InfoPage: FC = () => {
+const InfoPage = () => {
   return (
     <div className="container container-second">
         <h2>Info</h2>

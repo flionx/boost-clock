@@ -7,28 +7,27 @@ import { setCompleteAchiev, setStepAchiev } from "../../../store/slices/achievem
 import { ITask } from "../../../types/global";
 
 interface Props {
-    task: ITask,
     isEdit: boolean,
+    task?: ITask,
     hasCreateTask?: boolean,
-    toggleHasCreateTask?: VoidFunction,
-    isCardDelete: boolean,
+    callSetHasCreateTask?: (value: boolean) => void,
+    isCardDelete?: boolean,
 }
 
-const CreateTaskCard: FC<Props> = ({ task, isEdit, hasCreateTask, toggleHasCreateTask, isCardDelete = false}) => {
-
+const CreateTaskCard: FC<Props> = ({ task, isEdit, hasCreateTask, callSetHasCreateTask, isCardDelete = false}) => {
     const dispatch = useAppDispatch()
     const secondAchiev = useAppSelector(state => state.achievement.achievs[1])
 
-    const resetTask = {id: Date.now(), title: '', description: null, complete: false, deadline: null, round: null};
+    const resetTask: ITask = {id: Date.now(), title: '', description: null, complete: false, deadline: null, round: null};
 
-    const [currentTask, setCurrentTask] = useState(() => isEdit ? task : resetTask);
+    const [currentTask, setCurrentTask] = useState(() => isEdit ? (task as ITask) : resetTask);
 
     const createNewTaskRef = useRef(null);
     const inputTitleRef = useRef(null);
     const inputDescriptionRef = useRef(null);
 
     useEffect(() => {
-        if (isEdit) {
+        if (isEdit && task) {
             const cleanTask = {
                 ...task,
                 description: task.description?.trim() || null,
@@ -43,17 +42,15 @@ const CreateTaskCard: FC<Props> = ({ task, isEdit, hasCreateTask, toggleHasCreat
         }
     }, [isCardDelete])
 
-
     useEffect(() => {
         scrollToNew(createNewTaskRef as unknown as {current: HTMLElement});
-        if (typeof currentTask.description === 'string') {
+        if (currentTask && typeof currentTask.description === 'string') {
             focusDescriptionInput();
         } else {
             const input = inputTitleRef.current as unknown as HTMLInputElement;
             input.focus();
         }
     }, []);
-
 
     function focusDescriptionInput() {
         const textarea = inputDescriptionRef.current as unknown as HTMLTextAreaElement;
@@ -82,20 +79,21 @@ const CreateTaskCard: FC<Props> = ({ task, isEdit, hasCreateTask, toggleHasCreat
         }
     }
 
-
     function cancelNewTask() {
         AnimDeleteCard(createNewTaskRef as unknown as {current: HTMLLinkElement})
         setTimeout(() => {
             dispatch(setEditTaskId(null))
             setCurrentTask(resetTask)
             if (hasCreateTask) {
-                toggleHasCreateTask && toggleHasCreateTask()
+                callSetHasCreateTask && callSetHasCreateTask(false)
+                dispatch(setEditTaskId(null))
             }
         }, 500)
     }
     function saveTask() {
         if (currentTask.title.trim() !== '') {
             dispatch(changeTask(currentTask))
+            callSetHasCreateTask && callSetHasCreateTask(false)
             dispatch(setEditTaskId(null))
         }
     }
@@ -104,7 +102,8 @@ const CreateTaskCard: FC<Props> = ({ task, isEdit, hasCreateTask, toggleHasCreat
         if (currentTask.title.trim() !== '') {
             dispatch(addTask(currentTask))
             if (hasCreateTask) {
-                toggleHasCreateTask && toggleHasCreateTask()
+                callSetHasCreateTask && callSetHasCreateTask(false)
+                dispatch(setEditTaskId(null))
             }
             // достижение 2
             if (secondAchiev.step < secondAchiev.max) {                
@@ -116,7 +115,6 @@ const CreateTaskCard: FC<Props> = ({ task, isEdit, hasCreateTask, toggleHasCreat
 
     return (
         <li className="tasks__item" ref={createNewTaskRef}>
-
             <section className="tasks__task-create task">
                 <div className="create-task__col">
                     <h4 className="task__title create-task__title">Title</h4>
@@ -145,7 +143,6 @@ const CreateTaskCard: FC<Props> = ({ task, isEdit, hasCreateTask, toggleHasCreat
                         onClick={addDescriptionHandle}
                         className="btn-with-plus btn-ui m15">Add a description</button>
                     )}
- 
                 </div>
                     {typeof currentTask.deadline === 'number' && (
                         <div className="create-task__col">

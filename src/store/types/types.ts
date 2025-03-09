@@ -1,6 +1,8 @@
 import { IAchiev } from "../../types/global";
 import { ITask } from "../../types/global";
-// types for slices
+// 
+// types of state slices
+// 
 export interface ITasksState {
     editTaskId: number | null,
     tasks: ITask[],

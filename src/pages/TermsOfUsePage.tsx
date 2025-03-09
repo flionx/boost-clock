@@ -1,6 +1,4 @@
-import { FC } from "react"
-
-const TermsOfUsePage: FC = () => {
+const TermsOfUsePage = () => {
   return (
     <div className="container container-second">
         <h2>Terms of Use</h2>

@@ -1,8 +1,7 @@
-import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import useChangeTheme from '../../hooks/useChangeTheme';
 
-const HeaderSecond: FC = () => {
+const HeaderSecond = () => {
   const {changeTheme} = useChangeTheme();
 
   return (
