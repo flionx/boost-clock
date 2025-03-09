@@ -13,7 +13,7 @@ interface Props {
 const TaskCard: FC<Props> = memo(({ task, taskIndex, callSetHasCreateTask }) => {
 
     const {taskElement, taskTitle, setIsComplete, changeToMainTask, isTaskCompleted, 
-        onClickEdit, isCardDelete, callSetIsCardDelete, editTaskId } = useManageTask({task, taskIndex, callSetHasCreateTask});
+        onClickEdit, isCardDelete, callSetIsCardDelete, editTaskId } = useManageTask({task, callSetHasCreateTask});
 
     return (
     <>
@@ -21,12 +21,11 @@ const TaskCard: FC<Props> = memo(({ task, taskIndex, callSetHasCreateTask }) => 
             <section className="tasks__task task">
                 <div className="task__top">
                     <div className="task__top-left">
-                        {/* чекбокс */}
                         <input 
                             onChange={() => setIsComplete(curr => !curr)}
-                            checked={task.complete}
-                            className="task__check" 
                             type="checkbox" 
+                            checked={isTaskCompleted}
+                            className="task__check" 
                             name="task"
                         />
                         <h4 className="task__title"

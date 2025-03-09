@@ -9,7 +9,9 @@ const MainTask = () => {
     return (
         <div className="main__task-main">
             <div className="task-main__icon"></div>
-            <div className="task-main__title">{mainTask.title}</div>
+            <div className="task-main__title">
+                {mainTask.title}
+            </div>
         </div>
     ) 
 }

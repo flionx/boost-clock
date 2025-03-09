@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useAppDispatch, useAppSelector } from './useRedux';
-import { changeMainTask, resetMainTask, setMainTask } from '../store/slices/mainTaskSlice';
+import { resetMainTask, setMainTask } from '../store/slices/mainTaskSlice';
 import AnimDeleteCard from '../components/Tasks/helpers/AnimDeleteCard';
 import { setEditTaskId, toggleCompleteTask } from '../store/slices/tasksSlice';
 import { setCompleteAchiev, setStepAchiev } from '../store/slices/achievementSlice';
@@ -9,29 +9,27 @@ import { ITask } from '../types/global';
 
 interface Props {
     task: ITask, 
-    taskIndex: number
     callSetHasCreateTask :(value: boolean) => void
 }
 
-const useManageTask = ({task, taskIndex, callSetHasCreateTask}: Props) => {
+const useManageTask = ({task, callSetHasCreateTask}: Props) => {
     const [isCardDelete, setIsCardDelete] = useState(false);
     const [isTaskCompleted, setIsComplete] = useState(false);
     
     const dispatch = useAppDispatch();
     const mainTask = useAppSelector(state => state.mainTask);
-    const tasks = useAppSelector(state => state.tasks.tasks);
     const editTaskId = useAppSelector(state => state.tasks.editTaskId);
-    const fourthAchiev = useAppSelector(state => state.achievement.achievs[3])
+    const fourthAchiev = useAppSelector(state => state.achievement.achievs[3]);
     
     const taskElement = useRef<HTMLLIElement | null>(null);
     useEffect(() => {
         if (isCardDelete) {
-            AnimDeleteCard(taskElement as unknown as {current: HTMLElement});
+            AnimDeleteCard(taskElement as {current: HTMLLIElement});
             
             if (mainTask.id === task.id) {
                 setTimeout(()=> {
-                    dispatch(changeMainTask({tasks: tasks, taskId: task.id}))    
-                }, 500)
+                    dispatch(resetMainTask());    
+                }, 600)
             }
         }
     }, [isCardDelete, dispatch]);
@@ -77,10 +75,6 @@ const useManageTask = ({task, taskIndex, callSetHasCreateTask}: Props) => {
         setTimeout(() => {
             dispatch(toggleCompleteTask(task.id))
         }, 500)        
-        const filteredTasks = [...tasks].filter((task, index) => !task.complete && taskIndex !== index)        
-        if (filteredTasks.length == 0) {
-            dispatch(resetMainTask());
-        }
     },[])   
 
     const onClickEdit = useCallback(() => {
