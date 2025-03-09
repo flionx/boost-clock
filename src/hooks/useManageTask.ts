@@ -5,9 +5,9 @@ import AnimDeleteCard from '../components/Tasks/helpers/AnimDeleteCard';
 import { setEditTaskId, toggleCompleteTask } from '../store/slices/tasksSlice';
 import { setCompleteAchiev, setStepAchiev } from '../store/slices/achievementSlice';
 import { addCompletedTask } from '../store/slices/reportSlice';
-import { TaskType } from '../types/global';
+import { ITask } from '../types/global';
 
-const useManageTask = ({task, taskIndex}: {task: TaskType, taskIndex: number}) => {
+const useManageTask = ({task, taskIndex}: {task: ITask, taskIndex: number}) => {
     const [isCardDelete, setIsCardDelete] = useState(false);
     const [isTaskCompleted, setIsComplete] = useState(false);
     

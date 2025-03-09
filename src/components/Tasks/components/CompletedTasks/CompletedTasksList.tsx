@@ -1,11 +1,11 @@
 import { FC, useRef, useState } from 'react';
 import CompletedTaskCard from './CompletedTaskCard';
 import './CompletedTasks.css';
-import { TaskType } from '../../../../types/global';
+import { ITask } from '../../../../types/global';
 const arrowRotate = 'task-comlpeted__arrow-rotated';
 
 interface Props {
-    completedTasks: TaskType[],
+    completedTasks: ITask[],
     changeCompletedHandler: VoidFunction,
 }
 

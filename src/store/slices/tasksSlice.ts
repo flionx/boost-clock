@@ -1,19 +1,19 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { TaskType } from "../../types/global";
+import { ITask } from "../../types/global";
 import { ITasksState } from "../types/types";
 
-const getInitialTasks = (): TaskType[] => {
+const getInitialTasks = (): ITask[] => {
   const storage = localStorage.getItem("tasks"); 
   return storage ? JSON.parse(storage) : [];
 };
 
 type MoveTaskAction = {
-  taskId: TaskType['id'],
+  taskId: ITask['id'],
   direction: 'up' | 'down'
 }
 type DeadlineTaskAction = {
-  id: TaskType['id']
-  deadline: TaskType['deadline']
+  id: ITask['id']
+  deadline: ITask['deadline']
 }
 
 const initialState: ITasksState = {
@@ -25,13 +25,13 @@ const tasksSlice = createSlice({
   name: "tasks",
   initialState,
   reducers: {
-    addTask: (state, action: PayloadAction<TaskType>) => {
+    addTask: (state, action: PayloadAction<ITask>) => {
       state.tasks.push(action.payload);
     },
-    removeTask: (state, action: PayloadAction<TaskType['id']>) => {
+    removeTask: (state, action: PayloadAction<ITask['id']>) => {
       state.tasks = state.tasks.filter((task) => task.id !== action.payload);
     },
-    toggleCompleteTask: (state, action: PayloadAction<TaskType['id']>) => {
+    toggleCompleteTask: (state, action: PayloadAction<ITask['id']>) => {
       const task = state.tasks.find((task) => task.id === action.payload);
       if (task) task.complete = !task.complete;
     },
@@ -53,12 +53,12 @@ const tasksSlice = createSlice({
   
       [tasks[originalIndex], tasks[targetOriginalIndex]] = [tasks[targetOriginalIndex], tasks[originalIndex]];
     },
-    changeTask: (state, action: PayloadAction<TaskType>) => {
+    changeTask: (state, action: PayloadAction<ITask>) => {
       state.tasks = state.tasks.map(task =>
         task.id === action.payload.id ? { ...task, ...action.payload } : task
       );
     },
-    setEditTaskId: (state, action: PayloadAction<TaskType['id'] | null>) => {
+    setEditTaskId: (state, action: PayloadAction<ITask['id'] | null>) => {
       state.editTaskId = action.payload;      
     },
     setDeadlineTask: (state, action: PayloadAction<DeadlineTaskAction>) => {
@@ -74,7 +74,7 @@ const tasksSlice = createSlice({
     deleteAllTasks: (state) => {
       state.tasks = state.tasks.filter(task => task.complete);
     },
-    uploadTasks: (state, action: PayloadAction<TaskType[]>) => {
+    uploadTasks: (state, action: PayloadAction<ITask[]>) => {
       state.tasks = action.payload;
       localStorage.setItem('tasks', JSON.stringify(state.tasks))      
     },

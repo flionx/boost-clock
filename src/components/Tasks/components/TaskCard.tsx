@@ -2,10 +2,10 @@ import { FC, memo} from "react";
 import OptionTaskButton from "./OptionTaskButton/OptionTaskButton";
 import CreateTaskCard from "./CreateTaskCard";
 import useManageTask from "../../../hooks/useManageTask";
-import { TaskType } from "../../../types/global";
+import { ITask } from "../../../types/global";
 
 interface Props {
-    task: TaskType,
+    task: ITask,
     taskIndex: number,
     hasCreateTask: boolean,
 }

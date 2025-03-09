@@ -4,10 +4,10 @@ import scrollToNew from '../helpers/scrollToNew'
 import AnimDeleteCard from "../helpers/AnimDeleteCard";
 import { addTask, changeTask, setEditTaskId } from "../../../store/slices/tasksSlice";
 import { setCompleteAchiev, setStepAchiev } from "../../../store/slices/achievementSlice";
-import { TaskType } from "../../../types/global";
+import { ITask } from "../../../types/global";
 
 interface Props {
-    task: TaskType,
+    task: ITask,
     isEdit: boolean,
     hasCreateTask?: boolean,
     toggleHasCreateTask?: VoidFunction,
