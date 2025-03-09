@@ -21,6 +21,10 @@ interface IReportSec {
     sec: number;
     type: 'work' | 'relax';
 }
+interface IWorkerMessage {
+    action: 'updateTime';
+    data: number;
+}
 
 const useManageTimer = ({seconds, setSeconds, minutes, timerInfo, setTimerInfo}: Props) => {
     const [reportSec, setReportSec] = useState<IReportSec>({sec: 0, type: 'work'});
@@ -38,7 +42,7 @@ const useManageTimer = ({seconds, setSeconds, minutes, timerInfo, setTimerInfo}:
     const workerRef = useRef<Worker | null>(null);
     useEffect(() => {
         workerRef.current = new Worker('timer-worker.js');
-        workerRef.current.onmessage = (event) => {
+        workerRef.current.onmessage = (event: MessageEvent<IWorkerMessage>) => {
             const { action, data } = event.data; 
 
             if (action === 'updateTime') {
@@ -216,7 +220,6 @@ const useManageTimer = ({seconds, setSeconds, minutes, timerInfo, setTimerInfo}:
             soundTimeouts.current.push(timeoutId); 
         }
     }
-
     
     return {stopTimer, resetTimer, toggleTimer, changeTypeOfTime, formatResult, setFormatResult, hasLongBreak}
 }

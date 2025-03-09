@@ -12,7 +12,7 @@ let intervalId: NodeJS.Timeout | null = null;
 let seconds: ISeconds = { work: 0, relax: 0 }; 
 let nowIsWork = true;
 
-self.onmessage = (e: {data: IMessageData}) => {
+self.onmessage = (e: MessageEvent<IMessageData>) => {
     const { action, seconds: newSeconds, nowIsWork: isWork } = e.data;
     
     switch(action) {
