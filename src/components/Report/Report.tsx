@@ -2,7 +2,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/useRedux';
 import { resetReport, setShowReport } from '../../store/slices/reportSlice';
 import useStopPageScroll from '../../hooks/useStopPageScroll';
 import '../../css/modal-menu.css'
-function Report() {
+const Report = () => {
     const {
         today: { workTime, relaxTime, tCompletedTasks },
         timer: { totalWorkTime, totalRelaxTime, pomodoroRounds },

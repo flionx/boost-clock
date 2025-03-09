@@ -10,16 +10,16 @@ interface Props {
 const ModalWarning: FC<Props> = ({onClickTrue, onClickFalse, text, btnTrueText}) => {
     useStopPageScroll();
     return (
-        <div className="modal-menu__bg" onClick={() => onClickFalse()}>
+        <div className="modal-menu__bg" onClick={onClickFalse}>
             <dialog className="modal-warning" onClick={(e) => e.stopPropagation()}>
                 <h3 className="modal-warning__title">Warning!</h3>
                 <p className="modal-warning__text">{text}</p>
                 <div className="modal-warnin__btns">
                     <button 
-                    onClick={() => onClickFalse()}
+                    onClick={onClickFalse}
                     className="btn-modal-border">Cancel</button>
                     <button 
-                    onClick={() => onClickTrue()}
+                    onClick={onClickTrue}
                     className="btn-modal">{btnTrueText}</button>
                 </div>
             </dialog>

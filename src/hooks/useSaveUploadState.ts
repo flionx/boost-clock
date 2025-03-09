@@ -16,6 +16,7 @@ const useSaveUploadState = () => {
         dispatch(uploadSettings(data.settings))
         dispatch(uploadTasks(data.tasks))        
     }
+    
     return {uploadUserData};
 }
 

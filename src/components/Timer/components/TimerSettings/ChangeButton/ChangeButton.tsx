@@ -1,9 +1,10 @@
 import { FC } from "react";
+import { ChangeSwitchType } from "../TimerSettings";
 
 interface Props {
     className: string,
-    type: string,
-    onClickHandler: (type: string, children: string) => void,
+    type: ChangeSwitchType,
+    onClickHandler: (type: ChangeSwitchType, children: string) => void,
     children: string,
 }
 

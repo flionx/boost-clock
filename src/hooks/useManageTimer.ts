@@ -1,29 +1,48 @@
 import { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "./useRedux";
 import formatTime from "../components/Timer/helpers/formatTime";
 import { addRoundToBreak, removeRoundsToBreak, setHasLongBreak } from "../store/slices/settingSlice";
 import { setRoundTasks } from "../store/slices/tasksSlice";
 import { addPomodoroRound, addRelaxTime, addWorkTime } from "../store/slices/reportSlice";
 import { setCompleteAchiev, setStepAchiev } from "../store/slices/achievementSlice";
 import useMelody from "./useMelody";
+import { TSetState } from "../types/global";
+import { TTimerInfo, TypeTime } from "../components/Timer/types/types";
 
-const useManageTimer = ({seconds, setSeconds, minutes, timerInfo, setTimerInfo}) => {
-    const [reportSec, setReportSec] = useState({sec: 0, type: 'work'});
+interface Props {
+    seconds: TypeTime,
+    setSeconds: TSetState<TypeTime>,
+    minutes: TypeTime,
+    timerInfo: TTimerInfo,
+    setTimerInfo: TSetState<TTimerInfo>,
+}
+
+interface IReportSec {
+    sec: number;
+    type: 'work' | 'relax';
+}
+interface IWorkerMessage {
+    action: 'updateTime';
+    data: number;
+}
+
+const useManageTimer = ({seconds, setSeconds, minutes, timerInfo, setTimerInfo}: Props) => {
+    const [reportSec, setReportSec] = useState<IReportSec>({sec: 0, type: 'work'});
     const [formatResult, setFormatResult] = useState(() => formatTime(seconds.work));
 
-    const {hasLongBreak, roundsToBreak} = useSelector(state => state.settings);
+    const dispatch = useAppDispatch();
+    const {hasLongBreak, roundsToBreak} = useAppSelector(state => state.settings);
     const {autoToWork, autoToRelax, longBreakInterval, soundOn, 
-        repeatSound } = useSelector(state => state.settings.mainSettings); //настройки для проверок
-    const achievsArray = useSelector(state => state.achievement.achievs);
-    const report = useSelector(state => state.report)
+        repeatSound } = useAppSelector(state => state.settings.mainSettings); //настройки для проверок
+    const achievsArray = useAppSelector(state => state.achievement.achievs);
+    const report = useAppSelector(state => state.report)
     
-    const dispatch = useDispatch();
     const {melodyGoRelax, melodyGoWork} = useMelody();
 
-    const workerRef = useRef(null);
+    const workerRef = useRef<Worker | null>(null);
     useEffect(() => {
         workerRef.current = new Worker('timer-worker.js');
-        workerRef.current.onmessage = (event) => {
+        workerRef.current.onmessage = (event: MessageEvent<IWorkerMessage>) => {
             const { action, data } = event.data; 
 
             if (action === 'updateTime') {
@@ -63,10 +82,10 @@ const useManageTimer = ({seconds, setSeconds, minutes, timerInfo, setTimerInfo})
     // Запуск и остановка таймера через Worker
     useEffect(() => {
         if (timerInfo.hasTimer) {
-            workerRef.current.postMessage({ action: 'start', seconds, nowIsWork: timerInfo.nowIsWork });
+            workerRef.current && workerRef.current.postMessage({ action: 'start', seconds, nowIsWork: timerInfo.nowIsWork });
             setTimerInfo(c=> ({...c, canChangeMinutes: false}))
         } else {
-            workerRef.current.postMessage({ action: 'stop' });
+            workerRef.current && workerRef.current.postMessage({ action: 'stop' });
             if(reportSec.sec > 0) {
                 addReportTime();
             }
@@ -107,14 +126,14 @@ const useManageTimer = ({seconds, setSeconds, minutes, timerInfo, setTimerInfo})
         } else {
             setSeconds({...seconds, relax: minutes.relax * 60})
         }
-        workerRef.current.postMessage({ action: 'reset', seconds: seconds });
+        workerRef.current && workerRef.current.postMessage({ action: 'reset', seconds: seconds });
     }
 
     function toggleTimer() {
         setTimerInfo(c=> ({...c, hasTimer: !c.hasTimer}))
     }
 
-    function changeTypeOfTime(type) {
+    function changeTypeOfTime(type: 'work' | 'relax') {
         if (type === 'work') {
             setTimerInfo(c=> ({...c, nowIsWork: true}))
         } else {
@@ -161,7 +180,7 @@ const useManageTimer = ({seconds, setSeconds, minutes, timerInfo, setTimerInfo})
         }
     }
 
-    function checkAchievement(type, index, reportSec) {
+    function checkAchievement(type: string, index: number, reportSec: IReportSec) {
         const reportMins = reportSec.sec / 60;
         const totalTime = report.timer[reportSec.type == 'work' ? "totalWorkTime" : "totalRelaxTime"] + reportMins;
         const prevTime = totalTime - reportMins;
@@ -177,7 +196,7 @@ const useManageTimer = ({seconds, setSeconds, minutes, timerInfo, setTimerInfo})
         }
     }
 
-    const soundTimeouts = useRef([]);
+    const soundTimeouts = useRef<NodeJS.Timeout[]>([]);
 
     function playSounds() {
         if (!soundOn) return; 
@@ -193,7 +212,7 @@ const useManageTimer = ({seconds, setSeconds, minutes, timerInfo, setTimerInfo})
         if (repeatSound <= 0) return;
     
         for (let i = 1; i <= repeatSound; i++) {
-            const timeoutId = setTimeout(() => {
+            const timeoutId: NodeJS.Timeout = setTimeout(() => {
                 sound.currentTime = 0;
                 sound.play();
             }, i * 2000); 
@@ -201,7 +220,6 @@ const useManageTimer = ({seconds, setSeconds, minutes, timerInfo, setTimerInfo})
             soundTimeouts.current.push(timeoutId); 
         }
     }
-
     
     return {stopTimer, resetTimer, toggleTimer, changeTypeOfTime, formatResult, setFormatResult, hasLongBreak}
 }

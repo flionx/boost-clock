@@ -19,7 +19,6 @@ function AnimDeleteCard(element: {current: HTMLElement}, type = 'basic') {
         } else {
             current.classList.remove("anim-delete");  
         }
-              
         current.style.maxHeight = ``; 
     }, 600)
 

@@ -1,12 +1,10 @@
-
-import { FC } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/useRedux';
 import { setShowAchiev } from '../../store/slices/achievementSlice';
 import useStopPageScroll from '../../hooks/useStopPageScroll';
 import AchievCard from './AchievCard';
 import '../../css/modal-menu.css'
 
-const Achievements: FC = () => {
+const Achievements = () => {
     const dispatch = useAppDispatch();
     const achievsArray = useAppSelector(state => state.achievement.achievs);
 

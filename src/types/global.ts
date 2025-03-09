@@ -1,6 +1,7 @@
+import { Dispatch, SetStateAction } from "react"
 import { IMainSettings, IMainTask, IReportState } from "../store/types/types"
 
-export type TaskType = {
+export interface ITask {
     id: number,
     title: string,
     description: string | null,
@@ -23,10 +24,14 @@ export interface IUploadData {
     mainTask: IMainTask,
     report: Pick<IReportState, 'tasks'|'timer'|'today'>
     settings: IMainSettings,
-    tasks: TaskType[]
+    tasks: ITask[]
 }
 
 export interface IQuote {
     text: string,
     author: string
 }
+
+// For the 'set' function of useState()
+// T - the type of state
+export type TSetState<T> = Dispatch<SetStateAction<T>>

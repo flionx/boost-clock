@@ -1,11 +1,11 @@
 import { FC, memo, useCallback, useEffect, useRef, useState } from "react";
 import OptionTaskButton from "../OptionTaskButton/OptionTaskButton";
 import AnimDeleteCard from '../../helpers/AnimDeleteCard'
-import { TaskType } from "../../../../types/global";
+import { ITask } from "../../../../types/global";
 
 interface Props{
-    completedTasks: TaskType[],
-    task: TaskType,
+    completedTasks: ITask[],
+    task: ITask,
     taskIndex: number,
     CompletedTasksListRef: {current: HTMLElement | null},
     changeCompletedHandler: VoidFunction,

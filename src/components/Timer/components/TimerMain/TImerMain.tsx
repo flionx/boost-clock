@@ -1,15 +1,15 @@
 import { FC, useState} from "react";
 import useManageTimer from "../../../../hooks/useManageTimer";
-interface TimerMainProps {
-    minutes: {work: number, relax: number},
-    info: {timerInfo: any, setTimerInfo: any}
+import { IInfo, IMins, TypeTime } from "../../types/types";
+interface Props {
+    minutes: IMins['minutes'],
+    info: IInfo,
 }
 
-const TimerMain: FC<TimerMainProps> = ({ minutes, info }) => {
+const TimerMain: FC<Props> = ({ minutes, info }) => {
 
     const {timerInfo, setTimerInfo} = info;
-
-    const [seconds, setSeconds] = useState({ 
+    const [seconds, setSeconds] = useState<TypeTime>({ 
         work: minutes.work * 60, 
         relax: minutes.relax * 60
     });
@@ -33,7 +33,6 @@ const TimerMain: FC<TimerMainProps> = ({ minutes, info }) => {
             
             <h2 className="timer__time" translate="no">
                 {hasLongBreak && (<span className="timer__long-break">Long break</span>)}
-                
                 {formatResult}
             </h2>
             <button 
@@ -59,10 +58,7 @@ const TimerMain: FC<TimerMainProps> = ({ minutes, info }) => {
                 >Skip</button>
 
             </div>
-        
-        </section>
-
-        
+        </section>        
     );
 }
 

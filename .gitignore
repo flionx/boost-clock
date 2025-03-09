@@ -22,10 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+ModalMenu
+ModalMenu.jsx
+
 .env
 
+# future
 locales
-
-timeout.mp3
-
-types.ts

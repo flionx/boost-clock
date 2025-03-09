@@ -2,35 +2,36 @@ import { FC, memo} from "react";
 import OptionTaskButton from "./OptionTaskButton/OptionTaskButton";
 import CreateTaskCard from "./CreateTaskCard";
 import useManageTask from "../../../hooks/useManageTask";
-import { TaskType } from "../../../types/global";
+import { ITask } from "../../../types/global";
 
 interface Props {
-    task: TaskType,
+    task: ITask,
     taskIndex: number,
-    hasCreateTask: boolean,
+    callSetHasCreateTask: (value: boolean) => void,
 }
 
-const TaskCard: FC<Props> = memo(({ task, taskIndex, hasCreateTask }) => {
+const TaskCard: FC<Props> = memo(({ task, taskIndex, callSetHasCreateTask }) => {
 
-    const {taskElement, taskTitle, setIsComplete, changeToMainTask, 
-        isTaskCompleted, onClickEdit, isCardDelete, callSetIsCardDelete, editTaskId } = useManageTask({task, taskIndex});
+    const {taskElement, taskTitle, setIsComplete, changeToMainTask, isTaskCompleted, 
+        onClickEdit, isCardDelete, callSetIsCardDelete, editTaskId } = useManageTask({task, callSetHasCreateTask});
 
     return (
     <>
-        <li 
-        ref={taskElement}
-        className="tasks__item">
+        <li ref={taskElement} className="tasks__item">
             <section className="tasks__task task">
                 <div className="task__top">
                     <div className="task__top-left">
-                        {/* чекбокс */}
                         <input 
                             onChange={() => setIsComplete(curr => !curr)}
-                            checked={task.complete}
-                            className="task__check" type="checkbox" name="task"/>
-                        <h4 ref={taskTitle}
+                            type="checkbox" 
+                            checked={isTaskCompleted}
+                            className="task__check" 
+                            name="task"
+                        />
+                        <h4 className="task__title"
+                            ref={taskTitle}
                             onClick={changeToMainTask}
-                        className="task__title">
+                        >                           
                             {task.title}
                             {isTaskCompleted && (
                                 <div className="task__title-completed"></div>
@@ -38,10 +39,8 @@ const TaskCard: FC<Props> = memo(({ task, taskIndex, hasCreateTask }) => {
                         </h4>
                     </div>
                 <div className="task-top-right">
-
                     {typeof task.deadline === 'number' && task.deadline > 0 && (
                         <p className="task__deadline">{task.round ?? 0}/{task.deadline ?? 0}</p>
-                        
                     )}
                     <OptionTaskButton 
                         isEdit={true}
@@ -51,7 +50,6 @@ const TaskCard: FC<Props> = memo(({ task, taskIndex, hasCreateTask }) => {
                         callSetIsCardDelete={callSetIsCardDelete}
                     />
                 </div>
-
                 </div>
                 <div className="task__bottom">
                     {task.description 
@@ -59,9 +57,8 @@ const TaskCard: FC<Props> = memo(({ task, taskIndex, hasCreateTask }) => {
                     : null}
                 </div>
             </section>
-
         </li>
-        {!hasCreateTask && editTaskId === task.id &&(
+        {editTaskId === task.id && (
             <CreateTaskCard 
                 isCardDelete={isCardDelete}
                 isEdit={true}

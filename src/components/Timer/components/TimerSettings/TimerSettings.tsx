@@ -1,21 +1,15 @@
+import { FC, useEffect } from "react";
 import { useAppSelector } from "../../../../hooks/useRedux";
 import ChangeButton from "./ChangeButton/ChangeButton"
-import { FC, useEffect } from "react";
-import { IMinutes, ITimerInfo } from "../../Timer";
+import { IInfo, IMins } from "../../types/types";
 
 interface Props {
-  mins: {
-    minutes: IMinutes,
-    setMinutes: (value: IMinutes | any) => void,
-  },
-  info: {
-    timerInfo: ITimerInfo,
-    setTimerInfo: (value: ITimerInfo | any) => void,
-  }
+  mins: IMins,
+  info: IInfo,
 }
+export type ChangeSwitchType = 'work' | 'relax';
 
 const TimerSettings: FC<Props> = ({mins, info}) => {
-
   const {minutes, setMinutes} = mins;
   const {timerInfo, setTimerInfo} = info;
 
@@ -23,25 +17,25 @@ const TimerSettings: FC<Props> = ({mins, info}) => {
   const {longBreak, basicBreak} = useAppSelector(state => state.settings.mainSettings);
 
   useEffect(() => {
-    setMinutes((prev: IMinutes) => ({
+    setMinutes((prev) => ({
       ...prev, 
       relax: hasLongBreak ? longBreak ?? 15 : basicBreak ?? 5
     }));
   }, [hasLongBreak]);
   
-  function changeTime(type: string, action: string) {
+  function changeTime(type: ChangeSwitchType, action: string) {
     if (!timerInfo.hasTimer) {
-      setTimerInfo((c: ITimerInfo) => ({...c, canChangeMinutes: true}))
+      setTimerInfo((c) => ({...c, canChangeMinutes: true}))
     }
 
     switch (type) {
       case 'work':{
         if (action === '+') {
-          setMinutes((min: IMinutes) => ({
+          setMinutes((min) => ({
             ...min, 
             work: min.work + 1}))
         } else if (minutes.work > 1) {
-          setMinutes((min: IMinutes) => ({
+          setMinutes((min) => ({
             ...min, 
             work: min.work - 1}))
         }
@@ -49,12 +43,12 @@ const TimerSettings: FC<Props> = ({mins, info}) => {
       }
       case 'relax':{
         if (action === '+') {
-          setMinutes((min: IMinutes) => ({
+          setMinutes((min) => ({
             ...min, 
             relax: min.relax + 1}))
 
         } else if (minutes.relax > 1) {
-          setMinutes((min: IMinutes) => ({
+          setMinutes((min) => ({
             ...min, 
             relax: min.relax - 1}))
         }

@@ -1,11 +1,11 @@
 import { FC } from "react";
 
-type ExternalLinkProps = {
+interface Props {
   href: string,
   children: JSX.Element,
 }
 
-const ExternalLink: FC<ExternalLinkProps> = ({href, children}) => {
+const ExternalLink: FC<Props> = ({href, children}) => {
   return (
     <a href={href} target="_blank" rel="noopener noreferrer">
         {children}
