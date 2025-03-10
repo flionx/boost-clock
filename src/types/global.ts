@@ -30,6 +30,7 @@ export interface IUploadData {
 export interface IQuote {
     text: string,
     author: string
+    date: string
 }
 
 // For the 'set' function of useState()

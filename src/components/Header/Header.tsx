@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector, useAppStore } from '../../hooks/useRedux';
-import { AppDispatch, RootState } from '../../store/store';
+import { AppDispatch } from '../../store/store';
 import { auth, db } from '../../firebase';
 import { doc, setDoc } from 'firebase/firestore';
 import { resetSettings, setShowSettings } from '../../store/slices/settingSlice';
@@ -15,14 +15,19 @@ import useChangeTheme from '../../hooks/useChangeTheme';
 import ButtonLogOut from '../ButtonLogOut/ButtonLogOut';
 import ModalWarning from '../ModalWarning/ModalWarning';
 import getFilteredState from '../../hooks/getFilteredState';
+import { UserContext } from '../UserProvider/UserProvider';
+import { useNavigate } from 'react-router-dom';
 import './Header.css'
 
 const Header = () => {
     const [hasModal, setHasModal] = useState(false);
+    const [hasNoAccess, setHasNoAccess] = useState(false)
     const callSetHasModal = useCallback((value: boolean) => setHasModal(value), []);
+    const hasUser = useContext(UserContext);
+    const navigate = useNavigate();
+    
     const dispatch = useAppDispatch();
     const store = useAppStore();
-
     const newAchievs = useAppSelector(state => state.achievement.newAchievs);
     const {soundOn} = useAppSelector(state => state.settings.mainSettings); 
 
@@ -44,12 +49,20 @@ const Header = () => {
     }
 
     function showReport() {
-        dispatch(setShowReport(true));
+        if (hasUser) {
+            dispatch(setShowReport(true));
+        } else {
+            setHasNoAccess(true)
+        }
     }
     function showAchiev() {
-        dispatch(setShowAchiev(true));
-        if (newAchievs > 0) {
-            dispatch(setNewAchievs('reset'));
+        if (hasUser) {
+            dispatch(setShowAchiev(true));
+            if (newAchievs > 0) {
+                dispatch(setNewAchievs('reset'));
+            }
+        } else {
+            setHasNoAccess(true)
         }
     }
 
@@ -58,7 +71,7 @@ const Header = () => {
         if (!user) return;
   
         try {            
-            const dataState = getFilteredState(store.getState() as unknown as RootState);   
+            const dataState = getFilteredState(store.getState());   
             const userRef = doc(db, "Users", user.uid);
             await setDoc(userRef, dataState, { merge: true });
             resetStateToDefault(dispatch);
@@ -122,6 +135,18 @@ const Header = () => {
             onClickTrue={saveAndLogout}
             text='Are you sure you want to log out?'
             btnTrueText='Log out'
+            />
+        )}
+        {hasNoAccess && (
+            <ModalWarning 
+            title='No access'
+            onClickFalse={() => setHasNoAccess(false)}
+            onClickTrue={() => {
+                setHasNoAccess(false)
+                navigate('/login')}
+            }
+            text='Please Sign Up or Log In'
+            btnTrueText='Log in'
             />
         )}
         </>

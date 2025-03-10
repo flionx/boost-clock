@@ -30,9 +30,7 @@ const useAutoSave = () => {
 
     useEffect(() => {
         const unsubscribe = store.subscribe(() => {
-            if (timeoutRef.current) {
-                clearTimeout(timeoutRef.current);
-            }
+            timeoutRef.current && clearTimeout(timeoutRef.current);
             timeoutRef.current = setTimeout(saveData, 4000);
         });
 
