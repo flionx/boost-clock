@@ -1,24 +1,12 @@
 import { useEffect, useCallback} from "react";
 import { IQuote } from "../types/global";
-
 const quoteDefault = "There will be no tomorrow";
 const authorDefault = "Unknown";
-const alloginsAPI = "https://api.allorigins.win/get?url=";
-const quoteAPI = "https://favqs.com/api/qotd";
-
-interface IStorageQuote {
-    quote: IQuote,
-    date: string
-}
+const quoteAPI = "https://quote-otday.vercel.app/api/quote";
 
 function useQuoteFetch(callSetQuote: (value: IQuote) => void) {
-    
-    const saveQuoteToStorage = useCallback((quoteData: IQuote) => {
-        const today = new Date().toISOString().split("T")[0];
-        localStorage.setItem('quote', JSON.stringify({
-            quote: quoteData,
-            date: today
-        }));
+    const saveQuoteToStorage = useCallback((quote: IQuote) => {
+        localStorage.setItem('quote', JSON.stringify(quote));
     }, []);
 
     useEffect(() => {
@@ -26,34 +14,30 @@ function useQuoteFetch(callSetQuote: (value: IQuote) => void) {
         async function requestQuote() {
             try {
                 const today = new Date().toISOString().split("T")[0];
-                const savedQuote: IStorageQuote = JSON.parse(localStorage.getItem('quote') as string);
-                if (savedQuote?.quote && savedQuote?.date === today) {
-                    const { text = quoteDefault, author = authorDefault } = savedQuote.quote;
-                    callSetQuote({ text, author });
+                const savedQuote: IQuote = JSON.parse(localStorage.getItem('quote') as string);
+
+                if (savedQuote?.text && savedQuote?.date === today) { //if date from storage is equal today
+                    const {text = quoteDefault, author = authorDefault } = savedQuote;
+                    const date = savedQuote.date;
+                    callSetQuote({ text, author, date });
                     return;
                 }
                 
-                const response = await fetch(`${alloginsAPI}${encodeURIComponent(quoteAPI)}`);
+                const response = await fetch(quoteAPI);
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
                 
-                const data = await response.json();
-                const dataParsed = JSON.parse(data.contents);
-                const result = dataParsed.quote;
-                
+                const result = await response.json() as IQuote;
                 if (result && isActive) {
-                    const newQuote = {
-                        text: result.body || quoteDefault,
-                        author: result.author || authorDefault,
-                    };
-                    callSetQuote(newQuote);
-                    saveQuoteToStorage(newQuote);
+                    callSetQuote(result);
+                    saveQuoteToStorage(result);
                 }
             } catch (error) {
                 console.error("Ошибка получения цитаты", error);
                 if (isActive) {
-                    const fallbackQuote = {text: quoteDefault, author: authorDefault};
+                    const today = new Date().toISOString().split("T")[0];
+                    const fallbackQuote = {text: quoteDefault, author: authorDefault, date: today};
                     callSetQuote(fallbackQuote);
                 }
             }

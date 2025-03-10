@@ -12,7 +12,7 @@ const ButtonLogOut: FC<Props> = ({setHasModal}) => {
 
   return (
     <>
-      {hasUser && <button className={itemClass} onClick={() => setHasModal()}>Log out</button>}
+      {hasUser && <button className={itemClass} onClick={setHasModal}>Log out</button>}
       {!hasUser && <Link className={itemClass} style={{color: 'currentcolor'}} to='/login'>Log in</Link>}
     </>
   )
