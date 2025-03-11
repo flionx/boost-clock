@@ -10,7 +10,6 @@ interface Props {
 }
 
 const CompletedTasksList: FC<Props> = ({completedTasks, changeCompletedHandler}) => {
-    
     const [isShowTasks, setIsShowTasks] = useState(true);
     const CompletedTasksListRef = useRef<HTMLElement | null>(null);
 

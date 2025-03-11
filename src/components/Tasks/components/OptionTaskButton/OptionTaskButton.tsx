@@ -11,7 +11,6 @@ interface Props {
 }
 
 const OptionTaskButton: FC<Props> = ({taskId, taskIndex, callSetIsCardDelete, onClickEdit, isEdit, isCompleted}) => {
-    
     const [hasOptions, setHasOptions] = useState(false);
     
     useEffect(() => {
@@ -28,15 +27,12 @@ const OptionTaskButton: FC<Props> = ({taskId, taskIndex, callSetIsCardDelete, on
 
     return (
         <div className="task__option-block">
-
             <button 
                 onClick={(e) => {
                     e.stopPropagation();
                     setHasOptions(prev => !prev);
                 }}
-                className="task__option btn-ui"
-            ></button>
-            
+                className="task__option btn-ui"></button>
             {hasOptions ? ( 
                 <OptionsWindow
                     isEdit={isEdit} 

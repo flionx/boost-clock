@@ -12,12 +12,10 @@ interface Props{
 }
 
 const CompletedTaskCard: FC<Props> = memo(({completedTasks, task, taskIndex, CompletedTasksListRef, changeCompletedHandler}) => {
-    
     const [isCardDelete, setIsCardDelete] = useState(false);
     const callSetIsCardDelete = useCallback((value: boolean) => setIsCardDelete(value), []);
 
     const cardRef = useRef<HTMLLIElement | null>(null);
-
     // анимация удаления. Если 1 карточка - удаляем весь блок
     useEffect(() => {
         if (isCardDelete) {

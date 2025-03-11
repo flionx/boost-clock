@@ -1,9 +1,11 @@
 import { useAppSelector } from '../../hooks/useRedux';
 import useUpdateStorage from '../../hooks/useUpdateStorage';
 import useStopPageScroll from '../../hooks/useStopPageScroll';
-import useManageSettings from '../../hooks/useManageSettings';
+import useManageSettings from '../../hooks/manage/useManageSettings';
 import '../../css/modal-menu.css';
 import './Settings.css';
+import SwitchRowSetting from './components/SwitchRowSetting';
+import NumbRowSetting from './components/NumbRowSetting';
 
 const Settings = () => {
     const mainSettings = useAppSelector(state => state.settings.mainSettings);
@@ -36,60 +38,42 @@ const Settings = () => {
             <section className="modal-menu__column column-modal-menu">
                 <h4 className="column-modal-menu__title">Timer</h4>
                 <hr className='column-modal-menu-line'/>
-                <div className="column-modal-menu__row">
-                    <label className="column-settings__label" htmlFor="autoSwithToWork">Auto switching to work</label>
-                    <label className="switch">
-                        <input type="checkbox" id='autoSwithToWork' name="autoSwithToWork" 
-                        onChange={onChangeAutoToWork} checked={autoToWork}/>
-                        <span className="slider round"></span>
-                    </label>
-                </div>
-                <div className="column-modal-menu__row">
-                    <label className="column-settings__label" htmlFor="autoSwithToRelax">Auto switching to relax</label>
-                    <label className="switch">
-                        <input type="checkbox" id='autoSwithToRelax' name="autoSwithToRelax" 
-                        onChange={onChangeAutoToRelax} checked={autoToRelax}/>
-                        <span className="slider round"></span>
-                    </label>
-                </div>
-                <div className="column-modal-menu__row">
-                    <p>Long break</p>
-                    <input type="number" min={0} 
+                <SwitchRowSetting 
+                    idName='autoSwithToWork' 
+                    onChange={onChangeAutoToWork} 
+                    checked={autoToWork}>Auto switching to work
+                </SwitchRowSetting> 
+                <SwitchRowSetting 
+                    idName='autoSwithToRelax' 
+                    onChange={onChangeAutoToRelax} 
+                    checked={autoToRelax}>Auto switching to relax
+                </SwitchRowSetting> 
+                <NumbRowSetting 
                     value={longBreak} 
-                    onChange={onChangeBreak} name="longBreak"/>
-                </div>
-                <div className="column-modal-menu__row">
-                    <p>Long Break interval</p>
-                    <input type="number" min={0} 
+                    onChange={onChangeBreak}>Long break
+                </NumbRowSetting>
+                <NumbRowSetting 
                     value={longBreakInterval} 
-                    onChange={onChangeBreakInterval} name="longBreakInterval"/>
-                </div>
-
+                    onChange={onChangeBreakInterval}>Long Break interval
+                </NumbRowSetting>
             </section>
             <section className="settings__column column-settings">
                 <h4 className="column-modal-menu__title">Sounds</h4>
                 <hr className='column-modal-menu-line'/>
-
-                <div className="column-modal-menu__row">
-                    <label className="column-settings__label" htmlFor="soundOnOff">Sound on</label>
-                    <label className="switch">
-                        <input type="checkbox" id='soundOnOff' name="soundOnOff" 
-                        onChange={onChangeSoundOn} checked={soundOn}/>
-                        <span className="slider round"></span>
-                    </label>
-                </div>
-                <div className="column-modal-menu__row">
-                    <p>Repeat</p>
-                    <input type="number" min={0} max={5}
+                <SwitchRowSetting 
+                    idName='soundOnOff' 
+                    onChange={onChangeSoundOn} 
+                    checked={soundOn}>Sound on
+                </SwitchRowSetting> 
+                <NumbRowSetting 
                     value={repeatSound} 
-                    onChange={onChangeRepeatSound} name="repeatSound"/>
-                </div>
-
+                    max={5} 
+                    onChange={onChangeRepeatSound}>Repeat
+                </NumbRowSetting>
             </section>
             <section className="settings__column column-settings">
                 <h4 className="column-modal-menu__title">Theme</h4>
                 <hr className='column-modal-menu-line'/>
-
                 <div className="column-modal-menu__row">
                     <p>Color</p>
                     <select className='modal-menu__select' name="select" value={colorTheme} onChange={onChangeColorTheme}>

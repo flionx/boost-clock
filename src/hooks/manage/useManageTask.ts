@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { useAppDispatch, useAppSelector } from './useRedux';
-import { resetMainTask, setMainTask } from '../store/slices/mainTaskSlice';
-import AnimDeleteCard from '../components/Tasks/helpers/AnimDeleteCard';
-import { setEditTaskId, toggleCompleteTask } from '../store/slices/tasksSlice';
-import { setCompleteAchiev, setStepAchiev } from '../store/slices/achievementSlice';
-import { addCompletedTask } from '../store/slices/reportSlice';
-import { ITask } from '../types/global';
+import { useAppDispatch, useAppSelector } from '../useRedux';
+import { resetMainTask, setMainTask } from '../../store/slices/mainTaskSlice';
+import AnimDeleteCard from '../../components/Tasks/helpers/AnimDeleteCard';
+import { setEditTaskId, toggleCompleteTask } from '../../store/slices/tasksSlice';
+import { setCompleteAchiev, setStepAchiev } from '../../store/slices/achievementSlice';
+import { addCompletedTask } from '../../store/slices/reportSlice';
+import { ITask } from '../../types/global';
 
 interface Props {
     task: ITask, 

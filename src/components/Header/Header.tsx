@@ -1,87 +1,18 @@
-import { useCallback, useContext, useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector, useAppStore } from '../../hooks/useRedux';
-import { AppDispatch } from '../../store/store';
-import { auth, db } from '../../firebase';
-import { doc, setDoc } from 'firebase/firestore';
-import { resetSettings, setShowSettings } from '../../store/slices/settingSlice';
-import { resetReport, setShowReport } from '../../store/slices/reportSlice';
-import { resetAchievs, setNewAchievs, setShowAchiev } from '../../store/slices/achievementSlice';
-import { resetMainTask } from '../../store/slices/mainTaskSlice';
-import { resetTasks } from '../../store/slices/tasksSlice';
-import useMelody from '../../hooks/useMelody';
+import { useNavigate } from 'react-router-dom';
 import NewAchiev from './NewAchiev';
 import BurgerMenu from './BurgerMenu';
-import useChangeTheme from '../../hooks/useChangeTheme';
 import ButtonLogOut from '../ButtonLogOut/ButtonLogOut';
 import ModalWarning from '../ModalWarning/ModalWarning';
-import getFilteredState from '../../hooks/getFilteredState';
-import { UserContext } from '../UserProvider/UserProvider';
-import { useNavigate } from 'react-router-dom';
+import useChangeTheme from '../../hooks/useChangeTheme';
+import useManageHeader from '../../hooks/manage/useManageHeader';
 import './Header.css'
 
 const Header = () => {
-    const [hasModal, setHasModal] = useState(false);
-    const [hasNoAccess, setHasNoAccess] = useState(false)
-    const callSetHasModal = useCallback((value: boolean) => setHasModal(value), []);
-    const hasUser = useContext(UserContext);
     const navigate = useNavigate();
-    
-    const dispatch = useAppDispatch();
-    const store = useAppStore();
-    const newAchievs = useAppSelector(state => state.achievement.newAchievs);
-    const {soundOn} = useAppSelector(state => state.settings.mainSettings); 
-
-    const {melodyNotification} = useMelody();
-
-    useEffect(()=> {
-        if (newAchievs > 0 && soundOn) {
-            setTimeout(()=> {
-                melodyNotification.currentTime = 0;
-                melodyNotification.play();
-            }, 2000)
-          }
-    }, [newAchievs])
-    
     const {changeTheme} = useChangeTheme();
-
-    function showSettingsHandler() {
-        dispatch(setShowSettings(true))
-    }
-
-    function showReport() {
-        if (hasUser) {
-            dispatch(setShowReport(true));
-        } else {
-            setHasNoAccess(true)
-        }
-    }
-    function showAchiev() {
-        if (hasUser) {
-            dispatch(setShowAchiev(true));
-            if (newAchievs > 0) {
-                dispatch(setNewAchievs('reset'));
-            }
-        } else {
-            setHasNoAccess(true)
-        }
-    }
-
-    const saveAndLogout = async () => {
-        const user = auth.currentUser;        
-        if (!user) return;
-  
-        try {            
-            const dataState = getFilteredState(store.getState());   
-            const userRef = doc(db, "Users", user.uid);
-            await setDoc(userRef, dataState, { merge: true });
-            resetStateToDefault(dispatch);
-            await auth.signOut();
-        } catch (error) {
-            console.error("Ошибка при сохранении данных перед выходом:", error);
-        } finally {
-          setHasModal(false)
-        }
-    };
+    
+    const {showReport, showAchiev, showSettingsHandler, callSetHasModal, 
+        setHasNoAccess, saveAndLogout, newAchievs, hasModal, hasNoAccess,} = useManageHeader()
 
     return (
         <>
@@ -92,7 +23,6 @@ const Header = () => {
                     <button 
                     onClick={changeTheme}
                     className="header__theme btn-ui"></button>
-                    
                     <nav className="header__menu">
                         <ul className="header__list">
                             <li className="header__item item__menu">
@@ -129,7 +59,7 @@ const Header = () => {
             </div>
         </header>
 
-        {hasModal && (
+        {hasModal && !hasNoAccess &&(
             <ModalWarning 
             onClickFalse={() => callSetHasModal(false)}
             onClickTrue={saveAndLogout}
@@ -137,7 +67,7 @@ const Header = () => {
             btnTrueText='Log out'
             />
         )}
-        {hasNoAccess && (
+        {hasNoAccess && !hasModal && (
             <ModalWarning 
             title='No access'
             onClickFalse={() => setHasNoAccess(false)}
@@ -155,12 +85,5 @@ const Header = () => {
 
 export default Header;
 
-function resetStateToDefault(dispatch: AppDispatch) {
-    dispatch(resetAchievs());
-    dispatch(resetMainTask());
-    dispatch(resetReport());
-    dispatch(resetSettings());
-    dispatch(resetTasks());  
-  }
 
 
