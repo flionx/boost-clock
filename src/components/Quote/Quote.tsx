@@ -4,7 +4,7 @@ import { IQuote } from '../../types/global';
 import './Quote.css'
 
 const Quote = () => {
-    const [quote, setQuote] = useState<IQuote>({text: 'There will be no tommorow', author: 'Unknown'})
+    const [quote, setQuote] = useState<Omit<IQuote, 'date'>>({text: 'There will be no tommorow', author: 'Unknown'})
     const callSetQuote = useCallback((value: IQuote) => setQuote(value), []);
     useQuoteFetch(callSetQuote);
 
@@ -17,12 +17,12 @@ const Quote = () => {
                         <div className="quote__square">
                             {quote.text}
                         </div>
-                        <div className="quote__author">{quote.author}</div>
+                        <p className="quote__author">&copy;{quote.author}</p>
                     </div>
                 </div>
             </div>
         </section>
-  )
+    )
 }
 
 export default Quote;

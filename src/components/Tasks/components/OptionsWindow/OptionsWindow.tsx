@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../../hooks/useRedux';
 import { moveTask, removeTask, toggleCompleteTask } from '../../../../store/slices/tasksSlice';
 import './OptionsWindow.css';
+import OptionRow from './OptionRow';
 
 interface Props {
     taskIndex: number,
@@ -13,7 +14,6 @@ interface Props {
 }
 
 const OptionsWindow: FC<Props> = ({ taskIndex, callSetIsCardDelete, taskId, onClickEdit, isEdit, isCompleted}) => {
-    
     const dispatch = useAppDispatch();
     const tasks = useAppSelector(state => state.tasks.tasks);
 
@@ -22,7 +22,6 @@ const OptionsWindow: FC<Props> = ({ taskIndex, callSetIsCardDelete, taskId, onCl
             dispatch(moveTask({taskId: taskId, direction: "up" }));
         }
     }
-
     function moveTaskToDown() {
         if (taskIndex < (tasks.length - 1)) {
             dispatch(moveTask({taskId: taskId, direction: "down" }));
@@ -45,36 +44,16 @@ const OptionsWindow: FC<Props> = ({ taskIndex, callSetIsCardDelete, taskId, onCl
     return (
         <div className="task-option">
             {isEdit && (
-                <button 
-                onClick={onClickEdit}
-                className="task-option__row row-opt1">
-                    edit
-                </button>
+                <OptionRow onClick={onClickEdit} id={1}>edit</OptionRow>
             )}
             {isCompleted ? (
-                <button 
-                onClick={uncompleteTask}
-                className="task-option__row row-opt5">
-                    restore
-                </button>
+                <OptionRow onClick={uncompleteTask} id={5}>restore</OptionRow>
             ): (
-            <>
-                <button 
-                onClick={moveTaskToUp}
-                className="task-option__row row-opt2">
-                    move up
-                </button>
-                <button 
-                onClick={moveTaskToDown}
-                className="task-option__row row-opt3">
-                    move down
-                </button>
+                <>
+                <OptionRow onClick={moveTaskToUp} id={2}>move up</OptionRow>
+                <OptionRow onClick={moveTaskToDown} id={3}>move down</OptionRow>
             </>)}
-            <button 
-            onClick={deleteTask}
-            className="task-option__row row-opt4">
-                delete
-            </button>
+            <OptionRow onClick={deleteTask} id={4}>delete</OptionRow>
         </div>
     )
     

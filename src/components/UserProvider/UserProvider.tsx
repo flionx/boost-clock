@@ -1,5 +1,5 @@
 import { createContext, useState, FC, ReactNode } from 'react'
-import useAuth from '../../hooks/useAuth';
+import useAuth from '../../hooks/auth/useAuth';
 
 interface Props {
     children: ReactNode,

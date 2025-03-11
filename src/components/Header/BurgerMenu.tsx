@@ -1,4 +1,4 @@
-import { FC, MouseEventHandler, useState } from "react";
+import { FC, useState } from "react";
 import ButtonLogOut from "../ButtonLogOut/ButtonLogOut";
 import NewAchiev from "./NewAchiev";
 import './BurgerMenu.css'
@@ -14,7 +14,7 @@ interface Props {
 const BurgerMenu: FC<Props> = ({showReport, showAchiev, showSettingsHandler, newAchievs, setHasModal}) => {
     const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
     
-    const toggleShowMenu: MouseEventHandler<HTMLDivElement | HTMLButtonElement> = () => {
+    const toggleShowMenu = () => {
         setIsOpenMenu(prev => !prev)
     }
 
@@ -31,7 +31,6 @@ const BurgerMenu: FC<Props> = ({showReport, showAchiev, showSettingsHandler, new
             {isOpenMenu && <div onClick={toggleShowMenu} className="bg__burger-menu"></div>}
             <ul 
             className={`header__burger-list ${isOpenMenu ? 'header__burger-list-show': ''}`}>
-                
                 <li className="header__item">
                     <ButtonLogOut setHasModal={() => setHasModal(true)}/>
                 </li>

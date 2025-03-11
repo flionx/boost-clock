@@ -14,12 +14,10 @@ const Timer: FC = () => {
         <>
             <TimerMain 
                 minutes={minutes}
-                info={{timerInfo, setTimerInfo: callSetTimerInfo}}
-            />  
+                info={{timerInfo, setTimerInfo: callSetTimerInfo}}/>  
             <TimerSettings 
                 mins={{minutes, setMinutes: callSetMinutes}}
-                info={{timerInfo, setTimerInfo: callSetTimerInfo}}
-            />
+                info={{timerInfo, setTimerInfo: callSetTimerInfo}}/>
         </>
     )
 }

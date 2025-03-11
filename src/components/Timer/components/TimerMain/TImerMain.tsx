@@ -1,13 +1,14 @@
 import { FC, useState} from "react";
-import useManageTimer from "../../../../hooks/useManageTimer";
+import useManageTimer from "../../../../hooks/manage/useManageTimer";
 import { IInfo, IMins, TypeTime } from "../../types/types";
+import TimerTopButton from "./TimerTopButton";
+import TimerBottomButton from "./TimerBottomButton";
 interface Props {
     minutes: IMins['minutes'],
     info: IInfo,
 }
 
 const TimerMain: FC<Props> = ({ minutes, info }) => {
-
     const {timerInfo, setTimerInfo} = info;
     const [seconds, setSeconds] = useState<TypeTime>({ 
         work: minutes.work * 60, 
@@ -20,17 +21,16 @@ const TimerMain: FC<Props> = ({ minutes, info }) => {
     return (
         <section className="main__timer timer">
             <div className="timer__top">
-                <button 
-                    onClick={() => changeTypeOfTime('work')}
-                    className={timerInfo.nowIsWork ? "timer__top-btn top-btn--active" : "timer__top-btn"}
-                >Work</button>
+                <TimerTopButton 
+                    onClick={() => changeTypeOfTime('work')} 
+                    conditionClass={timerInfo.nowIsWork}>Work
+                </TimerTopButton>
                 <span></span>
-                <button 
-                    onClick={() => changeTypeOfTime('relax')}
-                    className={!timerInfo.nowIsWork ? "timer__top-btn top-btn--active" : "timer__top-btn"}
-                >Break</button>
+                <TimerTopButton 
+                    onClick={() => changeTypeOfTime('relax')} 
+                    conditionClass={!timerInfo.nowIsWork}>Break
+                </TimerTopButton>
             </div>
-            
             <h2 className="timer__time" translate="no">
                 {hasLongBreak && (<span className="timer__long-break">Long break</span>)}
                 {formatResult}
@@ -42,21 +42,12 @@ const TimerMain: FC<Props> = ({ minutes, info }) => {
                 {timerInfo.hasTimer ? "STOP" : "START"}
             </button>
             <div className="timer__bottom-btns">
-
-                <button 
-                    disabled={!timerInfo.hasTimer}
-                    style={timerInfo.hasTimer ? {opacity: 1, cursor: 'pointer'} : {opacity: 0, cursor: 'default'}}
-                    onClick={resetTimer} 
-                    className="timer__button-reset"
-                >Reset</button>
-
-                <button 
-                    disabled={!timerInfo.hasTimer}
-                    style={timerInfo.hasTimer ? {opacity: 1, cursor: 'pointer'} : {opacity: 0, cursor: 'default'}}
-                    onClick={stopTimer} 
-                    className="timer__button-reset"
-                >Skip</button>
-
+                <TimerBottomButton disabled={!timerInfo.hasTimer} style={timerInfo.hasTimer}
+                    onClick={resetTimer}>Reset
+                </TimerBottomButton>
+                <TimerBottomButton disabled={!timerInfo.hasTimer} style={timerInfo.hasTimer}
+                    onClick={stopTimer}>Skip
+                </TimerBottomButton>
             </div>
         </section>        
     );

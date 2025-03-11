@@ -1,7 +1,7 @@
 import { FC, memo} from "react";
 import OptionTaskButton from "./OptionTaskButton/OptionTaskButton";
 import CreateTaskCard from "./CreateTaskCard";
-import useManageTask from "../../../hooks/useManageTask";
+import useManageTask from "../../../hooks/manage/useManageTask";
 import { ITask } from "../../../types/global";
 
 interface Props {

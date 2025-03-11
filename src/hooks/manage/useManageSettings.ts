@@ -1,8 +1,8 @@
 import { ChangeEventHandler } from 'react';
 import { resetSettings, setAutoToRelax, setAutoToWork, setLongBreak, 
-setLongBreakInterval, setRepeatSound, setShowSettings, setSoundOn } from '../store/slices/settingSlice';
-import useChangeTheme from './useChangeTheme';
-import { useAppDispatch } from './useRedux';
+setLongBreakInterval, setRepeatSound, setShowSettings, setSoundOn } from '../../store/slices/settingSlice';
+import useChangeTheme from '../useChangeTheme';
+import { useAppDispatch } from '../useRedux';
 
 const useManageSettings = () => {
     const dispatch = useAppDispatch();

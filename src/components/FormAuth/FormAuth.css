@@ -23,9 +23,13 @@
 }
 .auth__form input{ 
     padding: 10px 8px;
-    background: rgb(241, 241, 241);
+    background: hsl(0, 0%, 99%);
     border-radius: 5px;
     margin-bottom: 15px;
+    border-left: 1px solid rgba(200, 200, 200, 0.434);
+    border-top: 1px solid rgba(216, 216, 216, 0.434);
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+
 }
 
 .auth__form button {
@@ -83,7 +87,7 @@
 .auth__or {
     width: 100%;
     height: 1px;
-    background: rgb(230, 230, 230);
+    background: rgb(215, 215, 215);
     margin-bottom: 25px;
     position: relative;
 }

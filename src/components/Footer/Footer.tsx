@@ -10,7 +10,7 @@ const Footer = () =>  {
         <footer className="footer">
         <div className="container">
           <nav className="footer__follow">
-            <h5 className="footer__title">Follow me:</h5>
+            <h5 className="footer__title">Contact me:</h5>
             <ul className="footer__list-follow">
               <ExternalLink href={urlGithub}><li className="list-follow__item list-follow1"></li></ExternalLink>
               <ExternalLink href={urlInstagram}><li className="list-follow__item list-follow2"></li></ExternalLink>
@@ -18,12 +18,12 @@ const Footer = () =>  {
             </ul>
           </nav>
           <nav className='footer__links'>
-            <Link to='/info'><li>Info</li></Link>
-            <li>Contact</li>
             <Link to='/terms-of-use'><li>Terms of Use</li></Link>
-            <li>Privacy policy</li>
+            <Link to='/info'><li>Info</li></Link>
+            <Link to='/privacy-policy'><li>Privacy policy</li></Link>
           </nav>
-          <p className='footer__copy'>&copy; 2025 Flionx</p>
+          <p className='footer__copy m10'>Developed with &#9829; by Flionx.</p>
+          <p className='footer__copy'>&copy; 2025 Boost Clock</p>
         </div>
       </footer>
     )

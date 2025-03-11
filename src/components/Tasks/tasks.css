@@ -86,7 +86,7 @@ input[type="checkbox"] {
 }
 
 .task__title {
-  font-size: 25px;
+  font-size: calc(20px + (25 - 20) * ((100vw - 375px) / (1440 - 375)));
   width: fit-content;
   max-width: clamp(70%, 30vw, 85%);
   color: var(--text-color);
@@ -181,7 +181,7 @@ input[type="checkbox"] {
   justify-content: center;
   position: relative;
   border-radius: 10px;
-  font-size: 25px;
+  font-size: calc(22px + (25 - 22) * ((100vw - 375px) / (1440 - 375)));
   /* margin-bottom: 30px; */
   transition: .2s;
 }

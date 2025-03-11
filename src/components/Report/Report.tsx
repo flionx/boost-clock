@@ -2,6 +2,8 @@ import { useAppDispatch, useAppSelector } from '../../hooks/useRedux';
 import { resetReport, setShowReport } from '../../store/slices/reportSlice';
 import useStopPageScroll from '../../hooks/useStopPageScroll';
 import '../../css/modal-menu.css'
+import TodayRowReport from './components/TodayRowReport';
+import BasicRowReport from './components/BasicRowReport';
 const Report = () => {
     const {
         today: { workTime, relaxTime, tCompletedTasks },
@@ -42,51 +44,23 @@ const Report = () => {
             <h3 className="modal-menu__title">Report</h3>
             <section className="modal-menu__column column-modal-menu">
                 <h4 className="column-modal-menu__title">Today</h4>
-                <div className="colum-modal-menu__item item-modal-menu">
-                    <p className="item-modal-menu__text">Work time</p>
-                    <p className="item-modal-menu__stat">{calcAndRound(workTime)}h</p>
-                </div>
-                <div className="colum-modal-menu__item item-modal-menu">
-                    <p className="item-modal-menu__text">Relax time</p>
-                    <p className="item-modal-menu__stat">{calcAndRound(relaxTime)}h</p>
-                </div>
-                <div className="colum-modal-menu__item item-modal-menu">
-                    <p className="item-modal-menu__text">Completed tasks</p>
-                    <p className="item-modal-menu__stat">{tCompletedTasks}</p>
-                </div>
-
+                <TodayRowReport text='Work time'>{calcAndRound(workTime)}h</TodayRowReport>
+                <TodayRowReport text='Relax time'>{calcAndRound(relaxTime)}h</TodayRowReport>
+                <TodayRowReport text='Completed tasks'>{tCompletedTasks}</TodayRowReport>
             </section>
             <section className="modal-menu__column column-modal-menu">
                 <h4 className="column-modal-menu__title">Timer</h4>
                 <hr className='column-modal-menu-line'/>
-                <div className="column-modal-menu__row">
-                    <p className="item-modal-menu__text">Total work time</p>
-                    <p className="item-modal-menu__text-bg">{calcAndRound(totalWorkTime)}h</p>
-                </div>
-                <div className="column-modal-menu__row">
-                    <p className="item-modal-menu__text">Total relax time</p>
-                    <p className="item-modal-menu__text-bg">{calcAndRound(totalRelaxTime)}h</p>
-                </div>
-                <div className="column-modal-menu__row">
-                    <p className="item-modal-menu__text">Pomodoro rounds</p>
-                    <p className="item-modal-menu__text-bg">{pomodoroRounds}</p>
-                </div>
+                <BasicRowReport text='Total work time'>{calcAndRound(totalWorkTime)}h</BasicRowReport>
+                <BasicRowReport text='Total relax time'>{calcAndRound(totalRelaxTime)}h</BasicRowReport>
+                <BasicRowReport text='Pomodoro rounds'>{pomodoroRounds}</BasicRowReport>
             </section>
             <section className="modal-menu__column column-modal-menu">
                 <h4 className="column-modal-menu__title">Tasks</h4>
                 <hr className='column-modal-menu-line'/>
-                <div className="column-modal-menu__row">
-                    <p className="item-modal-menu__text">Сompleted tasks</p>
-                    <p className="item-modal-menu__text-bg">{aCompletedTasks}</p>
-                </div>
-                <div className="column-modal-menu__row">
-                    <p className="item-modal-menu__text">On time</p>
-                    <p className="item-modal-menu__text-bg">{onTime}</p>
-                </div>
-                <div className="column-modal-menu__row">
-                    <p className="item-modal-menu__text">Out of time</p>
-                    <p className="item-modal-menu__text-bg">{outOfTime}</p>
-                </div>
+                <BasicRowReport text='Сompleted tasks'>{aCompletedTasks}</BasicRowReport>
+                <BasicRowReport text='On time'>{onTime}</BasicRowReport>
+                <BasicRowReport text='Out of time'>{outOfTime}</BasicRowReport>
             </section>
             <div className="modal-menu__btns">
                 <button onClick={resetStatsReport}>Reset</button>

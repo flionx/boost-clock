@@ -1,6 +1,6 @@
 import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../firebase";
-import { TSetState } from "../types/global";
+import { auth } from "../../firebase";
+import { TSetState } from "../../types/global";
 
 const useAuth = (setUser: TSetState<boolean>) => {
     

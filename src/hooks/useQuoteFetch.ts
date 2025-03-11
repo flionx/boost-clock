@@ -4,7 +4,9 @@ const quoteDefault = "There will be no tomorrow";
 const authorDefault = "Unknown";
 const quoteAPI = "https://quote-otday.vercel.app/api/quote";
 
-function useQuoteFetch(callSetQuote: (value: IQuote) => void) {
+type Props = (value: IQuote) => void
+
+function useQuoteFetch(callSetQuote: Props) {
     const saveQuoteToStorage = useCallback((quote: IQuote) => {
         localStorage.setItem('quote', JSON.stringify(quote));
     }, []);
