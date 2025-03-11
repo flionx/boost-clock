@@ -3,9 +3,10 @@ import { SecondLayout } from './layouts/SecondLayout';
 import MainLayout from './layouts/MainLayout';
 import MainPage from './pages/MainPage';
 import InfoPage from './pages/InfoPage';
-import TermsOfUsePage from './pages/TermsOfUsePage';
 import SignUpPage from './pages/SignUpPage';
 import SignInPage from './pages/SignInPage';
+import TermsOfUsePage from './pages/TermsOfUsePage';
+import PolicyPage from './pages/PolicyPage';
 import useAutoSave from './hooks/useAutoSave';
 import './css/null.css';
 import './css/fonts.css';
@@ -24,6 +25,7 @@ function App() {
       <Route element={<SecondLayout />}>
         <Route path='info' element={<InfoPage />}/>
         <Route path='terms-of-use' element={<TermsOfUsePage />}/>
+        <Route path='privacy-policy' element={<PolicyPage />}/>
       </Route>
       <Route path='signup' element={<SignUpPage />} />
       <Route path='login' element={<SignInPage />} />

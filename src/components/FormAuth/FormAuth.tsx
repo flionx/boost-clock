@@ -63,6 +63,7 @@ const FormAuth: FC<Props> = ({title, onHandleClick}) => {
         <label htmlFor="password">PASSWORD</label>
         <input 
             type="password" id="password" 
+            placeholder='password'
             value={password} 
             onChange={e => setPassword(e.target.value)}
         />

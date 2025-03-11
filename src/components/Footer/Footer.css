@@ -62,4 +62,8 @@
 
 .footer__copy{
   color: var(--footer-copy-color);
+  font-size: 15px;
+}
+.m10 {
+  margin-bottom: 10px;
 }

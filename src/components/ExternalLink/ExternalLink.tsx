@@ -1,8 +1,8 @@
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 
 interface Props {
   href: string,
-  children: JSX.Element,
+  children: ReactNode,
 }
 
 const ExternalLink: FC<Props> = ({href, children}) => {
