@@ -4,7 +4,7 @@ import { auth, db, provider } from "../../firebase";
 import { useNavigate } from "react-router-dom";
 import { signInWithPopup } from "firebase/auth";
 import { setWaitModal } from "../../store/slices/settingSlice";
-import getFilteredState from "../getFilteredState";
+import getFilteredState from "../../utils/getFilteredState";
 import useSaveUploadState from "../useSaveUploadState";
 import { IUploadData } from "../../types/global";
 import { RootState } from "../../store/store";

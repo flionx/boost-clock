@@ -2,7 +2,7 @@ import { useRef, useState, useEffect, FC } from "react";
 import { useAppDispatch, useAppSelector } from "../../../../hooks/useRedux";
 import ModalWarning from "../../../ModalWarning/ModalWarning";
 import { deleteAllTasks } from "../../../../store/slices/tasksSlice";
-import AnimDeleteCard from "../../helpers/AnimDeleteCard";
+import AnimDeleteCard from "../../../../utils/AnimDeleteCard";
 import { resetMainTask } from "../../../../store/slices/mainTaskSlice";
 
 const TaskListHeader: FC = () => {
@@ -10,7 +10,7 @@ const TaskListHeader: FC = () => {
 
     const dispatch = useAppDispatch();
     const allTasks = useAppSelector(state => state.tasks.tasks)
-    const tasks = allTasks.filter(task => !task.complete)
+    const uncompletedTasks = allTasks.filter(task => !task.complete)
         
     const tasksListRef = useRef<HTMLElement | null>(null);
     useEffect(() => {     
@@ -18,7 +18,7 @@ const TaskListHeader: FC = () => {
     }, []);    
 
     function removeAllTasks() {            
-        AnimDeleteCard(tasksListRef as {current: HTMLElement});
+        AnimDeleteCard(tasksListRef);
         closeModal();
         setTimeout(() => {
             dispatch(deleteAllTasks())
@@ -27,7 +27,7 @@ const TaskListHeader: FC = () => {
     }
 
     function openModal() {
-        if (tasks.length > 0) {
+        if (uncompletedTasks.length > 0) {
             setHasModal(true)
         }
     }

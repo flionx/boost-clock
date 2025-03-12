@@ -1,7 +1,7 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { RefObject, useCallback, useEffect, useRef, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../useRedux';
 import { resetMainTask, setMainTask } from '../../store/slices/mainTaskSlice';
-import AnimDeleteCard from '../../components/Tasks/helpers/AnimDeleteCard';
+import AnimDeleteCard from '../../utils/AnimDeleteCard';
 import { setEditTaskId, toggleCompleteTask } from '../../store/slices/tasksSlice';
 import { setCompleteAchiev, setStepAchiev } from '../../store/slices/achievementSlice';
 import { addCompletedTask } from '../../store/slices/reportSlice';
@@ -24,7 +24,7 @@ const useManageTask = ({task, callSetHasCreateTask}: Props) => {
     const taskElement = useRef<HTMLLIElement | null>(null);
     useEffect(() => {
         if (isCardDelete) {
-            AnimDeleteCard(taskElement as {current: HTMLLIElement});
+            AnimDeleteCard(taskElement as RefObject<HTMLLIElement>);
             
             if (mainTask.id === task.id) {
                 setTimeout(()=> {

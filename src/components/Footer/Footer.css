@@ -22,7 +22,7 @@
 }
 .footer__list-follow {
   display: flex;
-  column-gap: 20px;
+  column-gap: 25px;
   align-items: center;
 }
 .list-follow__item {
@@ -45,7 +45,7 @@
 .footer__links {
   display: flex;
   column-gap: 12px;
-  margin-bottom: 16px;
+  margin-bottom: 18px;
 }
 
 .footer__links li {
@@ -60,10 +60,13 @@
   text-decoration: underline;
 }
 
+.footer__with-love {
+  color: var(--footer-copy-color);
+  margin-bottom: 12px;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+}
 .footer__copy{
   color: var(--footer-copy-color);
-  font-size: 15px;
-}
-.m10 {
-  margin-bottom: 10px;
+  font-size: 14px;
 }

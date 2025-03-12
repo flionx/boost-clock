@@ -1,5 +1,5 @@
-function AnimDeleteCard(element: {current: HTMLElement}, type = 'basic') {
-    const current = element.current;
+function AnimDeleteCard(element: React.RefObject<HTMLElement>, type = 'basic') {
+    const current = element.current as HTMLElement;
     
     const height = current.getBoundingClientRect().height;
     current.style.maxHeight = `${height}px`;

@@ -22,7 +22,7 @@ const Footer = () =>  {
             <Link to='/info'><li>Info</li></Link>
             <Link to='/privacy-policy'><li>Privacy policy</li></Link>
           </nav>
-          <p className='footer__copy m10'>Developed with &#9829; by Flionx.</p>
+          <p className='footer__with-love'>Developed with &#9829; by Flionx.</p>
           <p className='footer__copy'>&copy; 2025 Boost Clock</p>
         </div>
       </footer>

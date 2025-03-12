@@ -17,7 +17,7 @@ const Quote = () => {
                         <div className="quote__square">
                             {quote.text}
                         </div>
-                        <p className="quote__author">&copy;{quote.author}</p>
+                        <p className="quote__author"><span>&copy;</span> {quote.author}</p>
                     </div>
                 </div>
             </div>

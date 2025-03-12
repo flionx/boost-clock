@@ -1,6 +1,6 @@
 import { FC, memo, useCallback, useEffect, useRef, useState } from "react";
 import OptionTaskButton from "../OptionTaskButton/OptionTaskButton";
-import AnimDeleteCard from '../../helpers/AnimDeleteCard'
+import AnimDeleteCard from '../../../../utils/AnimDeleteCard'
 import { ITask } from "../../../../types/global";
 
 interface Props{
@@ -16,14 +16,13 @@ const CompletedTaskCard: FC<Props> = memo(({completedTasks, task, taskIndex, Com
     const callSetIsCardDelete = useCallback((value: boolean) => setIsCardDelete(value), []);
 
     const cardRef = useRef<HTMLLIElement | null>(null);
-    // анимация удаления. Если 1 карточка - удаляем весь блок
     useEffect(() => {
         if (isCardDelete) {
             if (completedTasks.length === 1) {
-                AnimDeleteCard(CompletedTasksListRef as {current: HTMLElement}, 'completed')
+                AnimDeleteCard(CompletedTasksListRef, 'completed')
                 setTimeout(changeCompletedHandler, 500)
             }
-            AnimDeleteCard(cardRef as {current: HTMLElement}, 'completed')
+            AnimDeleteCard(cardRef, 'completed')
         }
     }, [isCardDelete])
 
