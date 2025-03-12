@@ -14,39 +14,22 @@ const ItemSettings: FC<Props> = ({mins, info, type}) => {
     const {timerInfo, setTimerInfo} = info;
 
     function changeTime(type: ChangeSwitchType, action: string) {
-    if (!timerInfo.hasTimer) {
-        setTimerInfo((c) => ({...c, canChangeMinutes: true}))
-    }
 
-    switch (type) {
-        case 'work':{
-        if (action === '+') {
-            setMinutes((min) => ({
-            ...min, 
-            work: min.work + 1}))
-        } else if (minutes.work > 1) {
-            setMinutes((min) => ({
-            ...min, 
-            work: min.work - 1}))
+        if (!timerInfo.hasTimer && !timerInfo.canChangeMinutes) {
+            setTimerInfo((c) => ({ ...c, canChangeMinutes: true }));
         }
-            break;
-        }
-        case 'relax':{
-        if (action === '+') {
-            setMinutes((min) => ({
-            ...min, 
-            relax: min.relax + 1}))
 
-        } else if (minutes.relax > 1) {
-            setMinutes((min) => ({
-            ...min, 
-            relax: min.relax - 1}))
-        }
-            break;
-        }
-        default:
-            break;
-    }
+        setMinutes((prev) => {
+            const diff = (action === '+') ? 1 : -1;
+            
+            if (type === 'work' && (action === '+' || prev.work > 1)) {
+                return { ...prev, work: prev.work + diff };
+            }
+            if (type === 'relax' && (action === '+' || prev.relax > 1)) {
+                return { ...prev, relax: prev.relax + diff };
+            }
+            return prev;
+        });
     }
 
   return (

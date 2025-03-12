@@ -1,20 +1,18 @@
-# Boost Clock
+# Boost Clock 
 
-Boost Clock is a minimalistic and user-friendly Pomodoro timer built with React, Redux Toolkit and Firebase. It helps you stay productive by alternating work and break sessions. You can track tasks, customize settings, view reports, and even earn achievements.
+Boost Clock is a modern and efficient Pomodoro timer with flexible settings, a built-in task manager, an achievement system, and productivity tracking. It helps you manage your time efficiently, stay motivated, and achieve your goals.
 
-##  Demo
+📍[Live Preview](https://boost-clock.vercel.app/)
 
-[Live Preview](https://boost-clock.vercel.app/)
+## 🚀 Why Boost Clock?
 
-## Features
-
-- Simple and intuitive interface.
-- Customizable work and break durations.
-- Task management (create, edit, complete tasks).
-- Notifications for session transitions.
-- Settings.
-- Achievements. 
-- Report.
+- Customizable timer – adjust work sessions, breaks, and long rest periods.
+- Task manager – create, edit, set deadlines, complete, and delete tasks.
+- Motivation boost – daily inspirational quotes and an achievement system with notifications.
+- Detailed productivity stats – track your work time, break time, and task completion rate.
+- Smart notifications – stay on top of session transitions and new achievements.
+- Light & dark themes – choose the mode that suits your workflow.
+- Secure login – sign in with Google or email to sync your progress.
 
 ## Installation
 
@@ -35,57 +33,28 @@ Boost Clock is a minimalistic and user-friendly Pomodoro timer built with React,
    npm run dev
    ```
 
-## Usage
-
-### Timer
-- "Start" button – starts the countdown.
-- "Reset" button – resets the timer.
-- "Skip" button – skips the current session and starts the next one.
-- "+/- buttons" – adjust the time.
-  
-### Tasks
-- "Add New Task" button – adds a task. You can enter a name and optionally add a description via the "Add Description" button.
-- Three-dots button – opens task options (edit, delete, etc.).
-- Checkbox button – marks the task as completed and moves it to the "Completed" section.
-- "Delete all" button – removes all tasks.
-  
-### Theme
-- "Sun/Moon" button in the title bar - change the theme of the application.
-
-### Settings
-- Auto-switching between work and break sessions.
-- Long break – duration of long breaks (recommended: 15 minutes).
-- Long Break Interval – number of Pomodoro sessions before a long break (recommended: 4).
-
-- Sound effects – enable or disable notification sounds.
-- Repeat - number of additional repetitions of the timer end sound.
-
-- Themes (under development, only dark and light themes are available)
-
-## Screenshots
+## 📸 Screenshots
 ![Timer](https://github.com/user-attachments/assets/4beb12a6-dc16-43ef-909d-88df1688d9b7)
 ![Tasks](https://github.com/user-attachments/assets/36d18f45-074a-40e3-9cb4-863d612035c8)
 ![Quote](https://github.com/user-attachments/assets/b72fa655-f134-4c6f-9ac0-3a9b5f9a4121)
 Main interface with dark theme.
 
-## Technologies
+## 🛠 Technologies
 
-- React
-- Redux Toolkit
-- JavaScript
-- Firebase (auth, db)
+- Frontend: [React](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/)
+- State Management: [Redux Toolkit](https://redux-toolkit.js.org/)
+- Database & Auth: [Firebase](https://firebase.google.com/) (Firestore, Authentication)
+- Hosting & Deployment: [Vercel](https://vercel.com/)
 
-## Inspiration  
+## 📚 Additional Resources
 
-This project was inspired by [Pomofocus.io](https://pomofocus.io)
-However, the code and design were developed from scratch.
+🔗 [Pomodoro Timer Roadmap](https://roadmap.sh/projects/pomodoro-timer)
+🔗 [Task Tracker Roadmap](https://roadmap.sh/projects/task-tracker-js)
+
+This project was inspired by [Pomofocus.io](https://pomofocus.io), but built entirely from scratch with a unique codebase and design.
 
 ## License  
 
 This project is licensed under the **Creative Commons Attribution-NonCommercial 4.0 International License**.   
 See the full version of the [license](LICENSE).
 
-## Links
-
-[roadmap.sh/projects/pomodoro-timer](https://roadmap.sh/projects/pomodoro-timer)
-[roadmap.sh/projects/task-tracker](https://roadmap.sh/projects/task-tracker-js)

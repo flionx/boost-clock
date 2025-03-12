@@ -3,7 +3,7 @@ import { Firestore, getFirestore } from "firebase/firestore";
 import { Analytics, getAnalytics } from "firebase/analytics";
 import { Auth, getAuth, GoogleAuthProvider } from "firebase/auth";
 
-interface FirebaseConfig {
+interface IFirebaseConfig {
   apiKey: string;
   authDomain: string;
   projectId: string;
@@ -13,7 +13,7 @@ interface FirebaseConfig {
   measurementId: string;
 }
 
-const firebaseConfig: FirebaseConfig = {
+const firebaseConfig: IFirebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
   projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,

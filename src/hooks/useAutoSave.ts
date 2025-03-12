@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { useAppStore } from "./useRedux";
 import { db, auth } from "../firebase";
 import { doc, setDoc } from "firebase/firestore";
-import getFilteredState from "./getFilteredState";
+import getFilteredState from "../utils/getFilteredState";
 import { IUploadData } from "../types/global";
 
 const useAutoSave = () => {

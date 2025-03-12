@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../useRedux";
-import formatTime from "../../components/Timer/helpers/formatTime";
+import formatTime from "../../utils/formatTime";
 import { addRoundToBreak, removeRoundsToBreak, setHasLongBreak } from "../../store/slices/settingSlice";
 import { setRoundTasks } from "../../store/slices/tasksSlice";
 import { addPomodoroRound, addRelaxTime, addWorkTime } from "../../store/slices/reportSlice";
 import { setCompleteAchiev, setStepAchiev } from "../../store/slices/achievementSlice";
-import useMelody from "../useMelody";
 import { TSetState } from "../../types/global";
 import { TTimerInfo, TypeTime } from "../../components/Timer/types/types";
+import { melodyGoRelax, melodyGoWork } from "../../utils/getMelody";
 
 interface Props {
     seconds: TypeTime,
@@ -37,8 +37,6 @@ const useManageTimer = ({seconds, setSeconds, minutes, timerInfo, setTimerInfo}:
     const achievsArray = useAppSelector(state => state.achievement.achievs);
     const report = useAppSelector(state => state.report)
     
-    const {melodyGoRelax, melodyGoWork} = useMelody();
-
     const workerRef = useRef<Worker | null>(null);
     useEffect(() => {
         workerRef.current = new Worker('timer-worker.js');

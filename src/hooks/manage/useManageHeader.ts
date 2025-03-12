@@ -8,15 +8,14 @@ import { auth, db } from "../../firebase";
 import { doc, setDoc } from "firebase/firestore";
 import { resetMainTask } from "../../store/slices/mainTaskSlice";
 import { resetTasks } from "../../store/slices/tasksSlice";
-import getFilteredState from "../getFilteredState";
-import useMelody from "../useMelody";
+import getFilteredState from "../../utils/getFilteredState";
+import { melodyNotification } from "../../utils/getMelody";
 
 const useManageHeader = () => {
     const [hasModal, setHasModal] = useState(false);
     const [hasNoAccess, setHasNoAccess] = useState(false)
     const callSetHasModal = useCallback((value: boolean) => setHasModal(value), []);
     const hasUser = useContext(UserContext);
-    const {melodyNotification} = useMelody();
 
     const dispatch = useAppDispatch();
     const store = useAppStore();

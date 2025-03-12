@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { ChangeSwitchType } from "../TimerSettings";
+import { ChangeSwitchType } from "../TimerSettings/TimerSettings";
 
 interface Props {
     className: string,

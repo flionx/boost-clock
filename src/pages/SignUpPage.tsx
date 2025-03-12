@@ -4,7 +4,7 @@ import { createUserWithEmailAndPassword, sendEmailVerification, User } from 'fir
 import { Link, useNavigate } from 'react-router-dom';
 import { doc, setDoc } from 'firebase/firestore';
 import { auth, db } from '../firebase';
-import getFilteredState from '../hooks/getFilteredState';
+import getFilteredState from '../utils/getFilteredState';
 import FormAuth from '../components/FormAuth/FormAuth';
 import useChangeTheme from '../hooks/useChangeTheme';
 import WaitModal from '../components/WaitModal/WaitModal';
