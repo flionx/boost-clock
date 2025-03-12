@@ -1,6 +1,7 @@
 # Boost Clock 
 
-Boost Clock is a modern and efficient Pomodoro timer with flexible settings, a built-in task manager, an achievement system, and detailed productivity tracking. It helps you manage your time efficiently, stay motivated, and achieve your goals.
+Boost Clock is a modern and efficient Pomodoro timer with flexible settings, a built-in task manager, an achievement system, and productivity tracking. It helps you manage your time efficiently, stay motivated, and achieve your goals.
+
 
 📍[Live Preview](https://boost-clock.vercel.app/)
 
