@@ -2,9 +2,7 @@
 
 Boost Clock is a modern and efficient Pomodoro timer with flexible settings, a built-in task manager, an achievement system, and productivity tracking. It helps you manage your time efficiently, stay motivated, and achieve your goals.
 
-
 📍[Live Preview](https://boost-clock.vercel.app/)
-
 
 ## 🚀 Why Boost Clock?
 
@@ -49,6 +47,7 @@ Main interface with dark theme.
 - Hosting & Deployment: [Vercel](https://vercel.com/)
 
 ## 📚 Additional Resources
+
 🔗 [Pomodoro Timer Roadmap](https://roadmap.sh/projects/pomodoro-timer)
 🔗 [Task Tracker Roadmap](https://roadmap.sh/projects/task-tracker-js)
 
@@ -58,3 +57,4 @@ This project was inspired by [Pomofocus.io](https://pomofocus.io), but built ent
 
 This project is licensed under the **Creative Commons Attribution-NonCommercial 4.0 International License**.   
 See the full version of the [license](LICENSE).
+

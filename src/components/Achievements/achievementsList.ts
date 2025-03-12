@@ -1,9 +1,9 @@
-import img1 from '../../../assets/achievements/new.svg';
-import img2 from '../../../assets/achievements/planner.svg';
-import img3 from '../../../assets/achievements/productive.svg';
-import img4 from '../../../assets/achievements/responsible.svg';
-import img5 from '../../../assets/achievements/focus.svg';
-import img6 from '../../../assets/achievements/coffee.svg';
+import img1 from '../../../assets/achievements/new.svg?url';
+import img2 from '../../../assets/achievements/planner.svg?url';
+import img3 from '../../../assets/achievements/productive.svg?url';
+import img4 from '../../../assets/achievements/responsible.svg?url';
+import img5 from '../../../assets/achievements/focus.svg?url';
+import img6 from '../../../assets/achievements/coffee.svg?url';
 import { IAchiev } from '../../types/global';
 
 const achievsArray: IAchiev[] = [
