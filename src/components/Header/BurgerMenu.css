@@ -60,6 +60,8 @@
     border-radius: 5px;
     border: 1px solid #3a3a3a;
     box-shadow: 1px 1px 4px var(--second-color);
+    font-family: var(--nav-font) !important;
+
 }
 
 .header__burger-list-show {

@@ -2,6 +2,7 @@
 .header {
   background: var(--second-color);
   padding: 5px 0;
+
 }
 .header__content {
   display: flex;
@@ -28,6 +29,7 @@
 }
 .header__menu {
   align-items: center;
+
 }
 .header__list {
   display: flex;
@@ -38,6 +40,7 @@
   display: flex;
   align-items: center;
   position: relative;
+
 }
 .header__theme {
   width: 35px;
@@ -58,7 +61,7 @@
 }
 
 .button__menu {
-  font-family: var(--menu-font);
+  font-family: var(--nav-font);
   padding: 8px 34px 8px 8px;
   border-radius: 4px;
   position: relative;
