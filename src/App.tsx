@@ -8,10 +8,6 @@ import SignInPage from './pages/SignInPage';
 import TermsOfUsePage from './pages/TermsOfUsePage';
 import PolicyPage from './pages/PolicyPage';
 import useAutoSave from './hooks/useAutoSave';
-import './css/null.css';
-import './css/fonts.css';
-import './css/media.css';
-import './css/index.css';
 
 function App() {
   useAutoSave();

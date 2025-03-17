@@ -60,7 +60,7 @@
 }
 
 .column-modal-menu__row:not(:last-child) {
-    margin-bottom: 23px;
+    margin-bottom: 18px;
 }
 
 .modal-menu__close {
@@ -116,16 +116,15 @@
 
 /* ---------- */
 .modal-menu-achivs {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     width: 100%;
     flex-wrap: wrap;
-    gap: 16px;
+    gap: 12px;
     margin-top: 35px;
     margin-bottom: 15px;
 }
-.modal-menu__achiv {} 
 .achiv {
-    flex: 1 1 45%;
     padding: 5px 10px 10px 10px;
     border-radius: 10px;
     background: #F2F2FF;
@@ -164,7 +163,7 @@
     row-gap: 4px;
 }
 .achiv__title {
-    font-size: 22px;
+    font-size: 20px;
     text-align: center;
     font-family: var(--main-font);
 }

@@ -1,8 +1,16 @@
+@import url('./null.css');
+@import url('./fonts.css');
+@import url('./media.css');
 :root {
   /* backgrounds */
   --main-color: #D9DBFF;
   --second-color: #A9ABD4;
-/* div light */
+  /* fonts */
+  --main-font: 'Itim', 'Literal', sans-serif;
+  --menu-font: "Poppins", sans-serif;
+  --nav-font: "JetBrains Mono", monospace;
+  --font-for-reading: 'Literal', sans-serif;
+  /* div light */
   --content-color: rgba(0, 0, 0, 0.15);
 
   --line-color: #6D6D6D;
@@ -32,9 +40,6 @@
 
   --btn-icon: #1D1B20;
 
-  --main-font: 'Itim', 'Literal', sans-serif;
-  --menu-font: 'Poppins', sans-serif;
-  --font-for-reading: 'Literal', sans-serif;
 
   --color-item-modal-menu: #FFFFFF;
   --color-item-modal-text-bg: #B7B9D8;
