@@ -6,6 +6,7 @@ import { setCompleteAchiev, setStepAchiev } from "../store/slices/achievementSli
 import { ITask } from "../types/global";
 import AnimDeleteCard from "../utils/AnimDeleteCard";
 import { CreateTaskCardProps } from "../components/Tasks/components/CreateTaskCard";
+import { setMainTask } from "../store/slices/mainTaskSlice";
 
 const useCreateTaskCard = ({isEdit, task, isCardDelete, hasCreateTask, callSetHasCreateTask}: CreateTaskCardProps) => {
     const dispatch = useAppDispatch()
@@ -18,7 +19,7 @@ const useCreateTaskCard = ({isEdit, task, isCardDelete, hasCreateTask, callSetHa
         round: null
     };
     const [currentTask, setCurrentTask] = useState(() => isEdit ? (task as ITask) : resetTask);
-
+    const mainTaskId = useAppSelector(state => state.mainTask.id)
     const secondAchiev = useAppSelector(state => state.achievement.achievs[1])
 
     const createNewTaskRef = useRef<HTMLLIElement>(null);
@@ -95,6 +96,9 @@ const useCreateTaskCard = ({isEdit, task, isCardDelete, hasCreateTask, callSetHa
             dispatch(changeTask(currentTask))
             callSetHasCreateTask && callSetHasCreateTask(false)
             dispatch(setEditTaskId(null))
+            if (currentTask.id === mainTaskId) {
+                dispatch(setMainTask(currentTask))
+            }
         }
     }
 
