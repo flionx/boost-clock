@@ -1,0 +1,104 @@
+@import "tailwindcss";
+/* todo: rename and delete unnecessary varibles */
+:root {
+  --main-color: #D9DBFF;
+  --second-color: #A9ABD4;
+
+  --content-color: rgba(0, 0, 0, 0.15);
+
+  --line-color: #6D6D6D;
+
+  --text-color: #1C1C1C;
+  --light-text-color: #393939;
+
+  --settings-color: #D9DBFF;
+
+  --btn-ui-main: #D9DBFF;
+  --btn-ui-hover: #c3c6ff;
+  --btn-ui-active: #d6d8ff;
+
+  --menu-btn-hover: #979ac6;
+  --menu-btn-active: #9ea1ca;
+
+  --task-add-hover: rgba(0, 0, 0, 0.25);  
+  --task-add-active: rgba(0, 0, 0, 0.20);  
+
+  --icon-theme: url('/header/sun.svg');
+
+  --icon-star: url('/tasks/starLight.svg');
+
+  --icon-arrow: url('/completedTasks/arrowDown.svg');
+  
+  --icon-close-settings: url('/settings/closeLight.svg');
+
+  --btn-icon: #1D1B20;
+
+
+  --color-item-modal-menu: #FFFFFF;
+  --color-item-modal-text-bg: #B7B9D8;
+  --color-item-modal-text-bg-hover: #acaecc;
+  --color-item-modal-text-bg-active: rgb(195, 197, 223);
+
+  --border-quote: var(--task-add-active);
+
+  --footer-bg: #999BC6;
+  --footer-copy-color: #484848;
+}
+
+.dark {
+  --main-color: #232529;   
+  --second-color: #27292d; 
+  --content-color: rgba(100, 100, 100, 0.15); 
+  
+  --line-color: #888888;  
+
+  --text-color: #EDEDED; 
+  --light-text-color: #2e2e2e;
+
+  --settings-color: #4b4f6b;
+
+  --btn-ui-main:  rgba(217, 219, 255, 0.5);
+  --btn-ui-hover: rgba(217, 219, 255, 0.3);
+  --btn-ui-active: rgba(217, 219, 255, 0.4);
+
+  --menu-btn-hover: #535672;
+  --menu-btn-active: #4f526f;
+
+  --task-add-hover: rgba(75, 75, 75, 0.15);  
+  --task-add-active: rgba(90, 90, 90, 0.12);  
+
+  --btn-icon: var(--line-color);
+  --icon-theme: url('/header/moon.svg');
+  --icon-star: url('/tasks/starDark.svg');
+
+  --icon-arrow: url('/completedTasks/arrowDownDark.svg');
+
+  --icon-close-settings: url('/settings/closeDark.svg');
+
+  --color-item-modal-menu: #838499;
+  --color-item-modal-text-bg: #393939;
+  --color-item-modal-text-bg-hover: #2f2f2f;
+  --color-item-modal-text-bg-active: #323232;
+
+  --border-quote: #3C3C3C;
+  --footer-bg: #202125;
+  --footer-copy-color: #858585;
+}
+
+@theme inline {
+  --font-secondary: var(--font-poppins), sans-serif;
+  --font-nav: var(--font-jetbrains), monospace;
+}
+
+/* 
+.dark {
+  @theme inline {
+  }
+} */
+
+body {
+  background: var(--main-color);
+  color: var(--text-color);
+  font-family: var(--font-itim), var(--font-literal), sans-serif;
+  overflow: hidden;
+}

@@ -1,60 +1,36 @@
-# Boost Clock 
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-Boost Clock is a modern and efficient Pomodoro timer with flexible settings, a built-in task manager, an achievement system, and productivity tracking. It helps you manage your time efficiently, stay motivated, and achieve your goals.
+## Getting Started
 
-📍[Live Preview](https://boost-clock.vercel.app/)
+First, run the development server:
 
-## 🚀 Why Boost Clock?
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
 
-- Customizable timer – adjust work sessions, breaks, and long rest periods.
-- Task manager – create, edit, set deadlines, complete, and delete tasks.
-- Motivation boost – daily inspirational quotes and an achievement system with notifications.
-- Detailed productivity stats – track your work time, break time, and task completion rate.
-- Smart notifications – stay on top of session transitions and new achievements.
-- Light & dark themes – choose the mode that suits your workflow.
-- Secure login – sign in with Google or email to sync your progress.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Installation
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/flionx/boost-clock.git
-   ```
-2. Go to the project folder:
-   ```bash
-   cd boost-clock
-   ```
-3. Install dependencies:
-   ```bash
-   npm i
-   ```
-4. Start the project:
-   ```bash
-   npm run dev
-   ```
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## 📸 Screenshots
-![Timer](https://github.com/user-attachments/assets/4beb12a6-dc16-43ef-909d-88df1688d9b7)
-![Tasks](https://github.com/user-attachments/assets/36d18f45-074a-40e3-9cb4-863d612035c8)
-![Quote](https://github.com/user-attachments/assets/b72fa655-f134-4c6f-9ac0-3a9b5f9a4121)
-Main interface with dark theme.
+## Learn More
 
-## 🛠 Technologies
+To learn more about Next.js, take a look at the following resources:
 
-- Frontend: [React](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/)
-- State Management: [Redux Toolkit](https://redux-toolkit.js.org/)
-- Database & Auth: [Firebase](https://firebase.google.com/) (Firestore, Authentication)
-- Hosting & Deployment: [Vercel](https://vercel.com/)
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-## 📚 Additional Resources
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-🔗 [Pomodoro Timer Roadmap](https://roadmap.sh/projects/pomodoro-timer)
-🔗 [Task Tracker Roadmap](https://roadmap.sh/projects/task-tracker-js)
+## Deploy on Vercel
 
-This project was inspired by [Pomofocus.io](https://pomofocus.io), but built entirely from scratch with a unique codebase and design.
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-## License  
-
-This project is licensed under the **Creative Commons Attribution-NonCommercial 4.0 International License**.   
-See the full version of the [license](LICENSE).
-
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
