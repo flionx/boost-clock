@@ -1,31 +1,9 @@
 "use client";
+import useTheme from "@/hooks/useTheme";
 import Image from "next/image";
-import { useEffect, useState } from "react";
 
 const ButtonTheme = () => {
-  const [theme, setTheme] = useState<"light" | "dark">("light");
-
-  useEffect(() => {
-    const storedTheme = localStorage.getItem("theme") as "light" | "dark" | null;
-
-    const systemTheme: "light" | "dark" =
-      window.matchMedia("(prefers-color-scheme: dark)").matches
-        ? "dark"
-        : "light";
-
-    const currentTheme = storedTheme || systemTheme;
-    setTheme(currentTheme);
-    document.documentElement.classList.toggle("dark", currentTheme === "dark");
-  }, []);
-
-  const toggleTheme = () => {
-    setTheme((prev) => {
-      const newTheme = prev === "dark" ? "light" : "dark";
-      document.documentElement.classList.toggle("dark", newTheme === "dark");
-      localStorage.setItem("theme", newTheme);
-      return newTheme;
-    });
-  };
+    const {theme, toggleTheme} = useTheme(); 
 
   return (
     <button

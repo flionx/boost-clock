@@ -1,0 +1,33 @@
+"use client"
+import { useEffect, useState } from "react";
+type Theme = "light" | "dark";
+
+const useTheme = () => {
+  const [theme, setTheme] = useState<Theme>("light");
+
+  useEffect(() => {
+    const storedTheme = localStorage.getItem("theme") as Theme | null;
+
+    const systemTheme: Theme =
+      window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light";
+
+    const currentTheme = storedTheme || systemTheme;
+    setTheme(currentTheme);
+    document.documentElement.classList.toggle("dark", currentTheme === "dark");
+  }, []);
+
+  const toggleTheme = () => {
+    setTheme((prev) => {
+      const newTheme = prev === "dark" ? "light" : "dark";
+      document.documentElement.classList.toggle("dark", newTheme === "dark");
+      localStorage.setItem("theme", newTheme);
+      return newTheme;
+    });
+  };
+
+  return {theme, toggleTheme}
+}
+
+export default useTheme
