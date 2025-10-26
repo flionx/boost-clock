@@ -8,7 +8,7 @@
   --color-text: #1C1C1C;
   --color-text-light: #393939;
 
-  --btn-ui-main: #D9DBFF;
+  --color-btn-ui: #D9DBFF;
   --btn-ui-hover: #c3c6ff;
   --btn-ui-active: #d6d8ff;
 
@@ -39,7 +39,7 @@
   --color-text: #EDEDED; 
   --color-text-light: #2e2e2e;
 
-  --btn-ui-main:  rgba(217, 219, 255, 0.5);
+  --color-btn-ui:  rgba(217, 219, 255, 0.5);
   --btn-ui-hover: rgba(217, 219, 255, 0.3);
   --btn-ui-active: rgba(217, 219, 255, 0.4);
 
@@ -71,6 +71,7 @@
   --color-line: var(--color-line);
   --color-text: var(--color-text);
   --color-text-light: var(--color-text-light);
+  --color-btn-ui: var(--color-btn-ui);
 }
 
 body {
@@ -78,5 +79,8 @@ body {
   color: var(--color-text);
   font-family: var(--font-itim), var(--font-literal), sans-serif;
   overflow: hidden;
-  transition: background .4s ease, color .4s ease;
+  /* transition: background .3s ease, color .3s ease; */
+}
+button {
+  cursor: pointer;
 }
