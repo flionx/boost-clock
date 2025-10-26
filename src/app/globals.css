@@ -2,7 +2,11 @@
 /* todo: rename and delete unnecessary varibles */
 :root {
   --color-primary: #D9DBFF;
+  --color-secondary: #A9ABD4; 
+  --color-accent: rgba(0, 0, 0, 0.15); 
+  --color-line: #6D6D6D;  
   --color-text: #1C1C1C;
+  --color-text-light: #393939;
 
   --btn-ui-main: #D9DBFF;
   --btn-ui-hover: #c3c6ff;
@@ -29,7 +33,11 @@
 
 .dark {
   --color-primary: #232529;   
+  --color-secondary: #27292d; 
+  --color-accent: rgba(100, 100, 100, 0.15); 
+  --color-line: #888888;  
   --color-text: #EDEDED; 
+  --color-text-light: #2e2e2e;
 
   --btn-ui-main:  rgba(217, 219, 255, 0.5);
   --btn-ui-hover: rgba(217, 219, 255, 0.3);
@@ -58,22 +66,11 @@
   --font-nav: var(--font-jetbrains), monospace;
 
   --color-primary: var(--color-primary);
-  --color-secondary: #A9ABD4;
-  --color-accent: rgba(0, 0, 0, 0.15);
-  --color-line: #6D6D6D;
+  --color-secondary: var(--color-secondary);
+  --color-accent: var(--color-accent);
+  --color-line: var(--color-line);
   --color-text: var(--color-text);
-  --color-text-light: #393939;
-}
-
-.dark {
-  @theme inline {
-    --color-primary: var(--color-primary);
-    --color-secondary: #27292d; 
-    --color-accent: rgba(100, 100, 100, 0.15); 
-    --color-line: #888888;  
-    --color-text: var(--color-text); 
-    --color-text-light: #2e2e2e;
-  }
+  --color-text-light: var(--color-text-light);
 }
 
 body {
@@ -81,4 +78,5 @@ body {
   color: var(--color-text);
   font-family: var(--font-itim), var(--font-literal), sans-serif;
   overflow: hidden;
+  transition: background .4s ease, color .4s ease;
 }
