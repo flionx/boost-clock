@@ -1,17 +1,8 @@
 @import "tailwindcss";
 /* todo: rename and delete unnecessary varibles */
 :root {
-  --main-color: #D9DBFF;
-  --second-color: #A9ABD4;
-
-  --content-color: rgba(0, 0, 0, 0.15);
-
-  --line-color: #6D6D6D;
-
-  --text-color: #1C1C1C;
-  --light-text-color: #393939;
-
-  --settings-color: #D9DBFF;
+  --color-primary: #D9DBFF;
+  --color-text: #1C1C1C;
 
   --btn-ui-main: #D9DBFF;
   --btn-ui-hover: #c3c6ff;
@@ -23,16 +14,7 @@
   --task-add-hover: rgba(0, 0, 0, 0.25);  
   --task-add-active: rgba(0, 0, 0, 0.20);  
 
-  --icon-theme: url('/header/sun.svg');
-
-  --icon-star: url('/tasks/starLight.svg');
-
-  --icon-arrow: url('/completedTasks/arrowDown.svg');
-  
-  --icon-close-settings: url('/settings/closeLight.svg');
-
-  --btn-icon: #1D1B20;
-
+  --color-btn-icon: #1D1B20;
 
   --color-item-modal-menu: #FFFFFF;
   --color-item-modal-text-bg: #B7B9D8;
@@ -46,16 +28,8 @@
 }
 
 .dark {
-  --main-color: #232529;   
-  --second-color: #27292d; 
-  --content-color: rgba(100, 100, 100, 0.15); 
-  
-  --line-color: #888888;  
-
-  --text-color: #EDEDED; 
-  --light-text-color: #2e2e2e;
-
-  --settings-color: #4b4f6b;
+  --color-primary: #232529;   
+  --color-text: #EDEDED; 
 
   --btn-ui-main:  rgba(217, 219, 255, 0.5);
   --btn-ui-hover: rgba(217, 219, 255, 0.3);
@@ -67,13 +41,7 @@
   --task-add-hover: rgba(75, 75, 75, 0.15);  
   --task-add-active: rgba(90, 90, 90, 0.12);  
 
-  --btn-icon: var(--line-color);
-  --icon-theme: url('/header/moon.svg');
-  --icon-star: url('/tasks/starDark.svg');
-
-  --icon-arrow: url('/completedTasks/arrowDownDark.svg');
-
-  --icon-close-settings: url('/settings/closeDark.svg');
+  --color-btn-icon: var(--color-line);
 
   --color-item-modal-menu: #838499;
   --color-item-modal-text-bg: #393939;
@@ -88,17 +56,29 @@
 @theme inline {
   --font-secondary: var(--font-poppins), sans-serif;
   --font-nav: var(--font-jetbrains), monospace;
+
+  --color-primary: var(--color-primary);
+  --color-secondary: #A9ABD4;
+  --color-accent: rgba(0, 0, 0, 0.15);
+  --color-line: #6D6D6D;
+  --color-text: var(--color-text);
+  --color-text-light: #393939;
 }
 
-/* 
 .dark {
   @theme inline {
+    --color-primary: var(--color-primary);
+    --color-secondary: #27292d; 
+    --color-accent: rgba(100, 100, 100, 0.15); 
+    --color-line: #888888;  
+    --color-text: var(--color-text); 
+    --color-text-light: #2e2e2e;
   }
-} */
+}
 
 body {
-  background: var(--main-color);
-  color: var(--text-color);
+  background: var(--color-primary);
+  color: var(--color-text);
   font-family: var(--font-itim), var(--font-literal), sans-serif;
   overflow: hidden;
 }
