@@ -1,6 +1,6 @@
 "use client";
 import useTheme from "../model/useTheme";
-import Image from "next/image";
+import { MoonIcon, SunIcon } from "@/shared/ui/icons";
 
 const ThemeToggleButton = () => {
     const {theme, toggleTheme} = useTheme(); 
@@ -9,11 +9,11 @@ const ThemeToggleButton = () => {
     <button
       className="w-8.5 h-8.5 flex justify-center items-center rounded-full bg-btn-ui transition"
       onClick={toggleTheme}
-    >
+      >
       {theme === "dark" ? (
-        <Image src="/icons/moon.svg" alt="moon" width={20} height={20} />
+        <MoonIcon width={20} height={20} className="fill-black"/>
       ) : (
-        <Image src="/icons/sun.svg" alt="sun" width={20} height={20} />
+        <SunIcon width={20} height={20} className="fill-black"/>
       )}
     </button>
   );

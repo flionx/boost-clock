@@ -1,4 +1,5 @@
 @import "tailwindcss";
+
 /* todo: rename and delete unnecessary varibles */
 :root {
   --color-primary: #D9DBFF;
@@ -61,7 +62,7 @@
   --footer-copy-color: #858585;
 }
 
-@theme inline {
+@theme {
   --font-secondary: var(--font-poppins), sans-serif;
   --font-nav: var(--font-jetbrains), monospace;
 
@@ -79,7 +80,6 @@ body {
   color: var(--color-text);
   font-family: var(--font-itim), var(--font-literal), sans-serif;
   overflow: hidden;
-  /* transition: background .3s ease, color .3s ease; */
 }
 button {
   cursor: pointer;
