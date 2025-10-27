@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { itim, jetbrains_mono, literal, poppins } from "../fonts";
+import { itim, jetbrains_mono, literal, poppins } from "@/shared/assets/fonts";
 import "./globals.css";
 
 export const metadata: Metadata = {

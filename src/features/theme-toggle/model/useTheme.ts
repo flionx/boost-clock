@@ -1,19 +1,13 @@
 "use client"
 import { useEffect, useState } from "react";
+import { getSystemTheme } from "../lib/getSystemTheme";
 type Theme = "light" | "dark";
 
 const useTheme = () => {
   const [theme, setTheme] = useState<Theme>("light");
 
   useEffect(() => {
-    const storedTheme = localStorage.getItem("theme") as Theme | null;
-
-    const systemTheme: Theme =
-      window.matchMedia("(prefers-color-scheme: dark)").matches
-        ? "dark"
-        : "light";
-
-    const currentTheme = storedTheme || systemTheme;
+    const currentTheme = localStorage.getItem("theme") as Theme | null || getSystemTheme();
     setTheme(currentTheme);
     document.documentElement.classList.toggle("dark", currentTheme === "dark");
   }, []);

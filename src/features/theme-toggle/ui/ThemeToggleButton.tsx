@@ -1,8 +1,8 @@
 "use client";
-import useTheme from "@/hooks/useTheme";
+import useTheme from "../model/useTheme";
 import Image from "next/image";
 
-const ButtonTheme = () => {
+const ThemeToggleButton = () => {
     const {theme, toggleTheme} = useTheme(); 
 
   return (
@@ -19,4 +19,4 @@ const ButtonTheme = () => {
   );
 };
 
-export default ButtonTheme;
+export default ThemeToggleButton;
