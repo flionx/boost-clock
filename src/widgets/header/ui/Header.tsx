@@ -1,6 +1,6 @@
 import { ThemeToggleButton } from "@/features/theme-toggle"
 import MenuButton from "./MenuButton"
-import { ReportIcon } from "@/shared/ui/icons"
+import { HEADER_MENU_BUTTONS } from "../constants"
 
 const Header = () => {
   return (
@@ -9,7 +9,11 @@ const Header = () => {
             <h1 className="text-4xl">BoostClock</h1>
             <ul className="flex items-center gap-5">
               <ThemeToggleButton />
-              <MenuButton icon={ReportIcon}>Report</MenuButton>
+              {HEADER_MENU_BUTTONS.map(m => 
+                <MenuButton key={m.label} icon={m.icon}>
+                  {m.label}
+                </MenuButton>
+              )}
             </ul>
         </div>
     </header>
