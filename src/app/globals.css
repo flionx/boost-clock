@@ -64,8 +64,8 @@
 }
 
 @theme {
-  --font-secondary: var(--font-poppins), sans-serif;
-  --font-nav: var(--font-jetbrains), monospace;
+  --font-secondary: 'Poppins', sans-serif;
+  --font-nav: 'JetBrains Mono', monospace;
 
   --color-primary: var(--color-primary);
   --color-secondary: var(--color-secondary);
@@ -74,6 +74,7 @@
   --color-text: var(--color-text);
   --color-text-light: var(--color-text-light);
   --color-btn-ui: var(--color-btn-ui);
+  --color-btn-icon: var(--color-btn-icon);
 }
 
 body {
