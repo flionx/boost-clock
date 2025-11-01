@@ -1,5 +1,6 @@
 import { ThemeToggleButton } from "@/features/theme-toggle"
 import DesktopMenu from "./DesktopMenu"
+import MobileMenu from "./MobileMenu"
 
 const Header = () => {
   return (
@@ -9,6 +10,7 @@ const Header = () => {
             <ul className="flex items-center gap-5">
               <ThemeToggleButton />
               <DesktopMenu />
+              <MobileMenu />
             </ul>
         </div>
     </header>

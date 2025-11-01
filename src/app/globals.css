@@ -75,6 +75,8 @@
   --color-text-light: var(--color-text-light);
   --color-btn-ui: var(--color-btn-ui);
   --color-btn-icon: var(--color-btn-icon);
+
+  --breakpoint-xl: 87.5rem;
 }
 
 body {
