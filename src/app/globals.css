@@ -84,6 +84,7 @@ body {
   color: var(--color-text);
   font-family: var(--font-itim), var(--font-literal), sans-serif;
   overflow: hidden;
+  line-height: 1.2;
 }
 button {
   cursor: pointer;
