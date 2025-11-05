@@ -2,7 +2,7 @@ import ToggleTimerButton from "./ToggleTimerButton"
 
 const TimerPlayer = () => {
   return (
-    <div className="mx-auto bg-accent pt-2.5 px-27.5 pb-10 max-w-112.5 rounded-lg">
+    <div className="mx-auto bg-accent pt-2.5 px-4 sm:px-27.5 pb-10 max-w-112.5 rounded-lg">
       <div className="flex items-center justify-center gap-5 mb-8.5">
         <ToggleTimerButton type="Work" />
         <span className="bg-white h-8.5 w-[3.2]" />
