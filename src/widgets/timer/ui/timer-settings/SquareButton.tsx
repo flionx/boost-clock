@@ -1,22 +1,22 @@
-// "use client"
+"use client"
 import React from 'react'
 interface SquareButtonProps {
-    children: React.ReactNode,
-    // onClick: VoidFunction
+    label: "+" | "-",
+    onClick: VoidFunction
 }
 const SquareButton: React.FC<SquareButtonProps> = ({
-    children,
-    // onClick
+    label,
+    onClick
 }) => {
   return (
     <button 
-        // onClick={onClick}
+        onClick={onClick}
         className="
             size-7.5 bg-white rounded-xl text-black font-bold duration-200 transition-all 
             hover:bg-white/90 hover:scale-109 active:bg-white active:scale-none
         "
     >
-        {children}
+        {label}
     </button>
   )
 }

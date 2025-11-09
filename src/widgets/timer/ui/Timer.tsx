@@ -1,11 +1,11 @@
-import TimerPlayer from './TimerPlayer'
-import TimerSettings from './TimerSettings'
+import TimerPlayer from './timer-player'
+import TimerSettings from './timer-settings'
 
 const Timer = () => {
   return (
     <section className="pt-12.5">
-        <TimerPlayer />
-        <TimerSettings />
+      <TimerPlayer />
+      <TimerSettings />
     </section>
   )
 }

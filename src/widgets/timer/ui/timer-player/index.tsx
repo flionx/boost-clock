@@ -1,10 +1,10 @@
 "use client"
 import { useTimerPlayerStore } from "@/shared/store/timer-player"
-import { formatTime } from "../lib/formatTime"
+import { formatTime } from "../../lib/formatTime"
 import ToggleTimerButton from "./ToggleTimerButton"
 
 const TimerPlayer = () => {
-  const {mode} = useTimerPlayerStore();
+  const {mode, timeLeft} = useTimerPlayerStore();
   return (
     <div className="mx-auto bg-accent pt-2.5 px-4 pb-10 max-w-112.5 rounded-lg mb-2.5">
       <div className="flex items-center justify-center gap-5 mb-8.5">
@@ -19,7 +19,7 @@ const TimerPlayer = () => {
         />
       </div>
       <h2 className="text-[5.3125rem] text-center mb-12.5 text-white" translate="no">
-        {formatTime(1500)}
+        {formatTime(timeLeft)}
       </h2>
       <button 
         className="
