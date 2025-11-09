@@ -14,7 +14,7 @@ interface TimerPlayerState {
     switchMode: (mode: TimerMode) => void,
 }
 
-export const timerPlayerStore = create<TimerPlayerState>((set, get) => ({
+export const useTimerPlayerStore = create<TimerPlayerState>((set, get) => ({
     mode: "work" as const,
     timeLeft: useTimerSettingsStore.getState().workDuration * 60,
     isRunning: false,
