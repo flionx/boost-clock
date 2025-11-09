@@ -1,8 +1,6 @@
 import { create } from "zustand";
 import { useTimerSettingsStore } from "./timer-settings";
-
-export type TimerMode = "work" | "break" | "longBreak";
-
+import { TimerMode } from "../types/timer";
 interface TimerPlayerState {
     mode: TimerMode,
     timeLeft: number,
