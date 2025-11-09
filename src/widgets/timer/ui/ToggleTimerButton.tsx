@@ -1,5 +1,6 @@
 "use client"
 import { useTimerPlayerStore } from '@/shared/store/timer-player';
+import { capitalizeFirstLetter } from '@/shared/lib/capitalizeFirstLetter';
 import { TimerMode } from '@/shared/types/timer';
 interface ToggleTimerButtonProps {
     type: TimerMode,
@@ -18,7 +19,7 @@ const ToggleTimerButton: React.FC<ToggleTimerButtonProps> = ({
             transition-colors duration-200 ${isActive ? "bg-[rgba(0,0,0,0.14)]" : ""}
         `}
     >
-        {type}
+        {capitalizeFirstLetter(type)}
     </button>
   )
 }
