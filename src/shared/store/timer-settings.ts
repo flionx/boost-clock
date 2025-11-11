@@ -1,6 +1,7 @@
 "use client"
 import { create } from "zustand"
 import { TimerMinutesOperation, TimerMode } from "../types/timer"
+import { MAX_TIMER_DURATION, MIN_TIMER_DURATION } from "../constants/timer"
 
 interface TimerSettingsState {
     workDuration: number,
@@ -27,4 +28,4 @@ export const useTimerSettingsStore = create<TimerSettingsState>(set => ({
     })
 }))
 
-const validateDuration = (value: number) => Math.max(1, Math.round(value))
+const validateDuration = (value: number) => Math.max(MIN_TIMER_DURATION, Math.min(Math.round(value), MAX_TIMER_DURATION))

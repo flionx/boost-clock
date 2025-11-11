@@ -18,9 +18,8 @@ export const useTimerPlayerStore = create<TimerPlayerState>((set, get) => {
     useTimerSettingsStore.subscribe(newSettings => {
         const {mode, isRunning} = get();
         if (isRunning) return;
-        const minutes = mode === "work" ? newSettings.workDuration : 
-            mode === "break" ? newSettings.breakDuration : newSettings.longBreakDuration;
-            set({timeLeft: minutes * 60})
+        const minutes = newSettings[`${mode}Duration`];
+        set({timeLeft: minutes * 60})
     })
 
     return {
@@ -35,8 +34,7 @@ export const useTimerPlayerStore = create<TimerPlayerState>((set, get) => {
         reset: () => {
             const {mode} = get();
             const settings = useTimerSettingsStore.getState();
-            const minutes = mode === "work" ? settings.workDuration : 
-                mode === "break" ? settings.breakDuration : settings.longBreakDuration;
+            const minutes = settings[`${mode}Duration`]
             set({timeLeft: minutes * 60, isRunning: false})
         },
         tick: () => {
@@ -46,8 +44,7 @@ export const useTimerPlayerStore = create<TimerPlayerState>((set, get) => {
         },
         switchMode: (mode) => {
             const settings = useTimerSettingsStore.getState();
-            const minutes = mode === "work" ? settings.workDuration : 
-                mode === "break" ? settings.breakDuration : settings.longBreakDuration;
+            const minutes = settings[`${mode}Duration`]
             set({mode, timeLeft: minutes * 60, isRunning: false})
         }
     }
