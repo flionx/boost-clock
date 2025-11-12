@@ -1,7 +1,7 @@
-import { WorkerMessage } from "@/shared/types/worker";
+import { WorkerMessage, WorkerMessageDuration } from "@/shared/types/worker";
 
 const createTimerWorker = (
-    onMessage: (msg: WorkerMessage) => void
+    onMessage: (msg: WorkerMessage | WorkerMessageDuration) => void
 ) => {
     let worker: Worker | null = null;
 
@@ -10,7 +10,7 @@ const createTimerWorker = (
             new URL("../worker/index.ts", import.meta.url), 
             {type: "module"}
         )   
-        worker.onmessage = (e: MessageEvent<WorkerMessage>) => {
+        worker.onmessage = (e: MessageEvent<WorkerMessage | WorkerMessageDuration>) => {
             onMessage(e.data)
         }
     }

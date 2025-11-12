@@ -1,7 +1,7 @@
-export interface TimerMessage {
-    type: "start" | "stop",
-    duration: number
-}
 export interface WorkerMessage {
-    type: "tick" | "done",
+    type: "stop" | "done"
+}
+export interface WorkerMessageDuration {
+    type: "start" | "tick",
+    duration: number
 }

@@ -1,25 +1,31 @@
-import { TimerMessage } from "@/shared/types/worker";
-let startTime = 0;
-let interval: NodeJS.Timeout | null = null;
+import { WorkerMessage, WorkerMessageDuration } from "@/shared/types/worker";
 
-self.onmessage = (e: MessageEvent<TimerMessage>) => {
-    const {type, duration} = e.data;
-    if (type === "start") {
-        startTime = Date.now();
-        if (interval) clearInterval(interval);
-        
-        interval = setInterval(() => {
-            const elapsed = Date.now() - startTime;
-            const remaining = Math.max(0, duration * 1000 - elapsed);
-            self.postMessage({type: "tick", remaining});
+let endTime = 0;
+let timer: NodeJS.Timeout | null = null;
 
-            if (remaining <= 0) {
-                clearInterval(interval!);
-                self.postMessage({type: "done"});
-            }
-        }, 1000)
-    } else if (type === "stop") {
-        if (interval) clearInterval(interval);
-        interval = null;
-    }
-}
+self.onmessage = (e: MessageEvent<WorkerMessage | WorkerMessageDuration>) => {
+  const message = e.data;
+
+  if (message.type === "start") {
+    if (timer) clearInterval(timer);
+    endTime = Date.now() + message.duration * 1000;
+
+    const tick = () => {
+      const remaining = Math.max(0, (endTime - Date.now()) / 1000);
+      self.postMessage({ type: "tick", duration: remaining });
+
+      if (remaining <= 0) {
+        clearInterval(timer!);
+        self.postMessage({ type: "done" });
+      }
+    };
+
+    tick();
+    timer = setInterval(tick, 1000);
+  }
+
+  if (message.type === "stop") {
+    if (timer) clearInterval(timer);
+    timer = null;
+  }
+};
