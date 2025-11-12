@@ -1,5 +1,5 @@
 import Header from "@/widgets/header";
-import Timer from "@/widgets/timer";
+import Timer from "@/features/timer";
 
 export default function Home() {
   return (

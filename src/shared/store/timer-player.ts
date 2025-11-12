@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { useTimerSettingsStore } from "./timer-settings";
 import { TimerMode } from "../types/timer";
+import { WorkerMessage } from "@/features/timer/types/worker";
 interface TimerPlayerState {
     mode: TimerMode,
     timeLeft: number,
@@ -14,6 +15,16 @@ interface TimerPlayerState {
 
 export const useTimerPlayerStore = create<TimerPlayerState>((set, get) => {
     const settings = useTimerSettingsStore.getState();
+    let worker: Worker | null = null;
+
+    if(typeof window !== "undefined") {
+        worker = new Worker(new URL("../../features/timer/worker/index.ts", import.meta.url), {type: "module"})
+        worker.onmessage = (e: MessageEvent<WorkerMessage>) => {
+            const {type} = e.data;
+            if (type === "tick") get().tick()
+            if (type === "done") get().skip();
+        }
+    }
 
     useTimerSettingsStore.subscribe(newSettings => {
         const {mode, isRunning} = get();
@@ -26,7 +37,10 @@ export const useTimerPlayerStore = create<TimerPlayerState>((set, get) => {
         mode: "work" as const,
         timeLeft: settings.workDuration * 60,
         isRunning: false,
-        toggle: () => set(c => ({isRunning: !c.isRunning})),
+        toggle: () => set(c => {
+            if (worker) worker.postMessage({type: c.isRunning ? "stop" : "start"});
+            return {isRunning: !c.isRunning}
+        }),
         skip: () => {
             const nextMode = get().mode === "work" ? "break" : "work";
             get().switchMode(nextMode);
@@ -34,8 +48,9 @@ export const useTimerPlayerStore = create<TimerPlayerState>((set, get) => {
         reset: () => {
             const {mode} = get();
             const settings = useTimerSettingsStore.getState();
-            const minutes = settings[`${mode}Duration`]
-            set({timeLeft: minutes * 60, isRunning: false})
+            const minutes = settings[`${mode}Duration`];
+            if (worker) worker.postMessage({type: "stop"});
+            set({timeLeft: minutes * 60, isRunning: false});
         },
         tick: () => {
             const {timeLeft} = get();
@@ -44,7 +59,8 @@ export const useTimerPlayerStore = create<TimerPlayerState>((set, get) => {
         },
         switchMode: (mode) => {
             const settings = useTimerSettingsStore.getState();
-            const minutes = settings[`${mode}Duration`]
+            const minutes = settings[`${mode}Duration`];
+            if (worker) worker.postMessage({type: "stop"});
             set({mode, timeLeft: minutes * 60, isRunning: false})
         }
     }

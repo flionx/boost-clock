@@ -1,12 +1,10 @@
 "use client"
 import { useTimerPlayerStore } from "@/shared/store/timer-player"
-import { formatTime } from "../../lib/formatTime"
 import ToggleTimerButton from "./ToggleTimerButton"
-import useTimerRunning from "../../model/useTimerRunning"
+import { formatTime } from "../../lib/formatTime"
 
 const TimerPlayer = () => {
-  const {mode, timeLeft, isRunning, toggle, tick} = useTimerPlayerStore();
-  useTimerRunning(isRunning, tick)
+  const {mode, timeLeft, isRunning, toggle} = useTimerPlayerStore();
 
   return (
     <div className="mx-auto bg-accent pt-2.5 px-4 pb-10 max-w-112.5 rounded-lg mb-2.5">
