@@ -1,4 +1,4 @@
-import { TimerMessage } from "../types/worker";
+import { TimerMessage } from "@/shared/types/worker";
 let startTime = 0;
 let interval: NodeJS.Timeout | null = null;
 

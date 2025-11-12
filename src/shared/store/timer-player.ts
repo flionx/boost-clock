@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { useTimerSettingsStore } from "./timer-settings";
+import createTimerWorker from "@/features/timer/lib/createTimerWorker";
 import { TimerMode } from "../types/timer";
-import { WorkerMessage } from "@/features/timer/types/worker";
 interface TimerPlayerState {
     mode: TimerMode,
     timeLeft: number,
@@ -15,16 +15,11 @@ interface TimerPlayerState {
 
 export const useTimerPlayerStore = create<TimerPlayerState>((set, get) => {
     const settings = useTimerSettingsStore.getState();
-    let worker: Worker | null = null;
-
-    if(typeof window !== "undefined") {
-        worker = new Worker(new URL("../../features/timer/worker/index.ts", import.meta.url), {type: "module"})
-        worker.onmessage = (e: MessageEvent<WorkerMessage>) => {
-            const {type} = e.data;
-            if (type === "tick") get().tick()
-            if (type === "done") get().skip();
-        }
-    }
+    let worker: Worker | null = createTimerWorker(message => {
+        const {type} = message;
+        if (type === "tick") get().tick()
+        if (type === "done") get().skip();
+    })
 
     useTimerSettingsStore.subscribe(newSettings => {
         const {mode, isRunning} = get();
