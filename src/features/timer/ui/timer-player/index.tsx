@@ -2,12 +2,13 @@
 import { useTimerPlayerStore } from "@/shared/store/timer-player"
 import ToggleTimerButton from "./ToggleTimerButton"
 import { formatTime } from "../../lib/formatTime"
+import TextButton from "./TextButton"
 
 const TimerPlayer = () => {
-  const {mode, timeLeft, isRunning, toggle} = useTimerPlayerStore();
+  const {mode, timeLeft, isRunning, toggle, reset, skip} = useTimerPlayerStore();
 
   return (
-    <div className="mx-auto bg-accent pt-2.5 px-4 pb-10 max-w-112.5 rounded-lg mb-2.5">
+    <div className="mx-auto bg-accent pt-2.5 px-4 pb-10 max-w-112.5 rounded-lg mb-2.5 relative">
       <div className="flex items-center justify-center gap-5 mb-8.5">
         <ToggleTimerButton 
           type="work" 
@@ -32,6 +33,10 @@ const TimerPlayer = () => {
       >
         {isRunning ? "Stop" : "Start"}
       </button>
+      <div className={`flex gap-7.5 absolute bottom-0 left-1/2 -translate-1/2 duration-200 transition-opacity opacity-0 ${isRunning ? "opacity-100" : ""}`}>
+        <TextButton label="Reset" onClick={reset}/>
+        <TextButton label="Skip" onClick={skip}/>
+      </div>
     </div>
   )
 }
