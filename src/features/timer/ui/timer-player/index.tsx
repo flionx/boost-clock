@@ -1,5 +1,6 @@
 "use client"
 import { useTimerPlayerStore } from "@/shared/store/timer-player"
+import useDocumentTitleSync from "../../model/useDocumentTItleSync"
 import SwitchTimerButton from "./SwitchTimerButton"
 import { formatTime } from "../../lib/formatTime"
 import TextButton from "./TextButton"
@@ -7,6 +8,7 @@ import TimerInitializer from "./TimerInitializer"
 
 const TimerPlayer = () => {
   const {mode, timeLeft, isRunning, toggle, reset, skip} = useTimerPlayerStore();
+  useDocumentTitleSync();
 
   return (
     <>
