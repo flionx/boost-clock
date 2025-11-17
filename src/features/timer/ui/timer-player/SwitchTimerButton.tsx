@@ -2,11 +2,11 @@
 import { useTimerPlayerStore } from '@/shared/store/timer-player';
 import { capitalizeFirstLetter } from '@/shared/lib/capitalizeFirstLetter';
 import { TimerMode } from '@/shared/types/timer';
-interface ToggleTimerButtonProps {
+interface SwitchTimerButtonProps {
     type: TimerMode,
     isActive: boolean
 }
-const ToggleTimerButton: React.FC<ToggleTimerButtonProps> = ({
+const SwitchTimerButton: React.FC<SwitchTimerButtonProps> = ({
     type,
     isActive
 }) => {
@@ -24,4 +24,4 @@ const ToggleTimerButton: React.FC<ToggleTimerButtonProps> = ({
   )
 }
 
-export default ToggleTimerButton
+export default SwitchTimerButton

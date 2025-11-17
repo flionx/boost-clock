@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { useTimerSettingsStore } from "./timer-settings";
-import createTimerWorker from "@/features/timer/lib/createTimerWorker";
 import { TimerMode } from "../types/timer";
+import createAudioTimer from "@/features/timer/lib/createAudioTimer";
 interface TimerPlayerState {
     mode: TimerMode,
     timeLeft: number,
@@ -10,14 +10,16 @@ interface TimerPlayerState {
     skip: VoidFunction,
     reset: VoidFunction,
     switchMode: (mode: TimerMode) => void,
+    restoreFromStorage: VoidFunction
 }
 
 export const useTimerPlayerStore = create<TimerPlayerState>((set, get) => {
     const settings = useTimerSettingsStore.getState();
-    let worker = createTimerWorker(message => {
-        if (message.type === "tick") set({timeLeft: Math.ceil(message.duration)})
-        if (message.type === "done") get().skip();
-    })
+    
+    let timer = createAudioTimer(
+        (timeLeft) => set({timeLeft}), // tick
+        () => get().skip() // done
+    )
 
     useTimerSettingsStore.subscribe(newSettings => {
         const {mode, isRunning} = get();
@@ -31,28 +33,51 @@ export const useTimerPlayerStore = create<TimerPlayerState>((set, get) => {
         isRunning: false,
         toggle: () => {
             const {isRunning, timeLeft} = get();
-            if (worker) {
-                if (isRunning) worker.postMessage({type: "stop"});
-                else worker.postMessage({type: "start", duration: timeLeft});
-            }
-            set({isRunning: !isRunning})
+            if (isRunning) {
+                timer.stop();
+                set({isRunning: false})
+            } else {
+                timer.start(timeLeft);
+                set({isRunning: true})
+            }  
         },
         skip: () => {
             const nextMode = get().mode === "work" ? "break" : "work";
+            timer.playSound()
             get().switchMode(nextMode);
         },
         reset: () => {
             const {mode} = get();
             const settings = useTimerSettingsStore.getState();
             const minutes = settings[`${mode}Duration`];
-            if (worker) worker.postMessage({type: "stop"});
+            timer.stop()
             set({timeLeft: minutes * 60, isRunning: false});
         },
         switchMode: (mode) => {
             const settings = useTimerSettingsStore.getState();
             const minutes = settings[`${mode}Duration`];
-            if (worker) worker.postMessage({type: "stop"});
+            timer.stop();
             set({mode, timeLeft: minutes * 60, isRunning: false})
+        },
+        restoreFromStorage: () => {
+            const endTimeStr = localStorage.getItem('timer_end_time');
+            const isActive = localStorage.getItem('timer_active') === 'true';
+            
+            if (isActive && endTimeStr) {
+                const endTime = parseInt(endTimeStr, 10);
+                const now = Date.now();
+                const timeLeft = Math.max(0, Math.ceil((endTime - now) / 1000));
+                
+                if (timeLeft > 0) {
+                    set({timeLeft, isRunning: true});
+                    timer.start(timeLeft);
+                } else {
+                    localStorage.removeItem('timer_end_time');
+                    localStorage.removeItem('timer_active');
+                    timer.playSound();
+                    get().skip();
+                }
+            }
         }
     }
 })
