@@ -32,7 +32,7 @@ const TimerPlayer = () => {
           onClick={toggle}
           className="
             block py-2.5 px-10 bg-white text-black text-[2.5rem] rounded-md uppercase mx-auto
-            transition-all duration-200 hover:bg-[rgba(255,255,255,0.9)] hover:scale-102 active:bg-white active:scale-100
+            transition-all duration-200 hover:bg-[rgba(255,255,255,0.9)] hover:scale-102 active:bg-white active:scale-99
           " 
           translate="no"
         >

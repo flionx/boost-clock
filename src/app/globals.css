@@ -83,7 +83,7 @@ body {
   background: var(--color-primary);
   color: var(--color-text);
   font-family: var(--font-itim), var(--font-literal), sans-serif;
-  overflow: hidden;
+  overflow-x: hidden;
   line-height: 1.2;
 }
 button {
