@@ -1,5 +1,4 @@
 "use client"
-
 import { DeleteIcon } from "@/shared/ui/icons"
 
 const ButtonClearAll = () => {
