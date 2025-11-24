@@ -1,10 +1,14 @@
 import React from 'react'
 interface FormColProps {
-    children: React.ReactNode
+    children: React.ReactNode,
+    noMarginBottom?: boolean
 }
-const FormCol: React.FC<FormColProps> = ({children}) => {
+const FormCol: React.FC<FormColProps> = ({
+  children,
+  noMarginBottom = false
+}) => {
   return (
-    <div className="flex flex-col gap-y-2 pr-5.5 mb-3.5 last:mb-0">
+    <div className={`flex flex-col gap-y-2 pr-5.5 ${noMarginBottom ? "" : "mb-3.5"}`}>
         {children}
     </div>
   )

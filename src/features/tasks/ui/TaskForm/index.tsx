@@ -1,34 +1,63 @@
+"use client"
+import { useState } from "react"
 import ButtonAddProperty from "./ButtonAddProperty"
 import ButtonBox from "./ButtonBox"
 import FormCol from "./FormCol"
 import FormInput from "./FormInput"
 import FormTitle from "./FormTitle"
-
+import { Task } from "@/shared/types/tasks"
 const TaskForm = () => {
+    const [newTask, setNewTask] = useState<Task>({
+        title: '',
+        description: null,
+        deadline: null
+    })
   return (
     <form className="w-full py-5 px-[clamp(0.9375rem,2.5vw,4rem)] bg-accent rounded-xl mb-7.5">
         <FormCol>
             <FormTitle>Title</FormTitle>
             <FormInput type="text" />
         </FormCol>
-        <FormCol>
-            <FormTitle>Description</FormTitle>
-            <FormInput type="textarea" />
-        </FormCol>
-        <FormCol>
-            <FormTitle>Deadline</FormTitle>
-            <div className="flex items-center gap-4">
-                <FormInput type="number" />
-                <div className="flex items-center gap-2.5">
-                    <ButtonBox label="-" />
-                    <ButtonBox label="+" />
+
+        {typeof newTask.description === "string" ?
+            <FormCol>
+                <FormTitle>Description</FormTitle>
+                <FormInput type="textarea" />
+            </FormCol>
+        :
+            <FormCol>
+                <ButtonAddProperty 
+                    label="Add a description"
+                    onClick={() => setNewTask(c => ({...c, description: ''}))}
+                />
+            </FormCol>
+        }
+        {typeof newTask.deadline === "number" &&
+            <FormCol noMarginBottom>
+                <FormTitle>Deadline</FormTitle>
+                <div className="flex items-center gap-4">
+                    <FormInput type="number" />
+                    <div className="flex items-center gap-2.5">
+                        <ButtonBox label="-" />
+                        <ButtonBox label="+" />
+                    </div>
                 </div>
+            </FormCol>
+        }
+        <div className="flex justify-between items-center">
+            {typeof newTask.deadline !== "number" && 
+                <ButtonAddProperty 
+                    label="Add a deadline"
+                    onClick={() => setNewTask(c => ({...c, deadline: 0}))}
+                />
+            }
+            <div className="flex items-center gap-[clamp(0.9375rem,2.5vw,3.125rem)] ml-auto">
+                <button className="text-xl text-text hover:underline">Cancel</button>
+                <button className="py-1 px-3 rounded-xl bg-btn-ui text-xl text-black transition-colors hover:bg-[var(--btn-ui-hover)] active:bg-[var(--btn-ui-active)]">
+                    Create
+                </button>
             </div>
-        </FormCol>
-        <FormCol>
-            <ButtonAddProperty label="Add a description"/>
-        </FormCol>
-        <ButtonAddProperty label="Add a deadline"/>
+        </div>
     </form>
   )
 }
