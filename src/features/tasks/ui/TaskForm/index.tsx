@@ -1,20 +1,18 @@
 "use client"
-import { useState } from "react"
 import ButtonAddProperty from "./ButtonAddProperty"
 import ButtonBox from "./ButtonBox"
 import FormCol from "./FormCol"
 import FormInput from "./FormInput"
 import FormTitle from "./FormTitle"
-import { Task } from "@/shared/types/tasks"
 import FormContainer from "./FormContainer"
-const TaskForm = () => {
-    const [newTask, setNewTask] = useState<Task>({
-        id: String(Date.now()),
-        title: '',
-        description: null,
-        round: null,
-        complete: false
-    })
+import useTaskForm from "../../model/useTaskForm"
+import { Task } from "@/shared/types/tasks"
+interface TaskFormProps {
+    task?: Task
+}
+const TaskForm: React.FC<TaskFormProps> = ({task}) => {
+    const {editTask, setEditTask} = useTaskForm(task);
+
   return (
     <FormContainer>
         <FormCol>
@@ -22,7 +20,7 @@ const TaskForm = () => {
             <FormInput type="text" />
         </FormCol>
 
-        {typeof newTask.description === "string" ?
+        {typeof editTask.description === "string" ?
             <FormCol>
                 <FormTitle>Description</FormTitle>
                 <FormInput type="textarea" />
@@ -31,11 +29,11 @@ const TaskForm = () => {
             <FormCol>
                 <ButtonAddProperty 
                     label="Add a description"
-                    onClick={() => setNewTask(c => ({...c, description: ''}))}
+                    onClick={() => setEditTask(c => ({...c, description: ''}))}
                 />
             </FormCol>
         }
-        {typeof newTask.round?.current === "number" &&
+        {typeof editTask.round?.current === "number" &&
             <FormCol noMarginBottom>
                 <FormTitle>Deadline</FormTitle>
                 <div className="flex items-center gap-4">
@@ -48,10 +46,10 @@ const TaskForm = () => {
             </FormCol>
         }
         <div className="flex justify-between items-center">
-            {typeof newTask.round?.current !== "number" && 
+            {typeof editTask.round?.current !== "number" && 
                 <ButtonAddProperty 
                     label="Add a deadline"
-                    onClick={() => setNewTask(c => ({...c, deadline: 0}))}
+                    onClick={() => setEditTask(c => ({...c, deadline: 0}))}
                 />
             }
             <div className="flex items-center gap-[clamp(0.9375rem,2.5vw,3.125rem)] ml-auto">
