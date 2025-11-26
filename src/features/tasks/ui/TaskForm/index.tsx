@@ -6,6 +6,7 @@ import FormCol from "./FormCol"
 import FormInput from "./FormInput"
 import FormTitle from "./FormTitle"
 import { Task } from "@/shared/types/tasks"
+import FormContainer from "./FormContainer"
 const TaskForm = () => {
     const [newTask, setNewTask] = useState<Task>({
         title: '',
@@ -13,7 +14,7 @@ const TaskForm = () => {
         deadline: null
     })
   return (
-    <form className="w-full py-5 px-[clamp(0.9375rem,2.5vw,4rem)] bg-accent rounded-xl mb-7.5">
+    <FormContainer>
         <FormCol>
             <FormTitle>Title</FormTitle>
             <FormInput type="text" />
@@ -58,7 +59,7 @@ const TaskForm = () => {
                 </button>
             </div>
         </div>
-    </form>
+    </FormContainer>
   )
 }
 
