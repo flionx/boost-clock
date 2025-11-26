@@ -1,6 +1,7 @@
 "use client"
 import { create } from "zustand"
 import { Task } from "../types/tasks";
+import { initTask } from "../lib/initTask";
 
 interface MainTask {
     id: Task['id'],
@@ -10,21 +11,20 @@ interface MainTask {
 interface TasksState {
     list: Task[],
     main: MainTask | null,
-    editTaskId: Task['id'] | null,
+    showForm: boolean,
     addTask: (task: Task) => void,
     changeTask: (task: Task) => void,
     deleteTask: (id: Task['id']) => void,
     toggleCompleteTask: (id: Task['id']) => void,
     roundTasks: VoidFunction,
     deleteTasks: VoidFunction,
-    setEditTaskId: (id: Task['id'] | null) => void
+    switchFormTask: (showForm: boolean) => void
 }
 
-export const useTimerSettingsStore = create<TasksState>((set, get) => ({
+export const useTasksStore = create<TasksState>((set, get) => ({
     list: [],
     main: null,
-    editTaskId: null,
-    
+    showForm: false,
     addTask: (task) => set({ list: [...get().list, task] }),
     changeTask: (task) => set({
         list: get().list.map(t => t.id === task.id ? { ...t, ...task } : t)
@@ -51,5 +51,5 @@ export const useTimerSettingsStore = create<TasksState>((set, get) => ({
         })
     }),
     deleteTasks: () => set({ list: get().list.filter(t => t.complete) }),
-    setEditTaskId: (id) => set({ editTaskId: id })
+    switchFormTask: (showForm) => set({showForm})
 }))

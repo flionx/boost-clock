@@ -7,11 +7,14 @@ import FormTitle from "./FormTitle"
 import FormContainer from "./FormContainer"
 import useTaskForm from "../../model/useTaskForm"
 import { Task } from "@/shared/types/tasks"
+import { useTasksStore } from "@/shared/store/tasks"
 interface TaskFormProps {
     task?: Task
 }
 const TaskForm: React.FC<TaskFormProps> = ({task}) => {
     const {editTask, setEditTask} = useTaskForm(task);
+    const {showForm, switchFormTask} = useTasksStore();
+    if (!showForm) return null;
 
   return (
     <FormContainer>
@@ -53,7 +56,12 @@ const TaskForm: React.FC<TaskFormProps> = ({task}) => {
                 />
             }
             <div className="flex items-center gap-[clamp(0.9375rem,2.5vw,3.125rem)] ml-auto">
-                <button className="text-xl text-text hover:underline">Cancel</button>
+                <button 
+                    onClick={() => switchFormTask(false)}
+                    className="text-xl text-text hover:underline"
+                >
+                    Cancel
+                </button>
                 <button className="py-1 px-3 rounded-xl bg-btn-ui text-xl text-black transition-colors hover:bg-[var(--btn-ui-hover)] active:bg-[var(--btn-ui-active)]">
                     Create
                 </button>
