@@ -9,9 +9,11 @@ import { Task } from "@/shared/types/tasks"
 import FormContainer from "./FormContainer"
 const TaskForm = () => {
     const [newTask, setNewTask] = useState<Task>({
+        id: String(Date.now()),
         title: '',
         description: null,
-        deadline: null
+        round: null,
+        complete: false
     })
   return (
     <FormContainer>
@@ -33,7 +35,7 @@ const TaskForm = () => {
                 />
             </FormCol>
         }
-        {typeof newTask.deadline === "number" &&
+        {typeof newTask.round?.current === "number" &&
             <FormCol noMarginBottom>
                 <FormTitle>Deadline</FormTitle>
                 <div className="flex items-center gap-4">
@@ -46,7 +48,7 @@ const TaskForm = () => {
             </FormCol>
         }
         <div className="flex justify-between items-center">
-            {typeof newTask.deadline !== "number" && 
+            {typeof newTask.round?.current !== "number" && 
                 <ButtonAddProperty 
                     label="Add a deadline"
                     onClick={() => setNewTask(c => ({...c, deadline: 0}))}

@@ -1,5 +1,10 @@
 export interface Task {
+    id: string,
     title: string,
     description: null | string,
-    deadline: null | number
+    complete: boolean,
+    round: {
+        current: number,
+        max: number
+    } | null
 }
