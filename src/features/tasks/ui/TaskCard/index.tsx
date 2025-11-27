@@ -1,6 +1,7 @@
-import React from 'react'
+"use client"
 
 const TaskCard = () => {
+    
   return (
     <div className="w-full rounded-lg bg-accent pt-3 px-3 pb-5">
         <div className="flex justify-between relative mb-4">
@@ -13,9 +14,16 @@ const TaskCard = () => {
                     new task
                 </h4>
             </div>
-        </div>
-        <div className="relative">
-            
+            <div className="relative">
+                <p className="absolute top-1.5 left-[-140%] text-xl">1/1</p>
+                <div className="relative">
+                    <button className="btn-ui flex flex-col items-center justify-center gap-0.5 size-8.5 rounded-sm bg-[#d9dbff80]">
+                        <span className="block size-[0.3125rem] rounded-full bg-[#1D1B20]"></span>
+                        <span className="block size-[0.3125rem] rounded-full bg-[#1D1B20]"></span>
+                        <span className="block size-[0.3125rem] rounded-full bg-[#1D1B20]"></span>
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
   )

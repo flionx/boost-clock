@@ -11,10 +11,7 @@ const ButtonAddProperty: React.FC<ButtonAddPropertyProps> = ({
   return (
     <button
         onClick={onClick}
-        className="
-            flex items-center w-fit rounded-lg py-1.5 px-2.5 gap-1.5 text-text-light bg-btn-ui transition-colors
-            duration-300 hover:bg-[var(--btn-ui-hover)] active:bg-[var(--btn-ui-active)]
-        "
+        className="btn-ui flex items-center w-fit rounded-lg py-1.5 px-2.5 gap-1.5 text-text-light"
     >
         <span className='text-2xl leading-2'>+</span>
         {label}

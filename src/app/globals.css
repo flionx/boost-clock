@@ -113,6 +113,16 @@
   .checkbox:checked ~ .gray-text {
     animation: graytext .5s .5s forwards;
   }
+  .btn-ui {
+    background: var(--color-btn-ui);
+    transition: background .3s;
+  }
+  .btn-ui:hover {
+    background: var(--btn-ui-hover);
+  }
+  .btn-ui:active {
+    background: var(--btn-ui-active);
+  }
 }
 
 body {

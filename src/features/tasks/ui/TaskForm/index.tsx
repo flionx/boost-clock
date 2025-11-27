@@ -62,7 +62,7 @@ const TaskForm: React.FC<TaskFormProps> = ({task}) => {
                 >
                     Cancel
                 </button>
-                <button className="py-1 px-3 rounded-xl bg-btn-ui text-xl text-black transition-colors hover:bg-[var(--btn-ui-hover)] active:bg-[var(--btn-ui-active)]">
+                <button className="btn-ui py-1 px-3 rounded-xl text-xl text-black">
                     Create
                 </button>
             </div>
