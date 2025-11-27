@@ -25,6 +25,7 @@ const TaskCard = () => {
                 </div>
             </div>
         </div>
+        <p className="w-full bg-secondary py-1.5 px-5 text-lg break-words rounded-lg">description of my task</p>
     </div>
   )
 }
