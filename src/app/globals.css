@@ -77,6 +77,42 @@
   --color-btn-icon: var(--color-btn-icon);
 
   --breakpoint-xl: 87.5rem;
+  @keyframes linethrough {
+    0% {
+      width: 0;
+    }
+    100% {
+      width: 100%;
+    }
+  }
+  @keyframes graytext {
+    0% {
+      color: var(--text-color);
+    }
+    100% {
+      color: #686868;
+    }
+  }
+}
+
+@layer utilities {
+  .linethrough-text::after {
+    content: '';
+    position: absolute;
+    top: 55%;
+    left: 0;
+    height: 3px;
+    background: #1c1c1c;
+    border-radius: 2px;
+    animation: lineOnTitle .5s forwards;
+  }
+  
+  .checkbox:checked ~ .linethrough-text::after {
+    animation: linethrough 0.5s ease-in-out forwards;
+  }
+  .checkbox:checked ~ .gray-text {
+    animation: graytext .5s .5s forwards;
+  }
 }
 
 body {
@@ -85,6 +121,7 @@ body {
   font-family: var(--font-itim), var(--font-literal), sans-serif;
   overflow-x: hidden;
   line-height: 1.2;
+  scroll-behavior: smooth;
 }
 button {
   cursor: pointer;
