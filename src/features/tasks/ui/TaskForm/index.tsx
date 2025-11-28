@@ -1,4 +1,5 @@
 "use client"
+import { useRef } from "react"
 import ButtonAddProperty from "./ButtonAddProperty"
 import ButtonBox from "./ButtonBox"
 import FormCol from "./FormCol"
@@ -12,21 +13,34 @@ interface TaskFormProps {
     task?: Task
 }
 const TaskForm: React.FC<TaskFormProps> = ({task}) => {
-    const {editTask, setEditTask} = useTaskForm(task);
+    const inputTitleRef = useRef<HTMLInputElement>(null);
+    const textareaRef = useRef<HTMLTextAreaElement>(null);
     const {showForm, switchFormTask} = useTasksStore();
+    const {editTask, setEditTask, handleChangeTitle, 
+        handleChangeDescription, handleChangeRound, handleAddTask} = useTaskForm({task, inputTitleRef, textareaRef, showForm});
     if (!showForm) return null;
 
   return (
     <FormContainer>
         <FormCol>
             <FormTitle>Title</FormTitle>
-            <FormInput type="text" />
+            <FormInput 
+                type="text" 
+                value={editTask.title}
+                onChange={handleChangeTitle}
+                ref={inputTitleRef}
+            />
         </FormCol>
 
         {typeof editTask.description === "string" ?
             <FormCol>
                 <FormTitle>Description</FormTitle>
-                <FormInput type="textarea" />
+                <FormInput 
+                    type="textarea" 
+                    value={editTask.description}
+                    onChange={handleChangeDescription}
+                    ref={textareaRef}
+                />
             </FormCol>
         :
             <FormCol>
@@ -40,7 +54,11 @@ const TaskForm: React.FC<TaskFormProps> = ({task}) => {
             <FormCol noMarginBottom>
                 <FormTitle>Deadline</FormTitle>
                 <div className="flex items-center gap-4">
-                    <FormInput type="number" />
+                    <FormInput 
+                        type="number" 
+                        value={editTask.round.current}
+                        onChange={handleChangeRound}
+                    />
                     <div className="flex items-center gap-2.5">
                         <ButtonBox label="-" />
                         <ButtonBox label="+" />
@@ -62,7 +80,10 @@ const TaskForm: React.FC<TaskFormProps> = ({task}) => {
                 >
                     Cancel
                 </button>
-                <button className="btn-ui py-1 px-3 rounded-xl text-xl text-black">
+                <button 
+                    className="btn-ui py-1 px-3 rounded-xl text-xl text-black" 
+                    onClick={handleAddTask}
+                >
                     Create
                 </button>
             </div>
