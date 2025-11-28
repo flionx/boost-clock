@@ -49,8 +49,6 @@ const FormInput: React.FC<FormInputProps> = ({
                 onChange={onChange}
                 className="w-12.5 py-1.5 px-4 rounded-lg bg-white text-[#1C1C1C] appearance-none"
                 type="number"
-                defaultValue={0}
-                // onChange={e => onChange(parseNumberInput(e.target.value))}
             />
         }
             

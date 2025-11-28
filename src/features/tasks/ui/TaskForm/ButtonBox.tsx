@@ -1,12 +1,13 @@
 import React from 'react'
 interface ButtonBoxProps {
-    label: string
+    label: string,
+    onClick: VoidFunction
 }
-const ButtonBox: React.FC<ButtonBoxProps> = ({label}) => {
-    // todo: add handle click
+const ButtonBox: React.FC<ButtonBoxProps> = ({label, onClick}) => {
   return (
     <button 
         className="btn-ui size-7.5 py-1.5 px-2.5 rounded-lg text-black"
+        onClick={onClick}
     >
       {label}
     </button>

@@ -1,5 +1,4 @@
 "use client"
-import { useRef } from "react"
 import ButtonAddProperty from "./ButtonAddProperty"
 import ButtonBox from "./ButtonBox"
 import FormCol from "./FormCol"
@@ -9,15 +8,16 @@ import FormContainer from "./FormContainer"
 import useTaskForm from "../../model/useTaskForm"
 import { Task } from "@/shared/types/tasks"
 import { useTasksStore } from "@/shared/store/tasks"
+import useInputRefs from "../../model/useInputRefs"
+import useFocusOnMount from "@/shared/model/useFocusOnMount"
 interface TaskFormProps {
     task?: Task
 }
 const TaskForm: React.FC<TaskFormProps> = ({task}) => {
-    const inputTitleRef = useRef<HTMLInputElement>(null);
-    const textareaRef = useRef<HTMLTextAreaElement>(null);
-    const {showForm, switchFormTask} = useTasksStore();
-    const {editTask, setEditTask, handleChangeTitle, 
-        handleChangeDescription, handleChangeRound, handleAddTask} = useTaskForm({task, inputTitleRef, textareaRef, showForm});
+    const {showForm} = useTasksStore();
+    const {editTask, change, changeRoundByType, addProperty, changeRound, handleAddTask, handleCancel} = useTaskForm({task});
+    const {inputTitleRef, textareaRef} = useInputRefs(showForm, editTask.description);
+    useFocusOnMount(textareaRef, typeof editTask.description == "string")
     if (!showForm) return null;
 
   return (
@@ -27,41 +27,39 @@ const TaskForm: React.FC<TaskFormProps> = ({task}) => {
             <FormInput 
                 type="text" 
                 value={editTask.title}
-                onChange={handleChangeTitle}
+                onChange={e => change('title', e.target.value)}
                 ref={inputTitleRef}
             />
         </FormCol>
 
-        {typeof editTask.description === "string" ?
-            <FormCol>
+        <FormCol>
+            {typeof editTask.description === "string" ? <>
                 <FormTitle>Description</FormTitle>
                 <FormInput 
                     type="textarea" 
                     value={editTask.description}
-                    onChange={handleChangeDescription}
+                    onChange={e => change('description', e.target.value)}
                     ref={textareaRef}
                 />
-            </FormCol>
-        :
-            <FormCol>
+            </>:
                 <ButtonAddProperty 
                     label="Add a description"
-                    onClick={() => setEditTask(c => ({...c, description: ''}))}
+                    onClick={() => addProperty('description')}
                 />
-            </FormCol>
-        }
+            }
+        </FormCol>
         {typeof editTask.round?.current === "number" &&
             <FormCol noMarginBottom>
                 <FormTitle>Deadline</FormTitle>
                 <div className="flex items-center gap-4">
                     <FormInput 
                         type="number" 
-                        value={editTask.round.current}
-                        onChange={handleChangeRound}
+                        value={editTask.round.max}
+                        onChange={changeRound}
                     />
                     <div className="flex items-center gap-2.5">
-                        <ButtonBox label="-" />
-                        <ButtonBox label="+" />
+                        <ButtonBox label="-" onClick={() => changeRoundByType("-")} />
+                        <ButtonBox label="+" onClick={() => changeRoundByType("+")} />
                     </div>
                 </div>
             </FormCol>
@@ -70,12 +68,12 @@ const TaskForm: React.FC<TaskFormProps> = ({task}) => {
             {typeof editTask.round?.current !== "number" && 
                 <ButtonAddProperty 
                     label="Add a deadline"
-                    onClick={() => setEditTask(c => ({...c, deadline: 0}))}
+                    onClick={() => addProperty('deadline')}
                 />
             }
             <div className="flex items-center gap-[clamp(0.9375rem,2.5vw,3.125rem)] ml-auto">
                 <button 
-                    onClick={() => switchFormTask(false)}
+                    onClick={handleCancel}
                     className="text-xl text-text hover:underline"
                 >
                     Cancel
