@@ -14,12 +14,10 @@ interface TaskCardProps {
 }
 const TaskCard: React.FC<TaskCardProps> = ({task}) => {   
     const [showOptions, setShowOptions] = useState(false);
-    const {deleteTask, setEditTaskId, switchFormTask, editTaskId} = useTasksStore(state => ({
-        deleteTask: state.deleteTask, 
-        setEditTaskId: state.setEditTaskId, 
-        switchFormTask: state.switchFormTask, 
-        editTaskId: state.editTaskId
-    }));
+    const deleteTask = useTasksStore(state => state.deleteTask);
+    const setEditTaskId = useTasksStore(state => state.setEditTaskId);
+    const switchFormTask = useTasksStore(state => state.switchFormTask);
+    const editTaskId = useTasksStore(state => state.editTaskId);
     const handleEditTask = () => {
         switchFormTask(true);
         setEditTaskId(task.id);

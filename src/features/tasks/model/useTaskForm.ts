@@ -10,12 +10,10 @@ type EditTask = Omit<Task, 'id'>
 
 const useTaskForm = ({task}: { task?: Task }) => {
     const [editTask, setEditTask] = useState<Task>(task ? task : initTask());
-    const {addTask, switchFormTask, setEditTaskId, changeTask} = useTasksStore(state => ({
-        addTask: state.addTask,
-        switchFormTask: state.switchFormTask,
-        setEditTaskId: state.setEditTaskId,
-        changeTask: state.changeTask
-    }));
+    const addTask = useTasksStore(state => state.addTask);
+    const setEditTaskId = useTasksStore(state => state.setEditTaskId);
+    const switchFormTask = useTasksStore(state => state.switchFormTask);
+    const changeTask = useTasksStore(state => state.changeTask);
 
     const change = <K extends keyof EditTask>(key: K, value: EditTask[K]) => {
         setEditTask(t => ({ ...t, [key]: value }))

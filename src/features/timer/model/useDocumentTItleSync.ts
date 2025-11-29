@@ -4,11 +4,9 @@ import { useTimerPlayerStore } from '@/shared/store/timer-player'
 import { formatTime } from '../lib/formatTime';
 
 const useDocumentTitleSync = () => {
-    const {timeLeft, mode, isRunning} = useTimerPlayerStore(state => ({
-        timeLeft: state.timeLeft,
-        mode: state.mode,
-        isRunning: state.isRunning
-    }));
+    const mode = useTimerPlayerStore(state => state.mode);
+    const timeLeft = useTimerPlayerStore(state => state.timeLeft);
+    const isRunning = useTimerPlayerStore(state => state.isRunning);
 
     useEffect(() => {        
         const modeLabel = mode === 'work' ? "Work" : "Break";
