@@ -11,7 +11,10 @@ interface SettingsColProps {
 }
 
 const SettingsCol: React.FC<SettingsColProps> = ({ mode, minutes }) => {
-    const {setDuration, changeMinutes} = useTimerSettingsStore();
+    const {setDuration, changeMinutes} = useTimerSettingsStore(state => ({
+        setDuration: state.setDuration,
+        changeMinutes: state.changeMinutes
+    }));
   return (
     <div className="flex flex-col items-center">
         <h3 className="mb-5 text-2xl">

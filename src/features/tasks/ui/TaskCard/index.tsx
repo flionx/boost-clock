@@ -1,23 +1,28 @@
 "use client"
-import { Task } from "@/shared/types/tasks"
+import { useState } from "react"
+import { useTasksStore } from "@/shared/store/tasks"
+import { DeleteIcon, EditIcon } from "@/shared/ui/icons"
 import CheckboxTask from "./CheckboxTask"
 import ButtonOptions from "./ButtonOptions"
-import { useState } from "react"
 import ModalOptions from "./ModalOptions"
 import ButtonWithIcon from "./ButtonWithIcon"
-import { DeleteIcon, EditIcon } from "@/shared/ui/icons"
-import { useTasksStore } from "@/shared/store/tasks"
 import { AnimatedTaskForm } from "../TaskForm"
+import { Task } from "@/shared/types/tasks"
 
 interface TaskCardProps {
     task: Task
 }
 const TaskCard: React.FC<TaskCardProps> = ({task}) => {   
     const [showOptions, setShowOptions] = useState(false);
-    const {deleteTask, setEditTaskId, switchFormTask, editTaskId} = useTasksStore();
+    const {deleteTask, setEditTaskId, switchFormTask, editTaskId} = useTasksStore(state => ({
+        deleteTask: state.deleteTask, 
+        setEditTaskId: state.setEditTaskId, 
+        switchFormTask: state.switchFormTask, 
+        editTaskId: state.editTaskId
+    }));
     const handleEditTask = () => {
-        setEditTaskId(task.id);
         switchFormTask(true);
+        setEditTaskId(task.id);
     }
   return (
     <>

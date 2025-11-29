@@ -5,7 +5,7 @@ interface CheckboxTaskProps {
   id: Task['id']
 }
 const CheckboxTask: React.FC<CheckboxTaskProps> = ({id}) => {
-  const {toggleCompleteTask} = useTasksStore();
+  const toggleCompleteTask = useTasksStore(state => state.toggleCompleteTask);
   const handleToggleCompleteTask = () => setTimeout(() => toggleCompleteTask(id), 1000)
   return (
     <input

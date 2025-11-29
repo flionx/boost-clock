@@ -2,7 +2,7 @@
 import { useTasksStore } from "@/shared/store/tasks"
 
 const ButtonAddTask = () => {
-    const {switchFormTask} = useTasksStore();
+    const switchFormTask = useTasksStore(state => state.switchFormTask);
     return (
     <button 
         onClick={() => switchFormTask(true)}

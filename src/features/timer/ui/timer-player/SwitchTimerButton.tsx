@@ -10,7 +10,7 @@ const SwitchTimerButton: React.FC<SwitchTimerButtonProps> = ({
     type,
     isActive
 }) => {
-    const {switchMode} = useTimerPlayerStore();
+    const switchMode = useTimerPlayerStore(state => state.switchMode);
   return (
     <button 
         onClick={() => switchMode(type)}

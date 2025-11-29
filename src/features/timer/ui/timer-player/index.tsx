@@ -7,7 +7,14 @@ import TextButton from "./TextButton"
 import TimerInitializer from "./TimerInitializer"
 
 const TimerPlayer = () => {
-  const {mode, timeLeft, isRunning, toggle, reset, skip} = useTimerPlayerStore();
+  const {mode, timeLeft, isRunning, toggle, reset, skip} = useTimerPlayerStore(state => ({
+    mode: state.mode,
+    timeLeft: state.timeLeft,
+    isRunning: state.isRunning,
+    toggle: state.toggle,
+    reset: state.reset,
+    skip: state.skip
+  }));
   useDocumentTitleSync();
 
   return (

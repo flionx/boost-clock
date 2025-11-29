@@ -1,10 +1,14 @@
 "use client"
-import { useTimerPlayerStore } from '@/shared/store/timer-player'
 import { useEffect } from 'react'
+import { useTimerPlayerStore } from '@/shared/store/timer-player'
 import { formatTime } from '../lib/formatTime';
 
 const useDocumentTitleSync = () => {
-    const {timeLeft, mode, isRunning} = useTimerPlayerStore();
+    const {timeLeft, mode, isRunning} = useTimerPlayerStore(state => ({
+        timeLeft: state.timeLeft,
+        mode: state.mode,
+        isRunning: state.isRunning
+    }));
 
     useEffect(() => {        
         const modeLabel = mode === 'work' ? "Work" : "Break";
