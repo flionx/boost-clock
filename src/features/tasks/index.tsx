@@ -1,7 +1,7 @@
-import ButtonAddTask from './ui/ButtonAddTask'
+import ButtonAddTask from './ui/buttons/ButtonAddTask'
 import TasksHeader from './ui/TasksHeader'
 import ActiveTaskList from './ui/ActiveTaskList'
-import AnimatedTaskForm from './ui/TaskForm/AnimatedTaskForm'
+import { AnimatedTaskForm } from './ui/TaskForm'
 
 const Tasks = () => {
   return (

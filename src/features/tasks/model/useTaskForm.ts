@@ -5,12 +5,10 @@ import { parseNumberInput } from '@/shared/lib/parseNumberInput'
 import { validateTaskRound } from '../lib/validateTaskRound'
 import { initTask } from '@/shared/lib/initTask'
 import { Task } from '@/shared/types/tasks'
-interface TaskFormHookProps {
-    task?: Task,
-}
+
 type EditTask = Omit<Task, 'id'>
 
-const useTaskForm = ({task}: TaskFormHookProps) => {
+const useTaskForm = ({task}: { task?: Task }) => {
     const [editTask, setEditTask] = useState<Task>(task ? task : initTask());
     const {addTask, switchFormTask} = useTasksStore();
 

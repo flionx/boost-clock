@@ -1,15 +1,24 @@
 "use client"
+import { AnimatePresence, motion } from 'framer-motion';
 import useActiveTasks from '../model/useActiveTasks'
 import TaskCard from './TaskCard';
 
 const ActiveTaskList = () => {
   const tasks = useActiveTasks();
   return (
-    <>
+    <AnimatePresence>
       {tasks.map(task => (
-        <TaskCard key={task.id} task={task}/>
+        <motion.div
+          key={task.id}  
+          className="w-full mb-7.5 overflow-hidden"
+          initial={{ opacity: 1, height: "auto" }}
+          exit={{ opacity: 0, height: 0, marginBottom: 0 }}
+          transition={{ duration: 0.4 }}
+        >
+          <TaskCard key={task.id} task={task}/>
+        </motion.div>
       ))}
-    </>
+    </AnimatePresence>
   )
 }
 
