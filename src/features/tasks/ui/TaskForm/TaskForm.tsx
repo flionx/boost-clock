@@ -13,7 +13,7 @@ interface TaskFormProps {
     task?: Task
 }
 const TaskForm: React.FC<TaskFormProps> = ({task}) => {
-    const {editTask, change, changeRoundByType, addProperty, changeRound, handleSubmitTask, handleCancel} = useTaskForm({task});
+    const {editTask, change, changeRoundByType, addProperty, changeRound, handleSubmit, handleCancel} = useTaskForm({task});
     const {inputTitleRef, textareaRef} = useInputRefs(editTask.description);
     useFocusOnMount(textareaRef, typeof editTask.description == "string")
     
@@ -39,8 +39,8 @@ const TaskForm: React.FC<TaskFormProps> = ({task}) => {
                 />
             </>:
                 <ButtonAddProperty 
-                    label="Add a description"
                     onClick={() => addProperty('description')}
+                    label="Add a description"
                 />
             }
         </FormCol>
@@ -63,21 +63,15 @@ const TaskForm: React.FC<TaskFormProps> = ({task}) => {
         <div className="flex justify-between items-center">
             {typeof editTask.round?.current !== "number" && 
                 <ButtonAddProperty 
-                    label="Add a deadline"
                     onClick={() => addProperty('deadline')}
+                    label="Add a deadline"
                 />
             }
             <div className="flex items-center gap-[clamp(0.9375rem,2.5vw,3.125rem)] ml-auto">
-                <button 
-                    onClick={handleCancel}
-                    className="text-xl text-text hover:underline"
-                >
+                <button onClick={handleCancel} className="text-xl text-text hover:underline">
                     Cancel
                 </button>
-                <button 
-                    className="btn-ui py-1 px-3 rounded-xl text-xl text-black" 
-                    onClick={handleSubmitTask}
-                >
+                <button onClick={handleSubmit} className="btn-ui py-1 px-3 rounded-xl text-xl text-black">
                     {editTask.id ? 'Save' : 'Create'}
                 </button>
             </div>

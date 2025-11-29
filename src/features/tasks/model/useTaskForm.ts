@@ -1,10 +1,10 @@
 "use client"
-import { initTask } from '@/shared/lib/initTask'
-import { parseNumberInput } from '@/shared/lib/parseNumberInput'
+import { useState } from 'react'
 import { useTasksStore } from '@/shared/store/tasks'
-import { Task } from '@/shared/types/tasks'
-import { useCallback, useState } from 'react'
+import { parseNumberInput } from '@/shared/lib/parseNumberInput'
 import { validateTaskRound } from '../lib/validateTaskRound'
+import { initTask } from '@/shared/lib/initTask'
+import { Task } from '@/shared/types/tasks'
 interface TaskFormHookProps {
     task?: Task,
 }
@@ -12,7 +12,6 @@ type EditTask = Omit<Task, 'id'>
 
 const useTaskForm = ({task}: TaskFormHookProps) => {
     const [editTask, setEditTask] = useState<Task>(task ? task : initTask());
-    const callSetEditTask = useCallback((value: React.SetStateAction<Task>) => setEditTask(value), []);
     const {addTask, switchFormTask} = useTasksStore();
 
     const change = <K extends keyof EditTask>(key: K, value: EditTask[K]) => {
@@ -30,20 +29,6 @@ const useTaskForm = ({task}: TaskFormHookProps) => {
         change("round", { current, max: type === "+" ? max + 1 : Math.max(max - 1, 0) })
     }
 
-    const handleSubmitTask = () => {
-        if (!editTask.title) return;
-        addTask({
-            ...editTask,
-            id: editTask.id || crypto.randomUUID(),
-            description: editTask.description?.trim() ?? null,
-            round: validateTaskRound(editTask.round)
-        })
-        switchFormTask(false)
-        setTimeout(() => {
-            setEditTask(initTask())
-        }, 500)
-    }
-
     const addProperty = (prop: "description" | "deadline") => {
         if (prop === "description") {
             setEditTask(c => ({...c, description: ''}))
@@ -58,10 +43,23 @@ const useTaskForm = ({task}: TaskFormHookProps) => {
         switchFormTask(false)
     }
 
+    const handleSubmit = () => {
+        if (!editTask.title) return;
+        addTask({
+            ...editTask,
+            id: editTask.id || crypto.randomUUID(),
+            description: editTask.description?.trim() ?? null,
+            round: validateTaskRound(editTask.round)
+        })
+        switchFormTask(false)
+        setTimeout(() => {
+            setEditTask(initTask())
+        }, 500)
+    }
+    
     return {
-        editTask, setEditTask: callSetEditTask,
-        change, changeRound, handleSubmitTask,
-        changeRoundByType, addProperty, handleCancel
+        editTask, change, changeRound, changeRoundByType, 
+        addProperty, handleCancel, handleSubmit
     }
 }
 
