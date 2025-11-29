@@ -1,12 +1,23 @@
 "use client"
 import { useTasksStore } from "@/shared/store/tasks"
 import { Task } from "@/shared/types/tasks";
+import { useRef } from "react";
 interface CheckboxTaskProps {
   id: Task['id']
 }
 const CheckboxTask: React.FC<CheckboxTaskProps> = ({id}) => {
   const toggleCompleteTask = useTasksStore(state => state.toggleCompleteTask);
-  const handleToggleCompleteTask = () => setTimeout(() => toggleCompleteTask(id), 1000)
+  const timerRef = useRef<NodeJS.Timeout>(null);
+
+  const handleToggleCompleteTask = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (timerRef.current) clearTimeout(timerRef.current)
+
+    timerRef.current = setTimeout(() => {
+      if (e.target.checked) toggleCompleteTask(id)
+      timerRef.current = null;         
+    }, 1000)
+  }
+
   return (
     <input
       onChange={handleToggleCompleteTask}
