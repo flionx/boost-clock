@@ -10,7 +10,7 @@ const CheckboxTask: React.FC<CheckboxTaskProps> = ({id}) => {
   return (
     <input
       onChange={handleToggleCompleteTask}
-      className="checkbox size-10 rounded-xs cursor-pointer accent-[#D9DBFF] dark:accent-[#4b4f6b]" 
+      className="checkbox size-[clamp(2rem,4vw,2.5rem)] rounded-xs cursor-pointer accent-[#D9DBFF] dark:accent-[#4b4f6b]" 
       type="checkbox" 
     />
   )

@@ -10,7 +10,7 @@ type EditTask = Omit<Task, 'id'>
 
 const useTaskForm = ({task}: { task?: Task }) => {
     const [editTask, setEditTask] = useState<Task>(task ? task : initTask());
-    const {addTask, switchFormTask} = useTasksStore();
+    const {addTask, switchFormTask, setEditTaskId, changeTask} = useTasksStore();
 
     const change = <K extends keyof EditTask>(key: K, value: EditTask[K]) => {
         setEditTask(t => ({ ...t, [key]: value }))
@@ -37,21 +37,26 @@ const useTaskForm = ({task}: { task?: Task }) => {
 
     const handleCancel = (e: React.MouseEvent) => {
         e.preventDefault();
-        setTimeout(() => setEditTask(initTask()), 500)
-        switchFormTask(false)
+        clearForm();
     }
 
     const handleSubmit = () => {
         if (!editTask.title) return;
-        addTask({
+        const task = {
             ...editTask,
             id: editTask.id || crypto.randomUUID(),
             description: editTask.description?.trim() ?? null,
             round: validateTaskRound(editTask.round)
-        })
+        }
+        editTask.id ? changeTask(task) : addTask(task);
+        clearForm()
+    }
+
+    const clearForm = () => {
         switchFormTask(false)
         setTimeout(() => {
             setEditTask(initTask())
+            setEditTaskId(null)
         }, 500)
     }
     

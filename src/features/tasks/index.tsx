@@ -7,7 +7,7 @@ const Tasks = () => {
   return (
     <section className="w-[clamp(22rem,51.3vw,61.6rem)] mx-auto">
       <TasksHeader />
-      <div className="flex items-center flex-col w-[clamp(20rem,48.2vw,58rem)] mx-auto">
+      <div className="flex items-center flex-col w-[clamp(22rem,48.2vw,58rem)] mx-auto">
         <ActiveTaskList />
         <AnimatedTaskForm />
         <ButtonAddTask />

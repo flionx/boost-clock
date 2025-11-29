@@ -14,7 +14,7 @@ interface TaskFormProps {
 }
 const TaskForm: React.FC<TaskFormProps> = ({task}) => {
     const {editTask, change, changeRoundByType, addProperty, changeRound, handleSubmit, handleCancel} = useTaskForm({task});
-    const {inputTitleRef, textareaRef} = useInputRefs(editTask.description);
+    const {inputTitleRef, textareaRef} = useInputRefs();
     useFocusOnMount(textareaRef, typeof editTask.description == "string")
     
   return (
