@@ -4,14 +4,15 @@ import { parseNumberInput } from '@/shared/lib/parseNumberInput'
 import { useTasksStore } from '@/shared/store/tasks'
 import { Task } from '@/shared/types/tasks'
 import { useCallback, useState } from 'react'
+import { validateTaskRound } from '../lib/validateTaskRound'
 interface TaskFormHookProps {
     task?: Task,
 }
 type EditTask = Omit<Task, 'id'>
 
 const useTaskForm = ({task}: TaskFormHookProps) => {
-    const [editTask, setEditTask] = useState<EditTask | Task>(task ? task : initTask());
-    const callSetEditTask = useCallback((value: React.SetStateAction<EditTask | Task>) => setEditTask(value), []);
+    const [editTask, setEditTask] = useState<Task>(task ? task : initTask());
+    const callSetEditTask = useCallback((value: React.SetStateAction<Task>) => setEditTask(value), []);
     const {addTask, switchFormTask} = useTasksStore();
 
     const change = <K extends keyof EditTask>(key: K, value: EditTask[K]) => {
@@ -29,14 +30,18 @@ const useTaskForm = ({task}: TaskFormHookProps) => {
         change("round", { current, max: type === "+" ? max + 1 : Math.max(max - 1, 0) })
     }
 
-    const handleAddTask = () => {
+    const handleSubmitTask = () => {
         if (!editTask.title) return;
         addTask({
             ...editTask,
-            id: crypto.randomUUID()
+            id: editTask.id || crypto.randomUUID(),
+            description: editTask.description?.trim() ?? null,
+            round: validateTaskRound(editTask.round)
         })
-        setEditTask(initTask());
         switchFormTask(false)
+        setTimeout(() => {
+            setEditTask(initTask())
+        }, 500)
     }
 
     const addProperty = (prop: "description" | "deadline") => {
@@ -47,14 +52,15 @@ const useTaskForm = ({task}: TaskFormHookProps) => {
         }
     }
 
-    const handleCancel = () => {
-        setEditTask(initTask());
+    const handleCancel = (e: React.MouseEvent) => {
+        e.preventDefault();
+        setTimeout(() => setEditTask(initTask()), 500)
         switchFormTask(false)
     }
 
     return {
         editTask, setEditTask: callSetEditTask,
-        change, changeRound, handleAddTask,
+        change, changeRound, handleSubmitTask,
         changeRoundByType, addProperty, handleCancel
     }
 }

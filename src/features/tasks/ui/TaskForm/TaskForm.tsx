@@ -1,25 +1,22 @@
 "use client"
+import useFocusOnMount from "@/shared/model/useFocusOnMount"
+import useTaskForm from "../../model/useTaskForm"
+import useInputRefs from "../../model/useInputRefs"
 import ButtonAddProperty from "./ButtonAddProperty"
 import ButtonBox from "./ButtonBox"
 import FormCol from "./FormCol"
 import FormInput from "./FormInput"
 import FormTitle from "./FormTitle"
 import FormContainer from "./FormContainer"
-import useTaskForm from "../../model/useTaskForm"
 import { Task } from "@/shared/types/tasks"
-import { useTasksStore } from "@/shared/store/tasks"
-import useInputRefs from "../../model/useInputRefs"
-import useFocusOnMount from "@/shared/model/useFocusOnMount"
 interface TaskFormProps {
     task?: Task
 }
 const TaskForm: React.FC<TaskFormProps> = ({task}) => {
-    const {showForm} = useTasksStore();
-    const {editTask, change, changeRoundByType, addProperty, changeRound, handleAddTask, handleCancel} = useTaskForm({task});
-    const {inputTitleRef, textareaRef} = useInputRefs(showForm, editTask.description);
+    const {editTask, change, changeRoundByType, addProperty, changeRound, handleSubmitTask, handleCancel} = useTaskForm({task});
+    const {inputTitleRef, textareaRef} = useInputRefs(editTask.description);
     useFocusOnMount(textareaRef, typeof editTask.description == "string")
-    if (!showForm) return null;
-
+    
   return (
     <FormContainer>
         <FormCol>
@@ -31,7 +28,6 @@ const TaskForm: React.FC<TaskFormProps> = ({task}) => {
                 ref={inputTitleRef}
             />
         </FormCol>
-
         <FormCol>
             {typeof editTask.description === "string" ? <>
                 <FormTitle>Description</FormTitle>
@@ -80,9 +76,9 @@ const TaskForm: React.FC<TaskFormProps> = ({task}) => {
                 </button>
                 <button 
                     className="btn-ui py-1 px-3 rounded-xl text-xl text-black" 
-                    onClick={handleAddTask}
+                    onClick={handleSubmitTask}
                 >
-                    Create
+                    {editTask.id ? 'Save' : 'Create'}
                 </button>
             </div>
         </div>

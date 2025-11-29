@@ -1,7 +1,7 @@
 import ButtonAddTask from './ui/ButtonAddTask'
-import TaskForm from './ui/TaskForm'
 import TasksHeader from './ui/TasksHeader'
 import ActiveTaskList from './ui/ActiveTaskList'
+import AnimatedTaskForm from './ui/TaskForm/AnimatedTaskForm'
 
 const Tasks = () => {
   return (
@@ -9,7 +9,7 @@ const Tasks = () => {
       <TasksHeader />
       <div className="flex items-center flex-col w-[clamp(20rem,48.2vw,58rem)] mx-auto">
         <ActiveTaskList />
-        <TaskForm />
+        <AnimatedTaskForm />
         <ButtonAddTask />
       </div>
     </section>

@@ -34,6 +34,7 @@ const FormInput: React.FC<FormInputProps> = ({
                 className="bg-white text-[#1C1C1C] py-1.5 px-5 rounded-lg"
                 type="text" 
                 placeholder="title for your task" 
+                required
             />
         : type === "textarea" ?
             <textarea 
