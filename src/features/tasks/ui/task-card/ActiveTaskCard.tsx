@@ -1,5 +1,5 @@
 "use client"
-import { useState } from "react"
+import { useRef, useState } from "react"
 import { useTasksStore } from "@/shared/store/tasks"
 import { DeleteIcon, EditIcon } from "@/shared/ui/icons"
 import CheckboxTask from "./CheckboxTask"
@@ -9,11 +9,12 @@ import ButtonWithIcon from "./ButtonWithIcon"
 import { AnimatedTaskForm } from "../TaskForm"
 import { Task } from "@/shared/types/tasks"
 
-interface TaskCardProps {
+interface ActiveTaskCardProps {
     task: Task
 }
-const TaskCard: React.FC<TaskCardProps> = ({task}) => {   
+const ActiveTaskCard: React.FC<ActiveTaskCardProps> = ({task}) => {   
     const [showOptions, setShowOptions] = useState(false);
+    const buttonRef = useRef<HTMLButtonElement>(null)
     const deleteTask = useTasksStore(state => state.deleteTask);
     const setEditTaskId = useTasksStore(state => state.setEditTaskId);
     const switchFormTask = useTasksStore(state => state.switchFormTask);
@@ -37,9 +38,15 @@ const TaskCard: React.FC<TaskCardProps> = ({task}) => {
                         <p className="absolute top-1.5 left-[-140%] text-xl">{task.round?.current}/{task.round?.max}</p>
                     }
                     <div className="relative">
-                        <ButtonOptions onClick={() => setShowOptions(c => !c)} />
+                        <ButtonOptions 
+                            onClick={() => setShowOptions(c => !c)} 
+                            ref={buttonRef}
+                        />
                         {showOptions && (
-                            <ModalOptions onClose={() => setShowOptions(c => false)}>
+                            <ModalOptions 
+                                onClose={() => setShowOptions(c => false)}
+                                triggerRef={buttonRef}
+                            >
                                 <ButtonWithIcon 
                                     onClick={handleEditTask}
                                     label="edit"
@@ -66,4 +73,4 @@ const TaskCard: React.FC<TaskCardProps> = ({task}) => {
   )
 }
 
-export default TaskCard
+export default ActiveTaskCard

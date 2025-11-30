@@ -15,7 +15,7 @@ const ButtonWithIcon: React.FC<ButtonWithIconProps> = ({
       className="flex justify-between items-center w-full py-1 px-2.5 hover:bg-[#c8ceeb] text-black"
     >
       {label}
-      <Icon className="fill-black size-4.5" />
+      <Icon className="size-4.5" />
     </button>
   )
 }

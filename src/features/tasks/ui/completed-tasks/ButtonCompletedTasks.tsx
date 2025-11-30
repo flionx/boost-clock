@@ -3,8 +3,8 @@ import { useTasksStore } from "@/shared/store/tasks";
 import { ArrowDownIcon } from "@/shared/ui/icons"
 
 const ButtonCompletedTasks = () => {
-  const showCompletedTasks = useTasksStore(state => state.showCompletedTasks)
-  const toggleShowCompletedTasks = useTasksStore(state => state.toggleShowCompletedTasks)
+  const showCompletedTasks = useTasksStore(state => state.showCompletedTasks);
+  const toggleShowCompletedTasks = useTasksStore(state => state.toggleShowCompletedTasks);
   
   return (
     <button

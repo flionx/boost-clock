@@ -1,8 +1,7 @@
 import ButtonAddTask from './ui/buttons/ButtonAddTask'
-import TasksHeader from './ui/acitve-tasks/TasksHeader'
-import ActiveTaskList from './ui/acitve-tasks/ActiveTaskList'
+import { TasksHeader, ActiveTaskList } from './ui/acitve-tasks'
+import { ButtonCompletedTasks, CompletedTaskList } from './ui/completed-tasks'
 import { AnimatedTaskForm } from './ui/TaskForm'
-import ButtonCompletedTasks from './ui/completed-tasks/ButtonCompletedTasks'
 
 const Tasks = () => {
   return (
@@ -15,6 +14,7 @@ const Tasks = () => {
       </section>
       <section className="flex items-center flex-col w-[clamp(22rem,51.3vw,61.6rem)] mx-auto">
         <ButtonCompletedTasks />
+        <CompletedTaskList />
       </section>
     </section>
   )
