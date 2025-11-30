@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { itim, jetbrains_mono, literal, poppins } from "@/shared/assets/fonts";
+import ModalWarning from "@/shared/ui/ModalWarning";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -20,6 +21,7 @@ export default function RootLayout({
           ${poppins.variable} antialiased
         `}
       >
+        <ModalWarning />
         {children}
       </body>
     </html>
