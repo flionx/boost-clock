@@ -13,20 +13,16 @@ const files = fs.readdirSync(iconsDir).filter(f => f.endsWith(".svg"));
 const toCamelCase = (attr: string) =>
   attr.replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
 
-// 🔹 Убираем fill, stroke, color и приводим атрибуты к JSX-формату
 function sanitizeSvg(svg: string) {
   return (
     svg
       .replace(/<\?xml.*?\?>/g, "")
       .replace(/<!DOCTYPE.*?>/g, "")
-      // удаляем fill / stroke / color
       .replace(/\s*(fill|stroke|color)="[^"]*"/g, "")
-      // превращаем stroke-width → strokeWidth
       .replace(/([a-zA-Z0-9]+-[a-zA-Z0-9]+)=/g, match => {
         const attr = match.slice(0, -1);
         return `${toCamelCase(attr)}=`;
       })
-      // убираем сам <svg> wrapper
       .replace(/<svg[^>]*>/, "")
       .replace(/<\/svg>/, "")
       .trim()

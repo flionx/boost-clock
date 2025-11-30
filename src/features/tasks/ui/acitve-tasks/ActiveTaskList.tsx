@@ -1,7 +1,7 @@
 "use client"
 import { AnimatePresence, motion } from 'framer-motion';
-import useActiveTasks from '../model/useActiveTasks'
-import TaskCard from './TaskCard';
+import useActiveTasks from '../../model/useActiveTasks'
+import TaskCard from '../TaskCard';
 
 const ActiveTaskList = () => {
   const tasks = useActiveTasks();

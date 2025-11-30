@@ -1,4 +1,4 @@
-import ButtonClearAll from './buttons/ButtonClearAll'
+import ButtonClearAll from '../buttons/ButtonClearAll'
 
 const TasksHeader = () => {
   return (

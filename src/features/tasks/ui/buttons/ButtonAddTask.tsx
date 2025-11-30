@@ -9,7 +9,7 @@ const ButtonAddTask = () => {
         className="
             flex justify-center bg-accent rounded-xl max-w-104.5 w-full group text-center text-[calc(22px+(25-22)*((100vw-375px)/(1440-375)))] 
             py-5 px-7 transition-all duration-300 hover:bg-[rgba(0,0,0,0.25)] dark:hover:bg-[rgba(75,75,75,0.15)]
-            hover:scale-101 active:scale-100 relative
+            hover:scale-101 active:scale-100 relative mb-7.5
         "
     >
         <span 
