@@ -1,5 +1,5 @@
 "use client"
-
+import useStopPageScroll from "@/shared/model/useStopPageScroll";
 import { useModalWarningStore } from "@/shared/store/modal-warning"
 
 const ModalWarning = () => {
@@ -8,6 +8,7 @@ const ModalWarning = () => {
     const submitLabel = useModalWarningStore(state => state.submitLabel);
     const closeModal = useModalWarningStore(state => state.closeModal);
     const submitModal = useModalWarningStore(state => state.submitModal);
+    useStopPageScroll(show);
     if (!show) return null;
 
   return (
