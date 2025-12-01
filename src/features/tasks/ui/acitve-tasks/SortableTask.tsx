@@ -25,7 +25,7 @@ const SortableTask = ({ id, task }: any) => {
       style={style}
       initial={{ opacity: 1 }}
       exit={{ opacity: 0, height: 0, marginBottom: 0 }}
-      transition={{ duration: 0.25 }}
+      transition={{ duration: 0.4 }}
       className="mb-7.5 w-full overflow-hidden"
     >
       <ActiveTaskCard task={task} dragHandleProps={{ ...attributes, ...listeners }} />

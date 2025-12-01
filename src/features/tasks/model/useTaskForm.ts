@@ -38,11 +38,6 @@ const useTaskForm = ({task}: { task?: Task }) => {
         }
     }
 
-    const handleCancel = (e: React.MouseEvent) => {
-        e.preventDefault();
-        clearForm();
-    }
-
     const handleSubmit = () => {
         if (!editTask.title) return;
         const task = {
@@ -65,7 +60,7 @@ const useTaskForm = ({task}: { task?: Task }) => {
     
     return {
         editTask, change, changeRound, changeRoundByType, 
-        addProperty, handleCancel, handleSubmit
+        addProperty, handleCancel: clearForm, handleSubmit
     }
 }
 
