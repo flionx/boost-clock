@@ -42,9 +42,7 @@ const ActiveTaskList = () => {
 
       <DragOverlay dropAnimation={null}>
         {activeTask ? (
-          <div className="opacity-90">
-            <ActiveTaskCard task={activeTask} dragHandleProps={null} />
-          </div>
+          <ActiveTaskCard task={activeTask} dragHandleProps={null} />
         ) : null}
       </DragOverlay>
     </DndContext>

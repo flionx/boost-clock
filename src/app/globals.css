@@ -79,6 +79,8 @@
   --color-modal-btn-ui-hover: var(--color-item-modal-text-bg-hover);
   --color-modal-btn-ui-active: var(--color-item-modal-text-bg-active);
   --color-quote-border: var(--border-quote);
+  --color-footer-bg: var(--footer-bg);
+  --color-footer: var(--footer-copy-color);
 
   --breakpoint-xl: 87.5rem;
   @keyframes linethrough {
