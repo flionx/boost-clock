@@ -1,24 +1,35 @@
 "use client"
-import { AnimatePresence, motion } from 'framer-motion';
-import useActiveTasks from '../../model/useActiveTasks'
-import { ActiveTaskCard } from '../task-card';
+import { DndContext, closestCenter } from "@dnd-kit/core"
+import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable"
+import { useTasksStore } from "@/shared/store/tasks"
+import { AnimatePresence } from "framer-motion"
+import SortableTask from "./SortableTask"
+import useActiveTasks from "../../model/useActiveTasks"
 
 const ActiveTaskList = () => {
   const tasks = useActiveTasks();
+  const reorder = useTasksStore(s => s.reorderTasks)
+
   return (
-    <AnimatePresence>
-      {tasks.map(task => (
-        <motion.div
-          key={task.id}  
-          className="w-full mb-7.5 overflow-hidden"
-          initial={{ opacity: 1, height: "auto" }}
-          exit={{ opacity: 0, height: 0, marginBottom: 0 }}
-          transition={{ duration: 0.4 }}
-        >
-          <ActiveTaskCard key={task.id} task={task}/>
-        </motion.div>
-      ))}
-    </AnimatePresence>
+    <DndContext
+      collisionDetection={closestCenter}
+      onDragEnd={({ active, over }) => {
+        if (over && active.id !== over.id) {
+          reorder(active.id as string, over.id as string)
+        }
+      }}
+    >
+      <SortableContext
+        items={tasks.map(t => t.id)}
+        strategy={verticalListSortingStrategy}
+      >
+        <AnimatePresence>
+          {tasks.map(task => (
+            <SortableTask key={task.id} id={task.id} task={task} />
+          ))}
+        </AnimatePresence>
+      </SortableContext>
+    </DndContext>
   )
 }
 

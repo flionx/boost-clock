@@ -21,7 +21,8 @@ interface TasksState {
     deleteTasks: VoidFunction,
     switchFormTask: (showForm: boolean) => void,
     toggleShowCompletedTasks: VoidFunction,
-    setEditTaskId: (id: Task['id'] | null) => void
+    setEditTaskId: (id: Task['id'] | null) => void,
+    reorderTasks: (active: string, over: string) => void
 }
 
 export const useTasksStore = create<TasksState>((set, get) => ({
@@ -58,5 +59,16 @@ export const useTasksStore = create<TasksState>((set, get) => ({
     deleteTasks: () => set({ list: get().list.filter(t => t.complete) }),
     switchFormTask: (showForm) => set({showForm}),
     toggleShowCompletedTasks: () => set({ showCompletedTasks: !get().showCompletedTasks }),
-    setEditTaskId: (id) => set({ editTaskId: id })
+    setEditTaskId: (id) => set({ editTaskId: id }),
+    reorderTasks: (activeId, overId) => set({
+        list: (() => {
+            const list = [...get().list];
+            const oldIndex = list.findIndex(t => t.id === activeId);
+            const newIndex = list.findIndex(t => t.id === overId);
+
+            const [item] = list.splice(oldIndex, 1);
+            list.splice(newIndex, 0, item);
+            return list;
+        })()
+    })
 }))

@@ -10,9 +10,10 @@ import { AnimatedTaskForm } from "../TaskForm"
 import { Task } from "@/shared/types/tasks"
 
 interface ActiveTaskCardProps {
-    task: Task
+    task: Task,
+    dragHandleProps?: any
 }
-const ActiveTaskCard: React.FC<ActiveTaskCardProps> = ({task}) => {   
+const ActiveTaskCard: React.FC<ActiveTaskCardProps> = ({ task, dragHandleProps }) => {   
     const [showOptions, setShowOptions] = useState(false);
     const buttonRef = useRef<HTMLButtonElement>(null)
     const deleteTask = useTasksStore(state => state.deleteTask);
@@ -29,7 +30,10 @@ const ActiveTaskCard: React.FC<ActiveTaskCardProps> = ({task}) => {
             <div className="flex justify-between relative mb-4">
                 <div className="flex items-center gap-[clamp(0.5rem,1.5vw,1rem)] max-w-85/100">
                     <CheckboxTask id={task.id}/>
-                    <h4 className="text-[calc(20px+(25-20)*((100vw-375px)/(1440-375)))] w-fit max-w-[clamp(70%,30vw,85%)] xl:max-w-[clamp(70%,35vw,85%)] text-text break-words relative linethrough-text gray-text">
+                    <h4 
+                        {...dragHandleProps}
+                        className="text-[calc(20px+(25-20)*((100vw-375px)/(1440-375)))] w-fit max-w-[clamp(70%,30vw,85%)] xl:max-w-[clamp(70%,35vw,85%)] text-text break-words relative linethrough-text gray-text cursor-grab"
+                    >
                         {task.title}
                     </h4>
                 </div>
