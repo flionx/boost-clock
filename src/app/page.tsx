@@ -8,7 +8,7 @@ export default function Home() {
     <>
       <Header />
       <main>
-        <section className="w-[clamp(22rem,58.3vw,70rem)] mx-auto overflow-hidden">
+        <section className="w-[clamp(22rem,58.3vw,70rem)] mx-auto">
           <Timer />
           <Tasks />
         </section>
