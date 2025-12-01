@@ -2,14 +2,8 @@
 import { create } from "zustand"
 import { Task } from "../types/tasks";
 
-interface MainTask {
-    id: Task['id'],
-    title: Task['title']
-}
-
 interface TasksState {
     list: Task[],
-    main: MainTask | null,
     showForm: boolean,
     showCompletedTasks: boolean,
     editTaskId: Task['id'] | null,
@@ -27,7 +21,6 @@ interface TasksState {
 
 export const useTasksStore = create<TasksState>((set, get) => ({
     list: [],
-    main: null,
     showForm: false,
     editTaskId: null,
     showCompletedTasks: true,
