@@ -9,14 +9,14 @@ const Footer = () => {
                 <h5 className='text-xl mb-4 text-text'>Contact me:</h5>
                 <nav className="flex gap-x-6 items-center">
                     {socialLinks.map(link => 
-                        <ExternalLink href={link.href} icon={link.icon}/>
+                        <ExternalLink key={link.href} href={link.href} icon={link.icon}/>
                     )}
                 </nav>
             </div>
             <nav className="flex gap-x-3 mb-4">
-                {/* todo: change to link */}
+                {/* todo: change span to link */}
                 {additionalLinks.map(link => 
-                    <span className="text-sm font-secondary">{link.label}</span>
+                    <span key={link.label} className="text-sm font-secondary">{link.label}</span>
                 )}
             </nav>
             <p className="text-base tracking-[.5px] text-footer mb-2.5">Developed with ♥ by Flionx.</p>

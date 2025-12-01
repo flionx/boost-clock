@@ -5,7 +5,6 @@ interface MenuButtonProps {
     icon: React.FC<React.SVGProps<SVGSVGElement>>,
     onClick?: VoidFunction
 }
-// todo: add onClick
 const MenuButton: React.FC<MenuButtonProps> = ({
     children,
     icon: Icon,
