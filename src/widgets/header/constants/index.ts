@@ -1,6 +1,7 @@
 import { ReportIcon, SettingsIcon, TrophyIcon } from "@/shared/ui/icons";
+import { HeaderMenuButton } from "../types";
 
-export const HEADER_MENU_BUTTONS = [
+export const HEADER_MENU_BUTTONS: HeaderMenuButton[] = [
     {
         label: "Report",
         icon: ReportIcon,

@@ -1,4 +1,5 @@
 export * from "./ArrowDownIcon";
+export * from "./CrossIcon";
 export * from "./DeleteIcon";
 export * from "./EditIcon";
 export * from "./GithubIcon";

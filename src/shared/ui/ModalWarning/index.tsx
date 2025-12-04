@@ -16,11 +16,11 @@ const ModalWarning = () => {
         onClick={closeModal}
         className="fixed bg-[#0006] z-10 inset-0 w-full h-full backdrop-blur-[1px] overflow-auto"
         >
-        <dialog 
+        <div 
             onClick={(e) => e.stopPropagation()}
             className="
-            relative top-1/2 left-1/2 -translate-1/2 flex flex-col items-center gap-7.5 max-w-[clamp(21.9rem,95vw,26.2rem)]
-            py-3.5 px-12.5 font-secondary bg-primary text-text rounded-lg shadow-[4px_4px_4px_#00000040] border-[#444444]
+                relative top-1/2 left-1/2 -translate-1/2 flex flex-col items-center gap-7.5 max-w-[clamp(21.9rem,95vw,26.2rem)]
+                py-3.5 px-12.5 font-secondary bg-primary text-text rounded-lg shadow-[4px_4px_4px_#00000040] border-[#444444]
             "
             >
             <h3 className="text-2xl text-center">Warning!</h3>
@@ -45,7 +45,7 @@ const ModalWarning = () => {
                     {submitLabel}
                 </button>
             </div>
-        </dialog>
+        </div>
     </div>
   )
 }

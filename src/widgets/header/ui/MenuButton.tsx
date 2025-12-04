@@ -3,7 +3,7 @@ import React from 'react'
 interface MenuButtonProps {
     children: React.ReactNode,
     icon: React.FC<React.SVGProps<SVGSVGElement>>,
-    onClick?: VoidFunction
+    onClick: VoidFunction
 }
 const MenuButton: React.FC<MenuButtonProps> = ({
     children,

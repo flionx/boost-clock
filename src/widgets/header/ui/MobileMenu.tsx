@@ -1,8 +1,7 @@
 "use client"
 import { useCallback, useState } from "react"
-import { HEADER_MENU_BUTTONS } from "../constants"
-import MenuButton from "./MenuButton"
 import UserButton from "./UserButton"
+import MenuList from "./MenuList"
 
 const MobileMenu = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -26,11 +25,7 @@ const MobileMenu = () => {
                 shadow shadow-secondary border border-[#3a3a3a] z-2"
             >
                 <UserButton />
-                {HEADER_MENU_BUTTONS.map(m => 
-                    <MenuButton key={m.label} icon={m.icon}>
-                        {m.label}
-                    </MenuButton>
-                )}
+                <MenuList />
             </ul>
         )}
     </div>
