@@ -21,13 +21,19 @@ const useTaskForm = ({task}: { task?: Task }) => {
 
     const changeRound = (e: React.ChangeEvent<HTMLInputElement>) => {
         const max = parseNumberInput(e.target.value, 0)
-        change("round", { current: editTask.round?.current ?? 0, max })
+        change("round", { 
+            current: editTask.round?.current ?? 0, 
+            max: Math.min(max, 99) 
+        })
     }
 
     const changeRoundByType = (type: "+" | "-") => {
         const current = editTask.round?.current ?? 0
         const max = editTask.round?.max ?? 0
-        change("round", { current, max: type === "+" ? max + 1 : Math.max(max - 1, 0) })
+        change("round", { 
+            current, 
+            max: Math.min(type === "+" ? max + 1 : Math.max(max - 1, 0), 99) 
+        })
     }
 
     const addProperty = (prop: "description" | "deadline") => {
