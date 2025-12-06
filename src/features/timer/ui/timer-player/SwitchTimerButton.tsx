@@ -1,7 +1,7 @@
 "use client"
-import { useTimerPlayerStore } from '@/shared/store/timer-player';
+import { useTimerPlayerStore } from '@/features/timer';
 import { capitalizeFirstLetter } from '@/shared/lib/capitalizeFirstLetter';
-import { TimerMode } from '@/shared/types/timer';
+import { TimerMode } from '../../types';
 interface SwitchTimerButtonProps {
     type: TimerMode,
     isActive: boolean

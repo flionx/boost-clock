@@ -1,6 +1,6 @@
 "use client"
 import { useRef, useState } from "react"
-import { useTasksStore } from "@/shared/store/tasks"
+import { useTasksStore } from "@/features/tasks/store/tasks"
 import { DeleteIcon, EditIcon } from "@/shared/ui/icons"
 import CheckboxTask from "./CheckboxTask"
 import ButtonOptions from "./ButtonOptions"

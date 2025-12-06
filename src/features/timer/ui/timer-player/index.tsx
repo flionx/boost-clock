@@ -1,5 +1,5 @@
 "use client"
-import { useTimerPlayerStore } from "@/shared/store/timer-player"
+import { useTimerPlayerStore } from "@/features/timer/store/timer-player"
 import useDocumentTitleSync from "../../model/useDocumentTItleSync"
 import SwitchTimerButton from "./SwitchTimerButton"
 import { formatTime } from "../../lib/formatTime"

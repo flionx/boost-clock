@@ -1,4 +1,4 @@
-import { Task } from "../types/tasks";
+import { Task } from "../types";
 
 export const initTask = (title?: Task['title']): Task => ({
     id: '',

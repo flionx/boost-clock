@@ -1,6 +1,6 @@
 "use client"
 import { useModalWarningStore } from "@/shared/store/modal-warning"
-import { useTasksStore } from "@/shared/store/tasks";
+import { useTasksStore } from "@/features/tasks/store/tasks";
 import { DeleteIcon } from "@/shared/ui/icons"
 
 const ButtonClearAll = () => {

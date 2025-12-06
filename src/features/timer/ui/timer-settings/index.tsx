@@ -1,5 +1,5 @@
 "use client"
-import { useTimerSettingsStore } from "@/shared/store/timer-settings";
+import { useTimerSettingsStore } from "@/features/timer/store/timer-settings";
 import SettingsCol from "./SettingsCol";
 
 const TimerSettings = () => {

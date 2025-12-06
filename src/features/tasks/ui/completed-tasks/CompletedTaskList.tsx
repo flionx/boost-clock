@@ -1,6 +1,6 @@
 "use client"
 import { AnimatePresence, motion } from 'framer-motion';
-import { useTasksStore } from '@/shared/store/tasks';
+import { useTasksStore } from '@/features/tasks/store/tasks';
 import useCompletedTasks from '../../model/useCompletedTasks'
 import { CompletedTaskCard } from '../task-card';
 

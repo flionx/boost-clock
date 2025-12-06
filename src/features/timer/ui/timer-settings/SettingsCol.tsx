@@ -1,9 +1,9 @@
 "use client"
-import { useTimerSettingsStore } from '@/shared/store/timer-settings'
+import { useTimerSettingsStore } from '@/features/timer/store/timer-settings'
 import { capitalizeFirstLetter } from '@/shared/lib/capitalizeFirstLetter'
-import { TimerMode } from '@/shared/types/timer'
 import SquareButton from './SquareButton'
 import InputMinutes from './InputMinutes'
+import { TimerMode } from '../../types'
 
 interface SettingsColProps {
     mode: TimerMode,

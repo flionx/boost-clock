@@ -1,4 +1,4 @@
-import { useTasksStore } from '@/shared/store/tasks';
+import { useTasksStore } from '@/features/tasks/store/tasks';
 import { useEffect, useRef } from 'react'
 
 const useInputRefs = () => {

@@ -1,6 +1,6 @@
 "use client"
 import { parseNumberInput } from '@/shared/lib/parseNumberInput'
-import { TimerMode } from '@/shared/types/timer'
+import { TimerMode } from '../../types'
 interface InputMinutesProps {
   value: number,
   mode: TimerMode,

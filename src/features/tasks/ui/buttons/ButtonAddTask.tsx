@@ -1,5 +1,5 @@
 "use client"
-import { useTasksStore } from "@/shared/store/tasks"
+import { useTasksStore } from "@/features/tasks/store/tasks"
 
 const ButtonAddTask = () => {
     const switchFormTask = useTasksStore(state => state.switchFormTask);

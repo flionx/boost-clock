@@ -1,5 +1,5 @@
 "use client"
-import { useTasksStore } from "@/shared/store/tasks";
+import { useTasksStore } from "@/features/tasks/store/tasks";
 import { ArrowDownIcon } from "@/shared/ui/icons"
 import { AnimatePresence, motion } from "framer-motion";
 import useCompletedTasks from "../../model/useCompletedTasks";

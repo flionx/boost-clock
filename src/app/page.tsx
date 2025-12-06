@@ -1,8 +1,8 @@
 import Header from "@/widgets/header";
 import Timer from "@/features/timer";
 import Tasks from "@/features/tasks";
-import Quote from "@/features/quote/ui";
-import Footer from "@/widgets/footer/ui";
+import Quote from "@/features/quote";
+import Footer from "@/widgets/footer";
 
 export default function Home() {
   return (

@@ -1,7 +1,7 @@
 "use client"
 import { create } from "zustand"
-import { TimerMinutesOperation, TimerMode } from "../types/timer"
-import { MAX_TIMER_DURATION, MIN_TIMER_DURATION } from "../constants/timer"
+import { TimerMinutesOperation, TimerMode } from "@/features/timer/types"
+import { MAX_TIMER_DURATION, MIN_TIMER_DURATION } from "@/features/tasks/constants"
 
 interface TimerSettingsState {
     workDuration: number,

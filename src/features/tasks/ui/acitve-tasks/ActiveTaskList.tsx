@@ -2,7 +2,7 @@
 import { useState } from "react"
 import { DndContext, DragOverlay, closestCenter } from "@dnd-kit/core"
 import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable"
-import { useTasksStore } from "@/shared/store/tasks"
+import { useTasksStore } from "@/features/tasks/store/tasks"
 import { AnimatePresence } from "framer-motion"
 import SortableTask from "./SortableTask"
 import ActiveTaskCard from "../task-card/ActiveTaskCard"

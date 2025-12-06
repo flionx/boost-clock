@@ -1,7 +1,7 @@
 "use client"
 import useStopPageScroll from "@/shared/model/useStopPageScroll";
 import { useModalMenuStore } from "@/shared/store/modal-menu";
-import { CrossIcon } from "../icons"
+import { CrossIcon } from '@/shared/ui/icons'
 
 const ModalMenu = () => {
     const show = useModalMenuStore(state => state.show);

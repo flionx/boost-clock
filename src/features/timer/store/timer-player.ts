@@ -1,7 +1,8 @@
+"use client"
 import { create } from "zustand";
-import { useTimerSettingsStore } from "./timer-settings";
-import { TimerMode } from "../types/timer";
-import createAudioTimer from "@/features/timer/lib/createAudioTimer";
+import { useTimerSettingsStore } from "@/features/timer/store/timer-settings";
+import createAudioTimer from "../lib/createAudioTimer";
+import { TimerMode } from "../types";
 interface TimerPlayerState {
     mode: TimerMode,
     timeLeft: number,

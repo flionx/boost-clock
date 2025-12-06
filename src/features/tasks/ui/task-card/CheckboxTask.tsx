@@ -1,5 +1,5 @@
 "use client"
-import { useTasksStore } from "@/shared/store/tasks"
+import { useTasksStore } from "@/features/tasks/store/tasks"
 import { Task } from "@/shared/types/tasks";
 import { useRef } from "react";
 interface CheckboxTaskProps {

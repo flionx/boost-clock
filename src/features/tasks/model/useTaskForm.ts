@@ -1,10 +1,10 @@
 "use client"
 import { useState } from 'react'
-import { useTasksStore } from '@/shared/store/tasks'
+import { useTasksStore } from '@/features/tasks/store/tasks'
 import { parseNumberInput } from '@/shared/lib/parseNumberInput'
 import { validateTaskRound } from '../lib/validateTaskRound'
-import { initTask } from '@/shared/lib/initTask'
-import { Task } from '@/shared/types/tasks'
+import { initTask } from '../lib/initTask'
+import { Task } from '../types'
 
 type EditTask = Omit<Task, 'id'>
 

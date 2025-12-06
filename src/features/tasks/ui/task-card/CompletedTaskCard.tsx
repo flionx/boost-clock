@@ -1,6 +1,6 @@
 "use client"
 import { useRef, useState } from 'react'
-import { useTasksStore } from '@/shared/store/tasks'
+import { useTasksStore } from '@/features/tasks/store/tasks'
 import ButtonOptions from './ButtonOptions'
 import ModalOptions from './ModalOptions'
 import ButtonWithIcon from './ButtonWithIcon'
