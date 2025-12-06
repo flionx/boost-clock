@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { itim, jetbrains_mono, literal, poppins } from "@/shared/assets/fonts";
 import ModalWarning from "@/shared/ui/ModalWarning";
-import ModalMenu from "@/widgets/modal-menu";
+import { ModalMenu } from "@/widgets/modal-menu";
 import "./globals.css";
 
 export const metadata: Metadata = {
