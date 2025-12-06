@@ -1,4 +1,5 @@
 "use client"
+import Settings from "@/features/settings/ui";
 import useStopPageScroll from "@/shared/model/useStopPageScroll";
 import { useModalMenuStore } from "@/shared/store/modal-menu";
 import { CrossIcon } from '@/shared/ui/icons'
@@ -30,7 +31,7 @@ const ModalMenu = () => {
             >
                 <CrossIcon className="size-5 text-line" />
             </button>
-            {/* todo: render menu */}
+            {title === "Settings" && <Settings />}
             {onReset && (
                 <button
                     onClick={onReset} 
