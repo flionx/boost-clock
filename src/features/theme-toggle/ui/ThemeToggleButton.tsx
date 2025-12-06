@@ -1,9 +1,10 @@
 "use client";
-import useTheme from "../model/useTheme";
 import { MoonIcon, SunIcon } from "@/shared/ui/icons";
+import { useThemeStore } from "../store/theme";
 
 const ThemeToggleButton = () => {
-    const {theme, toggleTheme} = useTheme(); 
+    const theme = useThemeStore(state => state.theme);
+    const toggleTheme = useThemeStore(state => state.toggleTheme);
 
   return (
     <button

@@ -7,16 +7,20 @@ export interface AudioTimer {
 
 export default function createAudioTimer(
     onTick: (timeLeft: number) => void,
-    onDone: VoidFunction
+    onDone: VoidFunction,
+    getSoundEnabled: () => boolean,
+    getSoundCountRepeat: () => number,
 ): AudioTimer {
     let audioContext: AudioContext | null = null;
     let workletNode: AudioWorkletNode | null = null;
     let endTime: number | null = null;
     let checkInterval: NodeJS.Timeout | null = null;
     let isActive = false;
+    let soundTimeouts: NodeJS.Timeout[] = [];
 
     async function start(duration: number) {
         isActive = true;
+        cleanSoundTimeouts();
         
         endTime = Date.now() + duration * 1000;
         localStorage.setItem('timer_end_time', endTime.toString());
@@ -74,31 +78,52 @@ export default function createAudioTimer(
         localStorage.removeItem('timer_end_time');
         localStorage.removeItem('timer_active');
         
-        playSound();
+        if (getSoundEnabled()) {
+            playSound();
+        }
         stop();
         onDone();
     }
-
+    
     function playSound() {
+        if (!getSoundEnabled()) return;
         try {
+            cleanSoundTimeouts()
+
+            const totalSoundPlays = Math.min(getSoundCountRepeat(), 5);
+            if (totalSoundPlays < 0) return;
+
             const audio = new Audio("/sounds/timeOut.mp3");
             audio.volume = 0.45;
+            audio.currentTime = 0;
             
-            // Пытаемся воспроизвести звук
             const playPromise = audio.play();
             
-            // if (playPromise !== undefined) {
-                // playPromise.catch(error => {
-                    // console.error("Sound play failed:", error);
-                    // Notification API
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    console.error("Sound play failed:", error);
                     // showNotification();
-                // });
-            // }
+                    cleanSoundTimeouts()
+                });
+            }
+        
+            for (let i = 1; i <= totalSoundPlays; i++) {
+                const timeoutId: NodeJS.Timeout = setTimeout(() => {
+                    audio.currentTime = 0;
+                    audio.play();
+                }, i * 2000); 
+        
+                soundTimeouts.push(timeoutId); 
+            }
         } catch (error) {
             console.error("Sound creation failed:", error);
         }
     }
 
+    function cleanSoundTimeouts() {
+        soundTimeouts.forEach(clearTimeout);
+        soundTimeouts = [];
+    }
     // function showNotification() {
     //     if ("Notification" in window && Notification.permission === "granted") {
     //         new Notification("Pomodoro Timer", {

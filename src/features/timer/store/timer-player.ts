@@ -8,7 +8,7 @@ interface TimerPlayerState {
     timeLeft: number,
     isRunning: boolean,
     toggle: VoidFunction,
-    skip: VoidFunction,
+    skip: (playSound?: boolean) => void,
     reset: VoidFunction,
     switchMode: (mode: TimerMode) => void,
     restoreFromStorage: VoidFunction
@@ -19,7 +19,9 @@ export const useTimerPlayerStore = create<TimerPlayerState>((set, get) => {
     
     let timer = createAudioTimer(
         (timeLeft) => set({timeLeft}), // tick
-        () => get().skip() // done
+        () => get().skip(false), // done
+        () => useTimerSettingsStore.getState().soundEnabled,
+        () => useTimerSettingsStore.getState().soundCountRepeat,
     )
 
     useTimerSettingsStore.subscribe(newSettings => {
@@ -42,9 +44,11 @@ export const useTimerPlayerStore = create<TimerPlayerState>((set, get) => {
                 set({isRunning: true})
             }  
         },
-        skip: () => {
+        skip: (playSound = true) => {
             const nextMode = get().mode === "work" ? "break" : "work";
-            timer.playSound()
+            if (playSound) {
+                timer.playSound();
+            }
             get().switchMode(nextMode);
         },
         reset: () => {
@@ -75,7 +79,6 @@ export const useTimerPlayerStore = create<TimerPlayerState>((set, get) => {
                 } else {
                     localStorage.removeItem('timer_end_time');
                     localStorage.removeItem('timer_active');
-                    timer.playSound();
                     get().skip();
                 }
             }
