@@ -1,18 +1,17 @@
-import { Theme } from '@/features/theme-toggle/types'
 import React from 'react'
 interface SelectOptionsProps {
-    value: Theme,
-    onChange: (value: Theme) => void
+    value: string,
+    onChange: (value: string) => void,
+    children: React.ReactNode
 }
-const SelectOptions: React.FC<SelectOptionsProps> = ({ value, onChange }) => {
+const SelectOptions: React.FC<SelectOptionsProps> = ({ value, onChange, children }) => {
   return (
     <select 
         className="bg-primary p-1.5 cursor-pointer" 
         value={value} 
-        onChange={e => onChange(e.target.value as Theme)}
+        onChange={e => onChange(e.target.value)}
     >
-        <option value="dark">Dark</option>
-        <option value="light">Light</option>
+      {children}
     </select>
   )
 }

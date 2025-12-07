@@ -1,6 +1,13 @@
 @import "tailwindcss";
 @variant dark (&:where(.dark, .dark *));
 
+html.light {
+  color-scheme: light;
+}
+html.dark {
+  color-scheme: dark;
+}
+
 /* todo: rename and delete unnecessary varibles */
 :root {
   --color-primary: #D9DBFF;

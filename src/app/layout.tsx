@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { itim, jetbrains_mono, literal, poppins } from "@/shared/assets/fonts";
+import ThemeProvider from "@/shared/providers/theme-provider";
 import ModalWarning from "@/shared/ui/ModalWarning";
 import { ModalMenu } from "@/widgets/modal-menu";
 import "./globals.css";
@@ -15,16 +16,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`
           ${itim.variable} ${literal.variable} ${jetbrains_mono.variable}
           ${poppins.variable} antialiased
         `}
       >
-        <ModalWarning />
-        <ModalMenu />
-        {children}
+        <ThemeProvider>
+          <ModalWarning />
+          <ModalMenu />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

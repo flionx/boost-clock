@@ -8,10 +8,15 @@ interface TimerSettingsState {
     breakDuration: number,
     longBreakDuration: number,
     longBreakInterval: number,
+    autoSwitchTo: {
+        work: boolean,
+        break: boolean,
+    }
     currentRound: number,
     soundEnabled: boolean,
     soundCountRepeat: number,
     setDuration: (mode: TimerMode, minutes: number) => void,
+    setAutoSwitch: (mode: TimerMode, value: boolean) => void,
     changeMinutes: (mode: TimerMode, type: TimerMinutesOperation) => void,
     setLongBreakInterval: (value: number) => void
     changeCurrentRound: (type: LongBreakChange) => void,
@@ -24,6 +29,10 @@ export const useTimerSettingsStore = create<TimerSettingsState>((set, get) => ({
     breakDuration: 5,
     longBreakDuration: 15,
     longBreakInterval: 4,
+    autoSwitchTo: {
+        work: false,
+        break: false,
+    },
     currentRound: 0,
     soundEnabled: true,
     soundCountRepeat: 0,
@@ -39,6 +48,9 @@ export const useTimerSettingsStore = create<TimerSettingsState>((set, get) => ({
         }
     }),
     setLongBreakInterval: (value) => set({ longBreakInterval: value }),
+    setAutoSwitch: (mode, value) => set(state => ({
+        autoSwitchTo: {...state.autoSwitchTo, [`${mode}`]: value }
+    })),
     changeCurrentRound: (type) => set({ 
         currentRound: type === "add" ? get().currentRound++ : 0 
     }),

@@ -50,6 +50,9 @@ export const useTimerPlayerStore = create<TimerPlayerState>((set, get) => {
                 timer.playSound();
             }
             get().switchMode(nextMode);
+            if (useTimerSettingsStore.getState().autoSwitchTo[nextMode]) {
+                get().toggle()
+            }
         },
         reset: () => {
             const {mode} = get();
