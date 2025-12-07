@@ -22,6 +22,7 @@ interface TimerSettingsState {
     changeCurrentRound: (type: LongBreakChange) => void,
     setSoundEnabled: (enabled: boolean) => void,
     setSoundCountRepeat: (count: number) => void,
+    resetSettings: VoidFunction
 }
 
 export const useTimerSettingsStore = create<TimerSettingsState>((set, get) => ({
@@ -55,7 +56,19 @@ export const useTimerSettingsStore = create<TimerSettingsState>((set, get) => ({
         currentRound: type === "add" ? get().currentRound++ : 0 
     }),
     setSoundEnabled: (enabled) => set({ soundEnabled: enabled }),
-    setSoundCountRepeat: (count) => set({ soundCountRepeat: Math.min(count, 4) })
+    setSoundCountRepeat: (count) => set({ soundCountRepeat: Math.min(count, 4) }),
+    resetSettings: () => set({
+        workDuration: 25,
+        breakDuration: 5,
+        longBreakDuration: 15,
+        longBreakInterval: 4,
+        autoSwitchTo: {
+            work: false,
+            break: false,
+        },
+        soundEnabled: true,
+        soundCountRepeat: 0
+    })
 }))
 
 const validateDuration = (value: number) => Math.max(MIN_TIMER_DURATION, Math.min(Math.round(value), MAX_TIMER_DURATION))
