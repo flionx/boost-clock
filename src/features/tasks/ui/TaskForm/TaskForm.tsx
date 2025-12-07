@@ -9,7 +9,7 @@ import FormCol from "./FormCol"
 import FormInput from "./FormInput"
 import FormTitle from "./FormTitle"
 import FormContainer from "./FormContainer"
-import { Task } from "@/shared/types/tasks"
+import { Task } from "../../types"
 
 interface TaskFormProps {
     task?: Task

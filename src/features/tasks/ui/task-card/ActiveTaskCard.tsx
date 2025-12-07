@@ -7,7 +7,7 @@ import ButtonOptions from "./ButtonOptions"
 import ModalOptions from "./ModalOptions"
 import ButtonWithIcon from "./ButtonWithIcon"
 import { AnimatedTaskForm } from "../TaskForm"
-import { Task } from "@/shared/types/tasks"
+import { Task } from "../../types"
 
 interface ActiveTaskCardProps {
     task: Task,

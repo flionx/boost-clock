@@ -5,7 +5,7 @@ import ButtonOptions from './ButtonOptions'
 import ModalOptions from './ModalOptions'
 import ButtonWithIcon from './ButtonWithIcon'
 import { DeleteIcon, RestoreIcon } from '@/shared/ui/icons'
-import { Task } from '@/shared/types/tasks'
+import { Task } from '../../types'
 interface CompletedTaskCardProps {
     id: Task['id'],
     title: Task['title'],

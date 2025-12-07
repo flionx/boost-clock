@@ -1,8 +1,8 @@
 "use client"
 import { AnimatePresence, motion } from "framer-motion";
 import { useTasksStore } from "@/features/tasks/store/tasks";
-import { Task } from "@/shared/types/tasks";
 import TaskForm from "./TaskForm";
+import { Task } from "../../types";
 
 interface TaskFormProps {
     task?: Task,

@@ -1,6 +1,6 @@
 "use client"
 import { create } from "zustand"
-import { Task } from "@/shared/types/tasks";
+import { Task } from "../types"
 
 interface TasksState {
     list: Task[],

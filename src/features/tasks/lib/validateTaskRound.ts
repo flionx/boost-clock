@@ -1,4 +1,4 @@
-import { Task } from "@/shared/types/tasks";
+import { Task } from "../types";
 
 export const validateTaskRound = (round: Task['round']) => {
     if (round) {
