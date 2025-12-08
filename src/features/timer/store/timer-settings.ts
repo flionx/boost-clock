@@ -25,7 +25,7 @@ interface TimerSettingsState {
     resetSettings: VoidFunction
 }
 
-export const useTimerSettingsStore = create<TimerSettingsState>((set, get) => ({
+const initSettings = () => ({
     workDuration: 25,
     breakDuration: 5,
     longBreakDuration: 15,
@@ -34,9 +34,13 @@ export const useTimerSettingsStore = create<TimerSettingsState>((set, get) => ({
         work: false,
         break: false,
     },
-    currentRound: 0,
     soundEnabled: true,
-    soundCountRepeat: 0,
+    soundCountRepeat: 0
+})
+
+export const useTimerSettingsStore = create<TimerSettingsState>((set, get) => ({
+    ...initSettings(),
+    currentRound: 0,
     setDuration: (mode, minutes) => set({
         [`${mode}Duration`]: validateDuration(minutes)
     }),
@@ -53,21 +57,12 @@ export const useTimerSettingsStore = create<TimerSettingsState>((set, get) => ({
         autoSwitchTo: {...state.autoSwitchTo, [`${mode}`]: value }
     })),
     changeCurrentRound: (type) => set({ 
-        currentRound: type === "add" ? get().currentRound++ : 0 
+        currentRound: type === "add" ? get().currentRound + 1 : 0 
     }),
     setSoundEnabled: (enabled) => set({ soundEnabled: enabled }),
     setSoundCountRepeat: (count) => set({ soundCountRepeat: Math.min(count, 4) }),
     resetSettings: () => set({
-        workDuration: 25,
-        breakDuration: 5,
-        longBreakDuration: 15,
-        longBreakInterval: 4,
-        autoSwitchTo: {
-            work: false,
-            break: false,
-        },
-        soundEnabled: true,
-        soundCountRepeat: 0
+        ...initSettings()
     })
 }))
 

@@ -16,7 +16,7 @@ const ModalMenu = () => {
   return (
     <div 
         onClick={closeModal}
-        className="fixed bg-[#0006] z-10 inset-0 w-full h-full backdrop-blur-[1px] overflow-auto"
+        className="fixed bg-[#0006] z-10 inset-0 w-full h-full backdrop-blur-[1px] overflow-auto pb-22.5"
     >
         <div
             onClick={(e) => e.stopPropagation()}
