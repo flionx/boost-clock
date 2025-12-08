@@ -1,8 +1,9 @@
 "use client"
-import Settings from "@/features/settings/ui";
 import useStopPageScroll from "@/shared/model/useStopPageScroll";
 import { useModalMenuStore } from "@/shared/store/modal-menu";
 import { CrossIcon } from '@/shared/ui/icons'
+import Report from "@/features/report";
+import Settings from "@/features/settings/ui";
 
 const ModalMenu = () => {
     const show = useModalMenuStore(state => state.show);
@@ -32,6 +33,7 @@ const ModalMenu = () => {
                 <CrossIcon className="size-5 text-line" />
             </button>
             {title === "Settings" && <Settings />}
+            {title === "Report" && <Report />}
             {onReset && (
                 <button
                     onClick={onReset} 

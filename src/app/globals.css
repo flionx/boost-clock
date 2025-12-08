@@ -82,6 +82,7 @@ html.dark {
   --color-text-light: var(--color-text-light);
   --color-btn-ui: var(--color-btn-ui);
   --color-btn-icon: var(--color-btn-icon);
+  --color-modal-menu: var(--color-item-modal-menu);
   --color-modal-btn-ui: var(--color-item-modal-text-bg);
   --color-modal-btn-ui-hover: var(--color-item-modal-text-bg-hover);
   --color-modal-btn-ui-active: var(--color-item-modal-text-bg-active);
