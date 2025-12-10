@@ -2,6 +2,7 @@ import { RowModalMenu, SectionModalMenu } from '@/widgets/modal-menu'
 import RowReportValue from './RowReportValue'
 import RowReportToday from './RowReportToday'
 import { useReportStore } from '../store/report'
+import { formatToHours } from '../lib/formatToHours'
 
 const Report = () => {
     const todayWorkTime = useReportStore(state => state.todayWorkTime);
@@ -16,17 +17,17 @@ const Report = () => {
   return (
     <>
         <SectionModalMenu title="Today" lineUnderTitle={false}>
-            <RowReportToday label="Work time" value={`${todayWorkTime}h`} />
-            <RowReportToday label="Break time" value={`${todayBreakTime}h`} />
+            <RowReportToday label="Work time" value={formatToHours(todayWorkTime)} />
+            <RowReportToday label="Break time" value={formatToHours(todayBreakTime)} />
             <RowReportToday label="Completed tasks" value={todayCompletedTasks} />
         </SectionModalMenu>
 
         <SectionModalMenu title="Timer">
             <RowModalMenu label="Total work time">
-                <RowReportValue value={`${totalWorkTime}h`}/>
+                <RowReportValue value={formatToHours(totalWorkTime)}/>
             </RowModalMenu>
             <RowModalMenu label="Total break time">
-                <RowReportValue value={`${totalBreakTime}h`}/>
+                <RowReportValue value={formatToHours(totalBreakTime)}/>
             </RowModalMenu>
             <RowModalMenu label="Pomodoro rounds">
                 <RowReportValue value={pomodoroRounds}/>

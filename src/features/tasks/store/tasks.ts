@@ -1,6 +1,8 @@
 "use client"
 import { create } from "zustand"
+import { useReportStore } from "@/features/report/store/report"
 import { Task } from "../types"
+import { addCompleteTaskToReport } from "../lib/addCompleteTaskToReport"
 
 interface TasksState {
     list: Task[],
@@ -31,17 +33,22 @@ export const useTasksStore = create<TasksState>((set, get) => ({
     deleteTask: (id) => set({
         list: get().list.filter(t => t.id !== id)
     }),
-    toggleCompleteTask: (id) => set({
-        list: get().list.map(t => t.id === id ? { ...t, complete: !t.complete } : t)
+    toggleCompleteTask: (id) => set({ 
+        list: get().list.map(t => {
+            if (t.id !== id) return t;
+            const isComplete = !t.complete;
+            addCompleteTaskToReport(isComplete, t.round);
+            return { ...t, complete: isComplete }
+        })
     }),
     roundTasks: () => set({
-        list: get().list.map(task => {
-            if (!task.complete && (task.round !== null && task.round.current > 0)) {
+        list: get().list.map(task => {            
+            if (!task.complete && (task.round !== null && task.round.max > 0)) {                
                 return { 
                     ...task, 
                     round: {
                         ...task.round, 
-                        current: (task.round !== null) ? (task.round.current + 1) : 1 
+                        current: task.round.current + 1
                     }
                 }
             } else {

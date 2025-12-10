@@ -1,3 +1,5 @@
+import { saveTimeToReport } from "./saveTimeToReport";
+
 export interface AudioTimer {
     start: (duration: number) => void,
     stop: VoidFunction,
@@ -83,6 +85,7 @@ export default function createAudioTimer(
         }
         stop();
         onDone();
+        saveTimeToReport(true);
     }
     
     function playSound() {

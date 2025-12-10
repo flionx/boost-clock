@@ -19,13 +19,13 @@ const CheckboxTask: React.FC<CheckboxTaskProps> = ({id}) => {
       timerRef.current = null;         
     }, 1000)
   }
-
+// todo: fix linethrough anim
   return (
     <label className="inline-flex items-center cursor-pointer">
       <input
         type="checkbox"
         onChange={handleToggleCompleteTask}
-        className="sr-only"
+        className="sr-only checkbox"
       />
       <div className={`
           flex items-center justify-center size-[clamp(2rem,4vw,2.5rem)]

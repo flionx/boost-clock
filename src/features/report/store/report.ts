@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { useTasksStore } from "@/features/tasks/store/tasks";
 interface ReportState {
     date: string,
     todayWorkTime: number,
@@ -10,6 +11,11 @@ interface ReportState {
     totalCompletedTasks: number,
     tasksOnTime: number,
     tasksOutOfTime: number,
+    addWorkTime: (seconds: number) => void,
+    addBreakTime: (seconds: number) => void,
+    addPomodoroRound: VoidFunction,
+    addCompletedTasks: (type: "OnTime" | "OutOfTime") => void,
+    saveToLocalStorage: VoidFunction,
     resetReport: VoidFunction,
 }
 
@@ -28,36 +34,80 @@ const initReport = () => ({
 
 export const useReportStore = create<ReportState>((set, get) => ({
     ...initReport(),
-    addWorkTime: (seconds: number) => {
-        const mins = convertToHours(seconds);
+    addWorkTime: (seconds) => {
+        const mins = convertToMins(seconds);
         set({
             todayWorkTime: get().todayWorkTime + mins,
             totalWorkTime: get().totalWorkTime + mins,
         })
+        setTimeout(() => get().saveToLocalStorage(), 0);
     },
     addBreakTime: (seconds: number) => {
-        const mins = convertToHours(seconds);
+        const mins = convertToMins(seconds);
         set({
             todayBreakTime: get().todayBreakTime + mins,
             totalBreakTime: get().totalBreakTime + mins,
         })
+        setTimeout(() => get().saveToLocalStorage(), 0);
     },
-    addPomodoroRound: () => set(state => ({
-         pomodoroRounds: state.pomodoroRounds + 1 
-    })),
-    addCompletedTasks: (type: "OnTime" | "OutOfTime") => set(state => ({
-        todayCompletedTasks: get().todayCompletedTasks + 1,
-        totalCompletedTasks: get().totalCompletedTasks + 1,
-        [`tasks${type}`]: state[`tasks${type}`] + 1
-    })),
-    resetReport: () => set({
-        ...initReport()
-    })
+    addPomodoroRound: () => {
+        useTasksStore.getState().roundTasks();
+        set(state => ({
+            pomodoroRounds: state.pomodoroRounds + 1 
+        }))
+        setTimeout(() => get().saveToLocalStorage(), 0);
+    },
+    addCompletedTasks: (type) => {
+        set(state => ({
+            todayCompletedTasks: get().todayCompletedTasks + 1,
+            totalCompletedTasks: get().totalCompletedTasks + 1,
+            [`tasks${type}`]: state[`tasks${type}`] + 1
+        }))
+        setTimeout(() => get().saveToLocalStorage(), 0);
+    },
+    saveToLocalStorage: () => {
+        const state = get();
+        const report = {
+            date: state.date,
+            todayWorkTime: state.todayWorkTime,
+            todayBreakTime: state.todayBreakTime,
+            todayCompletedTasks: state.todayCompletedTasks,
+            totalWorkTime: state.totalWorkTime,
+            totalBreakTime: state.totalBreakTime,
+            pomodoroRounds: state.pomodoroRounds,
+            totalCompletedTasks: state.totalCompletedTasks,
+            tasksOnTime: state.tasksOnTime,
+            tasksOutOfTime: state.tasksOutOfTime,
+        };
+        localStorage.setItem("report", JSON.stringify(report));
+    },
+    resetReport: () => {
+        set(initReport());
+        setTimeout(() => get().saveToLocalStorage(), 0);
+    }
 }))
 
-const convertToHours = (seconds: number) => {
+const convertToMins = (seconds: number) => {
     const mins = seconds / 60;
-    const minsFixed = Number(mins.toFixed(3))
-    const hours = minsFixed / 60;
-    return Number(hours.toFixed(1)) 
+    return Number(mins.toFixed(3))
+}
+
+if (typeof window !== 'undefined') {
+    const saved = localStorage.getItem("report");
+    if (saved) {
+        const parsed = JSON.parse(saved);
+        const today = new Date().toISOString().split("T")[0];
+        
+        if (parsed.date === today) {
+            useReportStore.setState(parsed);
+        } else {
+            useReportStore.setState({
+                ...parsed,
+                date: today,
+                todayWorkTime: 0,
+                todayBreakTime: 0,
+                todayCompletedTasks: 0,
+            });
+        }
+    }
 }
