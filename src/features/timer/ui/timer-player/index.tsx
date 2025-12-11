@@ -10,7 +10,7 @@ const TimerPlayer = () => {
   const mode = useTimerPlayerStore(state => state.mode);
   const timeLeft = useTimerPlayerStore(state => state.timeLeft);
   const isRunning = useTimerPlayerStore(state => state.isRunning);
-  const toggle = useTimerPlayerStore(state => state.toggle);
+  const togglePlayer = useTimerPlayerStore(state => state.togglePlayer);
   const reset = useTimerPlayerStore(state => state.reset);
   const skip = useTimerPlayerStore(state => state.skip);
   useDocumentTitleSync();
@@ -34,7 +34,7 @@ const TimerPlayer = () => {
           {formatTime(timeLeft)}
         </h2>
         <button 
-          onClick={toggle}
+          onClick={togglePlayer}
           className="
             block py-2.5 px-10 bg-white text-black text-[2.5rem] rounded-md uppercase mx-auto
             transition-all duration-200 hover:bg-[rgba(255,255,255,0.9)] hover:scale-102 active:bg-white active:scale-99

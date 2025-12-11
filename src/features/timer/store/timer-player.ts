@@ -9,7 +9,7 @@ interface TimerPlayerState {
     mode: TimerMode,
     timeLeft: number,
     isRunning: boolean,
-    toggle: VoidFunction,
+    togglePlayer: VoidFunction,
     skip: (playSound?: boolean) => void,
     reset: VoidFunction,
     switchMode: (mode: TimerMode) => void,
@@ -36,7 +36,7 @@ export const useTimerPlayerStore = create<TimerPlayerState>((set, get) => {
         mode: "work" as const,
         timeLeft: settings.workDuration * 60,
         isRunning: false,
-        toggle: () => {
+        togglePlayer: () => {
             const {isRunning, timeLeft, mode} = get();
             if (isRunning) {
                 timer.stop();
@@ -49,14 +49,19 @@ export const useTimerPlayerStore = create<TimerPlayerState>((set, get) => {
             }  
         },
         skip: (playSound = true) => {
-            const nextMode = get().mode === "work" ? "break" : "work";
+            const switchToMode = get().mode === "work" ? "break" : "work";
             if (playSound) {
                 timer.playSound();
             }
             saveTimeToReport(true);
+
+            const settings = useTimerSettingsStore.getState();
+            let nextMode: TimerMode = (switchToMode === "break" && settings.currentRound  >= settings.longBreakInterval) ? 
+                "longBreak" : switchToMode;
+
             get().switchMode(nextMode);
-            if (useTimerSettingsStore.getState().autoSwitchTo[nextMode]) {
-                get().toggle()
+            if (useTimerSettingsStore.getState().autoSwitchTo[switchToMode]) {
+                get().togglePlayer()
             }
         },
         reset: () => {

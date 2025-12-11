@@ -16,7 +16,7 @@ const changeMinutes = useTimerSettingsStore(state => state.changeMinutes);
   return (
     <div className="flex flex-col items-center">
         <h3 className="mb-5 text-2xl">
-            {capitalizeFirstLetter(mode)}
+            {capitalizeFirstLetter(mode === "longBreak" ? "long Break" : mode)}
         </h3>
         <div className="flex items-center gap-1.5">
             <SquareButton label="-" onClick={() => changeMinutes(mode, "-")} />

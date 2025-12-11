@@ -1,4 +1,5 @@
 import { useReportStore } from "@/features/report/store/report";
+import { useTimerSettingsStore } from "../store/timer-settings";
 import { TimerMode } from "../types";
 
 export const saveTimeToReport = (autoCompleted: boolean) => {
@@ -22,7 +23,11 @@ export const saveTimeToReport = (autoCompleted: boolean) => {
     }
         
     if (autoCompleted && mode === "work") {
-        report.addPomodoroRound();
+        report.addPomodoroRound();        
+        useTimerSettingsStore.getState().changeCurrentRound("add");
+    } 
+    if (mode === "longBreak") {
+        useTimerSettingsStore.getState().changeCurrentRound("reset");
     }
 
     localStorage.removeItem("time_mode");
