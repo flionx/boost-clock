@@ -4,6 +4,7 @@ import { useModalMenuStore } from "@/shared/store/modal-menu";
 import { CrossIcon } from '@/shared/ui/icons'
 import Report from "@/features/report";
 import Settings from "@/features/settings/ui";
+import Achievements from "@/features/achievements/ui";
 
 const ModalMenu = () => {
     const show = useModalMenuStore(state => state.show);
@@ -22,7 +23,7 @@ const ModalMenu = () => {
             onClick={(e) => e.stopPropagation()}
             className="
                 relative top-10 left-1/2 -translate-x-1/2 max-w-[clamp(21.8rem,95vw,26.2rem)] shadow-[rgba(0,0,0,0.25)_4px_4px_4px]
-                font-secondary pt-6.5 px-7.5 pb-4 bg-primary rounded-lg border-1 border-[#444444]
+                font-secondary pt-6.5 px-7.5 pb-4 bg-primary rounded-lg border border-[#444444]
             "
         >
             <h3 className="text-3xl text-center text-text">{title}</h3>
@@ -34,6 +35,7 @@ const ModalMenu = () => {
             </button>
             {title === "Settings" && <Settings />}
             {title === "Report" && <Report />}
+            {title === "Achievements" && <Achievements />}
             {onReset && (
                 <button
                     onClick={onReset} 

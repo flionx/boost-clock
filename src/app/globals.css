@@ -71,6 +71,7 @@ html.dark {
 }
 
 @theme {
+  --font-primary: "Itim", "Itim Fallback", "literal", "literal Fallback", sans-serif;
   --font-secondary: 'Poppins', sans-serif;
   --font-nav: 'JetBrains Mono', monospace;
 
