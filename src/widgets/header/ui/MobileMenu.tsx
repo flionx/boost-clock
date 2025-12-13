@@ -2,13 +2,16 @@
 import { useCallback, useState } from "react"
 import UserButton from "./UserButton"
 import MenuList from "./MenuList"
+import UnseenNotify from "./UnseenNotify"
+import { useAchievementsStore } from "@/features/achievements/store/achievements"
 
 const MobileMenu = () => {
     const [isOpen, setIsOpen] = useState(false);
     const toggleMenu = useCallback(() => setIsOpen(c => !c), []);
+    const newUnseenAchievs = useAchievementsStore(state => state.newUnseenAchievs)
     
   return (
-    <div className="xl:hidden">
+    <div className="xl:hidden relative">
         <button 
             onClick={toggleMenu}
             className={`flex flex-col justify-between size-6 transition-transform duration-300 ${isOpen ? "-rotate-90" : ""}`}
@@ -28,6 +31,7 @@ const MobileMenu = () => {
                 <MenuList />
             </ul>
         )}
+        {newUnseenAchievs > 0 && <UnseenNotify count={newUnseenAchievs} />}
     </div>
   )
 }
