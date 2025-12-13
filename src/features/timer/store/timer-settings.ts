@@ -4,7 +4,7 @@ import { LongBreakChange, TimerMinutesOperation, TimerMode } from "@/features/ti
 import { MAX_TIMER_DURATION, MIN_TIMER_DURATION } from "@/features/tasks/constants"
 import { createJSONStorage, persist } from "zustand/middleware"
 
-interface TimerSettingsState {
+export interface TimerSettingsState {
     workDuration: number,
     breakDuration: number,
     longBreakDuration: number,

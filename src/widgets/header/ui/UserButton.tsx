@@ -1,10 +1,11 @@
 "use client"
-import MenuButton from './MenuButton'
-import { UserIcon } from '@/shared/ui/icons'
-import { useAuthStore } from '@/features/auth/store/auth'
-import { useModalWarningStore } from '@/shared/store/modal-warning'
 import { auth, db } from '@/shared/lib/firebase'
 import { doc, setDoc } from 'firebase/firestore'
+import { useAuthStore } from '@/features/auth/store/auth'
+import { useModalWarningStore } from '@/shared/store/modal-warning'
+import { getUserData } from '@/shared/lib/getUserData'
+import MenuButton from './MenuButton'
+import { UserIcon } from '@/shared/ui/icons'
 import toast from 'react-hot-toast'
 
 const UserButton = () => {
@@ -16,10 +17,9 @@ const UserButton = () => {
     if (!user) return;
 
     try {            
-      const dataState = {test: "saved data"};   
-      // todo: save zustand data
       const userRef = doc(db, "Users", user.uid);
-      await setDoc(userRef, dataState, { merge: true });
+      const userData = getUserData();
+      await setDoc(userRef, userData, { merge: true });
       // todo: reset zustand and localstorage
       // resetStateToDefault();
       await auth.signOut();

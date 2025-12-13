@@ -1,7 +1,8 @@
+"use client"
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 import { useTasksStore } from "@/features/tasks/store/tasks";
-interface ReportState {
+export interface ReportState {
     date: string,
     todayWorkTime: number,
     todayBreakTime: number,

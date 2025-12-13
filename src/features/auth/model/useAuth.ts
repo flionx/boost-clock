@@ -3,8 +3,9 @@ import { useEffect, useRef } from 'react';
 import { createUserWithEmailAndPassword, sendEmailVerification, signInWithEmailAndPassword, User } from 'firebase/auth';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { auth, db } from '@/shared/lib/firebase';
-import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
+import { getUserData } from '@/shared/lib/getUserData';
+import toast from 'react-hot-toast';
 
 const useAuth = () => {
     const intervalRef = useRef<NodeJS.Timeout | null>(null);
@@ -39,11 +40,10 @@ const useAuth = () => {
         createUserWithEmailAndPassword(auth, email, password)
             .then(async (result) => {
                 const user = result.user;
-                // todo: save user data
-                const dataState = {test: "hello world"};
                 const dataRef = doc(db, 'Users', user.uid);
+                const userData = getUserData();                
                 const toastId = toast.loading("Please, wait...");
-                await setDoc(dataRef, dataState, { merge: true });
+                await setDoc(dataRef, userData, { merge: true });
                 toast.dismiss(toastId);
                 sendVerifEmail(user);
             })
@@ -78,6 +78,8 @@ const useAuth = () => {
                 if (userDoc.exists()) {
                     
                     const userData = userDoc.data() || {};
+                    console.log(userData);
+                    
                     // todo: upload user data to zustand  
                     
                     // uploadUserData({
