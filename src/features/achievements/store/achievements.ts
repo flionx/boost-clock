@@ -30,7 +30,6 @@ export const useAchievementsStore = create<AchievementsStore>()(
             })),
             syncData: (data) => {
                 const { list } = get();
-                
                 const newList = list.map(achiev => {
                     let externalValue = 0;
                     

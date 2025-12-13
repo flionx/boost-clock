@@ -43,7 +43,7 @@ const TimerPlayer = () => {
         >
           {isRunning ? "Stop" : "Start"}
         </button>
-        <div className={`flex gap-7.5 absolute bottom-0 left-1/2 -translate-1/2 duration-200 transition-opacity opacity-0 ${isRunning ? "opacity-100" : ""}`}>
+        <div className={`flex gap-7.5 absolute bottom-0 left-1/2 -translate-1/2 duration-200 transition-opacity opacity-0 ${isRunning ? "opacity-100" : "pointer-events-none"}`}>
           <TextButton label="Reset" onClick={reset}/>
           <TextButton label="Skip" onClick={skip}/>
         </div>

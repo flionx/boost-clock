@@ -1,7 +1,7 @@
 "use client"
+import useListener from '@/shared/model/useListener'
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
-import useListenerClick from '../../model/useListenerClick'
 
 interface ModalOptionsProps {
   onClose: () => void
@@ -12,7 +12,8 @@ interface ModalOptionsProps {
 const ModalOptions: React.FC<ModalOptionsProps> = ({ onClose, children, triggerRef }) => {
   const modalRef = useRef<HTMLDivElement>(null);
   const [isPositioned, setIsPositioned] = useState(false);
-  useListenerClick(onClose)
+  useListener("click", onClose)
+  useListener("scroll", onClose)
 
   useEffect(() => {
     if (triggerRef?.current && modalRef.current) {
