@@ -11,5 +11,3 @@ export const LockIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
     </defs>
   </svg>
 );
-
-

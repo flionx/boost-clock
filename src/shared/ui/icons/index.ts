@@ -7,6 +7,7 @@ export * from "./DeleteIcon";
 export * from "./EditIcon";
 export * from "./EyeIcon";
 export * from "./GithubIcon";
+export * from "./GoogleIcon";
 export * from "./InstagramIcon";
 export * from "./LinkedinIcon";
 export * from "./LockIcon";
