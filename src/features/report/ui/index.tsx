@@ -1,8 +1,8 @@
+import { useReportStore } from '../store/report'
 import { RowModalMenu, SectionModalMenu } from '@/widgets/modal-menu'
 import RowReportValue from './RowReportValue'
 import RowReportToday from './RowReportToday'
-import { useReportStore } from '../store/report'
-import { formatToHours } from '../lib/formatToHours'
+import { convertMinsToHourString } from '../lib/convertMinsToHourString'
 
 const Report = () => {
     const todayWorkTime = useReportStore(state => state.todayWorkTime);
@@ -17,17 +17,17 @@ const Report = () => {
   return (
     <>
         <SectionModalMenu title="Today" lineUnderTitle={false}>
-            <RowReportToday label="Work time" value={formatToHours(todayWorkTime)} />
-            <RowReportToday label="Break time" value={formatToHours(todayBreakTime)} />
+            <RowReportToday label="Work time" value={convertMinsToHourString(todayWorkTime)} />
+            <RowReportToday label="Break time" value={convertMinsToHourString(todayBreakTime)} />
             <RowReportToday label="Completed tasks" value={todayCompletedTasks} />
         </SectionModalMenu>
 
         <SectionModalMenu title="Timer">
             <RowModalMenu label="Total work time">
-                <RowReportValue value={formatToHours(totalWorkTime)}/>
+                <RowReportValue value={convertMinsToHourString(totalWorkTime)}/>
             </RowModalMenu>
             <RowModalMenu label="Total break time">
-                <RowReportValue value={formatToHours(totalBreakTime)}/>
+                <RowReportValue value={convertMinsToHourString(totalBreakTime)}/>
             </RowModalMenu>
             <RowModalMenu label="Pomodoro rounds">
                 <RowReportValue value={pomodoroRounds}/>

@@ -5,10 +5,16 @@ import { AchievementState } from "../types";
 import { achievementsList } from "../constants";
 
 interface AchievementsStore {
-    list: AchievementState[];
-    newUnseenAchievs: number;
-    addStepToAchiev: (title: AchievementState['title']) => void;
-    changeUnseenAchievs: (type: "add" | "reset") => void;
+    list: AchievementState[],
+    newUnseenAchievs: number,
+    changeUnseenAchievs: (type: "add" | "reset") => void,
+    syncData: (data: {
+        pomodoroRounds: number,
+        tasksCount: number,
+        tasksOnTime: number,
+        totalWorkTime: number,
+        totalBreakTime: number,
+    }) => void,
 }
 
 export const useAchievementsStore = create<AchievementsStore>()(
@@ -19,26 +25,49 @@ export const useAchievementsStore = create<AchievementsStore>()(
                 step: 0
             })),
             newUnseenAchievs: 0,
-            addStepToAchiev: (title) => {
-                set((state) => ({
-                    list: state.list.map(achiev => {
-                        if (achiev.title === title && achiev.step < achiev.max) {
-                            const newStep = achiev.step + 1;
-                            if (newStep === achiev.max) {
-                                state.changeUnseenAchievs("add");
-                            }
-                            return { 
-                                ...achiev, 
-                                step: newStep
-                            };
-                        }
-                        return achiev;
-                    })
-                }));
-            },
             changeUnseenAchievs: (type) => set((state) => ({
                 newUnseenAchievs: type === "add" ? state.newUnseenAchievs + 1 : 0
             })),
+            syncData: (data) => {
+                const { list } = get();
+                console.log(data);
+                
+                const newList = list.map(achiev => {
+                    let externalValue = 0;
+                    
+                    switch(achiev.id) {
+                        case 0: // I'm new
+                            externalValue = data.pomodoroRounds;
+                            break;
+                        case 1: // Planner
+                            externalValue = data.tasksCount;
+                            break;
+                        case 2: // Productive
+                            externalValue = data.pomodoroRounds;
+                            break;
+                        case 3: // Responsible
+                            externalValue = data.tasksOnTime;
+                            break;
+                        case 4: // In focus
+                            externalValue = data.totalWorkTime;
+                            
+                            break;
+                        case 5: // Coffee time
+                            externalValue = data.totalBreakTime;
+                            break;
+                    }
+                    
+                    const newStep = Math.min(externalValue, achiev.max);
+                    if (newStep < achiev.step) return achiev;
+
+                    if (newStep === achiev.max && achiev.step < achiev.max) {
+                        get().changeUnseenAchievs("add");
+                    }
+                    return { ...achiev, step: newStep };
+                });
+                
+                set({ list: newList });
+            }
         }),
         {
             name: "achievements-storage",

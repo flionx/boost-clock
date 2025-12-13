@@ -1,8 +1,9 @@
-import type { Metadata } from "next";
 import { itim, jetbrains_mono, literal, poppins } from "@/shared/assets/fonts";
 import ThemeProvider from "@/shared/providers/theme-provider";
 import ModalWarning from "@/shared/ui/ModalWarning";
 import { ModalMenu } from "@/widgets/modal-menu";
+import AchievementsTracker from "@/features/achievements/ui/AchievementsTracker";
+import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -26,6 +27,7 @@ export default function RootLayout({
         <ThemeProvider>
           <ModalWarning />
           <ModalMenu />
+          <AchievementsTracker />
           {children}
         </ThemeProvider>
       </body>

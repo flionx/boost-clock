@@ -4,7 +4,7 @@ import { useModalMenuStore } from "@/shared/store/modal-menu";
 import { CrossIcon } from '@/shared/ui/icons'
 import Report from "@/features/report";
 import Settings from "@/features/settings/ui";
-import Achievements from "@/features/achievements/ui";
+import Achievements from "@/features/achievements";
 
 const ModalMenu = () => {
     const show = useModalMenuStore(state => state.show);
