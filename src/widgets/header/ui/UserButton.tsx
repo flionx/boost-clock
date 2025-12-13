@@ -1,14 +1,44 @@
 "use client"
-import { useCallback, useState } from 'react'
 import MenuButton from './MenuButton'
 import { UserIcon } from '@/shared/ui/icons'
+import { useAuthStore } from '@/features/auth/store/auth'
+import { useModalWarningStore } from '@/shared/store/modal-warning'
+import { auth, db } from '@/shared/lib/firebase'
+import { doc, setDoc } from 'firebase/firestore'
+import toast from 'react-hot-toast'
 
 const UserButton = () => {
-    const [isAuth, setIsAuth] = useState(false);
-    const toggleAuth = useCallback(() => setIsAuth(c => !c), [])
+  const user = useAuthStore(state => state.user);
+  const setModal = useModalWarningStore(state => state.setModal);
+
+  const saveAndLogout = async () => {
+    const user = auth.currentUser;        
+    if (!user) return;
+
+    try {            
+      const dataState = {test: "saved data"};   
+      // todo: save zustand data
+      const userRef = doc(db, "Users", user.uid);
+      await setDoc(userRef, dataState, { merge: true });
+      // todo: reset zustand and localstorage
+      // resetStateToDefault();
+      await auth.signOut();
+      toast.success("Successfully logged out");
+    } catch (error) {
+      console.error("Error saving data before exiting:", error);
+    }
+  };
+
+  const handleLogout = () => {
+    setModal("Are you sure you want to log out?", "Log out", saveAndLogout)
+  }
   return (
-    <MenuButton icon={UserIcon} onClick={toggleAuth}>
-        {isAuth ? "Log out" : "Log in"}
+    <MenuButton 
+      onClick={handleLogout} 
+      href={user ? undefined : "/auth/login"}
+      icon={UserIcon} 
+    >
+        {user ? "Log out" : "Log in"}
     </MenuButton>
   )
 }
