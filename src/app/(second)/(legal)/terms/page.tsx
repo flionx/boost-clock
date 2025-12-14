@@ -32,7 +32,7 @@ const TermsPage = () => {
         <SubtitleLegal>Managing Your Data</SubtitleLegal>
         <TextLegal>You may request deletion of your account and associated data at any time by contacting us at the email address below.</TextLegal>
         <SubtitleLegal>Contacts</SubtitleLegal>
-        <TextLegal>If you have any questions, please email us at <a href="mailto:flionx@mail.ru" className="underline">flionx@mail.ru</a></TextLegal>
+        <TextLegal>If you have any questions, please email us at <a href="mailto:flionx@mail.ru" className="underline">flionx@mail.ru</a>.</TextLegal>
     </>
   )
 }
