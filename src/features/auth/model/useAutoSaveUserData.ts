@@ -15,7 +15,7 @@ const useAutoSaveUserData = () => {
     const prevRef = useRef<string | null>(null);
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
     const unsubStoresRef = useRef<(() => void)[] | null>(null);
-
+    // todo: change onAuthStateChanged to useAuthStore.user
     useEffect(() => {
         const unsubscribeAuth = onAuthStateChanged(auth, (user) => {
             if (!user) {

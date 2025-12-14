@@ -2,7 +2,7 @@ import { itim, jetbrains_mono, literal, poppins } from "@/shared/assets/fonts";
 import ThemeProvider from "@/shared/providers/theme-provider";
 import FirebaseProvider from "@/shared/providers/firebase-provider";
 import AutoSaveProvider from "@/shared/providers/autosave-provider";
-import ModalWarning from "@/shared/ui/ModalWarning";
+import Modal from "@/shared/ui/Modal";
 import AchievementsTracker from "@/features/achievements/ui/AchievementsTracker";
 import { ModalMenu } from "@/widgets/modal-menu";
 import { Toaster } from "react-hot-toast";
@@ -30,7 +30,7 @@ export default function RootLayout({
         <ThemeProvider>
           <FirebaseProvider>
             <AutoSaveProvider>
-              <ModalWarning />
+              <Modal />
               <ModalMenu />
               <Toaster position='top-center' containerStyle={{fontFamily: 'var(--font-primary)'}}/>
               <AchievementsTracker />

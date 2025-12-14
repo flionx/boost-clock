@@ -1,13 +1,14 @@
 "use client"
 import useStopPageScroll from "@/shared/model/useStopPageScroll";
-import { useModalWarningStore } from "@/shared/store/modal-warning"
+import { useModalStore } from "@/shared/store/modal"
 
-const ModalWarning = () => {
-    const show = useModalWarningStore(state => state.show);
-    const label = useModalWarningStore(state => state.label);
-    const submitLabel = useModalWarningStore(state => state.submitLabel);
-    const closeModal = useModalWarningStore(state => state.closeModal);
-    const submitModal = useModalWarningStore(state => state.submitModal);
+const Modal = () => {
+    const show = useModalStore(state => state.show);
+    const title = useModalStore(state => state.title);
+    const label = useModalStore(state => state.label);
+    const submitLabel = useModalStore(state => state.submitLabel);
+    const closeModal = useModalStore(state => state.closeModal);
+    const submitModal = useModalStore(state => state.submitModal);
     useStopPageScroll(show);
     if (!show) return null;
 
@@ -23,7 +24,7 @@ const ModalWarning = () => {
                 py-3.5 px-12.5 font-secondary bg-primary text-text rounded-lg shadow-[4px_4px_4px_#00000040] border border-[#444444]
             "
             >
-            <h3 className="text-2xl text-center">Warning!</h3>
+            <h3 className="text-2xl text-center">{title}</h3>
             <p className="text-lg text-center">{label}</p>
             <div className="flex justify-center gap-8.5">
                 <button 
@@ -50,4 +51,4 @@ const ModalWarning = () => {
   )
 }
 
-export default ModalWarning
+export default Modal

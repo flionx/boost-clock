@@ -1,12 +1,12 @@
 "use client"
-import { useModalWarningStore } from "@/shared/store/modal-warning"
+import { useModalStore } from "@/shared/store/modal"
 import { useTasksStore } from "@/features/tasks/store/tasks";
 import { DeleteIcon } from "@/shared/ui/icons"
 
 const ButtonClearAll = () => {
-  const setModal = useModalWarningStore(state => state.setModal);
+  const setModal = useModalStore(state => state.setModal);
   const deleteTasks = useTasksStore(state => state.deleteTasks);
-  const handleShowModal = () => setModal('Are you sure you want to delete all tasks?', 'Delete', deleteTasks);
+  const handleShowModal = () => setModal("Warning!", "Are you sure you want to delete all tasks?", "Delete", deleteTasks);
   
   return (
     <button 

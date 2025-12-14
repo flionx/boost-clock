@@ -6,6 +6,7 @@ import { achievementsList } from "../constants";
 import { UserData } from "@/shared/types/user-data";
 import combineUserProgress from "../lib/combineUserProgress";
 import playAchievSound from "../lib/playAchievSound";
+import { useTimerSettingsStore } from "@/features/timer/store/timer-settings";
 
 interface AchievementsStore {
     list: AchievementState[],
@@ -69,7 +70,9 @@ export const useAchievementsStore = create<AchievementsStore>()(
 
                     if (newStep === achiev.max && achiev.step < achiev.max) {
                         get().changeUnseenAchievs("add");
-                        setTimeout(playAchievSound, 2000)
+                        if (useTimerSettingsStore.getState().soundEnabled) {
+                            setTimeout(playAchievSound, 2000)
+                        }
                     }
                     return { ...achiev, step: newStep };
                 });

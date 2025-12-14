@@ -2,7 +2,7 @@
 import { auth, db } from '@/shared/lib/firebase'
 import { doc, setDoc } from 'firebase/firestore'
 import { useAuthStore } from '@/features/auth/store/auth'
-import { useModalWarningStore } from '@/shared/store/modal-warning'
+import { useModalStore } from '@/shared/store/modal'
 import getUserData from '@/shared/lib/getUserData'
 import resetUserData from '@/shared/lib/resetUserData'
 import MenuButton from './MenuButton'
@@ -11,7 +11,7 @@ import toast from 'react-hot-toast'
 
 const UserButton = () => {
   const user = useAuthStore(state => state.user);
-  const setModal = useModalWarningStore(state => state.setModal);
+  const setModal = useModalStore(state => state.setModal);
 
   const saveAndLogout = async () => {
     const user = auth.currentUser;        
@@ -31,7 +31,7 @@ const UserButton = () => {
   };
 
   const handleLogout = () => {
-    setModal("Are you sure you want to log out?", "Log out", saveAndLogout)
+    setModal("Warning!", "Are you sure you want to log out?", "Log out", saveAndLogout)
   }
   return (
     <MenuButton 

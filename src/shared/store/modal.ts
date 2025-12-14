@@ -1,28 +1,32 @@
 "use client"
 import { create } from "zustand"
 
-interface ModalWarningState {
+interface ModalState {
     show: boolean,
+    title: string,
     label: string,
     submitLabel: string,
-    setModal: (label: string, submitLabel: string, callbackSubmit: VoidFunction) => void,
+    setModal: (title: string, label: string, submitLabel: string, callbackSubmit: VoidFunction) => void,
     closeModal: VoidFunction,
     submitModal: VoidFunction,
     callbackSubmit: VoidFunction | null,
 }
 
-export const useModalWarningStore = create<ModalWarningState>((set, get) => ({
+export const useModalStore = create<ModalState>((set, get) => ({
     show: false,
+    title: '',
     label: '',
     submitLabel: '',
-    setModal: (label, submitLabel, callbackSubmit) => set({ 
+    setModal: (title, label, submitLabel, callbackSubmit) => set({ 
         show: true, 
+        title,
         label, 
         submitLabel, 
         callbackSubmit 
     }),
     closeModal: () => set({
         show: false,
+        title: '',
         label: '',
         submitLabel: '',
         callbackSubmit: null
