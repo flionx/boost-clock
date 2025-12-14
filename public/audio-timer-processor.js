@@ -1,15 +1,20 @@
 class AudioTimerProcessor extends AudioWorkletProcessor {
     constructor() {
         super();
-        this.lastTime = currentTime;
+        this.lastTick = 0;
     }
 
-    process() {
+    process(inputs, outputs, parameters) {
+        const output = outputs[0];
+        if (output.length > 0) {
+            for (let channel of output) channel.fill(0);
+        }
+
         const now = currentTime;
 
-        if (now - this.lastTime >= 1) {
-            this.lastTime = now;
-            this.port.postMessage("tick")
+        if (now - this.lastTick >= 1.0) {
+            this.lastTick = now - (now - this.lastTick - 1.0);
+            this.port.postMessage("tick");
         }
 
         return true;

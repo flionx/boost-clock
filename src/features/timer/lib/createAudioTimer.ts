@@ -15,6 +15,9 @@ export default function createAudioTimer(
 ): AudioTimer {
     let audioContext: AudioContext | null = null;
     let workletNode: AudioWorkletNode | null = null;
+    let oscillator: OscillatorNode | null = null;
+    let gainNode: GainNode | null = null;
+
     let endTime: number | null = null;
     let checkInterval: NodeJS.Timeout | null = null;
     let isActive = false;
@@ -36,11 +39,21 @@ export default function createAudioTimer(
             workletNode.port.onmessage = () => {
                 checkAndUpdate();
             };
+            workletNode.port.start();
 
-            workletNode.connect(audioContext.destination);
+            oscillator = audioContext.createOscillator();
+            gainNode = audioContext.createGain();
+            
+            oscillator.frequency.setValueAtTime(20000, audioContext.currentTime);
+            gainNode.gain.setValueAtTime(0.00001, audioContext.currentTime);
+            
+            workletNode.connect(gainNode);
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.start();
         } catch (error) {
             console.error("AudioWorklet failed, falling back to interval:", error);
-            startInterval();
         }
 
         startInterval();
@@ -91,7 +104,7 @@ export default function createAudioTimer(
     function playSound() {
         if (!getSoundEnabled()) return;
         try {
-            cleanSoundTimeouts()
+            cleanSoundTimeouts();
 
             const totalSoundPlays = Math.min(getSoundCountRepeat(), 5);
             if (totalSoundPlays < 0) return;
@@ -101,21 +114,18 @@ export default function createAudioTimer(
             audio.currentTime = 0;
             
             const playPromise = audio.play();
-            
             if (playPromise !== undefined) {
                 playPromise.catch(error => {
                     console.error("Sound play failed:", error);
-                    // showNotification();
-                    cleanSoundTimeouts()
+                    cleanSoundTimeouts();
                 });
             }
-        
+
             for (let i = 1; i <= totalSoundPlays; i++) {
                 const timeoutId: NodeJS.Timeout = setTimeout(() => {
                     audio.currentTime = 0;
-                    audio.play();
+                    audio.play().catch(console.error);
                 }, i * 2000); 
-        
                 soundTimeouts.push(timeoutId); 
             }
         } catch (error) {
@@ -127,20 +137,16 @@ export default function createAudioTimer(
         soundTimeouts.forEach(clearTimeout);
         soundTimeouts = [];
     }
-    // function showNotification() {
-    //     if ("Notification" in window && Notification.permission === "granted") {
-    //         new Notification("Pomodoro Timer", {
-    //             body: "Time's up!",
-    //             icon: "/icon.png",
-    //             tag: "pomodoro-timer"
-    //         });
-    //     }
-    // }
 
     function stop() {
         isActive = false;
         
         try {
+            if (oscillator) {
+                oscillator.stop(0);
+                oscillator.disconnect();
+            }
+            gainNode?.disconnect();
             workletNode?.disconnect();
             audioContext?.close();
         } catch (error) {
