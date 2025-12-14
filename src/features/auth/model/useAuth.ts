@@ -3,16 +3,18 @@ import { useEffect, useRef, useState } from 'react';
 import { createUserWithEmailAndPassword, sendEmailVerification, signInWithEmailAndPassword, signInWithPopup, User } from 'firebase/auth';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { auth, db, provider } from '@/shared/lib/firebase';
+import { useAuthStore } from '../store/auth';
 import { useRouter } from 'next/navigation';
-import getUserData from '@/shared/lib/getUserData';
-import toast from 'react-hot-toast';
-import uploadUserData from '@/shared/lib/uploadUserData';
 import { UserData } from '@/shared/types/user-data';
+import getUserData from '@/shared/lib/getUserData';
+import uploadUserData from '@/shared/lib/uploadUserData';
+import toast from 'react-hot-toast';
 
 const useAuth = () => {
     const [isEmailVerifySent, setIsEmailVerifySent] = useState(false);
     const intervalRef = useRef<NodeJS.Timeout | null>(null);
     const router = useRouter();
+    const setLoading = useAuthStore(state => state.setLoading)
 
     useEffect(() => {
         if (!isEmailVerifySent) return;
@@ -21,10 +23,10 @@ const useAuth = () => {
             if (auth.currentUser) {
                 auth.currentUser.reload().then(() => {
                     if (auth.currentUser && auth.currentUser.emailVerified) {
-                        if (intervalRef.current) {
-                            clearInterval(intervalRef.current);
-                        };
+                        if (intervalRef.current) clearInterval(intervalRef.current);
+
                         toast.dismissAll();
+                        setLoading(false);
                         toast.success("Email has been verified");
                         router.push('/');
                     }
@@ -42,18 +44,21 @@ const useAuth = () => {
     function signUpWithEmail(email: string, password: string) {
         if (!email || !password) return;
 
+        const toastId = toast.loading("Please, wait...");
+        setLoading(true);
+
         createUserWithEmailAndPassword(auth, email, password)
             .then(async (result) => {
                 const user = result.user;
                 const dataRef = doc(db, 'Users', user.uid);
                 const userData = getUserData();                
-                const toastId = toast.loading("Please, wait...");
                 await setDoc(dataRef, userData, { merge: true });
                 toast.dismiss(toastId);
                 sendVerifEmail(user);
             })
             .catch((error) => {
-                toastAndLogError(error, "Something went wrong")
+                toastAndLogError(error, "Something went wrong");
+                setLoading(false);
             });
         }
         
@@ -65,17 +70,19 @@ const useAuth = () => {
             })
             .catch((error) => {
                 toastAndLogError(error, "Something went wrong")
-            });
+            }).finally(() => setLoading(false));
     }
 
     const signInWithEmail = (email: string, password: string) => {
         if (!email || !password) return;
+
+        const toastId = toast.loading("Please wait... Loading data");
+        setLoading(true);
+
         signInWithEmailAndPassword(auth, email, password)
             .then(async (result) => {
-
                 const uid = result.user.uid;
                 const dataRef = doc(db, "Users", uid);
-                const toastId = toast.loading("Please wait... Loading data");
                 const userDoc = await getDoc(dataRef);
                 toast.dismiss(toastId);
 
@@ -89,10 +96,11 @@ const useAuth = () => {
             })
             .catch((error) => {
                 toastAndLogError(error, "Incorrect email or password")
-            })
+            }).finally(() => setLoading(false));
     }
 
     const authWithGoogle = () => {
+        setLoading(true);
         signInWithPopup(auth, provider)
             .then(async (result) => {
                 const userId = result.user.uid;
@@ -107,12 +115,12 @@ const useAuth = () => {
                     const dataState = getUserData();
                     await setDoc(dataRef, dataState, { merge: true });
                 }
-                
+
                 toast.success("Successfully logged in");
                 router.push('/');
             }).catch((error) => {
                 toastAndLogError(error, "Something went wrong")
-            })
+            }).finally(() => setLoading(false));
     }
 
     const toastAndLogError = (error: any, toastText: string) => {
