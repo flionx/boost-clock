@@ -40,8 +40,8 @@ export const useTimerPlayerStore = create<TimerPlayerState>((set, get) => {
             const {isRunning, timeLeft, mode} = get();
             if (isRunning) {
                 timer.stop();
-                set({isRunning: false});
                 saveTimeToReport(false);
+                set({isRunning: false});
             } else {
                 timer.start(timeLeft);
                 set({isRunning: true});
