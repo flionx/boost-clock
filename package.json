@@ -1,37 +1,40 @@
 {
   "name": "boost-clock",
+  "version": "0.1.0",
   "private": true,
-  "version": "0.0.0",
-  "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "convert:svg": "tsx scripts/convert-icons.ts"
   },
   "dependencies": {
-    "@reduxjs/toolkit": "^2.5.1",
-    "firebase": "^11.4.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-redux": "^9.2.0",
-    "react-router-dom": "^7.2.0"
+    "@dnd-kit/core": "^6.3.1",
+    "@dnd-kit/modifiers": "^9.0.0",
+    "@dnd-kit/sortable": "^10.0.0",
+    "@dnd-kit/utilities": "^3.2.2",
+    "clsx": "^2.1.1",
+    "firebase": "^12.6.0",
+    "framer-motion": "^12.23.26",
+    "next": "16.0.10",
+    "next-themes": "^0.4.6",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "react-hot-toast": "^2.6.0",
+    "zustand": "^5.0.9"
   },
   "devDependencies": {
-    "@eslint/js": "^9.17.0",
-    "@types/react": "^18.3.18",
-    "@types/react-dom": "^18.3.5",
-    "@vitejs/plugin-react": "^4.3.4",
-    "eslint": "^9.17.0",
-    "eslint-plugin-react": "^7.37.2",
-    "eslint-plugin-react-hooks": "^5.0.0",
-    "eslint-plugin-react-refresh": "^0.4.16",
-    "globals": "^15.14.0",
-    "typescript": "^5.7.3",
-    "vite": "^6.0.5"
-  },
-  "description": "pomodoro timer",
-  "main": "eslint.config.js",
-  "author": "",
-  "license": "ISC"
+    "@tailwindcss/postcss": "^4.1.16",
+    "@types/node": "25.0.1",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19",
+    "autoprefixer": "^10.4.21",
+    "eslint": "^9",
+    "eslint-config-next": "16.0.10",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.0.0",
+    "tsx": "^4.20.6",
+    "typescript": "^5"
+  }
 }

@@ -1,0 +1,162 @@
+@import "tailwindcss";
+@variant dark (&:where(.dark, .dark *));
+
+html.light {
+  color-scheme: light;
+}
+html.dark {
+  color-scheme: dark;
+}
+
+/* todo: rename and delete unnecessary varibles */
+:root {
+  --color-primary: #D9DBFF;
+  --color-secondary: #A9ABD4; 
+  --color-accent: rgba(0, 0, 0, 0.15); 
+  --color-line: #6D6D6D;  
+  --color-text: #1C1C1C;
+  --color-text-light: #393939;
+
+  --color-btn-ui: #D9DBFF;
+  --btn-ui-hover: #c3c6ff;
+  --btn-ui-active: #d6d8ff;
+
+  --menu-btn-hover: #979ac6;
+  --menu-btn-active: #9ea1ca;
+
+  --task-add-hover: rgba(0, 0, 0, 0.25);  
+  --task-add-active: rgba(0, 0, 0, 0.20);  
+
+  --color-btn-icon: #1D1B20;
+
+  --color-item-modal-menu: #FFFFFF;
+  --color-item-modal-text-bg: #B7B9D8;
+  --color-item-modal-text-bg-hover: #acaecc;
+  --color-item-modal-text-bg-active: rgb(195, 197, 223);
+
+  --border-quote: var(--task-add-active);
+
+  --footer-bg: #999BC6;
+  --footer-copy-color: #484848;
+}
+
+.dark {
+  --color-primary: #232529;   
+  --color-secondary: #27292d; 
+  --color-accent: rgba(100, 100, 100, 0.15); 
+  --color-line: #888888;  
+  --color-text: #EDEDED; 
+  --color-text-light: #2e2e2e;
+
+  --color-btn-ui:  rgba(217, 219, 255, 0.5);
+  --btn-ui-hover: rgba(217, 219, 255, 0.3);
+  --btn-ui-active: rgba(217, 219, 255, 0.4);
+
+  --menu-btn-hover: #535672;
+  --menu-btn-active: #4f526f;
+
+  --task-add-hover: rgba(75, 75, 75, 0.15);  
+  --task-add-active: rgba(90, 90, 90, 0.12);  
+
+  --color-btn-icon: var(--color-line);
+
+  --color-item-modal-menu: #838499;
+  --color-item-modal-text-bg: #393939;
+  --color-item-modal-text-bg-hover: #2f2f2f;
+  --color-item-modal-text-bg-active: #323232;
+
+  --border-quote: #3C3C3C;
+  --footer-bg: #202125;
+  --footer-copy-color: #858585;
+}
+
+@theme {
+  --font-primary: "Itim", "Itim Fallback", "literal", "literal Fallback", sans-serif;
+  --font-secondary: "Poppins", sans-serif;
+  --font-legal: "literal", "literal Fallback", sans-serif;
+  --font-nav: "JetBrains Mono", monospace;
+
+  --color-primary: var(--color-primary);
+  --color-secondary: var(--color-secondary);
+  --color-accent: var(--color-accent);
+  --color-line: var(--color-line);
+  --color-text: var(--color-text);
+  --color-text-light: var(--color-text-light);
+  --color-btn-ui: var(--color-btn-ui);
+  --color-btn-icon: var(--color-btn-icon);
+  --color-modal-menu: var(--color-item-modal-menu);
+  --color-modal-btn-ui: var(--color-item-modal-text-bg);
+  --color-modal-btn-ui-hover: var(--color-item-modal-text-bg-hover);
+  --color-modal-btn-ui-active: var(--color-item-modal-text-bg-active);
+  --color-quote-border: var(--border-quote);
+  --color-footer-bg: var(--footer-bg);
+  --color-footer: var(--footer-copy-color);
+
+  --breakpoint-xl: 87.5rem;
+  @keyframes linethrough {
+    0% {
+      width: 0;
+    }
+    100% {
+      width: 100%;
+    }
+  }
+  @keyframes graytext {
+    0% {
+      color: var(--text-color);
+    }
+    100% {
+      color: #686868;
+    }
+  }
+}
+
+@layer utilities {
+  .linethrough-text::after {
+    content: '';
+    position: absolute;
+    top: 55%;
+    left: 0;
+    height: 3px;
+    background: #1c1c1c;
+    border-radius: 2px;
+    animation: lineOnTitle .5s forwards;
+  }
+  
+  .checkbox:checked ~ .linethrough-text::after {
+    animation: linethrough 0.5s ease-in-out forwards;
+  }
+  .checkbox:checked ~ .gray-text {
+    animation: graytext .5s .5s forwards;
+  }
+  .btn-ui {
+    background: var(--color-btn-ui);
+    transition: background .3s;
+  }
+  .btn-ui:hover {
+    background: var(--btn-ui-hover);
+  }
+  .btn-ui:active {
+    background: var(--btn-ui-active);
+  }
+}
+
+body {
+  background: var(--color-primary);
+  color: var(--color-text);
+  font-family: var(--font-itim), var(--font-literal), sans-serif;
+  overflow-x: hidden;
+  line-height: 1.2;
+  scroll-behavior: smooth;
+}
+button {
+  cursor: pointer;
+}
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type=number] {
+  -moz-appearance: textfield;
+}

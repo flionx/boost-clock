@@ -1,0 +1,12 @@
+import React from "react";
+
+export const RestoreIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
+  <svg
+    {...props}
+    viewBox="0 0 15 15"
+    fill="currentColor"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path fillRule="evenodd" clipRule="evenodd" d="M7.5 15C3.67289 15 0.515312 12.1335 0.0571483 8.43035L1.71109 8.22359C2.06746 11.1038 4.52336 13.3333 7.5 13.3333C10.7217 13.3333 13.3333 10.7217 13.3333 7.5C13.3333 4.27832 10.7217 1.66668 7.5 1.66668C5.5177 1.66668 3.76637 2.65543 2.71223 4.16668H5.83332V5.83332H0V0H1.66668V2.78555C3.04164 1.08641 5.14395 0 7.5 0C11.6421 0 15 3.35785 15 7.5C15 11.6421 11.6421 15 7.5 15Z"/>
+  </svg>
+);
