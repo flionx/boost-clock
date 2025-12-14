@@ -1,7 +1,7 @@
 import { UserAchievement } from "@/features/achievements/types"
-import { ReportState } from "@/features/report/store/report"
+import { ReportSnapshot } from "@/features/report/types"
+import { TimerSettingsSnapshot } from "@/features/timer/types"
 import { Task } from "@/features/tasks/types"
-import { TimerSettingsState } from "@/features/timer/store/timer-settings"
 
 export interface UserData {
     tasks: {
@@ -12,7 +12,6 @@ export interface UserData {
         achievements: UserAchievement[],
         newUnseenAchievs: number
     },
-    report: Omit<ReportState, | "addWorkTime" | "addBreakTime" | "addPomodoroRound" | "addCompletedTasks" | "resetReport">,
-    timer: Pick<TimerSettingsState, | "workDuration" | "breakDuration" | "longBreakDuration" | "longBreakInterval" 
-        | "autoSwitchTo" | "soundEnabled" | "soundCountRepeat">
+    report: ReportSnapshot,
+    timer: TimerSettingsSnapshot
 }

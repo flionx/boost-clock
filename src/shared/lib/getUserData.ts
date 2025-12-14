@@ -4,7 +4,7 @@ import { useReportStore } from '@/features/report/store/report';
 import { useTimerSettingsStore } from '@/features/timer/store/timer-settings';
 import { UserData } from '@/shared/types/user-data';
 
-export const getUserData = (): UserData => {
+const getUserData = (): UserData => {
   const tasks = useTasksStore.getState();
   const achievements = useAchievementsStore.getState();
   const report = useReportStore.getState();
@@ -42,3 +42,5 @@ export const getUserData = (): UserData => {
     },
   };
 };
+
+export default getUserData;

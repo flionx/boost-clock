@@ -20,7 +20,7 @@ const ModalWarning = () => {
             onClick={(e) => e.stopPropagation()}
             className="
                 relative top-1/2 left-1/2 -translate-1/2 flex flex-col items-center gap-7.5 max-w-[clamp(21.9rem,95vw,26.2rem)]
-                py-3.5 px-12.5 font-secondary bg-primary text-text rounded-lg shadow-[4px_4px_4px_#00000040] border-[#444444]
+                py-3.5 px-12.5 font-secondary bg-primary text-text rounded-lg shadow-[4px_4px_4px_#00000040] border border-[#444444]
             "
             >
             <h3 className="text-2xl text-center">Warning!</h3>

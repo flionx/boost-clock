@@ -3,6 +3,8 @@ import { create } from "zustand";
 import { persist, createJSONStorage } from 'zustand/middleware';
 import { AchievementState } from "../types";
 import { achievementsList } from "../constants";
+import { UserData } from "@/shared/types/user-data";
+import combineUserProgress from "../lib/combineUserProgress";
 
 interface AchievementsStore {
     list: AchievementState[],
@@ -15,16 +17,22 @@ interface AchievementsStore {
         totalWorkTime: number,
         totalBreakTime: number,
     }) => void,
+    resetStore: VoidFunction,
+    uploadUserData: (data: UserData['achievements']) => void
 }
+
+const initState = (): Pick<AchievementsStore, "list" | "newUnseenAchievs"> => ({
+    list: achievementsList.map(achiev => ({
+        ...achiev,
+        step: 0
+    })),
+    newUnseenAchievs: 0,
+})
 
 export const useAchievementsStore = create<AchievementsStore>()(
     persist(
         (set, get) => ({
-            list: achievementsList.map(achiev => ({
-                ...achiev,
-                step: 0
-            })),
-            newUnseenAchievs: 0,
+            ...initState(),
             changeUnseenAchievs: (type) => set((state) => ({
                 newUnseenAchievs: type === "add" ? state.newUnseenAchievs + 1 : 0
             })),
@@ -65,7 +73,12 @@ export const useAchievementsStore = create<AchievementsStore>()(
                 });
                 
                 set({ list: newList });
-            }
+            },
+            resetStore: () => set(initState()),
+            uploadUserData: (data) => set({
+                list: combineUserProgress(data.achievements || []),
+                newUnseenAchievs: data.newUnseenAchievs || 0
+            })
         }),
         {
             name: "achievements-storage",
@@ -76,14 +89,7 @@ export const useAchievementsStore = create<AchievementsStore>()(
             }),
             onRehydrateStorage: () => (state) => {
                 if (state?.list) {
-                    const newList = achievementsList.map(achiev => {
-                        const saved = state.list.find(a => a.id === achiev.id);
-                        return {
-                            ...achiev,
-                            step: saved?.step ?? 0
-                        };
-                    });
-                    state.list = newList;
+                    state.list = combineUserProgress(state.list);
                     state.newUnseenAchievs = state.newUnseenAchievs;
                 }
             }

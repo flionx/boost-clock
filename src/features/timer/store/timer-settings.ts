@@ -1,8 +1,9 @@
 "use client"
 import { create } from "zustand"
-import { LongBreakChange, TimerMinutesOperation, TimerMode } from "@/features/timer/types"
+import { LongBreakChange, TimerMinutesOperation, TimerMode, TimerSettingsSnapshot } from "@/features/timer/types"
 import { MAX_TIMER_DURATION, MIN_TIMER_DURATION } from "@/features/tasks/constants"
 import { createJSONStorage, persist } from "zustand/middleware"
+import { UserData } from "@/shared/types/user-data"
 
 export interface TimerSettingsState {
     workDuration: number,
@@ -23,10 +24,11 @@ export interface TimerSettingsState {
     changeCurrentRound: (type: LongBreakChange) => void,
     setSoundEnabled: (enabled: boolean) => void,
     setSoundCountRepeat: (count: number) => void,
-    resetSettings: VoidFunction
+    resetStore: VoidFunction,
+    uploadUserData: (data: UserData['timer']) => void
 }
 
-const initSettings = () => ({
+const initSettings = (): TimerSettingsSnapshot => ({
     workDuration: 25,
     breakDuration: 5,
     longBreakDuration: 15,
@@ -64,9 +66,8 @@ export const useTimerSettingsStore = create<TimerSettingsState>()(
             }),
             setSoundEnabled: (enabled) => set({ soundEnabled: enabled }),
             setSoundCountRepeat: (count) => set({ soundCountRepeat: Math.min(count, 4) }),
-            resetSettings: () => set({
-                ...initSettings()
-            })
+            resetStore: () => set(initSettings()),
+            uploadUserData: (data) => set(data || initSettings())
         }),
         {
             name: "timer-settings-storage",

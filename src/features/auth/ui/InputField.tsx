@@ -25,6 +25,8 @@ const InputField: React.FC<InputFieldProps> = ({
             className="py-2.5 px-2 bg-[#ededed] rounded-md mb-4 w-full"
             value={value} 
             onChange={onChange}
+            required
+            minLength={type === "password" ? 6 : undefined}
         />
     </>
   )

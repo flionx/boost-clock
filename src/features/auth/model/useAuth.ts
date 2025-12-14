@@ -1,17 +1,22 @@
 "use client"
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { createUserWithEmailAndPassword, sendEmailVerification, signInWithEmailAndPassword, User } from 'firebase/auth';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { auth, db } from '@/shared/lib/firebase';
 import { useRouter } from 'next/navigation';
-import { getUserData } from '@/shared/lib/getUserData';
+import getUserData from '@/shared/lib/getUserData';
 import toast from 'react-hot-toast';
+import uploadUserData from '@/shared/lib/uploadUserData';
+import { UserData } from '@/shared/types/user-data';
 
 const useAuth = () => {
+    const [isEmailVerifySent, setIsEmailVerifySent] = useState(false);
     const intervalRef = useRef<NodeJS.Timeout | null>(null);
     const router = useRouter();
 
     useEffect(() => {
+        if (!isEmailVerifySent) return;
+        
         intervalRef.current = setInterval(() => {
             if (auth.currentUser) {
                 auth.currentUser.reload().then(() => {
@@ -32,7 +37,7 @@ const useAuth = () => {
                 clearInterval(intervalRef.current);
             }
         }    
-    }, []);
+    }, [isEmailVerifySent]);
 
     function signUpWithEmail(email: string, password: string) {
         if (!email || !password) return;
@@ -48,8 +53,7 @@ const useAuth = () => {
                 sendVerifEmail(user);
             })
             .catch((error) => {
-                console.log(error.code);
-                toast.error("Something went wrong");
+                toastAndLogError(error, "Something went wrong")
             });
         }
         
@@ -57,10 +61,10 @@ const useAuth = () => {
             sendEmailVerification(user)
             .then(() => {
                 toast.loading("Email verification sent");
+                setIsEmailVerifySent(true);
             })
             .catch((error) => {
-                console.log(error);
-                toast.error("Something went wrong");
+                toastAndLogError(error, "Something went wrong")
             });
     }
 
@@ -68,7 +72,7 @@ const useAuth = () => {
         if (!email || !password) return;
         signInWithEmailAndPassword(auth, email, password)
             .then(async (result) => {
-                
+
                 const uid = result.user.uid;
                 const dataRef = doc(db, "Users", uid);
                 const toastId = toast.loading("Please wait... Loading data");
@@ -76,26 +80,22 @@ const useAuth = () => {
                 toast.dismiss(toastId);
 
                 if (userDoc.exists()) {
-                    
-                    const userData = userDoc.data() || {};
-                    console.log(userData);
-                    
-                    // todo: upload user data to zustand  
-                    
-                    // uploadUserData({
-                    //     achievement: userData.achievement || [],
-                    //     report: userData.report || {},
-                    //     settings: userData.settings || {},
-                    //     tasks: userData.tasks || [],
-                    // });
-                    
+                    const userData = userDoc.data() as UserData || {};
+                    uploadUserData(userData)
                 }
+
+                toast.success("Successfully logged in");
                 router.push('/')
             })
             .catch((error) => {
-                console.log(error);
-                toast.error('incorrect email or password');
+                toastAndLogError(error, "Incorrect email or password")
             })
+    }
+
+    const toastAndLogError = (error: any, toastText: string) => {
+        console.error(error);
+        toast.dismissAll();
+        toast.error(toastText);
     }
 
     return {signUpWithEmail, signInWithEmail}

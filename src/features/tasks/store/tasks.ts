@@ -3,6 +3,7 @@ import { create } from "zustand"
 import { Task } from "../types"
 import { addCompleteTaskToReport } from "../lib/addCompleteTaskToReport"
 import { createJSONStorage, persist } from "zustand/middleware"
+import { UserData } from "@/shared/types/user-data"
 
 interface TasksState {
     list: Task[],
@@ -18,16 +19,24 @@ interface TasksState {
     switchFormTask: (showForm: boolean) => void,
     toggleShowCompletedTasks: VoidFunction,
     setEditTaskId: (id: Task['id'] | null) => void,
-    reorderTasks: (active: string, over: string) => void
+    reorderTasks: (active: string, over: string) => void,
+    resetStore: VoidFunction,
+    uploadUserData: (data: UserData['tasks']) => void 
 }
+
+const initState = (): Pick<TasksState, 
+    "list" | "showForm" | "editTaskId" | "showCompletedTasks"
+> => ({
+    list: [],
+    showForm: false,
+    editTaskId: null,
+    showCompletedTasks: true,
+})
 
 export const useTasksStore = create<TasksState>()(
     persist(
         (set, get) => ({
-            list: [],
-            showForm: false,
-            editTaskId: null,
-            showCompletedTasks: true,
+            ...initState(),
             addTask: (task) => set({ list: [...get().list, task] }),
             changeTask: (task) => set({
                 list: get().list.map(t => t.id === task.id ? { ...t, ...task } : t)
@@ -72,7 +81,9 @@ export const useTasksStore = create<TasksState>()(
                     list.splice(newIndex, 0, item);
                     return list;
                 })()
-            })
+            }),
+            resetStore: () => set(initState()),
+            uploadUserData: (data) => set(data || initState()) 
         }),
         {
             name: "tasks-storage",

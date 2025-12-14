@@ -3,7 +3,8 @@ import { auth, db } from '@/shared/lib/firebase'
 import { doc, setDoc } from 'firebase/firestore'
 import { useAuthStore } from '@/features/auth/store/auth'
 import { useModalWarningStore } from '@/shared/store/modal-warning'
-import { getUserData } from '@/shared/lib/getUserData'
+import getUserData from '@/shared/lib/getUserData'
+import resetUserData from '@/shared/lib/resetUserData'
 import MenuButton from './MenuButton'
 import { UserIcon } from '@/shared/ui/icons'
 import toast from 'react-hot-toast'
@@ -20,11 +21,11 @@ const UserButton = () => {
       const userRef = doc(db, "Users", user.uid);
       const userData = getUserData();
       await setDoc(userRef, userData, { merge: true });
-      // todo: reset zustand and localstorage
-      // resetStateToDefault();
+      resetUserData();
       await auth.signOut();
       toast.success("Successfully logged out");
     } catch (error) {
+      toast.error("Someting went wrong");
       console.error("Error saving data before exiting:", error);
     }
   };

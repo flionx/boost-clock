@@ -2,6 +2,8 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 import { useTasksStore } from "@/features/tasks/store/tasks";
+import { ReportSnapshot } from "../types";
+import { UserData } from "@/shared/types/user-data";
 export interface ReportState {
     date: string,
     todayWorkTime: number,
@@ -17,18 +19,13 @@ export interface ReportState {
     addBreakTime: (seconds: number) => void,
     addPomodoroRound: VoidFunction,
     addCompletedTasks: (type: "OnTime" | "OutOfTime") => void,
-    resetReport: VoidFunction,
+    resetStore: VoidFunction,
+    uploadUserData: (data: UserData['report']) => void
 }
 
 const getToday = () => new Date().toISOString().split("T")[0] // '2025-08-12'
 
-const initReport = (): Omit<ReportState,
-| "addWorkTime"
-| "addBreakTime"
-| "addPomodoroRound"
-| "addCompletedTasks"
-| "resetReport"
-> => ({
+const initReport = (): ReportSnapshot => ({
   date: getToday(),
   todayWorkTime: 0,
   todayBreakTime: 0,
@@ -72,9 +69,8 @@ export const useReportStore = create<ReportState>()(
                     [`tasks${type}`]: state[`tasks${type}`] + 1
                 }))
             },
-            resetReport: () => {
-                set(initReport());
-            }
+            resetStore: () => set(initReport()),
+            uploadUserData: (data) => set(data || initReport()),
         }),
         {
             name: "report-storage",

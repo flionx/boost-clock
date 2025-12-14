@@ -8,7 +8,7 @@ import MenuButton from './MenuButton'
 
 const MenuList = () => {
     const setModal = useModalMenuStore(state => state.setModal);
-    const resetReport = useReportStore(state => state.resetReport);
+    const resetReport = useReportStore(state => state.resetStore);
     const newUnseenAchievs = useAchievementsStore(state => state.newUnseenAchievs);
     const resetSettings = useResetSettings();
 

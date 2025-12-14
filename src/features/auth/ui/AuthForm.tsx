@@ -15,6 +15,7 @@ const AuthForm: React.FC<AuthFormProps> = ({type}) => {
   const {signInWithEmail, signUpWithEmail} = useAuth();
 
   const handleSubmit = () => {
+    if (!email.trim() || password.length < 6) return;
     const submit = type === "login" ? signInWithEmail : signUpWithEmail;
     submit(email, password)
   }
