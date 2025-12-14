@@ -5,7 +5,7 @@ interface AuthContainerProps {
 }
 const AuthContainer: React.FC<AuthContainerProps> = ({type}) => {
   return (
-    <div className="flex flex-col justify-center items-center h-[85vh]">
+    <main className="flex flex-col justify-center items-center h-[85vh]">
       <h2 className="text-4xl mb-4">
         {type === "login" ? "Login" : "Create an account"}
       </h2>
@@ -14,12 +14,12 @@ const AuthContainer: React.FC<AuthContainerProps> = ({type}) => {
         {type === "login" ? "Do not have an account?" : "Already have an account?"}
       </span>
       <Link 
-        href={`/auth/${type === "login" ? "signup" : "login"}`} 
+        href={`/${type === "login" ? "signup" : "login"}`} 
         className="underline"
       >
         {type === "login" ? "Create an account" : "Log in"}
       </Link>
-    </div>
+    </main>
   )
 }
 

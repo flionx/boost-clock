@@ -19,15 +19,15 @@ export const socialLinks: SocialLink[] = [
 
 export const additionalLinks = [
     {
-        href: "/legal/terms",
+        href: "/terms",
         label: "Terms of Use"
     },
     {
-        href: "/legal/info",
+        href: "/info",
         label: "Info"
     },
     {
-        href: "/legal/policy",
+        href: "/policy",
         label: "Privacy Policy"
     },
 ]

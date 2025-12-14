@@ -1,5 +1,6 @@
-import { additionalLinks, socialLinks } from '../constants'
+import Link from 'next/link'
 import ExternalLink from './ExternalLink'
+import { additionalLinks, socialLinks } from '../constants'
 
 const Footer = () => {
   return (
@@ -14,9 +15,14 @@ const Footer = () => {
                 </nav>
             </div>
             <nav className="flex gap-x-3 mb-4">
-                {/* todo: change span to link */}
                 {additionalLinks.map(link => 
-                    <span key={link.label} className="text-sm font-secondary">{link.label}</span>
+                    <Link 
+                        href={link.href}
+                        className="text-sm font-secondary hover:underline"
+                        key={link.label} 
+                    >
+                        {link.label}
+                    </Link>
                 )}
             </nav>
             <p className="text-base tracking-[.5px] text-footer mb-2.5">Developed with ♥ by Flionx.</p>

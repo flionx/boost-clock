@@ -36,7 +36,7 @@ const UserButton = () => {
   return (
     <MenuButton 
       onClick={handleLogout} 
-      href={user ? undefined : "/auth/login"}
+      href={user ? undefined : "/login"}
       icon={UserIcon} 
     >
         {user ? "Log out" : "Log in"}
