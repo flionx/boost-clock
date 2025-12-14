@@ -1,8 +1,8 @@
 "use client"
 import { useEffect, useRef, useState } from 'react';
-import { createUserWithEmailAndPassword, sendEmailVerification, signInWithEmailAndPassword, User } from 'firebase/auth';
+import { createUserWithEmailAndPassword, sendEmailVerification, signInWithEmailAndPassword, signInWithPopup, User } from 'firebase/auth';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
-import { auth, db } from '@/shared/lib/firebase';
+import { auth, db, provider } from '@/shared/lib/firebase';
 import { useRouter } from 'next/navigation';
 import getUserData from '@/shared/lib/getUserData';
 import toast from 'react-hot-toast';
@@ -92,13 +92,36 @@ const useAuth = () => {
             })
     }
 
+    const authWithGoogle = () => {
+        signInWithPopup(auth, provider)
+            .then(async (result) => {
+                const userId = result.user.uid;
+
+                const dataRef = doc(db, "Users", userId);
+                const userDoc = await getDoc(dataRef);
+
+                if (userDoc.exists()) {
+                    uploadUserData(userDoc.data() as UserData)
+                }
+                else {
+                    const dataState = getUserData();
+                    await setDoc(dataRef, dataState, { merge: true });
+                }
+                
+                toast.success("Successfully logged in");
+                router.push('/');
+            }).catch((error) => {
+                toastAndLogError(error, "Something went wrong")
+            })
+    }
+
     const toastAndLogError = (error: any, toastText: string) => {
         console.error(error);
         toast.dismissAll();
         toast.error(toastText);
     }
 
-    return {signUpWithEmail, signInWithEmail}
+    return {signUpWithEmail, signInWithEmail, authWithGoogle}
 }
 
 export default useAuth

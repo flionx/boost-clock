@@ -1,6 +1,7 @@
 import { itim, jetbrains_mono, literal, poppins } from "@/shared/assets/fonts";
 import ThemeProvider from "@/shared/providers/theme-provider";
 import FirebaseProvider from "@/shared/providers/firebase-provider";
+import AutoSaveProvider from "@/shared/providers/autosave-provider";
 import ModalWarning from "@/shared/ui/ModalWarning";
 import AchievementsTracker from "@/features/achievements/ui/AchievementsTracker";
 import { ModalMenu } from "@/widgets/modal-menu";
@@ -28,11 +29,13 @@ export default function RootLayout({
       >
         <ThemeProvider>
           <FirebaseProvider>
-            <ModalWarning />
-            <ModalMenu />
-            <Toaster position='top-center' containerStyle={{fontFamily: 'var(--font-primary)'}}/>
-            <AchievementsTracker />
-            {children}
+            <AutoSaveProvider>
+              <ModalWarning />
+              <ModalMenu />
+              <Toaster position='top-center' containerStyle={{fontFamily: 'var(--font-primary)'}}/>
+              <AchievementsTracker />
+              {children}
+            </AutoSaveProvider>
           </FirebaseProvider>
         </ThemeProvider>
       </body>

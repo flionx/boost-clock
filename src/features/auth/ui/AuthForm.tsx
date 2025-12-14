@@ -12,7 +12,7 @@ const AuthForm: React.FC<AuthFormProps> = ({type}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const {signInWithEmail, signUpWithEmail} = useAuth();
+  const {signInWithEmail, signUpWithEmail, authWithGoogle} = useAuth();
 
   const handleSubmit = () => {
     if (!email.trim() || password.length < 6) return;
@@ -35,8 +35,8 @@ const AuthForm: React.FC<AuthFormProps> = ({type}) => {
         Sign {type === "login" ? "in" : "up"} with Email
       </ButtonSubmit>
       <LineOr />
-      <ButtonGoogle onClick={() => {}}>
-        Sign {type === "login" ? "in" : "up"} with Email
+      <ButtonGoogle onClick={authWithGoogle}>
+        Sign {type === "login" ? "in" : "up"} with Google
       </ButtonGoogle>
     </form>
   )
