@@ -1,6 +1,6 @@
 {
   "name": "boost-clock",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -14,7 +14,6 @@
     "@dnd-kit/modifiers": "^9.0.0",
     "@dnd-kit/sortable": "^10.0.0",
     "@dnd-kit/utilities": "^3.2.2",
-    "clsx": "^2.1.1",
     "firebase": "^12.6.0",
     "framer-motion": "^12.23.26",
     "next": "16.0.10",

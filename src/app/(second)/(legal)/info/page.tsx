@@ -1,4 +1,10 @@
 import { TitleLegal, TextLegal, SubtitleLegal, ListLegal } from "@/shared/ui/Legal"
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Info",
+  description: "Boost your productivity, improve your concentration, and manage your time effectively with the Pomodoro Technique."
+};
 
 const InfoPage = () => {
   return (

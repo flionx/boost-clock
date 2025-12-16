@@ -8,7 +8,7 @@ const useDocumentTitleSync = () => {
     const timeLeft = useTimerPlayerStore(state => state.timeLeft);
     const isRunning = useTimerPlayerStore(state => state.isRunning);
 
-    useEffect(() => {        
+    useEffect(() => {   
         const modeLabel = mode === 'work' ? "Work" : "Break";
         const timeAndModeLabel = `${formatTime(timeLeft)} - ${modeLabel} time`
         if (isRunning) {
