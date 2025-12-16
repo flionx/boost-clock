@@ -1,4 +1,10 @@
 import { ListLegal, SubtitleLegal, TextLegal, TitleLegal } from "@/shared/ui/Legal"
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Terms of use",
+  description: "Please read the terms of use before using BoostClock.",
+};
 
 const TermsPage = () => {
   return (

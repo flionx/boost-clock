@@ -10,8 +10,15 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "BoostClock | Pomodoro Timer",
+  title: {
+    default: "BoostClock | Pomodoro Timer",
+    template: "%s | Boost Clock",
+  },
   description: "Improve your productivity with the free Pomodoro timer! Flexible settings, task list, statistics and user-friendly interface. Start managing time effectively!",
+  keywords: "pomodoro, timer, boost, clock, focus, task management, work timer, break timer, productivity, pomodoro technique, time management, nextjs, boost clock, pomodoro timer",
+  verification: {
+    google: "h9Ca5515AFZRsDHidOR9XSWizwgWUN6rjEPGeRy_lkE"
+  }
 };
 
 export default function RootLayout({

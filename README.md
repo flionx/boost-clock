@@ -7,7 +7,7 @@ Boost Clock is a modern and efficient Pomodoro timer with flexible settings, a b
 ## 🚀 Why Boost Clock?
 
 - Customizable timer – adjust work sessions, breaks, and long rest periods.
-- Task manager – create, edit, set deadlines, complete, and delete tasks.
+- Task manager – create, edit, drag and drop, set deadlines, complete, and delete tasks.
 - Motivation boost – daily inspirational quotes and an achievement system with notifications.
 - Detailed productivity stats – track your work time, break time, and task completion rate.
 - Smart notifications – stay on top of session transitions and new achievements.

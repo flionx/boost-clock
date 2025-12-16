@@ -1,4 +1,10 @@
 import { ListLegal, SubtitleLegal, TextLegal, TitleLegal } from "@/shared/ui/Legal"
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Privacy Policy",
+  description: "Discover how we collect, use, and protect your personal information when you use BoostClock."
+};
 
 const PolicyPage = () => {
   return (
