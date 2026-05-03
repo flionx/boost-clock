@@ -4,7 +4,7 @@ interface FormTitle {
 }
 const FormTitle: React.FC<FormTitle> = ({ children }) => {
   return (
-    <h4 className="text-[calc(20px+(25-20)*((100vw-375px)/(1440-375)))]">
+    <h4 className="text-calc-small">
       {children}
     </h4>
   )

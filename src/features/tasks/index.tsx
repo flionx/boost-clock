@@ -5,14 +5,14 @@ import { AnimatedTaskForm } from './ui/TaskForm'
 
 const Tasks = () => {
   return (
-    <section className="w-[clamp(22rem,51.3vw,61.6rem)] mx-auto">
+    <section className="content-wrapper">
       <TasksHeader />
-      <section className="flex items-center flex-col w-[clamp(22rem,48.2vw,58rem)] mx-auto">
+      <section className="content-wrapper flex items-center flex-col">
         <ActiveTaskList />
         <AnimatedTaskForm />
         <ButtonAddTask />
       </section>
-      <section className="flex items-center flex-col w-[clamp(22rem,51.3vw,61.6rem)] mx-auto">
+      <section className="content-wrapper flex items-center flex-col">
         <ButtonCompletedTasks />
         <CompletedTaskList />
       </section>

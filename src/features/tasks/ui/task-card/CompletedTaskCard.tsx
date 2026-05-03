@@ -20,7 +20,7 @@ const CompletedTaskCard: React.FC<CompletedTaskCardProps> = ({ id, title, descri
   return (
     <div className="w-full bg-[#0000001a] rounded-md pt-1 px-1.5 pb-2.5">
       <div className="flex justify-between items-center">
-        <h5 className="text-xl text-content w-fit max-w-[90%] break-words">{title}</h5>
+        <h5 className="text-xl text-content w-fit max-w-[90%] wrap-break-word">{title}</h5>
         <div className="relative">
           <ButtonOptions
             onClick={() => setShowOptions(c => !c)}
@@ -45,7 +45,7 @@ const CompletedTaskCard: React.FC<CompletedTaskCardProps> = ({ id, title, descri
           )}
         </div>
       </div>
-      {description && <p className="mt-1.5 bg-secondary rounded-lg p-2 break-words">{description}</p>}
+      {description && <p className="mt-1.5 bg-secondary rounded-lg p-2 wrap-break-word">{description}</p>}
     </div>
   )
 }

@@ -11,7 +11,7 @@ const Quote = () => {
 
   return (
     <section className='pt-6.5 pb-9 border-t-4 border-accent bg-secondary'>
-      <div className="flex flex-col items-center w-[clamp(22rem,51.3vw,61.6rem)] mx-auto">
+      <div className="content-wrapper flex flex-col items-center">
         <h3 className="text-3xl text-left w-full mb-5">Quote of the day:</h3>
         <div className="
             relative w-full p-5 border-l-5 border-accent-border bg-[#00000026] rounded-md text-xl min-h-12.5 italic

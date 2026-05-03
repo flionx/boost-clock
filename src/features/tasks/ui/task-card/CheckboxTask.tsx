@@ -34,7 +34,7 @@ const CheckboxTask: React.FC<CheckboxTaskProps> = ({ id }) => {
       <div className={`
         flex items-center justify-center size-[clamp(2rem,4vw,2.5rem)]
         rounded-xs border-2 transition-colors
-        ${isChecked ? "bg-[#D9DBFF] dark:bg-[#4b4f6b] border-transparent" :
+        ${isChecked ? "bg-primary-light dark:bg-[#4b4f6b] border-transparent" :
           "bg-white border-gray-300 dark:border-gray-600"
         }`}
       >

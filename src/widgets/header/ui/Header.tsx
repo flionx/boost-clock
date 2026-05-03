@@ -9,7 +9,7 @@ const Header: React.FC<HeaderProps> = ({
 }) => {
   return (
     <header className="bg-secondary py-1.5 relative">
-      <div className="content-wrapper flex items-center justify-between">
+      <div className="main-wrapper flex items-center justify-between">
         <h1 className="text-4xl">BoostClock</h1>
         <ul className="flex items-center gap-5">
           <ThemeToggleButton />

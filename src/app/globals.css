@@ -10,6 +10,7 @@ html.dark {
 
 :root {
   --color-primary: #D9DBFF;
+  --color-primary-light: #D9DBFF;
   --color-secondary: #A9ABD4; 
   --color-accent: rgba(0, 0, 0, 0.15); 
   
@@ -69,6 +70,7 @@ html.dark {
   --font-nav: "JetBrains Mono", monospace;
 
   --color-primary: var(--color-primary);
+  --color-primary-light: var(--color-primary-light);
   --color-secondary: var(--color-secondary);
   --color-accent: var(--color-accent);
   --color-content: var(--color-content);
@@ -86,6 +88,11 @@ html.dark {
   --color-third-content: var(--color-third-content);
 
   --breakpoint-xl: 87.5rem;
+  --text-calc-medium: calc(22px + (25 - 22) * ((100vw - 375px) / (1440 - 375)));
+  --text-calc-small: calc(20px + (25 - 20) * ((100vw - 375px) / (1440 - 375)));
+  --shadow-card: 0 2px 2px rgba(0, 0, 0, 0.1);
+  --shadow-card-active: 0 1px 2px rgba(0, 0, 0, 0.1);
+
   @keyframes linethrough {
     0% {
       width: 0;
@@ -105,8 +112,13 @@ html.dark {
 }
 
 @layer utilities {
-  .content-wrapper {
+  .main-wrapper {
     width: clamp(22rem, 58.3vw, 70rem);
+    margin-inline: auto;
+  }
+
+  .content-wrapper {
+    width: clamp(22rem, 51.3vw, 61.6rem);
     margin-inline: auto;
   }
 

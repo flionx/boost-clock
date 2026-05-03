@@ -5,7 +5,7 @@ import Timer from '@/features/timer'
 const Main = () => {
   return (
     <main>
-      <section className="content-wrapper">
+      <section className="main-wrapper">
         <Timer />
         <Tasks />
       </section>

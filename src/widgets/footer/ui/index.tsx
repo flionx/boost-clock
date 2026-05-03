@@ -5,7 +5,7 @@ import { additionalLinks, socialLinks } from '../constants'
 const Footer = () => {
   return (
     <footer className="w-full pt-10 pb-7.5 bg-third">
-      <div className="content-wrapper flex flex-col items-center">
+      <div className="main-wrapper flex flex-col items-center">
         <div className="flex flex-col items-center mb-5">
           <h5 className='text-xl mb-4 text-content'>Contact me:</h5>
           <nav className="flex gap-x-6 items-center">

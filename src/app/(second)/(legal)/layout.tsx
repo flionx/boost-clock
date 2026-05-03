@@ -4,7 +4,7 @@ import React from 'react'
 const LegalLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
-      <main className="content-wrapper py-7.5">
+      <main className="main-wrapper py-7.5">
         {children}
       </main>
       <Footer />
