@@ -39,7 +39,7 @@ export default function RootLayout({
             <AutoSaveProvider>
               <Modal />
               <ModalMenu />
-              <Toaster position='top-center' containerStyle={{fontFamily: 'var(--font-primary)'}}/>
+              <Toaster position='top-center' containerStyle={{ fontFamily: 'var(--font-primary)' }} />
               <AchievementsTracker />
               {children}
             </AutoSaveProvider>

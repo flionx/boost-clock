@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
 
 const useListener = (
-    event: keyof DocumentEventMap, 
-    callback: (event: DocumentEventMap[keyof DocumentEventMap]) => void
+  event: keyof DocumentEventMap,
+  callback: (event: DocumentEventMap[keyof DocumentEventMap]) => void
 ) => {
   useEffect(() => {
     document.addEventListener(event, callback);

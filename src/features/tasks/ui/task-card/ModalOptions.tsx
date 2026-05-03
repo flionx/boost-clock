@@ -19,16 +19,16 @@ const ModalOptions: React.FC<ModalOptionsProps> = ({ onClose, children, triggerR
     if (triggerRef?.current && modalRef.current) {
       const rect = triggerRef.current.getBoundingClientRect()
       const modalWidth = modalRef.current.offsetWidth
-      
+
       modalRef.current.style.top = `${rect.top}px`
       modalRef.current.style.left = `${rect.left - modalWidth}px`
-      
+
       setIsPositioned(true)
     }
   }, [triggerRef, children])
 
   return createPortal(
-    <div 
+    <div
       ref={modalRef}
       className="fixed w-34 z-50 bg-[#e9eaff] rounded-md overflow-hidden"
       style={{ opacity: isPositioned ? 1 : 0 }}

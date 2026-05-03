@@ -1,5 +1,5 @@
 export interface IQuote {
-    text: string,
-    author: string
-    date: string
+  text: string,
+  author: string
+  date: string
 }

@@ -8,11 +8,11 @@ import useAuth from '../model/useAuth'
 interface AuthFormProps {
   type: "signup" | "login"
 }
-const AuthForm: React.FC<AuthFormProps> = ({type}) => {
+const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const {signInWithEmail, signUpWithEmail, authWithGoogle} = useAuth();
+  const { signInWithEmail, signUpWithEmail, authWithGoogle } = useAuth();
 
   const handleSubmit = () => {
     if (!email.trim() || password.length < 6) return;
@@ -21,8 +21,8 @@ const AuthForm: React.FC<AuthFormProps> = ({type}) => {
   }
 
   return (
-    <form 
-      className="w-88 bg-white p-5 rounded-lg text-[#1c1c1c] mb-5" 
+    <form
+      className="w-88 bg-white p-5 rounded-lg text-[#1c1c1c] mb-5"
       onSubmit={e => e.preventDefault()}
     >
       <InputField type='email' id='email' label='EMAIL' placeholder='example@gmail.com'

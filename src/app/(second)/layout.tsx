@@ -2,13 +2,13 @@ import CircleButtonHome from "@/features/auth/ui/CircleButtonHome"
 import Header from "@/widgets/header"
 
 const SecondLayout = ({
-    children
+  children
 }: {
-    children: React.ReactNode
+  children: React.ReactNode
 }) => {
   return (
     <>
-      <Header withMenu={false}/>
+      <Header withMenu={false} />
       <CircleButtonHome />
       {children}
     </>

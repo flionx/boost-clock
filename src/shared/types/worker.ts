@@ -1,7 +1,7 @@
 export interface WorkerMessage {
-    type: "stop" | "done"
+  type: "stop" | "done"
 }
 export interface WorkerMessageDuration {
-    type: "start" | "tick",
-    duration: number
+  type: "start" | "tick",
+  duration: number
 }

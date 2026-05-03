@@ -44,9 +44,9 @@ const SortableTask = ({ id, task }: any) => {
         <div style={{ height }} />
       ) : (
         <div ref={ref}>
-          <ActiveTaskCard 
-            task={task} 
-            dragHandleProps={{ ...attributes, ...listeners }} 
+          <ActiveTaskCard
+            task={task}
+            dragHandleProps={{ ...attributes, ...listeners }}
           />
         </div>
       )}

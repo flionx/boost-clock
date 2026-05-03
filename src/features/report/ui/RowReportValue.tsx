@@ -1,11 +1,11 @@
 import React from 'react'
 interface RowReportValueProps {
-    value: string | number,
-    isToday?: boolean
+  value: string | number,
+  isToday?: boolean
 }
-const RowReportValue: React.FC<RowReportValueProps> = ({ 
-    value,
-    isToday = false
+const RowReportValue: React.FC<RowReportValueProps> = ({
+  value,
+  isToday = false
 }) => {
   return (
     <p className={`
@@ -13,7 +13,7 @@ const RowReportValue: React.FC<RowReportValueProps> = ({
         py-0.5 px-3.5
       `}
     >
-        {value}
+      {value}
     </p>
   )
 }

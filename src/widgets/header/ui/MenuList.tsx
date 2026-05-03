@@ -11,37 +11,37 @@ import { HeaderMenuButton } from '../types';
 import MenuButton from './MenuButton'
 
 const MenuList = () => {
-    const setModalMenu = useModalMenuStore(state => state.setModal);
-    const setModal = useModalStore(state => state.setModal);
-    const newUnseenAchievs = useAchievementsStore(state => state.newUnseenAchievs);
-    const resetReport = useReportStore(state => state.resetStore);
-    const resetSettings = useResetSettings();
+  const setModalMenu = useModalMenuStore(state => state.setModal);
+  const setModal = useModalStore(state => state.setModal);
+  const newUnseenAchievs = useAchievementsStore(state => state.newUnseenAchievs);
+  const resetReport = useReportStore(state => state.resetStore);
+  const resetSettings = useResetSettings();
 
-    const user = useAuthStore(state => state.user);
-    const router = useRouter();
+  const user = useAuthStore(state => state.user);
+  const router = useRouter();
 
-    const handleClick = (label: HeaderMenuButton['label']) => {
-        if ((label === "Achievements" || label === "Report") && !user) {
-            setModal("No access", "Please log in to access", "Log in", () => router.push("/login"));
-            return;
-        }
-        setModalMenu(label, label === "Settings" ? resetSettings : 
-            label === "Report" ? resetReport : null
-        )
+  const handleClick = (label: HeaderMenuButton['label']) => {
+    if ((label === "Achievements" || label === "Report") && !user) {
+      setModal("No access", "Please log in to access", "Log in", () => router.push("/login"));
+      return;
     }
+    setModalMenu(label, label === "Settings" ? resetSettings :
+      label === "Report" ? resetReport : null
+    )
+  }
 
   return (
     <>
-        {HEADER_MENU_BUTTONS.map(m => 
-            <MenuButton 
-                key={m.label} 
-                icon={m.icon}
-                onClick={() => handleClick(m.label)}
-                unseenNotifyCount={(m.label === "Achievements" && newUnseenAchievs) ? newUnseenAchievs : undefined}
-            >
-                {m.label}
-            </MenuButton>
-        )}
+      {HEADER_MENU_BUTTONS.map(m =>
+        <MenuButton
+          key={m.label}
+          icon={m.icon}
+          onClick={() => handleClick(m.label)}
+          unseenNotifyCount={(m.label === "Achievements" && newUnseenAchievs) ? newUnseenAchievs : undefined}
+        >
+          {m.label}
+        </MenuButton>
+      )}
     </>
   )
 }

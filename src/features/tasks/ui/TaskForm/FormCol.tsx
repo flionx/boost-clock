@@ -1,7 +1,7 @@
 import React from 'react'
 interface FormColProps {
-    children: React.ReactNode,
-    noMarginBottom?: boolean
+  children: React.ReactNode,
+  noMarginBottom?: boolean
 }
 const FormCol: React.FC<FormColProps> = ({
   children,
@@ -9,7 +9,7 @@ const FormCol: React.FC<FormColProps> = ({
 }) => {
   return (
     <div className={`flex flex-col gap-y-2 pr-5.5 ${noMarginBottom ? "" : "mb-3.5"}`}>
-        {children}
+      {children}
     </div>
   )
 }

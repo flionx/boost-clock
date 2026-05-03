@@ -14,10 +14,10 @@ const UserButton = () => {
   const setModal = useModalStore(state => state.setModal);
 
   const saveAndLogout = async () => {
-    const user = auth.currentUser;        
+    const user = auth.currentUser;
     if (!user) return;
 
-    try {            
+    try {
       const userRef = doc(db, "Users", user.uid);
       const userData = getUserData();
       await setDoc(userRef, userData, { merge: true });
@@ -34,12 +34,12 @@ const UserButton = () => {
     setModal("Warning!", "Are you sure you want to log out?", "Log out", saveAndLogout)
   }
   return (
-    <MenuButton 
-      onClick={handleLogout} 
+    <MenuButton
+      onClick={handleLogout}
       href={user ? undefined : "/login"}
-      icon={UserIcon} 
+      icon={UserIcon}
     >
-        {user ? "Log out" : "Log in"}
+      {user ? "Log out" : "Log in"}
     </MenuButton>
   )
 }
