@@ -14,7 +14,7 @@ const CircleButtonHome = () => {
         ${isLoading ? "pointer-events-none" : ""}
       `}
     >
-      <ArrowDownIcon className="rotate-90 -translate-x-0.5 size-7 text-[#1c1c1c]" />
+      <ArrowDownIcon className="rotate-90 -translate-x-0.5 size-7 text-content-dark" />
     </Link>
   )
 }

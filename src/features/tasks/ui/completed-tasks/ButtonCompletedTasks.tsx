@@ -25,7 +25,7 @@ const ButtonCompletedTasks = () => {
         >
           Completed Tasks
           <ArrowDownIcon className={`
-              size-7 text-text dark:text-line relative left-3 duration-300
+              size-7 text-content dark:text-line relative left-3 duration-300
               transition-transform ${showCompletedTasks ? 'rotate-0' : 'rotate-180'} 
             `}
           />

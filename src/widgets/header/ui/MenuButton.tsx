@@ -22,7 +22,7 @@ const MenuButton: React.FC<MenuButtonProps> = ({
       className="flex items-center gap-1 p-2 rounded-lg hover:bg-[#979ac6] hover:dark:bg-[#535672] transition-colors duration-200 relative"
     >
       <p className="font-nav">{children}</p>
-      <Icon width={24} height={24} className="fill-btn-icon" />
+      <Icon width={24} height={24} className="fill-accent-element" />
     </Link>
   )
 
@@ -32,7 +32,7 @@ const MenuButton: React.FC<MenuButtonProps> = ({
       className="flex items-center gap-1 p-2 rounded-lg hover:bg-[#979ac6] hover:dark:bg-[#535672] transition-colors duration-200 relative"
     >
       <p className="font-nav">{children}</p>
-      <Icon width={24} height={24} className="fill-btn-icon" />
+      <Icon width={24} height={24} className="fill-accent-element" />
       {unseenNotifyCount && <UnseenNotify count={unseenNotifyCount} />}
     </button>
   )

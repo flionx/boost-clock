@@ -5,7 +5,7 @@ import Timer from '@/features/timer'
 const Main = () => {
   return (
     <main>
-      <section className="w-[clamp(22rem,58.3vw,70rem)] mx-auto">
+      <section className="content-wrapper">
         <Timer />
         <Tasks />
       </section>

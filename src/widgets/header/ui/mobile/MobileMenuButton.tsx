@@ -15,9 +15,9 @@ const MobileMenuButton = () => {
         onClick={toggleMenu}
         className={`flex flex-col justify-between size-6 transition-transform duration-300 ${isOpen ? "-rotate-90" : ""}`}
       >
-        <span className="w-full min-h-[0.15625rem] bg-text rounded-xs" />
-        <span className="w-full min-h-[0.15625rem] bg-text rounded-xs" />
-        <span className="w-full min-h-[0.15625rem] bg-text rounded-xs" />
+        <span className="w-full min-h-[0.15625rem] bg-content rounded-xs" />
+        <span className="w-full min-h-[0.15625rem] bg-content rounded-xs" />
+        <span className="w-full min-h-[0.15625rem] bg-content rounded-xs" />
       </button>
       {isOpen && <MobileMenu />}
       {newUnseenAchievs > 0 && <UnseenNotify count={newUnseenAchievs} />}

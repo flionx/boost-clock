@@ -100,7 +100,7 @@ const TaskForm: React.FC<TaskFormProps> = ({ task }) => {
         <div className="flex items-center gap-[clamp(0.9375rem,2.5vw,3.125rem)] ml-auto">
           <button
             onClick={handleCancel}
-            className="text-xl text-text hover:underline"
+            className="text-xl text-content hover:underline"
             type="button"
           >
             Cancel

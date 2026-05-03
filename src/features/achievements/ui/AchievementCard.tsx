@@ -36,7 +36,7 @@ const AchievementCard: React.FC<AchievementCardProps> = ({
           <h4 className="text-xl font-primary text-center mb-1">{title}</h4>
           <p className="font-secondary font-normal mb-1 leading-[118%] text-center text-sm">{description}</p>
         </div>
-        <div className="w-14 p-1 text-center bg-[#b7b9d8] rounded-md mx-auto">
+        <div className="w-14 p-1 text-center bg-action-secondary-light rounded-md mx-auto">
           {step}/{max}
         </div>
       </div>

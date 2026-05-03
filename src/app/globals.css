@@ -1,73 +1,65 @@
 @import "tailwindcss";
 @variant dark (&:where(.dark, .dark *));
 
-html.light {
+html {
   color-scheme: light;
 }
 html.dark {
   color-scheme: dark;
 }
 
-/* todo: rename and delete unnecessary varibles */
 :root {
   --color-primary: #D9DBFF;
   --color-secondary: #A9ABD4; 
   --color-accent: rgba(0, 0, 0, 0.15); 
+  
+  --color-content: #1C1C1C;
+  --color-content-dark: #1C1C1C;
+  --color-content-muted: #393939;
+  
+  --color-action-primary: #D9DBFF;
+  --color-action-primary-hover: #c3c6ff;
+  --color-action-primary-active: #d6d8ff;
+  
+  --color-action-secondary: #B7B9D8;
+  --color-action-secondary-light: #B7B9D8;
+  --color-action-secondary-hover: #acaecc;
+  --color-action-secondary-active: rgb(195, 197, 223);
+  
+  --color-accent-element: #1D1B20;
+  --color-surface-element: #FFFFFF;
+  
   --color-line: #6D6D6D;  
-  --color-text: #1C1C1C;
-  --color-text-light: #393939;
+  --border-accent: rgba(0, 0, 0, 0.20);
 
-  --color-btn-ui: #D9DBFF;
-  --btn-ui-hover: #c3c6ff;
-  --btn-ui-active: #d6d8ff;
-
-  --menu-btn-hover: #979ac6;
-  --menu-btn-active: #9ea1ca;
-
-  --task-add-hover: rgba(0, 0, 0, 0.25);  
-  --task-add-active: rgba(0, 0, 0, 0.20);  
-
-  --color-btn-icon: #1D1B20;
-
-  --color-item-modal-menu: #FFFFFF;
-  --color-item-modal-text-bg: #B7B9D8;
-  --color-item-modal-text-bg-hover: #acaecc;
-  --color-item-modal-text-bg-active: rgb(195, 197, 223);
-
-  --border-quote: var(--task-add-active);
-
-  --footer-bg: #999BC6;
-  --footer-copy-color: #484848;
+  --color-third: #999BC6;
+  --color-third-content: #484848;
 }
 
 .dark {
   --color-primary: #232529;   
   --color-secondary: #27292d; 
   --color-accent: rgba(100, 100, 100, 0.15); 
+  
+  --color-content: #EDEDED; 
+  --color-content-muted: #2e2e2e;
+  
+  --color-action-primary:  rgba(217, 219, 255, 0.5);
+  --color-action-primary-hover: rgba(217, 219, 255, 0.3);
+  --color-action-primary-active: rgba(217, 219, 255, 0.4);
+  
+  --color-action-secondary: #393939;
+  --color-action-secondary-hover: #2f2f2f;
+  --color-action-secondary-active: #323232;
+  
+  --color-accent-element: var(--color-line);
+  --color-surface-element: #838499;
+  
   --color-line: #888888;  
-  --color-text: #EDEDED; 
-  --color-text-light: #2e2e2e;
+  --border-accent: #3C3C3C;
 
-  --color-btn-ui:  rgba(217, 219, 255, 0.5);
-  --btn-ui-hover: rgba(217, 219, 255, 0.3);
-  --btn-ui-active: rgba(217, 219, 255, 0.4);
-
-  --menu-btn-hover: #535672;
-  --menu-btn-active: #4f526f;
-
-  --task-add-hover: rgba(75, 75, 75, 0.15);  
-  --task-add-active: rgba(90, 90, 90, 0.12);  
-
-  --color-btn-icon: var(--color-line);
-
-  --color-item-modal-menu: #838499;
-  --color-item-modal-text-bg: #393939;
-  --color-item-modal-text-bg-hover: #2f2f2f;
-  --color-item-modal-text-bg-active: #323232;
-
-  --border-quote: #3C3C3C;
-  --footer-bg: #202125;
-  --footer-copy-color: #858585;
+  --color-third: #202125;
+  --color-third-content: var(--color-line);
 }
 
 @theme {
@@ -79,18 +71,19 @@ html.dark {
   --color-primary: var(--color-primary);
   --color-secondary: var(--color-secondary);
   --color-accent: var(--color-accent);
+  --color-content: var(--color-content);
+  --color-content-dark: var(--color-content-dark);
+  --color-content-muted: var(--color-content-muted);
+  --color-accent-element: var(--color-accent-element);
+  --color-surface-element: var(--color-surface-element);
+  --color-action-secondary: var(--color-action-secondary);
+  --color-action-secondary-light: var(--color-action-secondary-light);
+  --color-action-secondary-hover: var(--color-action-secondary-hover);
+  --color-action-secondary-active: var(--color-action-secondary-active);
   --color-line: var(--color-line);
-  --color-text: var(--color-text);
-  --color-text-light: var(--color-text-light);
-  --color-btn-ui: var(--color-btn-ui);
-  --color-btn-icon: var(--color-btn-icon);
-  --color-modal-menu: var(--color-item-modal-menu);
-  --color-modal-btn-ui: var(--color-item-modal-text-bg);
-  --color-modal-btn-ui-hover: var(--color-item-modal-text-bg-hover);
-  --color-modal-btn-ui-active: var(--color-item-modal-text-bg-active);
-  --color-quote-border: var(--border-quote);
-  --color-footer-bg: var(--footer-bg);
-  --color-footer: var(--footer-copy-color);
+  --color-accent-border: var(--border-accent);
+  --color-third: var(--color-third);
+  --color-third-content: var(--color-third-content);
 
   --breakpoint-xl: 87.5rem;
   @keyframes linethrough {
@@ -112,6 +105,11 @@ html.dark {
 }
 
 @layer utilities {
+  .content-wrapper {
+    width: clamp(22rem, 58.3vw, 70rem);
+    margin-inline: auto;
+  }
+
   .linethrough-text::after {
     content: '';
     position: absolute;
@@ -130,20 +128,20 @@ html.dark {
     animation: graytext .5s .5s forwards;
   }
   .btn-ui {
-    background: var(--color-btn-ui);
+    background: var(--color-action-primary);
     transition: background .3s;
   }
   .btn-ui:hover {
-    background: var(--btn-ui-hover);
+    background: var(--color-action-primary-hover);
   }
   .btn-ui:active {
-    background: var(--btn-ui-active);
+    background: var(--color-action-primary-active);
   }
 }
 
 body {
   background: var(--color-primary);
-  color: var(--color-text);
+  color: var(--color-content);
   font-family: var(--font-itim), var(--font-literal), sans-serif;
   overflow-x: hidden;
   line-height: 1.2;

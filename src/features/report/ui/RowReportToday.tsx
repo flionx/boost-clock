@@ -5,7 +5,7 @@ interface RowReportTodayProps {
 }
 const RowReportToday: React.FC<RowReportTodayProps> = ({ label, value }) => {
   return (
-    <div className="flex justify-between text-[#1c1c1c] rounded-lg bg-modal-menu not-last:mb-3 py-4 pr-7 pl-4">
+    <div className="flex justify-between text-content-dark rounded-lg bg-surface-element not-last:mb-3 py-4 pr-7 pl-4">
       <p>{label}</p>
       <RowReportValue value={value} isToday />
     </div>

@@ -22,7 +22,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
 
   return (
     <form
-      className="w-88 bg-white p-5 rounded-lg text-[#1c1c1c] mb-5"
+      className="w-88 bg-white p-5 rounded-lg text-content-dark mb-5"
       onSubmit={e => e.preventDefault()}
     >
       <InputField type='email' id='email' label='EMAIL' placeholder='example@gmail.com'
