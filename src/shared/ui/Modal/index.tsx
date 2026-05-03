@@ -21,7 +21,7 @@ const Modal = () => {
         onClick={(e) => e.stopPropagation()}
         className="
           relative top-1/2 left-1/2 -translate-1/2 flex flex-col items-center gap-7.5 max-w-[clamp(21.9rem,95vw,26.2rem)]
-          py-3.5 px-12.5 font-secondary bg-primary text-text rounded-lg shadow-[4px_4px_4px_#00000040] border border-[#444444]
+          py-3.5 px-12.5 font-secondary bg-primary text-content rounded-lg shadow-[4px_4px_4px_#00000040] border border-[#444444]
         "
       >
         <h3 className="text-2xl text-center">{title}</h3>
@@ -30,8 +30,8 @@ const Modal = () => {
           <button
             onClick={closeModal}
             className="
-              py-0.5 px-2.5 text-xl rounded-lg transition-colors border-3 border-modal-btn-ui bg-transparent hover:bg-modal-btn-ui-hover
-              active:bg-modal-btn-ui-active active:border-modal-btn-ui-active
+              py-0.5 px-2.5 text-xl rounded-lg transition-colors border-3 border-action-secondary bg-transparent hover:bg-action-secondary-hover
+              active:bg-action-secondary-active active:border-action-secondary-active
             "
           >
             Cancel
@@ -39,8 +39,8 @@ const Modal = () => {
           <button
             onClick={submitModal}
             className="
-              py-0.5 px-2.5 text-xl rounded-lg transition-colors bg-modal-btn-ui hover:bg-modal-btn-ui-hover
-              active:bg-modal-btn-ui-active
+              py-0.5 px-2.5 text-xl rounded-lg transition-colors bg-action-secondary hover:bg-action-secondary-hover
+              active:bg-action-secondary-active
             "
           >
             {submitLabel}

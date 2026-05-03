@@ -32,7 +32,7 @@ const ActiveTaskCard: React.FC<ActiveTaskCardProps> = ({ task, dragHandleProps }
             <CheckboxTask id={task.id} />
             <h4
               {...dragHandleProps}
-              className="text-[calc(20px+(25-20)*((100vw-375px)/(1440-375)))] w-fit max-w-[clamp(70%,30vw,85%)] xl:max-w-[clamp(70%,35vw,85%)] text-text break-words relative linethrough-text gray-text cursor-grab"
+              className="text-calc-small w-fit max-w-[clamp(70%,30vw,85%)] xl:max-w-[clamp(70%,35vw,85%)] text-content wrap-break-word relative linethrough-text gray-text cursor-grab"
             >
               {task.title}
             </h4>
@@ -67,7 +67,7 @@ const ActiveTaskCard: React.FC<ActiveTaskCardProps> = ({ task, dragHandleProps }
           </div>
         </div>
         {task.description && (
-          <p className="w-full bg-secondary py-1.5 px-5 text-lg break-words rounded-lg">{task.description}</p>
+          <p className="w-full bg-secondary py-1.5 px-5 text-lg wrap-break-word rounded-lg">{task.description}</p>
         )}
       </div>
       {(editTaskId === task.id) && (

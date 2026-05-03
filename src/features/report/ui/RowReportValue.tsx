@@ -9,7 +9,7 @@ const RowReportValue: React.FC<RowReportValueProps> = ({
 }) => {
   return (
     <p className={`
-        ${isToday ? "bg-[#b7b9d8] rounded-md" : "bg-modal-btn-ui rounded-lg"}
+        ${isToday ? "bg-action-secondary-light rounded-md" : "bg-action-secondary rounded-lg"}
         py-0.5 px-3.5
       `}
     >

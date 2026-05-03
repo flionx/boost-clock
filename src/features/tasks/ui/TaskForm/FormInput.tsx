@@ -36,7 +36,7 @@ const FormInput: React.FC<FormInputProps> = ({
           onChange={onChange}
           onKeyDown={onKeyDown}
           ref={ref}
-          className="bg-white text-[#1C1C1C] py-1.5 px-5 rounded-lg"
+          className="bg-white text-content-dark py-1.5 px-5 rounded-lg"
           type="text"
           placeholder="title for your task"
           required
@@ -47,7 +47,7 @@ const FormInput: React.FC<FormInputProps> = ({
             onChange={onChange}
             onKeyDown={onKeyDown}
             ref={ref}
-            className="bg-white text-[#1C1C1C] py-1.5 px-5 rounded-lg min-h-7.5"
+            className="bg-white text-content-dark py-1.5 px-5 rounded-lg min-h-7.5"
             placeholder="more detailed task description"
           />
           :
@@ -55,7 +55,7 @@ const FormInput: React.FC<FormInputProps> = ({
             value={value}
             onChange={onChange}
             onKeyDown={onKeyDown}
-            className="w-12.5 py-1.5 px-4 rounded-lg bg-white text-[#1C1C1C] appearance-none"
+            className="w-12.5 py-1.5 px-4 rounded-lg bg-white text-content-dark appearance-none"
             type="number"
           />
       }

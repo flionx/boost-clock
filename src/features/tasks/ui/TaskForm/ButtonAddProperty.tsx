@@ -11,7 +11,7 @@ const ButtonAddProperty: React.FC<ButtonAddPropertyProps> = ({
   return (
     <button
       onClick={onClick}
-      className="btn-ui flex items-center w-fit rounded-lg py-1.5 px-2.5 gap-1.5 text-text-light"
+      className="btn-ui flex items-center w-fit rounded-lg py-1.5 px-2.5 gap-1.5 text-content-muted"
     >
       <span className='text-2xl leading-2'>+</span>
       {label}

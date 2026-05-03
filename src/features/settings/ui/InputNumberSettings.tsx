@@ -9,7 +9,7 @@ const InputNumberSettings: React.FC<InputNumberSettingsProps> = ({
   return (
     <input
       type="number"
-      className="w-15 h-8 bg-[#b7b9d8] text-[#1c1c1c] text-center rounded-md"
+      className="w-15 h-8 bg-action-secondary-light text-content-dark text-center rounded-md"
       value={value}
       onChange={onChange}
     />
