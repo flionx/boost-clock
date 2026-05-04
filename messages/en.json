@@ -16,6 +16,18 @@
   "pomodoroRounds": "Pomodoro rounds",
 
   "achievements": "Achievements",
+  "achiev-imNew": "I'm new",
+  "achiev-planner": "Planner",
+  "achiev-productive": "Productive",
+  "achiev-responsible": "Responsible",
+  "achiev-inFocus": "In Focus",
+  "achiev-coffeeTime": "Coffee time",
+  "achiev-imNew-desc": "Complete 1 pomodoro round",
+  "achiev-planner-desc": "Add the first task",
+  "achiev-productive-desc": "Complete 15 pomodoros",
+  "achiev-responsible-desc": "Complete 10 tasks within the deadline",
+  "achiev-inFocus-desc": "Spend 5 hours working",
+  "achiev-coffeeTime-desc": "Spend 2 hours relaxing",
 
   "tasks": "Tasks",
   "completedTasks": "Completed tasks",

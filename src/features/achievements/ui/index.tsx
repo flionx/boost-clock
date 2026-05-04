@@ -19,7 +19,6 @@ const Achievements = () => {
       {achievements.map(achiev => (
         <AchievementCard
           title={achiev.title}
-          description={achiev.description}
           step={achiev.step}
           max={achiev.max}
           icon={achiev.icon}

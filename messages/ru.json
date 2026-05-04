@@ -16,6 +16,18 @@
   "pomodoroRounds": "Раундов помодоро",
 
   "achievements": "Достижения",
+  "achiev-imNew": "Я новенький",
+  "achiev-planner": "Планировщик",
+  "achiev-productive": "Продуктивный",
+  "achiev-responsible": "Ответственный",
+  "achiev-inFocus": "В фокусе",
+  "achiev-coffeeTime": "Время коффе",
+  "achiev-imNew-desc": "Завершить помодоро раунд",
+  "achiev-planner-desc": "Создать первую задачу",
+  "achiev-productive-desc": "Выполнить 15 помодоро раундов",
+  "achiev-responsible-desc": "Вовремя выполнить 10 задач",
+  "achiev-inFocus-desc": "Провести 5 часов в работе",
+  "achiev-coffeeTime-desc": "Провести 2 часа в перерывах",
   
   "tasks": "Задачи",
   "completedTasks": "Выполненные задачи",

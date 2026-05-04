@@ -1,7 +1,17 @@
+export const ACHIEVEMENT_TITLES = {
+  imNew: 'imNew',
+  planner: 'planner', 
+  productive: 'productive',
+  responsible: 'responsible',
+  inFocus: 'inFocus',
+  coffeeTime: 'coffeeTime'
+} as const;
+
+export type AchievementTitle = keyof typeof ACHIEVEMENT_TITLES;
+
 export interface Achievement {
   id: number,
-  title: string,
-  description: string,
+  title: AchievementTitle,
   icon: React.FC<React.SVGProps<SVGSVGElement>>,
   max: number
 }
