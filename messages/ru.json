@@ -8,7 +8,20 @@
   "reset": "Сбросить",
   
   "report": "Статистика",
+  "today": "Сегодня",
+  "workTime": "Времени за работой",
+  "breakTime": "Времени на перерывах",
+  "totalWorkTime": "Всего рабочего времени",
+  "totalBreakTime": "Всего времени перерывов",
+  "pomodoroRounds": "Раундов помодоро",
+
   "achievements": "Достижения",
+  
+  "tasks": "Задачи",
+  "completedTasks": "Выполненные задачи",
+  "tasksOnTime": "Во время",
+  "tasksOutTime": "Просроченные",
+  "h": "ч",
 
   "logOut": "Выйти",
   "logIn": "Войти",

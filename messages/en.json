@@ -8,7 +8,20 @@
   "reset": "Reset",
 
   "report": "Report",
+  "today": "Today",
+  "workTime": "Work time",
+  "breakTime": "Break time",
+  "totalWorkTime": "Total work time",
+  "totalBreakTime": "Total break time",
+  "pomodoroRounds": "Pomodoro rounds",
+
   "achievements": "Achievements",
+
+  "tasks": "Tasks",
+  "completedTasks": "Completed tasks",
+  "tasksOnTime": "On time",
+  "tasksOutTime": "Out of time",
+  "h": "h",
 
   "logOut": "Log Out",
   "logIn": "Log In",

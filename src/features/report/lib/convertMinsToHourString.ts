@@ -1,5 +1,5 @@
-import { formatToHours } from "../../../shared/lib/formatToHours"
+import { formatToHours } from "@/shared/lib/formatToHours"
 
-export const convertMinsToHourString = (mins: number) => {
-  return formatToHours(mins) + "h";
+export const convertMinsToHourString = (mins: number, unit: string) => {
+  return formatToHours(mins) + unit;
 }
