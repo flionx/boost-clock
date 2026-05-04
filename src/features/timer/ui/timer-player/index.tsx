@@ -5,6 +5,7 @@ import SwitchTimerButton from "./SwitchTimerButton"
 import { formatTime } from "../../lib/formatTime"
 import TextButton from "./TextButton"
 import TimerInitializer from "./TimerInitializer"
+import { useTranslations } from "next-intl"
 
 const TimerPlayer = () => {
   const mode = useTimerPlayerStore(state => state.mode);
@@ -14,6 +15,7 @@ const TimerPlayer = () => {
   const reset = useTimerPlayerStore(state => state.reset);
   const skip = useTimerPlayerStore(state => state.skip);
   useDocumentTitleSync();
+  const t = useTranslations();
 
   return (
     <>
@@ -41,11 +43,11 @@ const TimerPlayer = () => {
           "
           translate="no"
         >
-          {isRunning ? "Stop" : "Start"}
+          {t(isRunning ? "stop" : "start")}
         </button>
         <div className={`flex gap-7.5 absolute bottom-0 left-1/2 -translate-1/2 duration-200 transition-opacity opacity-0 ${isRunning ? "opacity-100" : "pointer-events-none"}`}>
-          <TextButton label="Reset" onClick={reset} />
-          <TextButton label="Skip" onClick={skip} />
+          <TextButton label={t("reset")} onClick={reset} />
+          <TextButton label={t("skip")} onClick={skip} />
         </div>
       </div>
     </>

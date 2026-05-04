@@ -2,10 +2,11 @@
   "start": "Start",
   "stop": "Stop",
   "timer": "Timer",
-  "Work": "Work",
+  "work": "Work",
   "break": "Break",
   "longBreak": "Long break",
   "reset": "Reset",
+  "skip": "Skip",
 
   "report": "Report",
   "today": "Today",

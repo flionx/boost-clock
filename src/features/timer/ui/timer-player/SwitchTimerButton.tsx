@@ -1,7 +1,7 @@
 "use client"
 import { useTimerPlayerStore } from '@/features/timer';
-import { capitalizeFirstLetter } from '@/shared/lib/capitalizeFirstLetter';
 import { TimerMode } from '../../types';
+import { useTranslations } from 'next-intl';
 interface SwitchTimerButtonProps {
   type: TimerMode,
   isActive: boolean
@@ -11,6 +11,8 @@ const SwitchTimerButton: React.FC<SwitchTimerButtonProps> = ({
   isActive
 }) => {
   const switchMode = useTimerPlayerStore(state => state.switchMode);
+  const t = useTranslations();
+
   return (
     <button
       onClick={() => switchMode(type)}
@@ -19,7 +21,7 @@ const SwitchTimerButton: React.FC<SwitchTimerButtonProps> = ({
         transition-colors duration-200 ${isActive ? "bg-[rgba(0,0,0,0.14)]" : ""}
       `}
     >
-      {capitalizeFirstLetter(type)}
+      {t(type)}
     </button>
   )
 }
