@@ -1,1 +1,1 @@
-export type MenuSection = "Settings" | "Report" | "Achievements"
+export type MenuSection = "settings" | "report" | "achievements"

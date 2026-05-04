@@ -6,7 +6,18 @@
   "break": "Break",
   "longBreak": "Long break",
   "reset": "Reset",
-  
+
+  "report": "Report",
+  "achievements": "Achievements",
+
+  "logOut": "Log Out",
+  "logIn": "Log In",
+  "warning": "Warning!",
+  "sureToLogout": "Are you sure you want to log out?",
+  "succesfullyLoggedOut": "Successfully logged out",
+  "sometingWrong": "Someting went wrong",
+  "cancel": "Cancel",
+
   "settings": "Settings",
   "autoWork": "Auto switching to work",
   "autoBreak": "Auto switching to break",

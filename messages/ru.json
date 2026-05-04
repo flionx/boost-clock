@@ -6,6 +6,17 @@
   "break": "Перерыв",
   "longBreak": "Длинный перерыв",
   "reset": "Сбросить",
+  
+  "report": "Статистика",
+  "achievements": "Достижения",
+
+  "logOut": "Выйти",
+  "logIn": "Войти",
+  "warning": "Внимание!",
+  "sureToLogout": "Вы уверены, что хотите выйти?",
+  "succesfullyLoggedOut": "Успешный выход из аккаунта",
+  "sometingWrong": "Что-то пошло не так",
+  "cancel": "Отмена",
 
   "settings": "Настройки",
   "autoWork": "Автопереключение на работу",

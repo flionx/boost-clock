@@ -3,15 +3,15 @@ import { HeaderMenuButton } from "../types";
 
 export const HEADER_MENU_BUTTONS: HeaderMenuButton[] = [
   {
-    label: "Report",
+    label: "report",
     icon: ReportIcon,
   },
   {
-    label: "Achievements",
+    label: "achievements",
     icon: TrophyIcon,
   },
   {
-    label: "Settings",
+    label: "settings",
     icon: SettingsIcon,
   }
 ] 

@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 import { HEADER_MENU_BUTTONS } from '../constants'
 import { HeaderMenuButton } from '../types';
 import MenuButton from './MenuButton'
+import { useTranslations } from 'next-intl';
 
 const MenuList = () => {
   const setModalMenu = useModalMenuStore(state => state.setModal);
@@ -19,14 +20,15 @@ const MenuList = () => {
 
   const user = useAuthStore(state => state.user);
   const router = useRouter();
+  const t = useTranslations();
 
   const handleClick = (label: HeaderMenuButton['label']) => {
-    if ((label === "Achievements" || label === "Report") && !user) {
+    if ((label === "achievements" || label === "report") && !user) {
       setModal("No access", "Please log in to access", "Log in", () => router.push("/login"));
       return;
     }
-    setModalMenu(label, label === "Settings" ? resetSettings :
-      label === "Report" ? resetReport : null
+    setModalMenu(label, label === "settings" ? resetSettings :
+      label === "report" ? resetReport : null
     )
   }
 
@@ -37,9 +39,9 @@ const MenuList = () => {
           key={m.label}
           icon={m.icon}
           onClick={() => handleClick(m.label)}
-          unseenNotifyCount={(m.label === "Achievements" && newUnseenAchievs) ? newUnseenAchievs : undefined}
+          unseenNotifyCount={(m.label === "achievements" && newUnseenAchievs) ? newUnseenAchievs : undefined}
         >
-          {m.label}
+          {t(m.label)}
         </MenuButton>
       )}
     </>

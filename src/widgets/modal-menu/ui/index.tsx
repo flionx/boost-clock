@@ -28,16 +28,16 @@ const ModalMenu = () => {
           font-secondary pt-6.5 px-7.5 pb-4 bg-primary rounded-lg border border-[#444444]
         "
       >
-        <h3 className="text-3xl text-center text-content">{title}</h3>
+        <h3 className="text-3xl text-center text-content">{title && t(title)}</h3>
         <button
           onClick={closeModal}
           className="size-5 absolute top-6.5 right-6.5 cursor-pointer"
         >
           <CrossIcon className="size-5 text-line" />
         </button>
-        {title === "Settings" && <Settings />}
-        {title === "Report" && <Report />}
-        {title === "Achievements" && <Achievements />}
+        {title === "settings" && <Settings />}
+        {title === "report" && <Report />}
+        {title === "achievements" && <Achievements />}
         {onReset && (
           <button
             onClick={onReset}

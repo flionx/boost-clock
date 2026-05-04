@@ -1,6 +1,7 @@
 "use client"
 import useStopPageScroll from "@/shared/model/useStopPageScroll";
 import { useModalStore } from "@/shared/store/modal"
+import { useTranslations } from "next-intl";
 
 const Modal = () => {
   const show = useModalStore(state => state.show);
@@ -10,6 +11,7 @@ const Modal = () => {
   const closeModal = useModalStore(state => state.closeModal);
   const submitModal = useModalStore(state => state.submitModal);
   useStopPageScroll(show);
+  const t = useTranslations();
   if (!show) return null;
 
   return (
@@ -34,7 +36,7 @@ const Modal = () => {
               active:bg-action-secondary-active active:border-action-secondary-active
             "
           >
-            Cancel
+            {t("cancel")}
           </button>
           <button
             onClick={submitModal}
