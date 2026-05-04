@@ -122,6 +122,15 @@ html.dark {
     margin-inline: auto;
   }
 
+  .custom-select {
+    text-align: right;
+    text-align-last: right;
+  }
+
+  .custom-select option {
+    text-align: left;
+  }
+
   .linethrough-text::after {
     content: '';
     position: absolute;

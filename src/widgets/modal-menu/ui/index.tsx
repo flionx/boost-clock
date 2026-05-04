@@ -5,6 +5,7 @@ import { CrossIcon } from '@/shared/ui/icons'
 import Report from "@/features/report";
 import Settings from "@/features/settings/ui";
 import Achievements from "@/features/achievements";
+import { useTranslations } from "next-intl";
 
 const ModalMenu = () => {
   const show = useModalMenuStore(state => state.show);
@@ -12,6 +13,7 @@ const ModalMenu = () => {
   const closeModal = useModalMenuStore(state => state.closeModal);
   const onReset = useModalMenuStore(state => state.onReset);
   useStopPageScroll(show);
+  const t = useTranslations();
   if (!show) return null;
 
   return (
@@ -41,7 +43,7 @@ const ModalMenu = () => {
             onClick={onReset}
             className="block mx-auto text-center mt-5 hover:underline"
           >
-            Reset
+            {t("reset")}
           </button>
         )}
       </div>

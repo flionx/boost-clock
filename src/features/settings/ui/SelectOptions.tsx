@@ -13,7 +13,7 @@ const SelectOptions = <T extends string>({
 }: SelectOptionsProps<T>): React.ReactElement => {
   return (
     <select
-      className="bg-primary p-1.5 cursor-pointer"
+      className="bg-primary p-1.5 cursor-pointer custom-select"
       value={value}
       onChange={e => onChange(e.target.value as T)}
     >

@@ -25,50 +25,51 @@ const Settings = () => {
   const { resolvedTheme, setTheme } = useTheme();
   const router = useRouter();
   const locale = useLocale();
-  const t = useTranslations("settings")
+  const t = useTranslations()
 
   const switchLanguage = (newLocale: Language) => {
     document.cookie = `NEXT_LOCALE=${newLocale}; path=/; max-age=31536000`;
     router.refresh();
   };
+  
   return (
     <>
-      <SectionModalMenu title="Timer">
-        <RowModalMenu label="Auto switching to work">
+      <SectionModalMenu title={t("timer")}>
+        <RowModalMenu label={t("autoWork")}>
           <Slider value={switchToWork} onChange={() => setAutoSwitch("work", !switchToWork)} />
         </RowModalMenu>
-        <RowModalMenu label="Auto switching to break">
+        <RowModalMenu label={t("autoBreak")}>
           <Slider value={switchToBreak} onChange={() => setAutoSwitch("break", !switchToBreak)} />
         </RowModalMenu>
-        <RowModalMenu label="Long break">
+        <RowModalMenu label={t("longBreak")}>
           <InputNumberSettings
             value={longBreakDuration}
             onChange={e => setDuration("longBreak", parseNumberInput(e.target.value))}
           />
         </RowModalMenu>
-        <RowModalMenu label="Long Break interval">
+        <RowModalMenu label={t("longBreakInterval")}>
           <InputNumberSettings
             value={longBreakInterval}
             onChange={e => setLongBreakInterval(parseNumberInput(e.target.value))}
           />
         </RowModalMenu>
       </SectionModalMenu>
-      <SectionModalMenu title="Sounds">
-        <RowModalMenu label="Sound on">
+      <SectionModalMenu title={t("sounds")}>
+        <RowModalMenu label={t("soundOn")}>
           <Slider value={soundEnabled} onChange={setSoundEnabled} />
         </RowModalMenu>
-        <RowModalMenu label="Repeat ">
+        <RowModalMenu label={t("repeat")}>
           <InputNumberSettings
             value={soundCountRepeat}
             onChange={e => setSoundCountRepeat(parseNumberInput(e.target.value, 0))}
           />
         </RowModalMenu>
       </SectionModalMenu>
-      <SectionModalMenu title="Theme">
-        <RowModalMenu label="Color">
+      <SectionModalMenu title={t("theme")}>
+        <RowModalMenu label={t("color")}>
           <SelectOptions value={resolvedTheme!} onChange={setTheme}>
-            <option value="dark">Dark</option>
-            <option value="light">Light</option>
+            <option value="dark">{t("dark")}</option>
+            <option value="light">{t("light")}</option>
           </SelectOptions>
         </RowModalMenu>
         <RowModalMenu label={t("lang")}>
