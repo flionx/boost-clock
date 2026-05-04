@@ -3,11 +3,13 @@ import { useTasksStore } from "@/features/tasks/store/tasks";
 import { ArrowDownIcon } from "@/shared/ui/icons"
 import { AnimatePresence, motion } from "framer-motion";
 import useCompletedTasks from "../../model/useCompletedTasks";
+import { useTranslations } from "next-intl";
 
 const ButtonCompletedTasks = () => {
   const tasks = useCompletedTasks();
   const showCompletedTasks = useTasksStore(state => state.showCompletedTasks);
   const toggleShowCompletedTasks = useTasksStore(state => state.toggleShowCompletedTasks);
+  const t = useTranslations();
 
   return (
     <AnimatePresence>
@@ -23,7 +25,7 @@ const ButtonCompletedTasks = () => {
           }}
           className="w-full flex justify-between items-center py-1.5 px-12 text-3xl bg-accent rounded-lg mb-1.5 overflow-hidden"
         >
-          Completed Tasks
+          {t("completedTasks")}
           <ArrowDownIcon className={`
               size-7 text-content dark:text-line relative left-3 duration-300
               transition-transform ${showCompletedTasks ? 'rotate-0' : 'rotate-180'} 

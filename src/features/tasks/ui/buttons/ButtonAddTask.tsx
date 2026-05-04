@@ -1,8 +1,10 @@
 "use client"
 import { useTasksStore } from "@/features/tasks/store/tasks"
+import { useTranslations } from "next-intl";
 
 const ButtonAddTask = () => {
   const switchFormTask = useTasksStore(state => state.switchFormTask);
+  const t = useTranslations();
   return (
     <button
       onClick={() => switchFormTask(true)}
@@ -20,7 +22,7 @@ const ButtonAddTask = () => {
       >
         +
       </span>
-      Add new task
+      {t("addNewTask")}
     </button>
   )
 }

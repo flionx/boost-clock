@@ -1,4 +1,7 @@
 "use client"
+
+import { useTranslations } from "next-intl";
+
 type FormInputProps = {
   type: "text";
   value: string;
@@ -28,6 +31,7 @@ const FormInput: React.FC<FormInputProps> = ({
   onChange,
   onKeyDown
 }) => {
+  const t = useTranslations();
   return (
     <>
       {type === "text" ?
@@ -38,7 +42,7 @@ const FormInput: React.FC<FormInputProps> = ({
           ref={ref}
           className="bg-white text-content-dark py-1.5 px-5 rounded-lg"
           type="text"
-          placeholder="title for your task"
+          placeholder={t("titleForTask")}
           required
         />
         : type === "textarea" ?
@@ -48,7 +52,7 @@ const FormInput: React.FC<FormInputProps> = ({
             onKeyDown={onKeyDown}
             ref={ref}
             className="bg-white text-content-dark py-1.5 px-5 rounded-lg min-h-7.5"
-            placeholder="more detailed task description"
+            placeholder={t("moreDetailedDesc")}
           />
           :
           <input

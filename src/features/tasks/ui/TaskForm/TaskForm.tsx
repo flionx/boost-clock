@@ -10,6 +10,7 @@ import FormInput from "./FormInput"
 import FormTitle from "./FormTitle"
 import FormContainer from "./FormContainer"
 import { Task } from "../../types"
+import { useTranslations } from "next-intl"
 
 interface TaskFormProps {
   task?: Task
@@ -18,7 +19,8 @@ interface TaskFormProps {
 const TaskForm: React.FC<TaskFormProps> = ({ task }) => {
   const { editTask, change, changeRoundByType, addProperty, changeRound, handleSubmit, handleCancel } = useTaskForm({ task });
   const { inputTitleRef, textareaRef } = useInputRefs();
-  useFocusOnMount(textareaRef, typeof editTask.description == "string")
+  useFocusOnMount(textareaRef, typeof editTask.description == "string");
+  const t = useTranslations();
 
   const isValid = editTask.title.trim().length > 0;
 
@@ -37,7 +39,7 @@ const TaskForm: React.FC<TaskFormProps> = ({ task }) => {
   return (
     <FormContainer>
       <FormCol>
-        <FormTitle>Title</FormTitle>
+        <FormTitle>{t("title")}</FormTitle>
         <FormInput
           type="text"
           value={editTask.title}
@@ -49,7 +51,7 @@ const TaskForm: React.FC<TaskFormProps> = ({ task }) => {
       <FormCol>
         {typeof editTask.description === "string" ? (
           <>
-            <FormTitle>Description</FormTitle>
+            <FormTitle>{t("description")}</FormTitle>
             <FormInput
               type="textarea"
               value={editTask.description}
@@ -61,13 +63,13 @@ const TaskForm: React.FC<TaskFormProps> = ({ task }) => {
         ) : (
           <ButtonAddProperty
             onClick={() => addProperty('description')}
-            label="Add a description"
+            label={t("addDescription")}
           />
         )}
       </FormCol>
       {typeof editTask.round?.current === "number" && (
         <FormCol noMarginBottom>
-          <FormTitle>Deadline</FormTitle>
+          <FormTitle>{t("deadline")}</FormTitle>
           <div className="flex items-center gap-4">
             <FormInput
               type="number"
@@ -94,7 +96,7 @@ const TaskForm: React.FC<TaskFormProps> = ({ task }) => {
         {typeof editTask.round?.current !== "number" && (
           <ButtonAddProperty
             onClick={() => addProperty('deadline')}
-            label="Add a deadline"
+            label={t("addDeadline")}
           />
         )}
         <div className="flex items-center gap-[clamp(0.9375rem,2.5vw,3.125rem)] ml-auto">
@@ -103,7 +105,7 @@ const TaskForm: React.FC<TaskFormProps> = ({ task }) => {
             className="text-xl text-content hover:underline"
             type="button"
           >
-            Cancel
+            {t("cancel")}
           </button>
           <button
             onClick={handleSubmit}
@@ -111,7 +113,7 @@ const TaskForm: React.FC<TaskFormProps> = ({ task }) => {
             className="btn-ui py-1 px-3 rounded-xl text-xl text-black disabled:opacity-50 disabled:cursor-not-allowed transition-opacity"
             type="submit"
           >
-            {editTask.id ? 'Save' : 'Create'}
+            {t(editTask.id ? 'save' : 'create')}
           </button>
         </div>
       </div>

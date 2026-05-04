@@ -6,6 +6,7 @@ import ModalOptions from './ModalOptions'
 import ButtonWithIcon from './ButtonWithIcon'
 import { DeleteIcon, RestoreIcon } from '@/shared/ui/icons'
 import { Task } from '../../types'
+import { useTranslations } from 'next-intl'
 interface CompletedTaskCardProps {
   id: Task['id'],
   title: Task['title'],
@@ -16,6 +17,7 @@ const CompletedTaskCard: React.FC<CompletedTaskCardProps> = ({ id, title, descri
   const buttonRef = useRef<HTMLButtonElement>(null);
   const deleteTask = useTasksStore(state => state.deleteTask);
   const toggleCompleteTask = useTasksStore(state => state.toggleCompleteTask);
+  const t = useTranslations();
 
   return (
     <div className="w-full bg-[#0000001a] rounded-md pt-1 px-1.5 pb-2.5">
@@ -33,12 +35,12 @@ const CompletedTaskCard: React.FC<CompletedTaskCardProps> = ({ id, title, descri
             >
               <ButtonWithIcon
                 onClick={() => toggleCompleteTask(id)}
-                label="restore"
+                label={t("restore")}
                 icon={RestoreIcon}
               />
               <ButtonWithIcon
                 onClick={() => deleteTask(id)}
-                label="delete"
+                label={t("delete")}
                 icon={DeleteIcon}
               />
             </ModalOptions>

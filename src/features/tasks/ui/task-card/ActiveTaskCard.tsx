@@ -8,6 +8,7 @@ import ModalOptions from "./ModalOptions"
 import ButtonWithIcon from "./ButtonWithIcon"
 import { AnimatedTaskForm } from "../TaskForm"
 import { Task } from "../../types"
+import { useTranslations } from "next-intl"
 
 interface ActiveTaskCardProps {
   task: Task,
@@ -20,10 +21,13 @@ const ActiveTaskCard: React.FC<ActiveTaskCardProps> = ({ task, dragHandleProps }
   const setEditTaskId = useTasksStore(state => state.setEditTaskId);
   const switchFormTask = useTasksStore(state => state.switchFormTask);
   const editTaskId = useTasksStore(state => state.editTaskId);
+  const t = useTranslations();
+
   const handleEditTask = () => {
     switchFormTask(true);
     setEditTaskId(task.id);
   }
+
   return (
     <>
       <div className="w-full rounded-lg bg-accent pt-3 px-3 pb-5">
@@ -53,12 +57,12 @@ const ActiveTaskCard: React.FC<ActiveTaskCardProps> = ({ task, dragHandleProps }
                 >
                   <ButtonWithIcon
                     onClick={handleEditTask}
-                    label="edit"
+                    label={t("edit")}
                     icon={EditIcon}
                   />
                   <ButtonWithIcon
                     onClick={() => deleteTask(task.id)}
-                    label="delete"
+                    label={t("delete")}
                     icon={DeleteIcon}
                   />
                 </ModalOptions>
