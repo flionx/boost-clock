@@ -6,6 +6,9 @@ import { parseNumberInput } from "@/shared/lib/parseNumberInput";
 import InputNumberSettings from "./InputNumberSettings";
 import Slider from "@/shared/ui/Slider"
 import SelectOptions from "./SelectOptions";
+import { useRouter } from "next/navigation";
+import { useLocale, useTranslations } from "next-intl";
+import { Language } from "@/shared/i18n/types";
 
 const Settings = () => {
   const switchToWork = useTimerSettingsStore(state => state.autoSwitchTo.work);
@@ -20,6 +23,14 @@ const Settings = () => {
   const soundCountRepeat = useTimerSettingsStore(state => state.soundCountRepeat);
   const setSoundCountRepeat = useTimerSettingsStore(state => state.setSoundCountRepeat);
   const { resolvedTheme, setTheme } = useTheme();
+  const router = useRouter();
+  const locale = useLocale();
+  const t = useTranslations("settings")
+
+  const switchLanguage = (newLocale: Language) => {
+    document.cookie = `NEXT_LOCALE=${newLocale}; path=/; max-age=31536000`;
+    router.refresh();
+  };
   return (
     <>
       <SectionModalMenu title="Timer">
@@ -58,6 +69,12 @@ const Settings = () => {
           <SelectOptions value={resolvedTheme!} onChange={setTheme}>
             <option value="dark">Dark</option>
             <option value="light">Light</option>
+          </SelectOptions>
+        </RowModalMenu>
+        <RowModalMenu label={t("lang")}>
+          <SelectOptions value={locale as Language} onChange={switchLanguage}>
+            <option value="en">{t("en")}</option>
+            <option value="ru">{t("ru")}</option>
           </SelectOptions>
         </RowModalMenu>
       </SectionModalMenu>

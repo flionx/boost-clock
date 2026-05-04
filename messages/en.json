@@ -1,0 +1,13 @@
+{
+  "timer": {
+    "start": "Start",
+    "stop": "Stop"
+  },
+  "tasks": {
+  },
+  "settings": {
+    "lang": "Language",
+    "en": "English",
+    "ru": "Russian"
+  }
+}

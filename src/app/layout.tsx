@@ -7,7 +7,9 @@ import AchievementsTracker from "@/features/achievements/ui/AchievementsTracker"
 import { ModalMenu } from "@/widgets/modal-menu";
 import { Toaster } from "react-hot-toast";
 import type { Metadata } from "next";
-import "./globals.css";
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages } from "next-intl/server";
+import "./globals.css"
 
 export const metadata: Metadata = {
   title: {
@@ -21,11 +23,13 @@ export const metadata: Metadata = {
   }
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const messages = await getMessages();
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body
@@ -37,11 +41,13 @@ export default function RootLayout({
         <ThemeProvider>
           <FirebaseProvider>
             <AutoSaveProvider>
-              <Modal />
-              <ModalMenu />
-              <Toaster position='top-center' containerStyle={{ fontFamily: 'var(--font-primary)' }} />
-              <AchievementsTracker />
-              {children}
+              <NextIntlClientProvider messages={messages}>
+                <Modal />
+                <ModalMenu />
+                <Toaster position='top-center' containerStyle={{ fontFamily: 'var(--font-primary)' }} />
+                <AchievementsTracker />
+                {children}
+              </NextIntlClientProvider>
             </AutoSaveProvider>
           </FirebaseProvider>
         </ThemeProvider>
