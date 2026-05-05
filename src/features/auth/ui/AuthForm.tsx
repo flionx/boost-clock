@@ -5,6 +5,7 @@ import ButtonGoogle from './buttons/ButtonGoogle'
 import InputField from './InputField'
 import LineOr from './LineOr'
 import useAuth from '../model/useAuth'
+import { useTranslations } from 'next-intl'
 interface AuthFormProps {
   type: "signup" | "login"
 }
@@ -13,6 +14,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
   const [password, setPassword] = useState("");
 
   const { signInWithEmail, signUpWithEmail, authWithGoogle } = useAuth();
+  const t = useTranslations();
 
   const handleSubmit = () => {
     if (!email.trim() || password.length < 6) return;
@@ -25,18 +27,18 @@ const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
       className="w-88 bg-white p-5 rounded-lg text-content-dark mb-5"
       onSubmit={e => e.preventDefault()}
     >
-      <InputField type='email' id='email' label='EMAIL' placeholder='example@gmail.com'
+      <InputField type='email' id='email' label={t("email").toUpperCase()} placeholder='example@gmail.com'
         value={email} onChange={e => setEmail(e.target.value)}
       />
-      <InputField type='password' id='password' label='PASSWORD' placeholder='password'
-        value={password} onChange={e => setPassword(e.target.value)}
+      <InputField type='password' id='password' label={t("password").toUpperCase()}
+        placeholder="password" value={password} onChange={e => setPassword(e.target.value)}
       />
       <ButtonSubmit onClick={handleSubmit}>
-        Sign {type === "login" ? "in" : "up"} with Email
+        {t(`sign${type === "login" ? "In" : "Up"}Email`)}
       </ButtonSubmit>
       <LineOr />
       <ButtonGoogle onClick={authWithGoogle}>
-        Sign {type === "login" ? "in" : "up"} with Google
+        {t(`sign${type === "login" ? "In" : "Up"}Google`)}
       </ButtonGoogle>
     </form>
   )

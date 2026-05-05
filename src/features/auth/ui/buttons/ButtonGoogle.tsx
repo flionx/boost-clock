@@ -8,6 +8,7 @@ const ButtonGoogle: React.FC<ButtonGoogleProps> = ({ children, onClick }) => {
   return (
     <button
       onClick={onClick}
+      type="button"
       className="w-full p-3 text-center rounded-md transition-all duration-200 shadow-card 
         active:translate-y-px active:shadow-card-active border-[#dcdcdc] border relative"
     >

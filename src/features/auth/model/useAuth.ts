@@ -9,12 +9,14 @@ import { UserData } from '@/shared/types/user-data';
 import getUserData from '@/shared/lib/getUserData';
 import uploadUserData from '@/shared/lib/uploadUserData';
 import toast from 'react-hot-toast';
+import { useTranslations } from 'next-intl';
 
 const useAuth = () => {
   const [isEmailVerifySent, setIsEmailVerifySent] = useState(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const router = useRouter();
-  const setLoading = useAuthStore(state => state.setLoading)
+  const setLoading = useAuthStore(state => state.setLoading);
+  const t = useTranslations();
 
   useEffect(() => {
     if (!isEmailVerifySent) return;
@@ -27,7 +29,7 @@ const useAuth = () => {
 
             toast.dismissAll();
             setLoading(false);
-            toast.success("Email has been verified");
+            toast.success(t("emailVerifield"));
             router.push('/');
           }
         });
@@ -44,7 +46,7 @@ const useAuth = () => {
   function signUpWithEmail(email: string, password: string) {
     if (!email || !password) return;
 
-    const toastId = toast.loading("Please, wait...");
+    const toastId = toast.loading(t("pleaseWait"));
     setLoading(true);
 
     createUserWithEmailAndPassword(auth, email, password)
@@ -57,7 +59,7 @@ const useAuth = () => {
         sendVerifEmail(user);
       })
       .catch((error) => {
-        toastAndLogError(error, "Something went wrong");
+        toastAndLogError(error, t("sometingWrong"));
         setLoading(false);
       });
   }
@@ -65,18 +67,18 @@ const useAuth = () => {
   function sendVerifEmail(user: User) {
     sendEmailVerification(user)
       .then(() => {
-        toast.loading("Email verification sent");
+        toast.loading(t("emailVerificationSend"));
         setIsEmailVerifySent(true);
       })
       .catch((error) => {
-        toastAndLogError(error, "Something went wrong")
+        toastAndLogError(error, t("sometingWrong"))
       }).finally(() => setLoading(false));
   }
 
   const signInWithEmail = (email: string, password: string) => {
     if (!email || !password) return;
 
-    const toastId = toast.loading("Please wait... Loading data");
+    const toastId = toast.loading(t("loadingData"));
     setLoading(true);
 
     signInWithEmailAndPassword(auth, email, password)
@@ -91,11 +93,11 @@ const useAuth = () => {
           uploadUserData(userData)
         }
 
-        toast.success("Successfully logged in");
+        toast.success(t("succesfullyLoggedIn"));
         router.push('/')
       })
       .catch((error) => {
-        toastAndLogError(error, "Incorrect email or password")
+        toastAndLogError(error, t("incorrectEmailOrPass"))
       }).finally(() => setLoading(false));
   }
 
@@ -116,10 +118,10 @@ const useAuth = () => {
           await setDoc(dataRef, dataState, { merge: true });
         }
 
-        toast.success("Successfully logged in");
+        toast.success(t("succesfullyLoggedIn"));
         router.push('/');
       }).catch((error) => {
-        toastAndLogError(error, "Something went wrong")
+        toastAndLogError(error, t("sometingWrong"))
       }).finally(() => setLoading(false));
   }
 
