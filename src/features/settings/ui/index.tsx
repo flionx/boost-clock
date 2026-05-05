@@ -65,8 +65,8 @@ const Settings = () => {
           />
         </RowModalMenu>
       </SectionModalMenu>
-      <SectionModalMenu title={t("theme")}>
-        <RowModalMenu label={t("color")}>
+      <SectionModalMenu title={t("appearance")}>
+        <RowModalMenu label={t("theme")}>
           <SelectOptions value={resolvedTheme!} onChange={setTheme}>
             <option value="dark">{t("dark")}</option>
             <option value="light">{t("light")}</option>
