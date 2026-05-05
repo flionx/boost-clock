@@ -1,23 +1,26 @@
+import { useTranslations } from 'next-intl'
 import AuthForm from './AuthForm'
 import Link from 'next/link'
 interface AuthContainerProps {
   type: "signup" | "login"
 }
-const AuthContainer: React.FC<AuthContainerProps> = ({type}) => {
+const AuthContainer: React.FC<AuthContainerProps> = ({ type }) => {
+  const t = useTranslations();
+
   return (
     <main className="flex flex-col justify-center items-center h-[85vh]">
       <h2 className="text-4xl mb-4">
-        {type === "login" ? "Login" : "Create an account"}
+        {type === "login" ? t("logIn") : t("createAccount")}
       </h2>
       <AuthForm type={type} />
       <span className="mb-1">
-        {type === "login" ? "Do not have an account?" : "Already have an account?"}
+        {type === "login" ? t("doYouHaveAccount") : t("alreadyHaveAccount")}
       </span>
-      <Link 
-        href={`/${type === "login" ? "signup" : "login"}`} 
+      <Link
+        href={`/${type === "login" ? "signup" : "login"}`}
         className="underline"
       >
-        {type === "login" ? "Create an account" : "Log in"}
+        {type === "login" ? t("createAccount") : t("logIn")}
       </Link>
     </main>
   )

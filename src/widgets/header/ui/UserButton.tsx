@@ -8,38 +8,40 @@ import resetUserData from '@/shared/lib/resetUserData'
 import MenuButton from './MenuButton'
 import { UserIcon } from '@/shared/ui/icons'
 import toast from 'react-hot-toast'
+import { useTranslations } from 'next-intl'
 
 const UserButton = () => {
   const user = useAuthStore(state => state.user);
   const setModal = useModalStore(state => state.setModal);
+  const t = useTranslations();
 
   const saveAndLogout = async () => {
-    const user = auth.currentUser;        
+    const user = auth.currentUser;
     if (!user) return;
 
-    try {            
+    try {
       const userRef = doc(db, "Users", user.uid);
       const userData = getUserData();
       await setDoc(userRef, userData, { merge: true });
       resetUserData();
       await auth.signOut();
-      toast.success("Successfully logged out");
+      toast.success(t("succesfullyLoggedOut"));
     } catch (error) {
-      toast.error("Someting went wrong");
+      toast.error(t("sometingWrong"));
       console.error("Error saving data before exiting:", error);
     }
   };
 
   const handleLogout = () => {
-    setModal("Warning!", "Are you sure you want to log out?", "Log out", saveAndLogout)
+    setModal(t("warning"), t("sureToLogout"), t("logOut"), saveAndLogout)
   }
   return (
-    <MenuButton 
-      onClick={handleLogout} 
+    <MenuButton
+      onClick={handleLogout}
       href={user ? undefined : "/login"}
-      icon={UserIcon} 
+      icon={UserIcon}
     >
-        {user ? "Log out" : "Log in"}
+      {t(user ? "logOut" : "logIn")}
     </MenuButton>
   )
 }

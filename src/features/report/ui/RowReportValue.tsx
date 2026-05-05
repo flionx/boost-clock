@@ -1,19 +1,19 @@
 import React from 'react'
 interface RowReportValueProps {
-    value: string | number,
-    isToday?: boolean
+  value: string | number,
+  isToday?: boolean
 }
-const RowReportValue: React.FC<RowReportValueProps> = ({ 
-    value,
-    isToday = false
+const RowReportValue: React.FC<RowReportValueProps> = ({
+  value,
+  isToday = false
 }) => {
   return (
     <p className={`
-        ${isToday ? "bg-[#b7b9d8] rounded-md" : "bg-modal-btn-ui rounded-lg"}
+        ${isToday ? "bg-action-secondary-light rounded-md" : "bg-action-secondary rounded-lg"}
         py-0.5 px-3.5
       `}
     >
-        {value}
+      {value}
     </p>
   )
 }

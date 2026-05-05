@@ -6,46 +6,48 @@ import ModalOptions from './ModalOptions'
 import ButtonWithIcon from './ButtonWithIcon'
 import { DeleteIcon, RestoreIcon } from '@/shared/ui/icons'
 import { Task } from '../../types'
+import { useTranslations } from 'next-intl'
 interface CompletedTaskCardProps {
-    id: Task['id'],
-    title: Task['title'],
-    description: Task['description'],
+  id: Task['id'],
+  title: Task['title'],
+  description: Task['description'],
 }
 const CompletedTaskCard: React.FC<CompletedTaskCardProps> = ({ id, title, description }) => {
-    const [showOptions, setShowOptions] = useState(false);
-    const buttonRef = useRef<HTMLButtonElement>(null);
-    const deleteTask = useTasksStore(state => state.deleteTask);
-    const toggleCompleteTask = useTasksStore(state => state.toggleCompleteTask);
+  const [showOptions, setShowOptions] = useState(false);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const deleteTask = useTasksStore(state => state.deleteTask);
+  const toggleCompleteTask = useTasksStore(state => state.toggleCompleteTask);
+  const t = useTranslations();
 
-    return (
+  return (
     <div className="w-full bg-[#0000001a] rounded-md pt-1 px-1.5 pb-2.5">
-        <div className="flex justify-between items-center">
-            <h5 className="text-xl text-text w-fit max-w-[90%] break-words">{title}</h5>
-            <div className="relative">
-                <ButtonOptions 
-                    onClick={() => setShowOptions(c => !c)} 
-                    ref={buttonRef}
-                />
-                {showOptions && (
-                    <ModalOptions 
-                        onClose={() => setShowOptions(c => false)} 
-                        triggerRef={buttonRef}
-                    >
-                        <ButtonWithIcon 
-                            onClick={() => toggleCompleteTask(id)}
-                            label="restore"
-                            icon={RestoreIcon}
-                        />
-                        <ButtonWithIcon 
-                            onClick={() => deleteTask(id)}
-                            label="delete"
-                            icon={DeleteIcon}
-                        />
-                    </ModalOptions>
-                )}
-            </div>
+      <div className="flex justify-between items-center">
+        <h5 className="text-xl text-content w-fit max-w-[90%] wrap-break-word">{title}</h5>
+        <div className="relative">
+          <ButtonOptions
+            onClick={() => setShowOptions(c => !c)}
+            ref={buttonRef}
+          />
+          {showOptions && (
+            <ModalOptions
+              onClose={() => setShowOptions(c => false)}
+              triggerRef={buttonRef}
+            >
+              <ButtonWithIcon
+                onClick={() => toggleCompleteTask(id)}
+                label={t("restore")}
+                icon={RestoreIcon}
+              />
+              <ButtonWithIcon
+                onClick={() => deleteTask(id)}
+                label={t("delete")}
+                icon={DeleteIcon}
+              />
+            </ModalOptions>
+          )}
         </div>
-        {description && <p className="mt-1.5 bg-secondary rounded-lg p-2 break-words">{description}</p>}
+      </div>
+      {description && <p className="mt-1.5 bg-secondary rounded-lg p-2 wrap-break-word">{description}</p>}
     </div>
   )
 }

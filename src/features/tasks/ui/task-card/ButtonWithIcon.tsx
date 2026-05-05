@@ -5,12 +5,12 @@ interface ButtonWithIconProps {
   onClick: VoidFunction
 }
 const ButtonWithIcon: React.FC<ButtonWithIconProps> = ({
-  icon: Icon, 
+  icon: Icon,
   label,
   onClick
 }) => {
   return (
-    <button 
+    <button
       onClick={onClick}
       className="flex justify-between items-center w-full py-1 px-2.5 hover:bg-[#c8ceeb] text-black"
     >

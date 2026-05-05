@@ -12,13 +12,13 @@ const TimerSettings = () => {
   return (
     <div className="flex justify-around mx-auto bg-accent pt-2.5 px-[clamp(11px,2vw,50px)] pb-6 max-w-112.5 rounded-lg">
       <SettingsCol minutes={workDuration} mode="work" />
-      <SettingsCol 
-        minutes={mode === "work" ? breakDuration : 
+      <SettingsCol
+        minutes={mode === "work" ? breakDuration :
           mode === "break" ? breakDuration : longBreakDuration
-        } 
-        mode={mode === "work" ? "break" : 
+        }
+        mode={mode === "work" ? "break" :
           mode === "break" ? "break" : "longBreak"
-        } 
+        }
       />
     </div>
   );

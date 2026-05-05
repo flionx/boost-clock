@@ -1,15 +1,15 @@
 "use client"
 interface TextButtonProps {
-    label: string,
-    onClick: VoidFunction
+  label: string,
+  onClick: VoidFunction
 }
-const TextButton: React.FC<TextButtonProps> = ({label, onClick}) => {
+const TextButton: React.FC<TextButtonProps> = ({ label, onClick }) => {
   return (
-    <button 
-        className="hover:underline"
-        onClick={onClick}
+    <button
+      className="hover:underline"
+      onClick={onClick}
     >
-        {label}
+      {label}
     </button>
   )
 }

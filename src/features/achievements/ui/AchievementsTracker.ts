@@ -2,7 +2,7 @@
 import useAchievementsTracker from '../model/useAchievementsTracker';
 
 const AchievementsTracker = () => {
-    useAchievementsTracker()
+  useAchievementsTracker()
   return null;
 }
 

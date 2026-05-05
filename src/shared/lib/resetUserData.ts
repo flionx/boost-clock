@@ -4,11 +4,11 @@ import { useTasksStore } from '@/features/tasks/store/tasks';
 import { useTimerSettingsStore } from '@/features/timer/store/timer-settings';
 
 const resetUserData = () => {
-    useTasksStore.getState().resetStore();
-    useAchievementsStore.getState().resetStore();
-    useReportStore.getState().resetStore();
-    useTimerSettingsStore.getState().resetStore();
-    // localStorage.clear();
+  useTasksStore.getState().resetStore();
+  useAchievementsStore.getState().resetStore();
+  useReportStore.getState().resetStore();
+  useTimerSettingsStore.getState().resetStore();
+  // localStorage.clear();
 }
 
 export default resetUserData

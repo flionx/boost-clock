@@ -5,29 +5,29 @@ import TaskForm from "./TaskForm";
 import { Task } from "../../types";
 
 interface TaskFormProps {
-    task?: Task,
-    editId?: Task['id'] | null
+  task?: Task,
+  editId?: Task['id'] | null
 }
-const AnimatedTaskForm: React.FC<TaskFormProps> = ({task, editId}) => {
-    const showForm = useTasksStore(state => state.showForm);
-    const editTaskId = useTasksStore(state => state.editTaskId);
+const AnimatedTaskForm: React.FC<TaskFormProps> = ({ task, editId }) => {
+  const showForm = useTasksStore(state => state.showForm);
+  const editTaskId = useTasksStore(state => state.editTaskId);
 
-    if (editId == null && editTaskId != null) return null;
+  if (editId == null && editTaskId != null) return null;
 
   return (
-        <AnimatePresence initial={false}>
-            {showForm && (
-                <motion.div
-                    key={`form-${editId || 'create'}`}
-                    className={`w-full overflow-hidden ${editId ? 'mt-7.5' : 'mb-7.5'}`}
-                    exit={{ opacity: 0, height: 0, marginBottom: 0, marginTop: 0 }}
-                    transition={{ duration: 0.5, ease: "easeInOut" }}
-                >
-                    <TaskForm task={task} />
-                </motion.div>
-            )}
-        </AnimatePresence>
-    )  
+    <AnimatePresence initial={false}>
+      {showForm && (
+        <motion.div
+          key={`form-${editId || 'create'}`}
+          className={`w-full overflow-hidden ${editId ? 'mt-7.5' : 'mb-7.5'}`}
+          exit={{ opacity: 0, height: 0, marginBottom: 0, marginTop: 0 }}
+          transition={{ duration: 0.5, ease: "easeInOut" }}
+        >
+          <TaskForm task={task} />
+        </motion.div>
+      )}
+    </AnimatePresence>
+  )
 }
 
 export default AnimatedTaskForm
