@@ -11,17 +11,26 @@ import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
 import "./globals.css"
 
-export const metadata: Metadata = {
-  title: {
-    default: "BoostClock | Pomodoro Timer",
-    template: "%s | Boost Clock",
-  },
-  description: "Improve your productivity with the free Pomodoro timer! Flexible settings, task list, statistics and user-friendly interface. Start managing time effectively!",
-  keywords: "pomodoro, timer, boost, clock, focus, task management, work timer, break timer, productivity, pomodoro technique, time management, nextjs, boost clock, pomodoro timer",
-  verification: {
-    google: "h9Ca5515AFZRsDHidOR9XSWizwgWUN6rjEPGeRy_lkE"
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
+  return {
+    title: {
+      default: `BoostClock | ${locale === "ru" ? "Помодоро таймер" : "Pomodoro Timer"}`,
+      template: "%s | Boost Clock",
+    },
+    description: locale === "ru"
+      ? "Повысьте свою продуктивность с помощью бесплатного Помодоро таймера! Гибкие настройки, список задач, статистика и удобный интерфейс. Начните эффективно управлять своим временем!"
+      : "Improve your productivity with the free Pomodoro timer! Flexible settings, task list, statistics and user-friendly interface. Start managing time effectively!",
+
+    keywords: locale === "ru"
+      ? "Помодоро, таймер, метод помидора, концентрация, управление задачами, таймер работы, таймер перерыва, продуктивность, метод Помодоро, управление временем, nextjs, boost clock, таймер помодоро"
+      : "pomodoro, timer, boost, clock, focus, task management, work timer, break timer, productivity, pomodoro technique, time management, nextjs, boost clock, pomodoro timer",
+    verification: {
+      google: "h9Ca5515AFZRsDHidOR9XSWizwgWUN6rjEPGeRy_lkE"
+    }
   }
-};
+}
+
 
 export default async function RootLayout({
   children,

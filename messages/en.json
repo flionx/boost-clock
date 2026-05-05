@@ -7,6 +7,7 @@
   "longBreak": "Long break",
   "reset": "Reset",
   "skip": "Skip",
+  "paused": "Paused",
 
   "report": "Report",
   "today": "Today",
@@ -73,6 +74,8 @@
   "loadingData": "Please, wait... Loading data",
   "succesfullyLoggedIn": "Successfully logged in",
   "incorrectEmailOrPass": "Incorrect email or password",
+  "noAccess": "No access",
+  "loginToAccess": "Please log in to access",
 
   "settings": "Settings",
   "autoWork": "Auto switching to work",

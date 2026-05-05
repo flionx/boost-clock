@@ -24,7 +24,7 @@ const MenuList = () => {
 
   const handleClick = (label: HeaderMenuButton['label']) => {
     if ((label === "achievements" || label === "report") && !user) {
-      setModal("No access", "Please log in to access", "Log in", () => router.push("/login"));
+      setModal(t("noAccess"), t("loginToAccess"), t("logIn"), () => router.push("/login"));
       return;
     }
     setModalMenu(label, label === "settings" ? resetSettings :

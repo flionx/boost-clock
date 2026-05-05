@@ -7,6 +7,7 @@
   "longBreak": "Длинный перерыв",
   "reset": "Сбросить",
   "skip": "Пропустить", 
+  "paused": "Пауза", 
   
   "report": "Статистика",
   "today": "Сегодня",
@@ -70,9 +71,11 @@
   "emailVerifield": "Email успешно верифицирован",
   "emailVerificationSend": "Отправлена верификация email",
   "pleaseWait": "Пожалуйста, подождите...",
-  "loadingData": "Пожалуйста, подождите... Загрузка данных",
+  "loadingData": "Пожалуйста, подождите...",
   "succesfullyLoggedIn": "Успешный вход в аккаунт",
   "incorrectEmailOrPass": "Неверный email или пароль",
+  "noAccess": "Нет доступа",
+  "loginToAccess": "Войдите, чтобы получить доступ",
 
   "settings": "Настройки",
   "autoWork": "Автопереключение на работу",
