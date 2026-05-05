@@ -72,5 +72,11 @@
   "light": "Light",
   "lang": "Language",
   "en": "English",
-  "ru": "Russian"
+  "ru": "Russian",
+
+  "developedBy": "Developed with ♥ by Flionx",
+  "terms": "Terms of Use",
+  "info": "Info",
+  "privacy": "Privacy Policy",
+  "contactMe": "Contact me"
 }

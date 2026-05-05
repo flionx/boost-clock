@@ -1,5 +1,5 @@
 import { GithubIcon, InstagramIcon, LinkedinIcon } from "@/shared/ui/icons";
-import { SocialLink } from "../types";
+import { AdditionalLink, SocialLink } from "../types";
 
 export const socialLinks: SocialLink[] = [
   {
@@ -17,17 +17,17 @@ export const socialLinks: SocialLink[] = [
 
 ]
 
-export const additionalLinks = [
+export const additionalLinks: AdditionalLink[] = [
   {
     href: "/terms",
-    label: "Terms of Use"
+    label: "terms"
   },
   {
     href: "/info",
-    label: "Info"
+    label: "info"
   },
   {
     href: "/policy",
-    label: "Privacy Policy"
+    label: "privacy"
   },
 ]
