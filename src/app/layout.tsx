@@ -27,7 +27,10 @@ export async function generateMetadata(): Promise<Metadata> {
       : "pomodoro, timer, boost, clock, focus, task management, work timer, break timer, productivity, pomodoro technique, time management, nextjs, boost clock, pomodoro timer",
     verification: {
       google: "h9Ca5515AFZRsDHidOR9XSWizwgWUN6rjEPGeRy_lkE"
-    }
+    },
+    other: {
+      'apple-mobile-web-app-title': 'BoostClock',
+    },
   }
 }
 
