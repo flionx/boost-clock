@@ -13,6 +13,7 @@ Boost Clock is a modern and efficient Pomodoro timer with flexible settings, a b
 - Smart notifications – stay on top of session transitions and new achievements.
 - Light & dark themes – choose the mode that suits your workflow.
 - Secure login – sign in with Google or email to sync your progress.
+- Full localization – fully translated interface in English and Russian.
 
 ## Installation
 
