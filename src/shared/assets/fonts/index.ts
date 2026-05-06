@@ -1,14 +1,19 @@
-import { Itim, JetBrains_Mono, Poppins } from "next/font/google";
+import { JetBrains_Mono } from "next/font/google";
 import localFont from "next/font/local"
 
-export const itim = Itim({
+export const itim = localFont({
+  src: [{
+    path: './itim.otf',
+    weight: '400',
+    style: 'normal'
+  }],
   variable: '--font-itim',
-  weight: ['400']
+  display: 'swap'
 })
 
 export const literal = localFont({
   src: [{
-    path: './Literal-Regular.woff2',
+    path: './literal.woff2',
     weight: '400',
     style: 'normal'
   }],
@@ -18,12 +23,6 @@ export const literal = localFont({
 
 export const jetbrains_mono = JetBrains_Mono({
   variable: '--font-jetbrains',
-  style: "normal",
-  weight: '400'
-})
-
-export const poppins = Poppins({
-  variable: '--font-poppins',
   style: "normal",
   weight: '400'
 })

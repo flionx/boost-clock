@@ -1,4 +1,4 @@
-import { itim, jetbrains_mono, literal, poppins } from "@/shared/assets/fonts";
+import { itim, jetbrains_mono, literal } from "@/shared/assets/fonts";
 import ThemeProvider from "@/shared/providers/theme-provider";
 import FirebaseProvider from "@/shared/providers/firebase-provider";
 import AutoSaveProvider from "@/shared/providers/autosave-provider";
@@ -44,8 +44,7 @@ export default async function RootLayout({
     <html lang={locale} suppressHydrationWarning>
       <body
         className={`
-          ${itim.variable} ${literal.variable} ${jetbrains_mono.variable}
-          ${poppins.variable} antialiased
+          ${itim.variable} ${literal.variable} ${jetbrains_mono.variable} antialiased
         `}
       >
         <ThemeProvider>
