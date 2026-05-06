@@ -65,8 +65,7 @@ html.dark {
 
 @theme {
   --font-primary: "Itim", "Itim Fallback", "literal", "literal Fallback", sans-serif;
-  --font-secondary: "Poppins", sans-serif;
-  --font-legal: "literal", "literal Fallback", sans-serif;
+  --font-secondary: "literal", "literal Fallback", sans-serif;
   --font-nav: "JetBrains Mono", monospace;
 
   --color-primary: var(--color-primary);
@@ -88,6 +87,7 @@ html.dark {
   --color-third-content: var(--color-third-content);
 
   --breakpoint-xl: 87.5rem;
+  --spacing-fluid-lg: clamp(1rem, 5vw, 3rem);
   --text-calc-medium: calc(22px + (25 - 22) * ((100vw - 375px) / (1440 - 375)));
   --text-calc-small: calc(20px + (25 - 20) * ((100vw - 375px) / (1440 - 375)));
   --shadow-card: 0 2px 2px rgba(0, 0, 0, 0.1);

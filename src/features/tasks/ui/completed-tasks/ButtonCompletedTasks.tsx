@@ -23,9 +23,9 @@ const ButtonCompletedTasks = () => {
             duration: 0.3,
             delay: 0.3
           }}
-          className="w-full flex justify-between items-center py-1.5 px-12 text-3xl bg-accent rounded-lg mb-1.5 overflow-hidden"
+          className="w-full flex justify-between items-center py-1.5 px-fluid-lg text-[clamp(1.25rem,5vw,1.875rem)] bg-accent rounded-lg mb-1.5 overflow-hidden"
         >
-          {t("completedTasks")}
+          <span className="whitespace-nowrap">{t("completedTasks")}</span>
           <ArrowDownIcon className={`
               size-7 text-content dark:text-line relative left-3 duration-300
               transition-transform ${showCompletedTasks ? 'rotate-0' : 'rotate-180'} 
