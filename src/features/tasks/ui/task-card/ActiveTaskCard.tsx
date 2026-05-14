@@ -30,13 +30,16 @@ const ActiveTaskCard: React.FC<ActiveTaskCardProps> = ({ task, dragHandleProps }
 
   return (
     <>
-      <div className="w-full rounded-lg bg-accent pt-3 px-3 pb-5">
+      <div className="w-full rounded-lg bg-accent pt-3 px-3 pb-5 touch-pan-y">
         <div className="flex justify-between relative mb-4">
           <div className="flex items-center gap-[clamp(0.5rem,1.5vw,1rem)] max-w-85/100">
             <CheckboxTask id={task.id} />
             <h4
               {...dragHandleProps}
-              className="text-calc-small w-fit max-w-[clamp(70%,30vw,85%)] xl:max-w-[clamp(70%,35vw,85%)] text-content wrap-break-word relative linethrough-text gray-text cursor-grab"
+              className="
+                text-calc-small w-fit max-w-[clamp(70%,30vw,85%)] xl:max-w-[clamp(70%,35vw,85%)] 
+                text-content wrap-break-word relative linethrough-text gray-text cursor-grab touch-none
+              "
             >
               {task.title}
             </h4>
