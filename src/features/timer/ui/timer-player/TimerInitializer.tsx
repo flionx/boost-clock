@@ -7,27 +7,6 @@ const TimerInitializer = () => {
 
   useEffect(() => {
     restoreFromStorage();
-
-    // const requestNotificationPermission = async () => {
-    //     if ("Notification" in window && Notification.permission === "default") {
-    //         try {
-    //             await Notification.requestPermission();
-    //         } catch (error) {
-    //             console.log("Notification permission request failed:", error);
-    //         }
-    //     }
-    // };
-
-    // const handleFirstInteraction = () => {
-    //     requestNotificationPermission();
-    //     document.removeEventListener('click', handleFirstInteraction);
-    // };
-
-    // document.addEventListener('click', handleFirstInteraction);
-
-    // return () => {
-    //     document.removeEventListener('click', handleFirstInteraction);
-    // };
   }, [restoreFromStorage]);
 
   return null;

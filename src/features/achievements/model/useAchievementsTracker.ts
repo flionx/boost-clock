@@ -1,9 +1,10 @@
 "use client"
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useAchievementsStore } from "../store/achievements"
 import { useReportStore } from "@/features/report/store/report";
 import { useTasksStore } from "@/features/tasks/store/tasks";
 import { formatToHours } from "@/shared/lib/formatToHours";
+import { useAuthStore } from "@/features/auth/store/auth";
 
 const useAchievementsTracker = () => {
   const syncData = useAchievementsStore(state => state.syncData);

@@ -4,6 +4,7 @@ import { createJSONStorage, persist } from "zustand/middleware";
 import { useTasksStore } from "@/features/tasks/store/tasks";
 import { ReportSnapshot } from "../types";
 import { UserData } from "@/shared/types/user-data";
+import getTodayString from "@/shared/lib/getTodayString";
 export interface ReportState {
   date: string,
   todayWorkTime: number,
@@ -23,10 +24,8 @@ export interface ReportState {
   uploadUserData: (data: UserData['report']) => void
 }
 
-const getToday = () => new Date().toISOString().split("T")[0] // '2025-08-12'
-
 const initReport = (): ReportSnapshot => ({
-  date: getToday(),
+  date: getTodayString(),
   todayWorkTime: 0,
   todayBreakTime: 0,
   todayCompletedTasks: 0,
@@ -89,7 +88,7 @@ export const useReportStore = create<ReportState>()(
       }),
       onRehydrateStorage: () => (state) => {
         if (!state) return;
-        const today = getToday();
+        const today = getTodayString();
 
         if (state.date !== today) {
           state.date = today;
