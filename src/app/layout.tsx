@@ -9,7 +9,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
 import "./globals.css"
 import InitAuth from "@/shared/providers/auth-init";
-import InitAutoSave from "@/shared/providers/autosave-init";
+import InitUserDataSync from "@/shared/providers/user-data-sync-init";
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
@@ -50,10 +50,10 @@ export default async function RootLayout({
           ${itim.variable} ${literal.variable} ${jetbrains_mono.variable} antialiased
         `}
       >
-        <InitAuth />
-        <InitAutoSave />
         <ThemeProvider>
           <NextIntlClientProvider messages={messages}>
+            <InitAuth />
+            <InitUserDataSync />
             <Modal />
             <ModalMenu />
             <Toaster position='top-center' containerStyle={{ fontFamily: 'var(--font-primary)' }} />
