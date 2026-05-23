@@ -14,6 +14,7 @@ pnpm-lock.yaml
 
 # testing
 /coverage
+.cache
 
 # next.js
 /.next/

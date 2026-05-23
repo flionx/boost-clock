@@ -1,7 +1,5 @@
 import { itim, jetbrains_mono, literal } from "@/shared/assets/fonts";
 import ThemeProvider from "@/shared/providers/theme-provider";
-import FirebaseProvider from "@/shared/providers/firebase-provider";
-import AutoSaveProvider from "@/shared/providers/autosave-provider";
 import Modal from "@/shared/ui/Modal";
 import AchievementsTracker from "@/features/achievements/ui/AchievementsTracker";
 import { ModalMenu } from "@/widgets/modal-menu";
@@ -10,6 +8,8 @@ import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
 import "./globals.css"
+import InitAuth from "@/shared/providers/auth-init";
+import InitUserDataSync from "@/shared/providers/user-data-sync-init";
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
@@ -51,17 +51,15 @@ export default async function RootLayout({
         `}
       >
         <ThemeProvider>
-          <FirebaseProvider>
-            <AutoSaveProvider>
-              <NextIntlClientProvider messages={messages}>
-                <Modal />
-                <ModalMenu />
-                <Toaster position='top-center' containerStyle={{ fontFamily: 'var(--font-primary)' }} />
-                <AchievementsTracker />
-                {children}
-              </NextIntlClientProvider>
-            </AutoSaveProvider>
-          </FirebaseProvider>
+          <NextIntlClientProvider messages={messages}>
+            <InitAuth />
+            <InitUserDataSync />
+            <Modal />
+            <ModalMenu />
+            <Toaster position='top-center' containerStyle={{ fontFamily: 'var(--font-primary)' }} />
+            <AchievementsTracker />
+            {children}
+          </NextIntlClientProvider>
         </ThemeProvider>
       </body>
     </html>

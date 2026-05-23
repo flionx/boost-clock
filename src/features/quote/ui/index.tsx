@@ -1,16 +1,16 @@
 "use client"
 import { useCallback, useState } from "react"
 import useFetchQuote from "../model/useFetchQuote";
-import { IQuote } from "../types";
-import { quoteDefault } from "../constants";
+import { IQuotesClient } from "../types";
 import { useLocale, useTranslations } from "next-intl";
+import { FALLBACK_QUOTES } from "../constants";
 
 const Quote = () => {
-  const [quote, setQuote] = useState<IQuote>();
-  const callSetQuote = useCallback((value: IQuote) => setQuote(value), [])
+  const [quotes, setQuotes] = useState<IQuotesClient>();
+  const callSetQuotes = useCallback((value: IQuotesClient) => setQuotes(value), [])
   const t = useTranslations();
   const locale = useLocale();
-  useFetchQuote(callSetQuote, locale);
+  useFetchQuote(callSetQuotes);
 
   return (
     <section className='pt-6.5 pb-9 border-t-4 border-accent bg-secondary'>
@@ -22,11 +22,11 @@ const Quote = () => {
           "
         >
           <span className="absolute -top-2.5 -left-2.5 text-content text-6xl opacity-60 not-italic">“</span>
-          {quote?.text ?? quoteDefault.text}
+          {quotes?.[locale].text ?? FALLBACK_QUOTES[locale].text}
         </div>
         <p className="w-full text-right text-lg pr-6.5">
           <span>©</span>
-          {quote?.author ?? quoteDefault.author}
+          {quotes?.[locale].author ?? FALLBACK_QUOTES[locale].author}
         </p>
       </div>
     </section>
