@@ -8,6 +8,7 @@ import { useReportStore } from "@/features/report/store/report";
 import { useAchievementsStore } from "@/features/achievements/store/achievements";
 import { useTimerSettingsStore } from "@/features/timer/store/timer-settings";
 import getUserData from "@/shared/lib/getUserData";
+import getTodayString from "@/shared/lib/getTodayString";
 
 const AUTOSAVE_DELAY = 3000;
 
@@ -19,9 +20,8 @@ const useUserDataSync = () => {
 
   const saveToFirebase = async () => {
     if (isRemoteUpdate.current) return;
-    
+
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    
     timeoutRef.current = setTimeout(async () => {
       try {
         const userData = getUserData();
@@ -41,13 +41,14 @@ const useUserDataSync = () => {
     const unsubscribe = onSnapshot(userRef, (docSnapshot) => {
       if (docSnapshot.exists() && !isRemoteUpdate.current) {
         isRemoteUpdate.current = true;
-        
-        const data = docSnapshot.data();        
+
+        const data = docSnapshot.data();
+        const today = getTodayString();
         if (data.tasks) useTasksStore.setState(data.tasks);
-        if (data.report) useReportStore.setState(data.report);
+        if (data.report?.date === today) useReportStore.setState(data.report);
         if (data.achievements) useAchievementsStore.setState(data.achievements);
         if (data.timerSettings) useTimerSettingsStore.setState(data.timerSettings);
-        
+
         setTimeout(() => {
           isRemoteUpdate.current = false;
         }, 100);
