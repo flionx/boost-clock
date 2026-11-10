@@ -94,9 +94,9 @@
 
   "quoteOfDay": "Quote of the day",
 
-  "developedBy": "Developed with ♥ by Flionx",
+  "developedBy": "Developed with ♥ by",
+  "developer": "Flionx",
   "terms": "Terms of Use",
   "info": "Info",
-  "privacy": "Privacy Policy",
-  "contactMe": "Contact me"
+  "privacy": "Privacy Policy"
 }

@@ -6,9 +6,9 @@
   "break": "Перерыв",
   "longBreak": "Длинный перерыв",
   "reset": "Сбросить",
-  "skip": "Пропустить", 
-  "paused": "Пауза", 
-  
+  "skip": "Пропустить",
+  "paused": "Пауза",
+
   "report": "Статистика",
   "today": "Сегодня",
   "workTime": "Времени за работой",
@@ -30,7 +30,7 @@
   "achiev-responsible-desc": "Вовремя выполнить 10 задач",
   "achiev-inFocus-desc": "Провести 5 часов в работе",
   "achiev-coffeeTime-desc": "Провести 2 часа в перерывах",
-  
+
   "tasks": "Задачи",
   "clearAll": "Очистить",
   "sureToDelete": "Вы уверены, что хотите удалить активные задачи?",
@@ -62,7 +62,7 @@
   "createAccount": "Создать аккаунт",
   "doYouHaveAccount": "Еще нет аккаунта?",
   "alreadyHaveAccount": "Уже есть аккаунт?",
-  "email": "Почта", 
+  "email": "Почта",
   "password": "Пароль",
   "signUpEmail": "Создать аккаунт",
   "signInEmail": "Войти в аккаунт",
@@ -94,9 +94,9 @@
 
   "quoteOfDay": "Цитата дня",
 
-  "developedBy": "Разработано с ♥ Flionx",
+  "developedBy": "Разработано с ♥",
+  "developer": "Flionx",
   "terms": "Условия пользования",
   "info": "О сайте",
-  "privacy": "Политика данных",
-  "contactMe": "Контакты"
+  "privacy": "Политика данных"
 }
